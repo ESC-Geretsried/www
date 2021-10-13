@@ -34,12 +34,8 @@ export const Nav: React.FC = () => {
     }
   `);
 
-  const { menuItems } = useMemo(() => {
-    const menuItems = prepareMenuData(wpMenu, pageContext.pathname);
-
-    return {
-      menuItems,
-    };
+  const menuItems = useMemo(() => {
+    return prepareMenuData(wpMenu, pageContext.pathname);
   }, [wpMenu]);
 
   return (

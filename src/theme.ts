@@ -1,5 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
-import { MenuItemStyles } from "./atoms/MenuItem";
+import { MenuItemStyles as MenuItem } from "./atoms/MenuItem";
 import { mode, StyleFunctionProps } from "@chakra-ui/theme-tools";
 import { BreakpointObject } from "./types";
 import { BurgerButtonStyles } from "./atoms/BurgerButton/BurgerButtonStyles";
@@ -68,6 +68,6 @@ export const theme = extendTheme({
     almostBlack: "#0B0B0B",
   },
   components: {
-    MenuItem: MenuItemStyles,
+    MenuItem,
   },
 });

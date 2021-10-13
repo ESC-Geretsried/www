@@ -9,33 +9,28 @@ import {
 import { Menu } from "../../molecules/Menu/Menu";
 import { navHeight } from "../../theme";
 import { MenuItemType } from "../../types";
+import { useStore } from "../../store/store";
 
 export const MobileMenu: React.FC<
-  Omit<DrawerProps, "children"> & { menuItems: Array<MenuItemType> }
-> = ({ isOpen, onClose, finalFocusRef, menuItems, ...rest }) => {
+  Omit<DrawerProps, "children" | "isOpen" | "onClose"> & {
+    menuItems: Array<MenuItemType>;
+  }
+> = ({ finalFocusRef, menuItems, ...rest }) => {
+  const { isMobileMenuOpen, setIsMobileMenuOpen } = useStore();
   return (
     <Drawer
-      isOpen={isOpen}
+      isOpen={isMobileMenuOpen}
       placement="left"
-      onClose={onClose}
+      onClose={() => setIsMobileMenuOpen(false)}
       finalFocusRef={finalFocusRef}
       preserveScrollBarGap
+      size="full"
       {...rest}
     >
       <DrawerOverlay mt={navHeight} />
       <DrawerContent bg="brand.blue" mt={navHeight}>
         <DrawerBody>
-          <Menu
-            menuItems={menuItems}
-            isNavigationDelayed
-            onClick={(e) => {
-              // at route navigation, trigger on close before navigation starts
-              // links inside Menu have a delayed navigation
-              if ((e.target as HTMLElement).tagName === "A") {
-                onClose();
-              }
-            }}
-          />
+          <Menu menuItems={menuItems} />
         </DrawerBody>
       </DrawerContent>
     </Drawer>

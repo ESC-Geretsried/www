@@ -1,41 +1,37 @@
-import React from "react";
-import {
-  ListItem,
-  List,
-  Button,
-  Collapse,
-  ChakraProps,
-  ListProps,
-} from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { ListItem, List, Button, Collapse, ListProps } from "@chakra-ui/react";
 import { MenuItem } from "../../atoms/MenuItem";
-import { useActiveMenuItems } from "./MenuUtils";
+// import { useActiveMenuItems } from "./MenuUtils";
 import { MenuItemType } from "../../types";
 import { line } from "../../theme";
+import { useStore } from "../../store/store";
 
 export const Menu: React.FC<
   {
     menuItems: Array<MenuItemType>;
-    isNavigationDelayed?: boolean;
   } & ListProps
-> = ({ menuItems, isNavigationDelayed = false, ...rest }) => {
-  const activeItem = menuItems
-    .filter((menuItem) => menuItem.childItems.length !== 0)
-    .find((menuItem) => menuItem.isActive);
+> = ({ menuItems, ...rest }) => {
+  const { activeMenuItems, setActiveMenuItems, toggleActiveMenuItems } =
+    useStore();
 
-  const { activeMenuItems, toggleActiveMenuItems } = useActiveMenuItems(
-    activeItem?.id ? [activeItem.id] : []
-  );
+  useEffect(() => {
+    const activeItem = menuItems
+      .filter((menuItem) => menuItem.childItems.length !== 0)
+      .find((menuItem) => menuItem.isActive);
+
+    setActiveMenuItems(activeItem ? [activeItem.id] : []);
+  }, [menuItems]);
 
   return (
     <List borderBlock={line} {...rest}>
+      <ListItem>
+        <MenuItem id="home" label="Home" url="/" isActive={false} />
+      </ListItem>
       {menuItems.map((menuItem) => {
         if (menuItem.childItems.length === 0) {
           return (
             <ListItem key={menuItem.id}>
-              <MenuItem
-                {...menuItem}
-                isNavigationDelayed={isNavigationDelayed}
-              />
+              <MenuItem {...menuItem} />
             </ListItem>
           );
         }
@@ -65,11 +61,7 @@ export const Menu: React.FC<
               <List>
                 {menuItem.childItems.map((childItem) => (
                   <ListItem key={childItem.id}>
-                    <MenuItem
-                      {...childItem}
-                      isChildItem
-                      isNavigationDelayed={isNavigationDelayed}
-                    />
+                    <MenuItem {...childItem} isChildItem />
                   </ListItem>
                 ))}
               </List>

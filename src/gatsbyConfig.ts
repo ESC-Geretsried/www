@@ -15,17 +15,11 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-plugin-typegen",
       options: {
-        emitSchema: {
-          "src/__generated__/gatsby-introspection.json": true,
-          "src/__generated__/gatsby-schema.graphql": true,
-        },
-        emitPluginDocuments: {
-          "src/__generated__/gatsby-plugin-documents.graphql": true,
-        },
         outputPath: `src/__generated__/gatsby-types.d.ts`,
       },
     },
     "gatsby-plugin-image",
+    "@chakra-ui/gatsby-plugin",
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sitemap",
     {
@@ -43,7 +37,6 @@ const config: GatsbyConfig = {
         path: "./src/images/",
       },
     },
-    "@chakra-ui/gatsby-plugin",
   ],
 };
 

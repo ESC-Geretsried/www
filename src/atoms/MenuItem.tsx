@@ -1,19 +1,19 @@
 import React, { memo } from "react";
 import {
-  ListItem,
+  Box,
   ComponentSingleStyleConfig,
   useStyleConfig,
-  Box,
 } from "@chakra-ui/react";
 import { MenuItemType } from "../types";
 import { Link } from "../atoms/Link";
+import { useStore } from "../store/store";
 
 export const MenuItemStyles: ComponentSingleStyleConfig = {
   // Styles for the base style
   baseStyle: {
     fontStyle: "italic",
     _hover: {
-      color: "brand.gold",
+      color: "tomato",
     },
     _focus: { boxShadow: "none" },
     _focusVisible: { boxShadow: "none", textDecoration: "underline" },
@@ -43,25 +43,32 @@ type MenuItemProps = Omit<MenuItemType, "childItems" | "parentId"> & {
   isNavigationDelayed?: boolean;
 };
 
-export const MenuItem: React.FC<MenuItemProps> = memo(
-  ({ isNavigationDelayed, isActive, url, label, isChildItem = false }) => {
-    const styles = useStyleConfig("MenuItem", {
-      variant: isChildItem ? "childItem" : "item",
-    });
+export const MenuItem: React.FC<MenuItemProps> = ({
+  isActive,
+  url,
+  label,
+  isChildItem = false,
+}) => {
+  const styles = useStyleConfig("MenuItem", {
+    variant: isChildItem ? "childItem" : "item",
+  });
 
-    return (
-      <Link
-        delayNavigation={isNavigationDelayed ? 250 : undefined}
-        to={url}
-        sx={styles}
-        textDecoration={isActive ? "underline" : "none"}
-        display="block"
-        _focus={{ boxShadow: "none" }}
-        _focusVisible={{ textDecoration: "underline" }}
-        _hover={{ textDecoration: "none" }}
-      >
-        {label}
-      </Link>
-    );
-  }
-);
+  const { setIsMobileMenuOpen } = useStore();
+
+  return (
+    <Box
+      as="span"
+      textDecoration={isActive ? "underline" : "none"}
+      display="block"
+      _focus={{ boxShadow: "none" }}
+      _focusVisible={{ textDecoration: "underline" }}
+      _hover={{ textDecoration: isActive ? "underline" : "none" }}
+      onClick={() => {
+        setIsMobileMenuOpen(false);
+      }}
+      __css={styles}
+    >
+      <Link to={url}>{label}</Link>
+    </Box>
+  );
+};

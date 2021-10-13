@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Nav } from "../organisms/Nav";
 import { Box } from "@chakra-ui/layout";
@@ -10,6 +10,7 @@ import {
 } from "../theme";
 import { calcColumnWidths } from "../utils";
 import { forwardRef } from "@chakra-ui/react";
+import { useStore } from "../store/store";
 
 const MainContainer: React.FC = forwardRef(({ ...rest }, ref) => (
   <Box
@@ -33,6 +34,11 @@ const MainContainer: React.FC = forwardRef(({ ...rest }, ref) => (
 const AnimatedMain = motion(MainContainer);
 
 export const Layout: React.FC = ({ children }) => {
+  const store = useStore();
+  // useEffect(() => {
+  //   store.setIsMobileMenuOpen(false);
+  // }, []);
+
   return (
     <>
       <Box
@@ -60,6 +66,7 @@ export const Layout: React.FC = ({ children }) => {
           >
             <div style={{ gridColumn: "1 /-1" }}>
               {children}
+              <div>{JSON.stringify(store)}</div>
               <footer>footer</footer>
             </div>
           </div>

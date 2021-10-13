@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { containerWidths } from "../../theme";
+import { useContext, useState } from "react";
+import { useStore } from "../../store/store";
 import { MenuItemType } from "../../types";
 
 export const prepareMenuData = (
@@ -27,39 +27,4 @@ export const prepareMenuData = (
       });
   }
   throw new Error("no Menu found");
-};
-
-export const useActiveMenuItems = (
-  defaultOpen: Array<MenuItemType["id"]> | undefined
-) => {
-  const [activeMenuItems, setActiveMenuItems] = useState<
-    Array<MenuItemType["id"]>
-  >(defaultOpen ?? []);
-
-  const toggleActiveMenuItems = (
-    newItems: Array<string>,
-    { allowMultiple }: { allowMultiple: boolean }
-  ) => {
-    if (activeMenuItems.some((activeItem) => newItems.includes(activeItem))) {
-      if (allowMultiple) {
-        setActiveMenuItems(
-          activeMenuItems.filter((oldItem) => !newItems.includes(oldItem))
-        );
-      } else {
-        setActiveMenuItems([]);
-      }
-    } else {
-      if (allowMultiple) {
-        setActiveMenuItems([...activeMenuItems, ...newItems]);
-      } else {
-        setActiveMenuItems([...newItems]);
-      }
-    }
-  };
-
-  return {
-    activeMenuItems,
-    setActiveMenuItems,
-    toggleActiveMenuItems,
-  };
 };

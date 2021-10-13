@@ -7,6 +7,7 @@ import { MenuItemType } from "../../types";
 import { ChakraProps } from "@chakra-ui/system";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { AnimatePresence, motion } from "framer-motion";
+import { useStore } from "../../store/store";
 
 export const headerAnimation = {
   initial: { opacity: 0, y: -10 },
@@ -23,20 +24,8 @@ export const headerAnimation = {
 export const MobileHeader: React.FC<
   { menuItems: Array<MenuItemType>; title: string } & ChakraProps
 > = memo(({ menuItems, title, ...rest }) => {
-  const { isOpen, onToggle, onClose } = useDisclosure();
-  const [showMenuTitle, setShowMenuTitle] = useState(isOpen);
   const btnRef = React.useRef<any>();
-
-  useEffect(() => {
-    if (isOpen) {
-      setShowMenuTitle(true);
-    } else {
-      // wait for page transition, before showing the title again (to prevent double animation)
-      setTimeout(() => {
-        setShowMenuTitle(false);
-      }, 450);
-    }
-  }, [isOpen]);
+  const { isMobileMenuOpen, setIsMobileMenuOpen, siteTitle } = useStore();
 
   return (
     <Flex
@@ -45,18 +34,23 @@ export const MobileHeader: React.FC<
       bg="brand.blue"
       {...rest}
     >
-      <BurgerButton isOpen={isOpen} onClick={onToggle} ref={btnRef} />
+      <BurgerButton
+        isOpen={isMobileMenuOpen}
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        ref={btnRef}
+      />
       <MobileMenu
-        isOpen={isOpen}
         placement="left"
-        onClose={onClose}
         finalFocusRef={btnRef}
         menuItems={menuItems}
       />
       <div>
         <AnimatePresence exitBeforeEnter>
-          <MotionBox key={showMenuTitle ? "Menü" : title} {...headerAnimation}>
-            {showMenuTitle ? "Menü" : title}
+          <MotionBox
+            key={isMobileMenuOpen ? "Menü" : siteTitle}
+            {...headerAnimation}
+          >
+            {isMobileMenuOpen ? "Menü" : siteTitle}
           </MotionBox>
         </AnimatePresence>
       </div>
