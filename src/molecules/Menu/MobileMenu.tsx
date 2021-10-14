@@ -6,7 +6,7 @@ import {
   DrawerOverlay,
   DrawerProps,
 } from "@chakra-ui/modal";
-import { Menu } from "../../molecules/Menu/Menu";
+import { Menu } from "./Menu";
 import { navHeight } from "../../theme";
 import { MenuItemType } from "../../types";
 import { useStore } from "../../store/store";

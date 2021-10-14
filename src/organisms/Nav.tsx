@@ -5,12 +5,9 @@ import { calcColumnWidths } from "../utils";
 import { DesktopMenu } from "../organisms/DesktopMenu/DesktopMenu";
 import { prepareMenuData } from "../molecules/Menu/MenuUtils";
 import { MobileHeader } from "./MobileHeader/MobileHeader";
-import { PageContext } from "../pageContext";
 import { navHeight } from "../theme";
 
 export const Nav: React.FC = () => {
-  const pageContext = useContext(PageContext);
-
   const { wpMenu } = useStaticQuery<GatsbyTypes.GetMainMenuQuery>(graphql`
     query GetMainMenu {
       wpMenu(name: { regex: "/main/" }) {
@@ -35,7 +32,7 @@ export const Nav: React.FC = () => {
   `);
 
   const menuItems = useMemo(() => {
-    return prepareMenuData(wpMenu, pageContext.pathname);
+    return prepareMenuData(wpMenu);
   }, [wpMenu]);
 
   return (
@@ -52,7 +49,6 @@ export const Nav: React.FC = () => {
       <MobileHeader
         display={{ base: "flex", xl: "none" }}
         menuItems={menuItems}
-        title={pageContext.title}
       />
       <DesktopMenu
         display={{ base: "none", xl: "block" }}

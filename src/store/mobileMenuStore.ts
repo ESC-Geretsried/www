@@ -1,5 +1,4 @@
 import { GetState, SetState } from "zustand";
-import { GlobalStore } from "./store";
 
 export type MobileMenuSlice = {
   isMobileMenuOpen: boolean;

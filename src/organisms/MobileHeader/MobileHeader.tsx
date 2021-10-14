@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
-import { MobileMenu } from "../../molecules/MobileMenu/MobileMenu";
+import { MobileMenu } from "../../molecules/Menu/MobileMenu";
 import { BurgerButton } from "../../atoms/BurgerButton/BurgerButton";
 import { MotionBox } from "../../atoms/MotionBox";
 import { Flex } from "@chakra-ui/layout";
@@ -22,8 +22,8 @@ export const headerAnimation = {
 };
 
 export const MobileHeader: React.FC<
-  { menuItems: Array<MenuItemType>; title: string } & ChakraProps
-> = memo(({ menuItems, title, ...rest }) => {
+  { menuItems: Array<MenuItemType> } & ChakraProps
+> = memo(({ menuItems, ...rest }) => {
   const btnRef = React.useRef<any>();
   const { isMobileMenuOpen, setIsMobileMenuOpen, siteTitle } = useStore();
 

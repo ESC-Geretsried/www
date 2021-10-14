@@ -8,10 +8,10 @@ type RootProps = {
 };
 
 export const Root: React.FC<RootProps> = ({ pageContext, children }) => {
-  const { setSiteTitle, setIsMobileMenuOpen } = useStore();
+  const { setSiteTitle, setPathname } = useStore();
   useEffect(() => {
     setSiteTitle(pageContext.title);
-    // setIsMobileMenuOpen(false);
+    setPathname(pageContext.pathname);
   }, [pageContext]);
 
   return <>{children}</>;

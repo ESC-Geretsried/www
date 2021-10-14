@@ -3,9 +3,10 @@ import { useStore } from "../../store/store";
 import { MenuItemType } from "../../types";
 
 export const prepareMenuData = (
-  wpMenu: GatsbyTypes.GetMainMenuQuery["wpMenu"],
-  pathname: Location["pathname"]
+  wpMenu: GatsbyTypes.GetMainMenuQuery["wpMenu"]
 ) => {
+  const { pathname } = useStore.getState();
+  console.log(pathname);
   if (wpMenu?.menuItems?.nodes) {
     return wpMenu?.menuItems?.nodes
       ?.filter(

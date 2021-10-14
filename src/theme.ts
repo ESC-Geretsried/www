@@ -1,5 +1,9 @@
-import { extendTheme } from "@chakra-ui/react";
-import { MenuItemStyles as MenuItem } from "./atoms/MenuItem";
+import {
+  ComponentSingleStyleConfig,
+  CSSObject,
+  extendTheme,
+} from "@chakra-ui/react";
+import { MenuLinkStyles } from "./molecules/Menu/MenuItem";
 import { mode, StyleFunctionProps } from "@chakra-ui/theme-tools";
 import { BreakpointObject } from "./types";
 import { BurgerButtonStyles } from "./atoms/BurgerButton/BurgerButtonStyles";
@@ -30,8 +34,29 @@ export const mainAnimationProps = {
   },
 };
 
-export const line = {
-  base: "2px solid rgba(255, 255, 255, 0.87)",
+export const lineBlock: CSSObject = {
+  borderColor: "brand.ice",
+  borderTopWidth: "2px",
+  borderBottomWidth: "2px",
+};
+
+const MenuButtonStyles: ComponentSingleStyleConfig = {
+  variants: {
+    MenuButton: {
+      fontFamily: "Rubik",
+      fontStyle: "italic",
+      fontWeight: "bold",
+      bg: "none",
+      px: "0",
+      display: "block",
+      width: "100%",
+      textAlign: "left",
+      _focus: { boxShadow: "none" },
+      _focusVisible: { textDecoration: "underline" },
+      _hover: { textDecoration: "none", color: "brand.gold" },
+      _active: { bg: "transparent" },
+    },
+  },
 };
 
 export const theme = extendTheme({
@@ -68,6 +93,7 @@ export const theme = extendTheme({
     almostBlack: "#0B0B0B",
   },
   components: {
-    MenuItem,
+    Link: MenuLinkStyles,
+    Button: MenuButtonStyles,
   },
 });

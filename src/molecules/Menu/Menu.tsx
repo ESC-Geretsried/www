@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { ListItem, List, Button, Collapse, ListProps } from "@chakra-ui/react";
-import { MenuItem } from "../../atoms/MenuItem";
+import { MenuItem } from "./MenuItem";
 // import { useActiveMenuItems } from "./MenuUtils";
 import { MenuItemType } from "../../types";
-import { line } from "../../theme";
+import { lineBlock } from "../../theme";
 import { useStore } from "../../store/store";
 
 export const Menu: React.FC<
@@ -23,7 +23,7 @@ export const Menu: React.FC<
   }, [menuItems]);
 
   return (
-    <List borderBlock={line} {...rest}>
+    <List sx={lineBlock} {...rest}>
       <ListItem>
         <MenuItem id="home" label="Home" url="/" isActive={false} />
       </ListItem>
@@ -41,18 +41,7 @@ export const Menu: React.FC<
               onClick={() =>
                 toggleActiveMenuItems([menuItem.id], { allowMultiple: false })
               }
-              fontFamily="Rubik"
-              fontStyle="italic"
-              fontWeight="bold"
-              bg="none"
-              px="0"
-              display="block"
-              width="100%"
-              textAlign="left"
-              _focus={{ boxShadow: "none" }}
-              _focusVisible={{ textDecoration: "underline" }}
-              _hover={{ textDecoration: "none", color: "brand.gold" }}
-              _active={{ bg: "transparent" }}
+              variant="MenuButton"
             >
               {menuItem.label}
             </Button>

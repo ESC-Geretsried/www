@@ -1,18 +1,13 @@
 import { graphql } from "gatsby";
 import React from "react";
 import { Layout } from "../organisms/Layout";
-import { PageContext } from "../pageContext";
 import { GatsbyPageContext } from "../types";
 
 const Tickets: React.FC<{
   data: GatsbyTypes.GetTicketsDataQuery;
   pageContext: GatsbyPageContext;
 }> = ({ data, pageContext }) => {
-  return (
-    <PageContext.Provider value={pageContext}>
-      <Layout>{data?.wpPage?.title}</Layout>
-    </PageContext.Provider>
-  );
+  return <Layout>{data?.wpPage?.title}</Layout>;
 };
 
 export const TicketsQuery = graphql`

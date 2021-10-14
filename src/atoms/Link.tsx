@@ -1,14 +1,12 @@
 import React from "react";
 import { Link as GatsbyLink, GatsbyLinkProps } from "gatsby";
+import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
 
 // const trimSlashes = (str: string): string => trimChars(str, "/");
 
-export const Link: React.FC<GatsbyLinkProps<Record<string, unknown>>> = ({
-  ref,
-  to,
-  children,
-  ...rest
-}) => {
+export const Link: React.FC<
+  GatsbyLinkProps<Record<string, unknown>> & LinkProps
+> = ({ ref, to, children, ...rest }) => {
   const isExternalLink = to.match(/^http.*/);
   const isEmailAddress = to.match(/^mailto:/);
   const isPhoneNumber = to.match(/^tel:/);
@@ -18,20 +16,20 @@ export const Link: React.FC<GatsbyLinkProps<Record<string, unknown>>> = ({
     return (
       // TypeScript can't infer we are in fact setting the correct rel attributes for external links.
       // eslint-disable-next-line react/jsx-no-target-blank
-      <a
+      <ChakraLink
         {...rest}
         rel={isExternalLink ? "noopener noreferrer" : rest.rel}
         target={isExternalLink ? "_blank" : rest.target}
         href={isPhoneNumber || isFaxNumber ? to.replace(/\s/g, "") : to}
       >
         {children}
-      </a>
+      </ChakraLink>
     );
   }
 
   return (
-    <GatsbyLink to={to} {...rest}>
+    <ChakraLink {...rest} as={GatsbyLink} to={to}>
       {children}
-    </GatsbyLink>
+    </ChakraLink>
   );
 };
