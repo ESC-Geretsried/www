@@ -6,7 +6,7 @@ import { GatsbyPageContext } from "../types";
 const News: React.FC<{ pageContext: GatsbyPageContext }> = ({
   pageContext,
 }) => {
-  return <Layout>News</Layout>;
+  return <Layout content={<>news</>} extra={<>extra</>} />;
 };
 
 // export const NewsQuery = graphql`

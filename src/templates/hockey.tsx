@@ -7,7 +7,7 @@ const Hockey: React.FC<{
   data: GatsbyTypes.GetHockeyDataQuery;
   pageContext: GatsbyPageContext;
 }> = ({ data, pageContext }) => {
-  return <Layout>{data?.wpPage?.title}</Layout>;
+  return <Layout content={<>{data?.wpPage?.title}</>} extra={<>extra</>} />;
 };
 
 export const hockeyQuery = graphql`

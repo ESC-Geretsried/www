@@ -18,7 +18,7 @@ const MainContainer: React.FC = forwardRef(({ ...rest }, ref) => (
     }}
     pe={{ base: 6, md: 0 }}
     paddingBlockStart={{
-      base: `calc(${adBannerHeight} + ${navHeight.base})`,
+      base: navHeight.base,
       xl: 0,
     }}
     ref={ref}

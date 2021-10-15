@@ -5,11 +5,7 @@ import { Layout } from "../organisms/Layout/Layout";
 const GameReport: React.FC<{
   post: GatsbyTypes.GetGameReportDataQuery["wpPost"];
 }> = ({ post }) => {
-  return (
-    <Layout>
-      <h1>{post?.title}</h1>
-    </Layout>
-  );
+  return <Layout content={<>{post?.title}</>} extra={<>extra</>} />;
 };
 
 export const GameReportQuery = graphql`

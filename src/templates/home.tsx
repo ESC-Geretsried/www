@@ -8,7 +8,7 @@ const Home: React.FC<{
   data: GatsbyTypes.GetHomeDataQuery;
   pageContext: GatsbyPageContext;
 }> = ({ data: { homeData }, pageContext }) => {
-  return <Layout>{homeData?.title}</Layout>;
+  return <Layout content={<>{homeData?.title}</>} extra={<>extra</>} />;
 };
 
 export const HomeQuery = graphql`

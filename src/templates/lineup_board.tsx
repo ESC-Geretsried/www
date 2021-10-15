@@ -7,7 +7,7 @@ const LineupBoard: React.FC<{
   data: GatsbyTypes.GetLineupBoardDataQuery;
   pageContext: GatsbyPageContext;
 }> = ({ pageContext }) => {
-  return <Layout>Lineup</Layout>;
+  return <Layout content={<>Lineup</>} extra={<>extra</>} />;
 };
 
 export const LineupBoardQuery = graphql`

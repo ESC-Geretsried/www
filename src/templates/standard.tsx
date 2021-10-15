@@ -13,10 +13,16 @@ const Standard: React.FC<{
   }
 
   return (
-    <Layout>
-      {standardData?.title}
-      <WPContent content={defaultData.content} />
-    </Layout>
+    <Layout
+      content={
+        <>
+          {" "}
+          {standardData?.title}
+          <WPContent content={defaultData.content} />
+        </>
+      }
+      extra={<>extra</>}
+    />
   );
 };
 

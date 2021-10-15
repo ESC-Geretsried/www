@@ -7,9 +7,14 @@ const Gamepitch: React.FC<{ data: GatsbyTypes.GetHockeyDataQuery }> = ({
   data,
 }) => {
   return (
-    <Layout>
-      Gamepitch<Box>{JSON.stringify(data)}</Box>
-    </Layout>
+    <Layout
+      content={
+        <>
+          Gamepitch<Box>{JSON.stringify(data)}</Box>
+        </>
+      }
+      extra={<>extra</>}
+    />
   );
 };
 

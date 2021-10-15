@@ -5,11 +5,7 @@ import { Layout } from "../organisms/Layout/Layout";
 const BlogPost: React.FC<{ post: GatsbyTypes.GetPostDataQuery["wpPost"] }> = ({
   post,
 }) => {
-  return (
-    <Layout>
-      <h1>{post?.title}</h1>
-    </Layout>
-  );
+  return <Layout content={<>{post?.title}</>} extra={<>extra</>} />;
 };
 
 export const BlogPostQuery = graphql`

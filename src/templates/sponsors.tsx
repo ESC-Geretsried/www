@@ -7,7 +7,7 @@ const Sponsors: React.FC<{
   data: GatsbyTypes.GetSponsorsDataQuery;
   pageContext: GatsbyPageContext;
 }> = ({ data, pageContext }) => {
-  return <Layout>{data?.wpPage?.title}</Layout>;
+  return <Layout content={<>{data.wpPage?.title}</>} extra={<>extra</>} />;
 };
 
 export const SponsorsQuery = graphql`

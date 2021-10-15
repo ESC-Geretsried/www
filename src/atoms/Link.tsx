@@ -29,7 +29,11 @@ export const Link: React.FC<
   }
 
   return (
-    <ChakraLink {...rest} as={GatsbyLink} to={`/${trimSlashes(to)}/`}>
+    <ChakraLink
+      {...rest}
+      as={GatsbyLink}
+      to={to === "/" ? to : `/${trimSlashes(to)}/`}
+    >
       {children}
     </ChakraLink>
   );
