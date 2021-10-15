@@ -1,6 +1,6 @@
 import { graphql } from "gatsby";
 import React from "react";
-import { Layout } from "../organisms/Layout";
+import { Layout } from "../organisms/Layout/Layout";
 import { GatsbyPageContext } from "../types";
 
 const Tickets: React.FC<{
@@ -14,6 +14,10 @@ export const TicketsQuery = graphql`
   query GetTicketsData($id: String!) {
     wpPage(id: { eq: $id }) {
       title
+    }
+
+    defaultData: wpPage(id: { eq: $id }) {
+      ...DefaultPageDataFields
     }
   }
 `;

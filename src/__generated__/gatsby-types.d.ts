@@ -13474,45 +13474,85 @@ type ImageSharpSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
+type DefaultPageDataFieldsFragment = (
+  Pick<WpPage, 'content'>
+  & { readonly pageACF: Maybe<Pick<WpPage_Pageacf, 'division'>> }
+);
+
 type GetStandardDataQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-type GetStandardDataQuery = { readonly wpPage: Maybe<Pick<WpPage, 'title'>> };
+type GetStandardDataQuery = { readonly standardData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment> };
+
+type GetLineupBoardDataQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+type GetLineupBoardDataQuery = { readonly wpPage: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment> };
 
 type GetLineupDataQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-type GetLineupDataQuery = { readonly wpPage: Maybe<Pick<WpPage, 'title'>> };
+type GetLineupDataQuery = { readonly wpPage: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment> };
+
+type GetGamepitchDataQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+type GetGamepitchDataQuery = { readonly gamepitchData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment> };
 
 type GetTicketsDataQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-type GetTicketsDataQuery = { readonly wpPage: Maybe<Pick<WpPage, 'title'>> };
+type GetTicketsDataQuery = { readonly wpPage: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment> };
 
 type GetHockeyDataQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-type GetHockeyDataQuery = { readonly wpPage: Maybe<Pick<WpPage, 'title'>> };
+type GetHockeyDataQuery = { readonly wpPage: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment> };
 
 type GetSponsorsDataQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-type GetSponsorsDataQuery = { readonly wpPage: Maybe<Pick<WpPage, 'title'>> };
+type GetSponsorsDataQuery = { readonly wpPage: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment> };
 
 type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
+
+type GetHomeDataQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+type GetHomeDataQuery = { readonly homeData: Maybe<Pick<WpPage, 'title'>> };
+
+type GetGameReportDataQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+type GetGameReportDataQuery = { readonly wpPost: Maybe<Pick<WpPost, 'title'>> };
+
+type GetPostDataQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+type GetPostDataQuery = { readonly wpPost: Maybe<Pick<WpPost, 'title'>> };
 
 type GetMainMenuQueryVariables = Exact<{ [key: string]: never; }>;
 

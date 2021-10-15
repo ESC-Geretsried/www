@@ -6,7 +6,6 @@ export const prepareMenuData = (
   wpMenu: GatsbyTypes.GetMainMenuQuery["wpMenu"]
 ) => {
   const { pathname } = useStore.getState();
-  console.log(pathname);
   if (wpMenu?.menuItems?.nodes) {
     return wpMenu?.menuItems?.nodes
       ?.filter(

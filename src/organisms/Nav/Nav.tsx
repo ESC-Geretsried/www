@@ -1,11 +1,11 @@
 import { Box } from "@chakra-ui/layout";
 import { useStaticQuery, graphql } from "gatsby";
 import React, { useContext, useMemo } from "react";
-import { calcColumnWidths } from "../utils";
-import { DesktopMenu } from "../organisms/DesktopMenu/DesktopMenu";
-import { prepareMenuData } from "../molecules/Menu/MenuUtils";
-import { MobileHeader } from "./MobileHeader/MobileHeader";
-import { navHeight } from "../theme";
+import { calcColumnWidths } from "../../utils/style.utils";
+import { DesktopMenu } from "../DesktopMenu/DesktopMenu";
+import { prepareMenuData } from "../../molecules/Menu/MenuUtils";
+import { MobileHeader } from "../MobileHeader/MobileHeader";
+import { navHeight } from "../../theme";
 
 export const Nav: React.FC = () => {
   const { wpMenu } = useStaticQuery<GatsbyTypes.GetMainMenuQuery>(graphql`

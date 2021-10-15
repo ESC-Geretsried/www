@@ -1,8 +1,9 @@
 import React from "react";
 import { Link as GatsbyLink, GatsbyLinkProps } from "gatsby";
 import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
+import { trimChars } from "../utils/shared.utils";
 
-// const trimSlashes = (str: string): string => trimChars(str, "/");
+const trimSlashes = (str: string): string => trimChars(str, "/");
 
 export const Link: React.FC<
   GatsbyLinkProps<Record<string, unknown>> & LinkProps
@@ -28,7 +29,7 @@ export const Link: React.FC<
   }
 
   return (
-    <ChakraLink {...rest} as={GatsbyLink} to={to}>
+    <ChakraLink {...rest} as={GatsbyLink} to={`/${trimSlashes(to)}/`}>
       {children}
     </ChakraLink>
   );

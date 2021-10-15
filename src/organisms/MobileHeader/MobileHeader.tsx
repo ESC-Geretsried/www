@@ -1,11 +1,10 @@
 import React, { memo, useEffect, useState } from "react";
 import { MobileMenu } from "../../molecules/Menu/MobileMenu";
 import { BurgerButton } from "../../atoms/BurgerButton/BurgerButton";
-import { MotionBox } from "../../atoms/MotionBox";
+import { MotionBox } from "../../atoms/MotionBox/MotionBox";
 import { Flex } from "@chakra-ui/layout";
 import { MenuItemType } from "../../types";
 import { ChakraProps } from "@chakra-ui/system";
-import { useDisclosure } from "@chakra-ui/hooks";
 import { AnimatePresence, motion } from "framer-motion";
 import { useStore } from "../../store/store";
 

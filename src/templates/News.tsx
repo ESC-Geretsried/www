@@ -1,5 +1,6 @@
+import { graphql } from "gatsby";
 import React from "react";
-import { Layout } from "../organisms/Layout";
+import { Layout } from "../organisms/Layout/Layout";
 import { GatsbyPageContext } from "../types";
 
 const News: React.FC<{ pageContext: GatsbyPageContext }> = ({
@@ -7,5 +8,13 @@ const News: React.FC<{ pageContext: GatsbyPageContext }> = ({
 }) => {
   return <Layout>News</Layout>;
 };
+
+// export const NewsQuery = graphql`
+//   query GetNewsData($id: String!) {
+//     wpPage(id: { eq: $id }) {
+//       title
+//     }
+//   }
+// `;
 
 export default News;
