@@ -15,10 +15,8 @@ const getIcon = (platform: string) => {
   if (platform === "instagramLink") {
     return <InstagramIcon />;
   }
-  if (platform === "tickarooLink") {
-    return <TickarooIcon />;
-  }
-  return <FacebookIcon />;
+
+  return <TickarooIcon />;
 };
 
 export const SocialButtonGroup: React.FC = ({ ...rest }) => {

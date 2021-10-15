@@ -64,7 +64,7 @@ export const theme = extendTheme({
     global: (props: StyleFunctionProps) => ({
       body: {
         backgroundColor: mode("brand.blue", "white")(props),
-        color: mode("copy.light", "copy.dark")(props),
+        color: mode("brand.ice", "almostBlack")(props),
       },
       ...BurgerButtonStyles,
     }),
@@ -79,21 +79,30 @@ export const theme = extendTheme({
       gold: "#A8803B",
       ice: "rgba(255, 255, 255, 0.87)",
     },
-    copy: {
-      light: "rgba(255, 255, 255, 0.87)",
-      dark: "#0B0B0B",
-    },
     gray: {
-      line: "rgba(255, 255, 255, 0.87)",
-      text: "rgba(255, 255, 255, 0.87)",
       transparent: "rgba(255, 255, 255, 0.5)",
       dark: "#6B6B6B",
     },
     white: "#fff",
     almostBlack: "#0B0B0B",
   },
+  // textStyles: {
+
+  // },
   components: {
     Link: MenuLinkStyles,
     Button: MenuButtonStyles,
+    Heading: {
+      variants: {
+        MobileSiteTitle: {
+          textTransform: "uppercase",
+          fontStyle: "italic",
+          textAlign: "center",
+          fontSize: "xl",
+          // fontSize: "",
+          // textDecoration: "underlinea",
+        },
+      },
+    },
   },
 });
