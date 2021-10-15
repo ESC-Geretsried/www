@@ -1,12 +1,14 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
 import { MobileMenu } from "../../molecules/Menu/MobileMenu";
 import { BurgerButton } from "../../atoms/BurgerButton/BurgerButton";
 import { MotionBox } from "../../atoms/MotionBox/MotionBox";
-import { Flex } from "@chakra-ui/layout";
+import { Box, Flex } from "@chakra-ui/layout";
 import { MenuItemType } from "../../types";
 import { ChakraProps } from "@chakra-ui/system";
 import { AnimatePresence, motion } from "framer-motion";
 import { useStore } from "../../store/store";
+import { Heading } from "@chakra-ui/react";
+import Logo from "../../assets/logo-cropped.svg";
 
 export const headerAnimation = {
   initial: { opacity: 0, y: -10 },
@@ -29,7 +31,7 @@ export const MobileHeader: React.FC<
   return (
     <Flex
       justifyContent="space-between"
-      alignContent="center"
+      alignItems="center"
       bg="brand.blue"
       {...rest}
     >
@@ -43,17 +45,17 @@ export const MobileHeader: React.FC<
         finalFocusRef={btnRef}
         menuItems={menuItems}
       />
-      <div>
-        <AnimatePresence exitBeforeEnter>
-          <MotionBox
-            key={isMobileMenuOpen ? "Menü" : siteTitle}
-            {...headerAnimation}
-          >
-            {isMobileMenuOpen ? "Menü" : siteTitle}
-          </MotionBox>
-        </AnimatePresence>
-      </div>
-      <div>logo</div>
+      <AnimatePresence exitBeforeEnter>
+        <MotionBox
+          key={isMobileMenuOpen ? "Menü" : siteTitle}
+          {...headerAnimation}
+        >
+          <Heading as="h1">{isMobileMenuOpen ? "Menü" : siteTitle}</Heading>
+        </MotionBox>
+      </AnimatePresence>
+      <Box width="3.2em" height="3.2em">
+        <Logo />
+      </Box>
     </Flex>
   );
 });

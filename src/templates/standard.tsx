@@ -1,8 +1,8 @@
-import { Box } from "@chakra-ui/layout";
 import { graphql } from "gatsby";
 import React from "react";
 import { Layout } from "../organisms/Layout/Layout";
 import { GatsbyPageContext } from "../types";
+import { WPContent } from "../atoms/WPContent/WPContent";
 
 const Standard: React.FC<{
   data: GatsbyTypes.GetStandardDataQuery;
@@ -15,7 +15,7 @@ const Standard: React.FC<{
   return (
     <Layout>
       {standardData?.title}
-      <div dangerouslySetInnerHTML={{ __html: defaultData.content }} />
+      <WPContent content={defaultData.content} />
     </Layout>
   );
 };

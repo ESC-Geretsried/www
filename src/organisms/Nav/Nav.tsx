@@ -39,6 +39,7 @@ export const Nav: React.FC = () => {
     <Box
       as="nav"
       pos="fixed"
+      zIndex="sticky"
       pr={{ base: 6, xl: 0 }}
       width={{
         base: "100%",

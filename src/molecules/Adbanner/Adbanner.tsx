@@ -14,6 +14,7 @@ export const Adbanner: React.FC<AdbannerProps> = ({ ...rest }) => {
       left="0"
       right="0"
       height={adBannerHeight}
+      backgroundColor="brand.blue"
     >
       Adbanner
     </Box>
