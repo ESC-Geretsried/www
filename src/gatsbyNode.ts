@@ -18,31 +18,27 @@ const getMatchPath = (uri: string) => {
   return undefined;
 };
 
-type GetMainMenuQuery = {
-  wpMenu: {
-    menuItems: {
-      nodes: Array<{
-        id: string;
-        url: string;
-        connectedNode: {
-          node: {
-            id: string;
-            title: string;
-            pageACF: { template: string; division: string };
-          };
-        };
-      }>;
-    };
-  };
-};
+const hockeyDivisions = ["damen", "1b", "u17", "u15", "u13", "u11", "u9", "u7"];
+const HOME_PAGE_ID = "cG9zdDoxMw==";
 
-type GetIndexPageQuery = {
-  wpPage: {
-    title: string;
-    id: string;
-    pageACF: {
-      template: string;
-    };
+type GetPagesQuery = {
+  allWpPage: {
+    nodes: Array<{
+      id: string;
+      uri: string;
+      title: string;
+      slug: string;
+      categories: {
+        nodes: Array<{
+          id: string;
+          slug: string;
+        }>;
+      };
+      pageACF: {
+        division: string;
+        template: string;
+      };
+    }>;
   };
 };
 
@@ -51,6 +47,8 @@ type GetBlogPostQuery = {
     nodes: Array<{
       id: string;
       uri: string;
+      slug: string;
+      title: string;
       postACF: {
         division: string;
         postCategory: string;
@@ -60,41 +58,27 @@ type GetBlogPostQuery = {
 };
 
 const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
-  const { createPage } = actions;
-  const mainMenuQuery = graphql<GetMainMenuQuery>(`
-    query GetMainMenu {
-      wpMenu(name: { regex: "/main/" }) {
-        name
-        menuItems {
-          nodes {
-            id
-            label
-            url
-            connectedNode {
-              node {
-                ... on WpPage {
-                  id
-                  title
-                  pageACF {
-                    template
-                    division
-                  }
-                }
-              }
+  const { createPage, createRedirect } = actions;
+
+  const pagesQuery = graphql<GetPagesQuery>(`
+    query GetPages {
+      allWpPage {
+        nodes {
+          id
+          title
+          uri
+          slug
+          categories {
+            nodes {
+              id
+              slug
             }
           }
-        }
-      }
-    }
-  `);
 
-  const indexPageQuery = graphql<GetIndexPageQuery>(`
-    query GetIndexPage {
-      wpPage(slug: { regex: "/home/" }) {
-        title
-        id
-        pageACF {
-          template
+          pageACF {
+            division
+            template
+          }
         }
       }
     }
@@ -106,6 +90,8 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
         nodes {
           id
           uri
+          slug
+          title
           postACF {
             division
             postCategory
@@ -115,50 +101,83 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
     }
   `);
 
-  const [indexPage, mainMenu, blogPosts] = await Promise.all([
-    indexPageQuery,
-    mainMenuQuery,
-    blogPostsQuery,
-  ]);
+  const [pages, blogPosts] = await Promise.all([pagesQuery, blogPostsQuery]);
 
-  const indexPageId = indexPage.data?.wpPage.id;
-  const indexPageTemplate = indexPage.data?.wpPage.pageACF.template;
-  const indexPageTitle = indexPage.data?.wpPage.title;
+  pages.data?.allWpPage.nodes.forEach(
+    ({ id, uri, slug, title, categories: _categories, pageACF }) => {
+      const { division, template } = pageACF;
+
+      createPage({
+        path: getPath(uri),
+        matchPath: getMatchPath(uri),
+        component: path.resolve(`./src/templates/${template}.tsx`),
+        context: {
+          id,
+          title,
+          division,
+          // categoryId,
+          pathname: getPath(uri),
+        },
+      });
+    }
+  );
+
+  pages.data?.allWpPage.nodes
+    //find unique divisions
+    .filter((page, index, self) => {
+      return (
+        self
+          .map((page) => page.pageACF.division)
+          .indexOf(page.pageACF.division) === index
+      );
+    })
+    .forEach(({ pageACF }) => {
+      const { division } = pageACF;
+      const newsPath = hockeyDivisions.includes(pageACF.division)
+        ? `/eishockey/${pageACF.division}/news/`
+        : `/${pageACF.division}/news/`;
+
+      createPage({
+        path: newsPath,
+        component: path.resolve(`./src/templates/news.tsx`),
+        context: {
+          id: HOME_PAGE_ID,
+          title: `${division} News`,
+          division,
+          // categoryId,
+          pathname: newsPath,
+        },
+      });
+    });
 
   createPage({
-    path: "/",
-    matchPath: "/",
-    component: path.resolve(`./src/templates/${indexPageTemplate}.tsx`),
+    path: "/eishockey/news/",
     context: {
-      id: indexPageId,
-      pathname: "/",
-      title: indexPageTitle,
+      id: HOME_PAGE_ID,
+      pathname: "/eishockey/news/",
+      division: "eishockey",
+      title: "Eishockey News",
     },
+    component: path.resolve(`./src/templates/news.tsx`),
   });
 
-  mainMenu.data?.wpMenu.menuItems.nodes.forEach((menuItem) => {
-    const pageId = menuItem.connectedNode.node.id;
-    const template = menuItem.connectedNode.node.pageACF.template;
-    const title = menuItem.connectedNode.node.title;
+  blogPosts.data?.allWpPost.nodes.forEach(({ title, uri, postACF, id }) => {
+    let blogPostPath: string;
+    if (hockeyDivisions.includes(postACF.division)) {
+      // add legacy redirect
+      createRedirect({
+        redirectInBrowser: true,
+        fromPath: `/${postACF.division}/news${uri}`,
+        toPath: `/eishockey/${postACF.division}/news${uri}`,
+        statusCode: 301,
+      });
+      blogPostPath = `/eishockey/${postACF.division}/news${uri}`;
+    } else {
+      blogPostPath = `/${postACF.division}/news${uri}`;
+    }
 
-    const { url } = menuItem;
-
-    console.log(url);
     createPage({
-      path: getPath(url ?? ""),
-      matchPath: getMatchPath(url ?? ""),
-      component: path.resolve(`./src/templates/${template}.tsx`),
-      context: {
-        id: pageId,
-        pathname: getPath(url ?? ""),
-        title,
-      },
-    });
-  });
-
-  blogPosts.data?.allWpPost.nodes.forEach(({ uri, postACF, id }) => {
-    createPage({
-      path: `/${postACF.division}/news${uri}`,
+      path: blogPostPath,
       component: path.resolve(
         `./src/templates/${
           postACF.postCategory === "post" ? "blogPost" : "matchReport"
@@ -166,9 +185,17 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
       ),
       context: {
         id,
+        title,
         pathname: getPath(uri ?? ""),
       },
     });
+  });
+
+  createRedirect({
+    redirectInBrowser: true,
+    fromPath: `/*`,
+    toPath: `/nicht-gefunden`,
+    statusCode: 404,
   });
 };
 

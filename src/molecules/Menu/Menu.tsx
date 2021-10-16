@@ -48,6 +48,15 @@ export const Menu: React.FC<
 
             <Collapse in={activeMenuItems.includes(menuItem.id)} animateOpacity>
               <List>
+                <ListItem>
+                  <MenuItem
+                    id={`/${menuItem.url}news/`}
+                    label="News"
+                    url={`/${menuItem.url}news/`}
+                    isActive={false}
+                    isChildItem
+                  />
+                </ListItem>
                 {menuItem.childItems.map((childItem) => (
                   <ListItem key={childItem.id}>
                     <MenuItem {...childItem} isChildItem />

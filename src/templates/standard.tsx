@@ -16,7 +16,6 @@ const Standard: React.FC<{
     <Layout
       content={
         <>
-          {" "}
           {standardData?.title}
           <WPContent content={defaultData.content} />
         </>
