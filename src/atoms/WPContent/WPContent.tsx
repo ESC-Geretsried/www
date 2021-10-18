@@ -11,24 +11,47 @@ export const WPContent: React.FC<WPContentProps> = ({ content }) => {
       dangerouslySetInnerHTML={{ __html: content }}
       width="100%"
       wordBreak="break-word"
-      marginBlockEnd="3em"
+      marginBlockEnd="3rem"
       zIndex="base"
       sx={{
+        "p:not(:last-of-type)": {
+          paddingBlockEnd: 3,
+        },
+        ul: {
+          paddingInlineStart: 5,
+        },
+        a: {
+          textDecoration: "underline",
+        },
+        "h1, h2": {
+          fontSize: "2rem",
+          hyphens: "auto",
+          marginBlockStart: 4,
+          fontFamily: "Rubik",
+          lineHeight: "shorter",
+        },
+        "h3, h4, h5": {
+          fontSize: "1rem",
+          hyphens: "auto",
+          fontFamily: "Rubik",
+          marginBlockStart: 4,
+        },
         ".gatsby-image-wrapper": {
           width: "100%",
-          margin: { base: 0, md: "2rem" },
+          margin: { base: 0, md: 6 },
           img: {
             margin: { base: "1rem auto", md: 0 },
             maxWidth: "calc(100% - 4rem)",
           },
         },
         ".aligncenter": {
-          margin: "2rem auto",
+          marginBlock: 6,
+          marginInline: "auto",
         },
         ".button": {
           textDecor: "none",
           margin: 0,
-          padding: "0.25em 0.75em",
+          padding: "0.25rem 0.75rem",
           width: "auto",
           overflow: "visible",
           background: "transparent",
@@ -48,6 +71,9 @@ export const WPContent: React.FC<WPContentProps> = ({ content }) => {
         },
         iframe: {
           width: "100% !important",
+        },
+        ".gallery": {
+          display: "none",
         },
       }}
     />

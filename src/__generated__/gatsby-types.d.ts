@@ -75,6 +75,10 @@ type File = Node & {
   readonly childrenImageSharp: Maybe<ReadonlyArray<Maybe<ImageSharp>>>;
   /** Returns the first child node of type ImageSharp or null if there are no children of given type on this node */
   readonly childImageSharp: Maybe<ImageSharp>;
+  /** Returns all children nodes filtered by type TranslationYaml */
+  readonly childrenTranslationYaml: Maybe<ReadonlyArray<Maybe<TranslationYaml>>>;
+  /** Returns the first child node of type TranslationYaml or null if there are no children of given type on this node */
+  readonly childTranslationYaml: Maybe<TranslationYaml>;
   readonly id: Scalars['ID'];
   readonly parent: Maybe<Node>;
   readonly children: ReadonlyArray<Node>;
@@ -316,6 +320,7 @@ type SitePageContext = {
   readonly id: Maybe<Scalars['String']>;
   readonly title: Maybe<Scalars['String']>;
   readonly division: Maybe<Scalars['String']>;
+  readonly categoryId: Maybe<Scalars['String']>;
   readonly pathname: Maybe<Scalars['String']>;
 };
 
@@ -343,6 +348,13 @@ type SitePluginPluginOptions = {
   readonly createLinkInHead: Maybe<Scalars['Boolean']>;
   readonly entryLimit: Maybe<Scalars['Int']>;
   readonly query: Maybe<Scalars['String']>;
+  readonly icon: Maybe<Scalars['String']>;
+  readonly legacy: Maybe<Scalars['Boolean']>;
+  readonly theme_color_in_head: Maybe<Scalars['Boolean']>;
+  readonly cache_busting_mode: Maybe<Scalars['String']>;
+  readonly crossOrigin: Maybe<Scalars['String']>;
+  readonly include_favicon: Maybe<Scalars['Boolean']>;
+  readonly cacheDigest: Maybe<Scalars['String']>;
   readonly base64Width: Maybe<Scalars['Int']>;
   readonly stripMetadata: Maybe<Scalars['Boolean']>;
   readonly defaultQuality: Maybe<Scalars['Int']>;
@@ -353,13 +365,6 @@ type SitePluginPluginOptions = {
   readonly allExtensions: Maybe<Scalars['Boolean']>;
   readonly isTSX: Maybe<Scalars['Boolean']>;
   readonly jsxPragma: Maybe<Scalars['String']>;
-  readonly icon: Maybe<Scalars['String']>;
-  readonly legacy: Maybe<Scalars['Boolean']>;
-  readonly theme_color_in_head: Maybe<Scalars['Boolean']>;
-  readonly cache_busting_mode: Maybe<Scalars['String']>;
-  readonly crossOrigin: Maybe<Scalars['String']>;
-  readonly include_favicon: Maybe<Scalars['Boolean']>;
-  readonly cacheDigest: Maybe<Scalars['String']>;
 };
 
 type SitePluginPackageJson = {
@@ -2637,6 +2642,20 @@ type ImageSharpResize = {
   readonly originalName: Maybe<Scalars['String']>;
 };
 
+type TranslationYaml = Node & {
+  readonly id: Scalars['ID'];
+  readonly parent: Maybe<Node>;
+  readonly children: ReadonlyArray<Node>;
+  readonly internal: Internal;
+  readonly contact: Maybe<Scalars['String']>;
+  readonly menu: Maybe<Scalars['String']>;
+  readonly test: Maybe<ReadonlyArray<Maybe<TranslationYamlTest>>>;
+};
+
+type TranslationYamlTest = {
+  readonly property: Maybe<Scalars['String']>;
+};
+
 type Query = {
   readonly file: Maybe<File>;
   readonly allFile: FileConnection;
@@ -2688,6 +2707,8 @@ type Query = {
   readonly allWp: WpConnection;
   readonly imageSharp: Maybe<ImageSharp>;
   readonly allImageSharp: ImageSharpConnection;
+  readonly translationYaml: Maybe<TranslationYaml>;
+  readonly allTranslationYaml: TranslationYamlConnection;
 };
 
 
@@ -2729,6 +2750,8 @@ type Query_fileArgs = {
   publicURL: Maybe<StringQueryOperatorInput>;
   childrenImageSharp: Maybe<ImageSharpFilterListInput>;
   childImageSharp: Maybe<ImageSharpFilterInput>;
+  childrenTranslationYaml: Maybe<TranslationYamlFilterListInput>;
+  childTranslationYaml: Maybe<TranslationYamlFilterInput>;
   id: Maybe<StringQueryOperatorInput>;
   parent: Maybe<NodeFilterInput>;
   children: Maybe<NodeFilterListInput>;
@@ -3541,6 +3564,25 @@ type Query_allImageSharpArgs = {
   limit: Maybe<Scalars['Int']>;
 };
 
+
+type Query_translationYamlArgs = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  contact: Maybe<StringQueryOperatorInput>;
+  menu: Maybe<StringQueryOperatorInput>;
+  test: Maybe<TranslationYamlTestFilterListInput>;
+};
+
+
+type Query_allTranslationYamlArgs = {
+  filter: Maybe<TranslationYamlFilterInput>;
+  sort: Maybe<TranslationYamlSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
 type StringQueryOperatorInput = {
   readonly eq: Maybe<Scalars['String']>;
   readonly ne: Maybe<Scalars['String']>;
@@ -3678,6 +3720,28 @@ type BooleanQueryOperatorInput = {
   readonly ne: Maybe<Scalars['Boolean']>;
   readonly in: Maybe<ReadonlyArray<Maybe<Scalars['Boolean']>>>;
   readonly nin: Maybe<ReadonlyArray<Maybe<Scalars['Boolean']>>>;
+};
+
+type TranslationYamlFilterListInput = {
+  readonly elemMatch: Maybe<TranslationYamlFilterInput>;
+};
+
+type TranslationYamlFilterInput = {
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly parent: Maybe<NodeFilterInput>;
+  readonly children: Maybe<NodeFilterListInput>;
+  readonly internal: Maybe<InternalFilterInput>;
+  readonly contact: Maybe<StringQueryOperatorInput>;
+  readonly menu: Maybe<StringQueryOperatorInput>;
+  readonly test: Maybe<TranslationYamlTestFilterListInput>;
+};
+
+type TranslationYamlTestFilterListInput = {
+  readonly elemMatch: Maybe<TranslationYamlTestFilterInput>;
+};
+
+type TranslationYamlTestFilterInput = {
+  readonly property: Maybe<StringQueryOperatorInput>;
 };
 
 type FileConnection = {
@@ -3912,6 +3976,91 @@ type FileFieldsEnum =
   | 'childImageSharp.internal.mediaType'
   | 'childImageSharp.internal.owner'
   | 'childImageSharp.internal.type'
+  | 'childrenTranslationYaml'
+  | 'childrenTranslationYaml.id'
+  | 'childrenTranslationYaml.parent.id'
+  | 'childrenTranslationYaml.parent.parent.id'
+  | 'childrenTranslationYaml.parent.parent.children'
+  | 'childrenTranslationYaml.parent.children'
+  | 'childrenTranslationYaml.parent.children.id'
+  | 'childrenTranslationYaml.parent.children.children'
+  | 'childrenTranslationYaml.parent.internal.content'
+  | 'childrenTranslationYaml.parent.internal.contentDigest'
+  | 'childrenTranslationYaml.parent.internal.description'
+  | 'childrenTranslationYaml.parent.internal.fieldOwners'
+  | 'childrenTranslationYaml.parent.internal.ignoreType'
+  | 'childrenTranslationYaml.parent.internal.mediaType'
+  | 'childrenTranslationYaml.parent.internal.owner'
+  | 'childrenTranslationYaml.parent.internal.type'
+  | 'childrenTranslationYaml.children'
+  | 'childrenTranslationYaml.children.id'
+  | 'childrenTranslationYaml.children.parent.id'
+  | 'childrenTranslationYaml.children.parent.children'
+  | 'childrenTranslationYaml.children.children'
+  | 'childrenTranslationYaml.children.children.id'
+  | 'childrenTranslationYaml.children.children.children'
+  | 'childrenTranslationYaml.children.internal.content'
+  | 'childrenTranslationYaml.children.internal.contentDigest'
+  | 'childrenTranslationYaml.children.internal.description'
+  | 'childrenTranslationYaml.children.internal.fieldOwners'
+  | 'childrenTranslationYaml.children.internal.ignoreType'
+  | 'childrenTranslationYaml.children.internal.mediaType'
+  | 'childrenTranslationYaml.children.internal.owner'
+  | 'childrenTranslationYaml.children.internal.type'
+  | 'childrenTranslationYaml.internal.content'
+  | 'childrenTranslationYaml.internal.contentDigest'
+  | 'childrenTranslationYaml.internal.description'
+  | 'childrenTranslationYaml.internal.fieldOwners'
+  | 'childrenTranslationYaml.internal.ignoreType'
+  | 'childrenTranslationYaml.internal.mediaType'
+  | 'childrenTranslationYaml.internal.owner'
+  | 'childrenTranslationYaml.internal.type'
+  | 'childrenTranslationYaml.contact'
+  | 'childrenTranslationYaml.menu'
+  | 'childrenTranslationYaml.test'
+  | 'childrenTranslationYaml.test.property'
+  | 'childTranslationYaml.id'
+  | 'childTranslationYaml.parent.id'
+  | 'childTranslationYaml.parent.parent.id'
+  | 'childTranslationYaml.parent.parent.children'
+  | 'childTranslationYaml.parent.children'
+  | 'childTranslationYaml.parent.children.id'
+  | 'childTranslationYaml.parent.children.children'
+  | 'childTranslationYaml.parent.internal.content'
+  | 'childTranslationYaml.parent.internal.contentDigest'
+  | 'childTranslationYaml.parent.internal.description'
+  | 'childTranslationYaml.parent.internal.fieldOwners'
+  | 'childTranslationYaml.parent.internal.ignoreType'
+  | 'childTranslationYaml.parent.internal.mediaType'
+  | 'childTranslationYaml.parent.internal.owner'
+  | 'childTranslationYaml.parent.internal.type'
+  | 'childTranslationYaml.children'
+  | 'childTranslationYaml.children.id'
+  | 'childTranslationYaml.children.parent.id'
+  | 'childTranslationYaml.children.parent.children'
+  | 'childTranslationYaml.children.children'
+  | 'childTranslationYaml.children.children.id'
+  | 'childTranslationYaml.children.children.children'
+  | 'childTranslationYaml.children.internal.content'
+  | 'childTranslationYaml.children.internal.contentDigest'
+  | 'childTranslationYaml.children.internal.description'
+  | 'childTranslationYaml.children.internal.fieldOwners'
+  | 'childTranslationYaml.children.internal.ignoreType'
+  | 'childTranslationYaml.children.internal.mediaType'
+  | 'childTranslationYaml.children.internal.owner'
+  | 'childTranslationYaml.children.internal.type'
+  | 'childTranslationYaml.internal.content'
+  | 'childTranslationYaml.internal.contentDigest'
+  | 'childTranslationYaml.internal.description'
+  | 'childTranslationYaml.internal.fieldOwners'
+  | 'childTranslationYaml.internal.ignoreType'
+  | 'childTranslationYaml.internal.mediaType'
+  | 'childTranslationYaml.internal.owner'
+  | 'childTranslationYaml.internal.type'
+  | 'childTranslationYaml.contact'
+  | 'childTranslationYaml.menu'
+  | 'childTranslationYaml.test'
+  | 'childTranslationYaml.test.property'
   | 'id'
   | 'parent.id'
   | 'parent.parent.id'
@@ -4078,6 +4227,8 @@ type FileFilterInput = {
   readonly publicURL: Maybe<StringQueryOperatorInput>;
   readonly childrenImageSharp: Maybe<ImageSharpFilterListInput>;
   readonly childImageSharp: Maybe<ImageSharpFilterInput>;
+  readonly childrenTranslationYaml: Maybe<TranslationYamlFilterListInput>;
+  readonly childTranslationYaml: Maybe<TranslationYamlFilterInput>;
   readonly id: Maybe<StringQueryOperatorInput>;
   readonly parent: Maybe<NodeFilterInput>;
   readonly children: Maybe<NodeFilterListInput>;
@@ -4755,6 +4906,7 @@ type SitePageContextFilterInput = {
   readonly id: Maybe<StringQueryOperatorInput>;
   readonly title: Maybe<StringQueryOperatorInput>;
   readonly division: Maybe<StringQueryOperatorInput>;
+  readonly categoryId: Maybe<StringQueryOperatorInput>;
   readonly pathname: Maybe<StringQueryOperatorInput>;
 };
 
@@ -4782,6 +4934,13 @@ type SitePluginPluginOptionsFilterInput = {
   readonly createLinkInHead: Maybe<BooleanQueryOperatorInput>;
   readonly entryLimit: Maybe<IntQueryOperatorInput>;
   readonly query: Maybe<StringQueryOperatorInput>;
+  readonly icon: Maybe<StringQueryOperatorInput>;
+  readonly legacy: Maybe<BooleanQueryOperatorInput>;
+  readonly theme_color_in_head: Maybe<BooleanQueryOperatorInput>;
+  readonly cache_busting_mode: Maybe<StringQueryOperatorInput>;
+  readonly crossOrigin: Maybe<StringQueryOperatorInput>;
+  readonly include_favicon: Maybe<BooleanQueryOperatorInput>;
+  readonly cacheDigest: Maybe<StringQueryOperatorInput>;
   readonly base64Width: Maybe<IntQueryOperatorInput>;
   readonly stripMetadata: Maybe<BooleanQueryOperatorInput>;
   readonly defaultQuality: Maybe<IntQueryOperatorInput>;
@@ -4792,13 +4951,6 @@ type SitePluginPluginOptionsFilterInput = {
   readonly allExtensions: Maybe<BooleanQueryOperatorInput>;
   readonly isTSX: Maybe<BooleanQueryOperatorInput>;
   readonly jsxPragma: Maybe<StringQueryOperatorInput>;
-  readonly icon: Maybe<StringQueryOperatorInput>;
-  readonly legacy: Maybe<BooleanQueryOperatorInput>;
-  readonly theme_color_in_head: Maybe<BooleanQueryOperatorInput>;
-  readonly cache_busting_mode: Maybe<StringQueryOperatorInput>;
-  readonly crossOrigin: Maybe<StringQueryOperatorInput>;
-  readonly include_favicon: Maybe<BooleanQueryOperatorInput>;
-  readonly cacheDigest: Maybe<StringQueryOperatorInput>;
 };
 
 type SitePluginPackageJsonFilterInput = {
@@ -4981,6 +5133,7 @@ type SitePageFieldsEnum =
   | 'context.id'
   | 'context.title'
   | 'context.division'
+  | 'context.categoryId'
   | 'context.pathname'
   | 'pluginCreator.resolve'
   | 'pluginCreator.name'
@@ -4996,6 +5149,13 @@ type SitePageFieldsEnum =
   | 'pluginCreator.pluginOptions.createLinkInHead'
   | 'pluginCreator.pluginOptions.entryLimit'
   | 'pluginCreator.pluginOptions.query'
+  | 'pluginCreator.pluginOptions.icon'
+  | 'pluginCreator.pluginOptions.legacy'
+  | 'pluginCreator.pluginOptions.theme_color_in_head'
+  | 'pluginCreator.pluginOptions.cache_busting_mode'
+  | 'pluginCreator.pluginOptions.crossOrigin'
+  | 'pluginCreator.pluginOptions.include_favicon'
+  | 'pluginCreator.pluginOptions.cacheDigest'
   | 'pluginCreator.pluginOptions.base64Width'
   | 'pluginCreator.pluginOptions.stripMetadata'
   | 'pluginCreator.pluginOptions.defaultQuality'
@@ -5006,13 +5166,6 @@ type SitePageFieldsEnum =
   | 'pluginCreator.pluginOptions.allExtensions'
   | 'pluginCreator.pluginOptions.isTSX'
   | 'pluginCreator.pluginOptions.jsxPragma'
-  | 'pluginCreator.pluginOptions.icon'
-  | 'pluginCreator.pluginOptions.legacy'
-  | 'pluginCreator.pluginOptions.theme_color_in_head'
-  | 'pluginCreator.pluginOptions.cache_busting_mode'
-  | 'pluginCreator.pluginOptions.crossOrigin'
-  | 'pluginCreator.pluginOptions.include_favicon'
-  | 'pluginCreator.pluginOptions.cacheDigest'
   | 'pluginCreator.packageJson.name'
   | 'pluginCreator.packageJson.description'
   | 'pluginCreator.packageJson.version'
@@ -5190,6 +5343,13 @@ type SitePluginFieldsEnum =
   | 'pluginOptions.createLinkInHead'
   | 'pluginOptions.entryLimit'
   | 'pluginOptions.query'
+  | 'pluginOptions.icon'
+  | 'pluginOptions.legacy'
+  | 'pluginOptions.theme_color_in_head'
+  | 'pluginOptions.cache_busting_mode'
+  | 'pluginOptions.crossOrigin'
+  | 'pluginOptions.include_favicon'
+  | 'pluginOptions.cacheDigest'
   | 'pluginOptions.base64Width'
   | 'pluginOptions.stripMetadata'
   | 'pluginOptions.defaultQuality'
@@ -5200,13 +5360,6 @@ type SitePluginFieldsEnum =
   | 'pluginOptions.allExtensions'
   | 'pluginOptions.isTSX'
   | 'pluginOptions.jsxPragma'
-  | 'pluginOptions.icon'
-  | 'pluginOptions.legacy'
-  | 'pluginOptions.theme_color_in_head'
-  | 'pluginOptions.cache_busting_mode'
-  | 'pluginOptions.crossOrigin'
-  | 'pluginOptions.include_favicon'
-  | 'pluginOptions.cacheDigest'
   | 'packageJson.name'
   | 'packageJson.description'
   | 'packageJson.version'
@@ -8630,6 +8783,43 @@ type WpMediaItemFieldsEnum =
   | 'remoteFile.childImageSharp.internal.mediaType'
   | 'remoteFile.childImageSharp.internal.owner'
   | 'remoteFile.childImageSharp.internal.type'
+  | 'remoteFile.childrenTranslationYaml'
+  | 'remoteFile.childrenTranslationYaml.id'
+  | 'remoteFile.childrenTranslationYaml.parent.id'
+  | 'remoteFile.childrenTranslationYaml.parent.children'
+  | 'remoteFile.childrenTranslationYaml.children'
+  | 'remoteFile.childrenTranslationYaml.children.id'
+  | 'remoteFile.childrenTranslationYaml.children.children'
+  | 'remoteFile.childrenTranslationYaml.internal.content'
+  | 'remoteFile.childrenTranslationYaml.internal.contentDigest'
+  | 'remoteFile.childrenTranslationYaml.internal.description'
+  | 'remoteFile.childrenTranslationYaml.internal.fieldOwners'
+  | 'remoteFile.childrenTranslationYaml.internal.ignoreType'
+  | 'remoteFile.childrenTranslationYaml.internal.mediaType'
+  | 'remoteFile.childrenTranslationYaml.internal.owner'
+  | 'remoteFile.childrenTranslationYaml.internal.type'
+  | 'remoteFile.childrenTranslationYaml.contact'
+  | 'remoteFile.childrenTranslationYaml.menu'
+  | 'remoteFile.childrenTranslationYaml.test'
+  | 'remoteFile.childrenTranslationYaml.test.property'
+  | 'remoteFile.childTranslationYaml.id'
+  | 'remoteFile.childTranslationYaml.parent.id'
+  | 'remoteFile.childTranslationYaml.parent.children'
+  | 'remoteFile.childTranslationYaml.children'
+  | 'remoteFile.childTranslationYaml.children.id'
+  | 'remoteFile.childTranslationYaml.children.children'
+  | 'remoteFile.childTranslationYaml.internal.content'
+  | 'remoteFile.childTranslationYaml.internal.contentDigest'
+  | 'remoteFile.childTranslationYaml.internal.description'
+  | 'remoteFile.childTranslationYaml.internal.fieldOwners'
+  | 'remoteFile.childTranslationYaml.internal.ignoreType'
+  | 'remoteFile.childTranslationYaml.internal.mediaType'
+  | 'remoteFile.childTranslationYaml.internal.owner'
+  | 'remoteFile.childTranslationYaml.internal.type'
+  | 'remoteFile.childTranslationYaml.contact'
+  | 'remoteFile.childTranslationYaml.menu'
+  | 'remoteFile.childTranslationYaml.test'
+  | 'remoteFile.childTranslationYaml.test.property'
   | 'remoteFile.id'
   | 'remoteFile.parent.id'
   | 'remoteFile.parent.parent.id'
@@ -8796,6 +8986,43 @@ type WpMediaItemFieldsEnum =
   | 'localFile.childImageSharp.internal.mediaType'
   | 'localFile.childImageSharp.internal.owner'
   | 'localFile.childImageSharp.internal.type'
+  | 'localFile.childrenTranslationYaml'
+  | 'localFile.childrenTranslationYaml.id'
+  | 'localFile.childrenTranslationYaml.parent.id'
+  | 'localFile.childrenTranslationYaml.parent.children'
+  | 'localFile.childrenTranslationYaml.children'
+  | 'localFile.childrenTranslationYaml.children.id'
+  | 'localFile.childrenTranslationYaml.children.children'
+  | 'localFile.childrenTranslationYaml.internal.content'
+  | 'localFile.childrenTranslationYaml.internal.contentDigest'
+  | 'localFile.childrenTranslationYaml.internal.description'
+  | 'localFile.childrenTranslationYaml.internal.fieldOwners'
+  | 'localFile.childrenTranslationYaml.internal.ignoreType'
+  | 'localFile.childrenTranslationYaml.internal.mediaType'
+  | 'localFile.childrenTranslationYaml.internal.owner'
+  | 'localFile.childrenTranslationYaml.internal.type'
+  | 'localFile.childrenTranslationYaml.contact'
+  | 'localFile.childrenTranslationYaml.menu'
+  | 'localFile.childrenTranslationYaml.test'
+  | 'localFile.childrenTranslationYaml.test.property'
+  | 'localFile.childTranslationYaml.id'
+  | 'localFile.childTranslationYaml.parent.id'
+  | 'localFile.childTranslationYaml.parent.children'
+  | 'localFile.childTranslationYaml.children'
+  | 'localFile.childTranslationYaml.children.id'
+  | 'localFile.childTranslationYaml.children.children'
+  | 'localFile.childTranslationYaml.internal.content'
+  | 'localFile.childTranslationYaml.internal.contentDigest'
+  | 'localFile.childTranslationYaml.internal.description'
+  | 'localFile.childTranslationYaml.internal.fieldOwners'
+  | 'localFile.childTranslationYaml.internal.ignoreType'
+  | 'localFile.childTranslationYaml.internal.mediaType'
+  | 'localFile.childTranslationYaml.internal.owner'
+  | 'localFile.childTranslationYaml.internal.type'
+  | 'localFile.childTranslationYaml.contact'
+  | 'localFile.childTranslationYaml.menu'
+  | 'localFile.childTranslationYaml.test'
+  | 'localFile.childTranslationYaml.test.property'
   | 'localFile.id'
   | 'localFile.parent.id'
   | 'localFile.parent.parent.id'
@@ -9533,6 +9760,7 @@ type WpPageFieldsEnum =
   | 'featuredImage.node.remoteFile.url'
   | 'featuredImage.node.remoteFile.publicURL'
   | 'featuredImage.node.remoteFile.childrenImageSharp'
+  | 'featuredImage.node.remoteFile.childrenTranslationYaml'
   | 'featuredImage.node.remoteFile.id'
   | 'featuredImage.node.remoteFile.children'
   | 'featuredImage.node.localFile.sourceInstanceName'
@@ -9571,6 +9799,7 @@ type WpPageFieldsEnum =
   | 'featuredImage.node.localFile.url'
   | 'featuredImage.node.localFile.publicURL'
   | 'featuredImage.node.localFile.childrenImageSharp'
+  | 'featuredImage.node.localFile.childrenTranslationYaml'
   | 'featuredImage.node.localFile.id'
   | 'featuredImage.node.localFile.children'
   | 'featuredImage.node.parent.id'
@@ -11001,6 +11230,7 @@ type WpPostFieldsEnum =
   | 'featuredImage.node.remoteFile.url'
   | 'featuredImage.node.remoteFile.publicURL'
   | 'featuredImage.node.remoteFile.childrenImageSharp'
+  | 'featuredImage.node.remoteFile.childrenTranslationYaml'
   | 'featuredImage.node.remoteFile.id'
   | 'featuredImage.node.remoteFile.children'
   | 'featuredImage.node.localFile.sourceInstanceName'
@@ -11039,6 +11269,7 @@ type WpPostFieldsEnum =
   | 'featuredImage.node.localFile.url'
   | 'featuredImage.node.localFile.publicURL'
   | 'featuredImage.node.localFile.childrenImageSharp'
+  | 'featuredImage.node.localFile.childrenTranslationYaml'
   | 'featuredImage.node.localFile.id'
   | 'featuredImage.node.localFile.children'
   | 'featuredImage.node.parent.id'
@@ -13477,22 +13708,198 @@ type ImageSharpSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
-type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
+type TranslationYamlConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<TranslationYamlEdge>;
+  readonly nodes: ReadonlyArray<TranslationYaml>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly group: ReadonlyArray<TranslationYamlGroupConnection>;
+};
 
 
-type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
+type TranslationYamlConnection_distinctArgs = {
+  field: TranslationYamlFieldsEnum;
+};
 
-type DefaultPageDataFieldsFragment = (
-  Pick<WpPage, 'content'>
-  & { readonly pageACF: Maybe<Pick<WpPage_Pageacf, 'division'>> }
-);
+
+type TranslationYamlConnection_maxArgs = {
+  field: TranslationYamlFieldsEnum;
+};
+
+
+type TranslationYamlConnection_minArgs = {
+  field: TranslationYamlFieldsEnum;
+};
+
+
+type TranslationYamlConnection_sumArgs = {
+  field: TranslationYamlFieldsEnum;
+};
+
+
+type TranslationYamlConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: TranslationYamlFieldsEnum;
+};
+
+type TranslationYamlEdge = {
+  readonly next: Maybe<TranslationYaml>;
+  readonly node: TranslationYaml;
+  readonly previous: Maybe<TranslationYaml>;
+};
+
+type TranslationYamlFieldsEnum =
+  | 'id'
+  | 'parent.id'
+  | 'parent.parent.id'
+  | 'parent.parent.parent.id'
+  | 'parent.parent.parent.children'
+  | 'parent.parent.children'
+  | 'parent.parent.children.id'
+  | 'parent.parent.children.children'
+  | 'parent.parent.internal.content'
+  | 'parent.parent.internal.contentDigest'
+  | 'parent.parent.internal.description'
+  | 'parent.parent.internal.fieldOwners'
+  | 'parent.parent.internal.ignoreType'
+  | 'parent.parent.internal.mediaType'
+  | 'parent.parent.internal.owner'
+  | 'parent.parent.internal.type'
+  | 'parent.children'
+  | 'parent.children.id'
+  | 'parent.children.parent.id'
+  | 'parent.children.parent.children'
+  | 'parent.children.children'
+  | 'parent.children.children.id'
+  | 'parent.children.children.children'
+  | 'parent.children.internal.content'
+  | 'parent.children.internal.contentDigest'
+  | 'parent.children.internal.description'
+  | 'parent.children.internal.fieldOwners'
+  | 'parent.children.internal.ignoreType'
+  | 'parent.children.internal.mediaType'
+  | 'parent.children.internal.owner'
+  | 'parent.children.internal.type'
+  | 'parent.internal.content'
+  | 'parent.internal.contentDigest'
+  | 'parent.internal.description'
+  | 'parent.internal.fieldOwners'
+  | 'parent.internal.ignoreType'
+  | 'parent.internal.mediaType'
+  | 'parent.internal.owner'
+  | 'parent.internal.type'
+  | 'children'
+  | 'children.id'
+  | 'children.parent.id'
+  | 'children.parent.parent.id'
+  | 'children.parent.parent.children'
+  | 'children.parent.children'
+  | 'children.parent.children.id'
+  | 'children.parent.children.children'
+  | 'children.parent.internal.content'
+  | 'children.parent.internal.contentDigest'
+  | 'children.parent.internal.description'
+  | 'children.parent.internal.fieldOwners'
+  | 'children.parent.internal.ignoreType'
+  | 'children.parent.internal.mediaType'
+  | 'children.parent.internal.owner'
+  | 'children.parent.internal.type'
+  | 'children.children'
+  | 'children.children.id'
+  | 'children.children.parent.id'
+  | 'children.children.parent.children'
+  | 'children.children.children'
+  | 'children.children.children.id'
+  | 'children.children.children.children'
+  | 'children.children.internal.content'
+  | 'children.children.internal.contentDigest'
+  | 'children.children.internal.description'
+  | 'children.children.internal.fieldOwners'
+  | 'children.children.internal.ignoreType'
+  | 'children.children.internal.mediaType'
+  | 'children.children.internal.owner'
+  | 'children.children.internal.type'
+  | 'children.internal.content'
+  | 'children.internal.contentDigest'
+  | 'children.internal.description'
+  | 'children.internal.fieldOwners'
+  | 'children.internal.ignoreType'
+  | 'children.internal.mediaType'
+  | 'children.internal.owner'
+  | 'children.internal.type'
+  | 'internal.content'
+  | 'internal.contentDigest'
+  | 'internal.description'
+  | 'internal.fieldOwners'
+  | 'internal.ignoreType'
+  | 'internal.mediaType'
+  | 'internal.owner'
+  | 'internal.type'
+  | 'contact'
+  | 'menu'
+  | 'test'
+  | 'test.property';
+
+type TranslationYamlGroupConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<TranslationYamlEdge>;
+  readonly nodes: ReadonlyArray<TranslationYaml>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly group: ReadonlyArray<TranslationYamlGroupConnection>;
+  readonly field: Scalars['String'];
+  readonly fieldValue: Maybe<Scalars['String']>;
+};
+
+
+type TranslationYamlGroupConnection_distinctArgs = {
+  field: TranslationYamlFieldsEnum;
+};
+
+
+type TranslationYamlGroupConnection_maxArgs = {
+  field: TranslationYamlFieldsEnum;
+};
+
+
+type TranslationYamlGroupConnection_minArgs = {
+  field: TranslationYamlFieldsEnum;
+};
+
+
+type TranslationYamlGroupConnection_sumArgs = {
+  field: TranslationYamlFieldsEnum;
+};
+
+
+type TranslationYamlGroupConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: TranslationYamlFieldsEnum;
+};
+
+type TranslationYamlSortInput = {
+  readonly fields: Maybe<ReadonlyArray<Maybe<TranslationYamlFieldsEnum>>>;
+  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
+};
 
 type GetStandardDataQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-type GetStandardDataQuery = { readonly standardData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment> };
+type GetStandardDataQuery = { readonly pageData: Maybe<(
+    Pick<WpPage, 'title'>
+    & { readonly pageACF: Maybe<{ readonly standardContent: Maybe<Pick<WpPage_Pageacf_StandardContent, 'pageContentTitle'>> }> }
+  )>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment> };
 
 type GetHockeyDataQueryVariables = Exact<{
   id: Scalars['String'];
@@ -13543,6 +13950,24 @@ type GetHomeDataQueryVariables = Exact<{
 
 type GetHomeDataQuery = { readonly homeData: Maybe<Pick<WpPage, 'title'>> };
 
+type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
+
+type GetAllBlogPostsQueryVariables = Exact<{
+  categoryId: Scalars['String'];
+}>;
+
+
+type GetAllBlogPostsQuery = { readonly allPosts: { readonly nodes: ReadonlyArray<(
+      Pick<WpPost, 'title' | 'excerpt' | 'date'>
+      & { readonly postACF: Maybe<Pick<WpPost_Postacf, 'division' | 'postCategory'>>, readonly featuredImage: Maybe<{ readonly node: Maybe<(
+          Pick<WpMediaItem, 'altText'>
+          & { readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<Pick<ImageSharpFluid, 'src'>> }> }> }
+        )> }>, readonly categories: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<Pick<WpCategory, 'name'>>>> }> }
+    )> } };
+
 type GetGameReportDataQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -13557,6 +13982,29 @@ type GetPostDataQueryVariables = Exact<{
 
 type GetPostDataQuery = { readonly wpPost: Maybe<Pick<WpPost, 'title'>> };
 
+type DefaultPageDataFieldsFragment = (
+  Pick<WpPage, 'content'>
+  & { readonly pageACF: Maybe<(
+    Pick<WpPage_Pageacf, 'division'>
+    & { readonly standardContent: Maybe<(
+      ContactFragment
+      & AdditionalInfoFragment
+      & DownloadsFragment
+    )> }
+  )> }
+);
+
+type ContactFragment = { readonly contact: Maybe<Pick<WpPage_Pageacf_StandardContent_Contact, 'name' | 'email' | 'tel' | 'website'>> };
+
+type AdditionalInfoFragment = { readonly additionalInfo: Maybe<Pick<WpPage_Pageacf_StandardContent_AdditionalInfo, 'title' | 'content'>> };
+
+type DownloadsFragment = { readonly downloads: Maybe<ReadonlyArray<Maybe<{ readonly file: Maybe<Pick<WpMediaItem, 'mediaItemUrl' | 'title'>> }>>> };
+
+type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
+
 type GetMainMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -13568,10 +14016,13 @@ type GetMainMenuQuery = { readonly wpMenu: Maybe<(
       )>>> }> }
   )> };
 
-type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
+type GetTranslationQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
+type GetTranslationQuery = { readonly translationYaml: Maybe<(
+    Pick<TranslationYaml, 'contact' | 'menu'>
+    & { readonly test: Maybe<ReadonlyArray<Maybe<Pick<TranslationYamlTest, 'property'>>>> }
+  )> };
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 

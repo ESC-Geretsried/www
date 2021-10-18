@@ -33,3 +33,16 @@ export const trimChars = (
 
   return str.replace(reStart, "").replace(reEnd, "");
 };
+
+export const getPropertyFromGraphqlQueryObject = <
+  Fragment extends { [key: string]: unknown },
+  Property extends keyof Fragment extends string ? keyof Fragment : never
+>(
+  object: { [key: string]: any } | undefined,
+  property: keyof Fragment extends string ? string : never
+) => {
+  if (object && object[property]) {
+    return object[property] as Fragment[Property];
+  }
+  return undefined;
+};

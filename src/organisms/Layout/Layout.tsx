@@ -21,7 +21,7 @@ export const Layout: React.FC<{
         <Adbanner sponsors={[]} display={{ base: "block", md: "none" }} />
         <Main>
           <ContentGrid>
-            <ExtraContent>Extra</ExtraContent>
+            <ExtraContent>{extra}</ExtraContent>
             <MainContent>
               {content}
               <div>{JSON.stringify(store)}</div>

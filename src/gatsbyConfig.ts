@@ -30,6 +30,7 @@ const config: GatsbyConfig = {
     },
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
+    "gatsby-plugin-react-svg",
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -37,7 +38,14 @@ const config: GatsbyConfig = {
         path: "./src/assets/",
       },
     },
-    "gatsby-plugin-react-svg",
+    "gatsby-transformer-yaml",
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "assets",
+        path: "./src/translation/",
+      },
+    },
   ],
 };
 

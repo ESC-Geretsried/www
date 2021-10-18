@@ -1,34 +1,81 @@
 import { graphql } from "gatsby";
-import React from "react";
+import React, { useMemo } from "react";
 import { Layout } from "../organisms/Layout/Layout";
 import { GatsbyPageContext } from "../types";
 import { WPContent } from "../atoms/WPContent/WPContent";
+import { Heading } from "../atoms/Heading/Heading";
+import { Extra } from "../organisms/Extra/Extra";
+import { getPropertyFromGraphqlQueryObject } from "../utils/shared.utils";
+
+const useDefaultData = (
+  defaultData: GatsbyTypes.DefaultPageDataFieldsFragment
+) => {
+  return useMemo(() => {
+    const contact = getPropertyFromGraphqlQueryObject<
+      GatsbyTypes.ContactFragment,
+      "contact"
+    >(defaultData.pageACF?.standardContent, "contact");
+
+    const additionalInfo = getPropertyFromGraphqlQueryObject<
+      GatsbyTypes.AdditionalInfoFragment,
+      "additionalInfo"
+    >(defaultData?.pageACF?.standardContent, "additionalInfo");
+
+    const downloads = getPropertyFromGraphqlQueryObject<
+      GatsbyTypes.DownloadsFragment,
+      "downloads"
+    >(defaultData?.pageACF?.standardContent, "downloads");
+
+    return {
+      contact,
+      additionalInfo,
+      downloads,
+    };
+  }, [defaultData]);
+};
 
 const Standard: React.FC<{
   data: GatsbyTypes.GetStandardDataQuery;
   pageContext: GatsbyPageContext;
-}> = ({ data: { defaultData, standardData }, pageContext }) => {
+}> = ({ data: { defaultData, pageData }, pageContext }) => {
   if (!defaultData?.content) {
     return null;
   }
+
+  const pageACF = pageData?.pageACF;
+  const { contact, additionalInfo, downloads } = useDefaultData(defaultData);
 
   return (
     <Layout
       content={
         <>
-          {standardData?.title}
+          <Heading borders marginBlockEnd={6}>
+            {pageACF?.standardContent?.pageContentTitle}
+          </Heading>
           <WPContent content={defaultData.content} />
         </>
       }
-      extra={<>extra</>}
+      extra={
+        <Extra
+          post={{}}
+          contact={contact}
+          additionalInfo={additionalInfo}
+          downloads={downloads}
+        />
+      }
     />
   );
 };
 
 export const StandardQuery = graphql`
   query GetStandardData($id: String!) {
-    standardData: wpPage(id: { eq: $id }) {
+    pageData: wpPage(id: { eq: $id }) {
       title
+      pageACF {
+        standardContent {
+          pageContentTitle
+        }
+      }
     }
 
     defaultData: wpPage(id: { eq: $id }) {

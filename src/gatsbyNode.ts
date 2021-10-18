@@ -1,5 +1,11 @@
 import path from "path";
 import { GatsbyNode } from "gatsby";
+import {
+  VEREIN_CATEGORY_ID,
+  HOCKEY_CATEGORY_ID,
+  HOCKEY_DIVISIONS,
+  HOME_PAGE_ID,
+} from "./const";
 
 const getPath = (uri: string) => {
   switch (uri) {
@@ -17,9 +23,6 @@ const getMatchPath = (uri: string) => {
 
   return undefined;
 };
-
-const hockeyDivisions = ["damen", "1b", "u17", "u15", "u13", "u11", "u9", "u7"];
-const HOME_PAGE_ID = "cG9zdDoxMw==";
 
 type GetPagesQuery = {
   allWpPage: {
@@ -104,7 +107,12 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
   const [pages, blogPosts] = await Promise.all([pagesQuery, blogPostsQuery]);
 
   pages.data?.allWpPage.nodes.forEach(
-    ({ id, uri, slug, title, categories: _categories, pageACF }) => {
+    ({ id, uri, slug, title, categories, pageACF }) => {
+      const categoryId =
+        categories.nodes.length > 0
+          ? categories.nodes[0].id
+          : VEREIN_CATEGORY_ID;
+
       const { division, template } = pageACF;
 
       createPage({
@@ -115,7 +123,7 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
           id,
           title,
           division,
-          // categoryId,
+          categoryId,
           pathname: getPath(uri),
         },
       });
@@ -131,9 +139,20 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
           .indexOf(page.pageACF.division) === index
       );
     })
-    .forEach(({ pageACF }) => {
+    .forEach(({ pageACF, categories }) => {
+      const categoryId =
+        categories.nodes.length > 0
+          ? categories.nodes[0].id
+          : HOCKEY_CATEGORY_ID;
+
       const { division } = pageACF;
-      const newsPath = hockeyDivisions.includes(pageACF.division)
+      console.log(
+        division,
+        categories.nodes.length > 0
+          ? categories.nodes[0].slug
+          : HOCKEY_CATEGORY_ID
+      );
+      const newsPath = HOCKEY_DIVISIONS.includes(pageACF.division)
         ? `/eishockey/${pageACF.division}/news/`
         : `/${pageACF.division}/news/`;
 
@@ -144,7 +163,7 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
           id: HOME_PAGE_ID,
           title: `${division} News`,
           division,
-          // categoryId,
+          categoryId,
           pathname: newsPath,
         },
       });
@@ -163,7 +182,7 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
 
   blogPosts.data?.allWpPost.nodes.forEach(({ title, uri, postACF, id }) => {
     let blogPostPath: string;
-    if (hockeyDivisions.includes(postACF.division)) {
+    if (HOCKEY_DIVISIONS.includes(postACF.division)) {
       // add legacy redirect
       createRedirect({
         redirectInBrowser: true,
