@@ -44,6 +44,7 @@ export const SocialButtonGroup: React.FC = ({ ...rest }) => {
     >
       {Object.entries(socialLinks?.homeACF ?? {}).map(([platform, link]) => (
         <IconButton
+          key={link}
           as="a"
           href={link}
           aria-label={platform}

@@ -175,6 +175,7 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
       id: HOME_PAGE_ID,
       pathname: "/eishockey/news/",
       division: "eishockey",
+      categoryId: HOCKEY_CATEGORY_ID,
       title: "Eishockey News",
     },
     component: path.resolve(`./src/templates/news.tsx`),
