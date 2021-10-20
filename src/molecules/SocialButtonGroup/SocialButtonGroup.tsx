@@ -2,11 +2,7 @@ import { IconButton, ButtonGroup } from "@chakra-ui/button";
 import Icon from "@chakra-ui/icon";
 import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
-import { FaFacebookSquare, FaInstagram, FaBell } from "react-icons/fa";
-
-const FacebookIcon: React.FC = () => <Icon as={FaFacebookSquare} />;
-const InstagramIcon: React.FC = () => <Icon as={FaInstagram} />;
-const TickarooIcon: React.FC = () => <Icon as={FaBell} />;
+import { FacebookIcon, InstagramIcon, TickarooIcon } from "../../atoms/Icons";
 
 const getIcon = (platform: string) => {
   if (platform === "facebookLink") {
@@ -34,14 +30,7 @@ export const SocialButtonGroup: React.FC = ({ ...rest }) => {
     `);
 
   return (
-    <ButtonGroup
-      paddingBlock={4}
-      maxW="100%"
-      size="lg"
-      justifyContent="space-around"
-      w="100%"
-      {...rest}
-    >
+    <ButtonGroup paddingBlock={4} maxW="100%" size="lg" w="100%" {...rest}>
       {Object.entries(socialLinks?.homeACF ?? {}).map(([platform, link]) => (
         <IconButton
           key={link}
@@ -50,6 +39,7 @@ export const SocialButtonGroup: React.FC = ({ ...rest }) => {
           aria-label={platform}
           icon={getIcon(platform)}
           backgroundColor="transparent"
+          border="none"
           _hover={{
             backgroundColor: "transparent",
             color: "brand.gold",

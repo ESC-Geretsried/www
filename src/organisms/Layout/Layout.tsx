@@ -29,7 +29,6 @@ export const Layout: React.FC<{
             <ExtraContent>{extra}</ExtraContent>
             <MainContent>
               {content}
-              <div>{JSON.stringify(store)}</div>
               <footer>footer</footer>
             </MainContent>
           </ContentGrid>

@@ -1,11 +1,14 @@
-import { Box } from "@chakra-ui/react";
+import { Box, BoxProps } from "@chakra-ui/react";
 import React from "react";
 
 type WPContentProps = {
   content: string;
 };
 
-export const WPContent: React.FC<WPContentProps> = ({ content }) => {
+export const WPContent: React.FC<WPContentProps & BoxProps> = ({
+  content,
+  ...rest
+}) => {
   return (
     <Box
       dangerouslySetInnerHTML={{ __html: content }}
@@ -13,6 +16,7 @@ export const WPContent: React.FC<WPContentProps> = ({ content }) => {
       wordBreak="break-word"
       marginBlockEnd="3rem"
       zIndex="base"
+      {...rest}
       sx={{
         "p:not(:last-of-type)": {
           paddingBlockEnd: 3,

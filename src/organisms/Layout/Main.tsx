@@ -7,8 +7,6 @@ import { calcColumnWidths } from "../../utils/style.utils";
 const MainContainer: React.FC = forwardRef(({ ...rest }, ref) => (
   <Box
     as="main"
-    height="200vh"
-    width="100%"
     ps={{
       base: 6,
       ...calcColumnWidths(2, {

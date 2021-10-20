@@ -47,9 +47,11 @@ export const getPropertyFromGraphqlQueryObject = <
   return undefined;
 };
 
-export const chunk = (array: Array<any>, chunkSize: number) => {
-  const chunks = [];
-  for (var i = 0; i < array.length; i += chunkSize)
-    chunks.push(array.slice(i, i + chunkSize));
+export const chunk = <T>(array: Array<T>, chunkSize: number) => {
+  const chunks: Array<Array<T>> = [];
+  for (var i = 0; i < array.length; i += chunkSize) {
+    const chunk = array.slice(i, i + chunkSize);
+    chunks.push(chunk);
+  }
   return chunks;
 };

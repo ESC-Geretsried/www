@@ -2240,6 +2240,8 @@ type WpMenu = Node & WpNode & WpDatabaseIdentifier & {
 /** Registered menu locations */
 type WpMenuLocationEnum =
   | 'EXTRA_MENU'
+  | 'GATSBY_FOOTER_MENU'
+  | 'GATSBY_HEADER_MENU'
   | 'HEADER_MENU';
 
 /** Connection between the Menu type and the MenuItem type */
@@ -2317,6 +2319,8 @@ type WpReadingSettings = {
 type WpWPGatsby = {
   /** Returns wether or not pretty permalinks are enabled. */
   readonly arePrettyPermalinksEnabled: Maybe<Scalars['Boolean']>;
+  /** Wether or not the Preview frontend URL is online. */
+  readonly isPreviewFrontendOnline: Maybe<Scalars['Boolean']>;
 };
 
 /** The writing setting type */
@@ -13264,6 +13268,7 @@ type WpReadingSettingsFilterInput = {
 
 type WpWPGatsbyFilterInput = {
   readonly arePrettyPermalinksEnabled: Maybe<BooleanQueryOperatorInput>;
+  readonly isPreviewFrontendOnline: Maybe<BooleanQueryOperatorInput>;
 };
 
 type WpWritingSettingsFilterInput = {
@@ -13346,6 +13351,7 @@ type WpFieldsEnum =
   | 'generalSettings.url'
   | 'readingSettings.postsPerPage'
   | 'wpGatsby.arePrettyPermalinksEnabled'
+  | 'wpGatsby.isPreviewFrontendOnline'
   | 'writingSettings.defaultCategory'
   | 'writingSettings.defaultPostFormat'
   | 'writingSettings.useSmilies'
@@ -13968,10 +13974,20 @@ type GetHomeDataQueryVariables = Exact<{
 
 type GetHomeDataQuery = { readonly homeData: Maybe<Pick<WpPage, 'title'>> };
 
-type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
+type BlogPostPreviewFieldsFragment = (
+  Pick<WpPost, 'id' | 'title' | 'uri' | 'excerpt' | 'date'>
+  & { readonly postACF: Maybe<Pick<WpPost_Postacf, 'division' | 'postCategory'>>, readonly featuredImage: Maybe<{ readonly node: Maybe<(
+      Pick<WpMediaItem, 'altText'>
+      & { readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
+    )> }>, readonly categories: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<Pick<WpCategory, 'name'>>>> }> }
+);
+
+type GetAllBlogPostsQueryVariables = Exact<{
+  categoryId: Scalars['String'];
+}>;
 
 
-type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
+type GetAllBlogPostsQuery = { readonly allPosts: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> } };
 
 type GetGameReportDataQueryVariables = Exact<{
   id: Scalars['String'];
@@ -13986,6 +14002,11 @@ type GetPostDataQueryVariables = Exact<{
 
 
 type GetPostDataQuery = { readonly wpPost: Maybe<Pick<WpPost, 'title'>> };
+
+type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
 type GetMainMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -14036,18 +14057,5 @@ type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = Pick<ImageSharpFluid, 't
 type GatsbyImageSharpFluid_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
 
 type GatsbyImageSharpFluid_withWebp_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
-type GetAllBlogPostsQueryVariables = Exact<{
-  categoryId: Scalars['String'];
-}>;
-
-
-type GetAllBlogPostsQuery = { readonly allPosts: { readonly nodes: ReadonlyArray<(
-      Pick<WpPost, 'id' | 'title' | 'excerpt' | 'date'>
-      & { readonly postACF: Maybe<Pick<WpPost_Postacf, 'division' | 'postCategory'>>, readonly featuredImage: Maybe<{ readonly node: Maybe<(
-          Pick<WpMediaItem, 'altText'>
-          & { readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<Pick<ImageSharpFluid, 'src'>> }> }> }
-        )> }>, readonly categories: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<Pick<WpCategory, 'name'>>>> }> }
-    )> } };
 
 }

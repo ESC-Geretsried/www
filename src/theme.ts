@@ -40,21 +40,44 @@ export const lineBlock: CSSObject = {
   borderBottomWidth: "2px",
 };
 
-const MenuButtonStyles: ComponentSingleStyleConfig = {
+const ButtonStyles: ComponentSingleStyleConfig = {
+  baseStyle: {
+    background: "none",
+    backgroundColor: "transparent",
+    borderColor: "brand.ice",
+    border: "2px solid",
+    borderRadius: "0",
+    _hover: {
+      background: "none",
+      backgroundColor: "transparent",
+      borderColor: "brand.gold",
+      color: "brand.gold",
+    },
+    _active: {
+      background: "none",
+      backgroundColor: "transparent",
+      borderColor: "brand.gold",
+      color: "brand.gold",
+    },
+    _focus: {
+      boxShadow: "none",
+    },
+    _focusVisible: {
+      boxShadow: "outline",
+    },
+  },
   variants: {
     MenuButton: {
+      border: "none",
       fontFamily: "Rubik",
       fontStyle: "italic",
       fontWeight: "bold",
-      bg: "none",
       px: "0",
       display: "block",
       width: "100%",
       textAlign: "left",
-      _focus: { boxShadow: "none" },
       _focusVisible: { textDecoration: "underline" },
-      _hover: { textDecoration: "none", color: "brand.gold" },
-      _active: { bg: "transparent" },
+      _hover: { textDecoration: "none" },
     },
   },
 };
@@ -86,12 +109,9 @@ export const theme = extendTheme({
     white: "#fff",
     almostBlack: "#0B0B0B",
   },
-  // textStyles: {
-
-  // },
   components: {
     Link: MenuLinkStyles,
-    Button: MenuButtonStyles,
+    Button: ButtonStyles,
     Heading: {
       variants: {
         MobileSiteTitle: {
