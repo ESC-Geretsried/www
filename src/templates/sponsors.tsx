@@ -9,10 +9,10 @@ const Sponsors: React.FC<{
 }> = ({ data: { sponsorsData, seoData }, pageContext }) => {
   return (
     <Layout
-      content={<>{sponsorsData.title}</>}
+      content={<>{sponsorsData?.title}</>}
       extra={<>extra</>}
       header={<>header</>}
-      seo={seoData.pageACF.seo}
+      seo={seoData?.pageACF?.seo}
     />
   );
 };

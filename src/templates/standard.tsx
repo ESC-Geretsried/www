@@ -64,7 +64,7 @@ const Standard: React.FC<{
         />
       }
       header={<>header</>}
-      seo={seoData.pageACF.seo}
+      seo={seoData?.pageACF?.seo}
     />
   );
 };

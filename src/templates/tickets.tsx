@@ -9,10 +9,10 @@ const Tickets: React.FC<{
 }> = ({ data: { ticketsData, seoData }, pageContext }) => {
   return (
     <Layout
-      content={<> {ticketsData.title}</>}
+      content={<> {ticketsData?.title}</>}
       extra={<>extra</>}
       header={<>header</>}
-      seo={seoData.pageACF.seo}
+      seo={seoData?.pageACF?.seo}
     ></Layout>
   );
 };

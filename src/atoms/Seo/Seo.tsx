@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 export const Seo: React.FC<{
   title: string;
   uri: string;
-  seo: GatsbyTypes.SeoFieldsFragment;
+  seo?: GatsbyTypes.SeoFieldsFragment;
 }> = ({ seo, title, uri }) => {
   const {
     metaDescription,
@@ -12,7 +12,7 @@ export const Seo: React.FC<{
     ogDescription,
     socialImage,
     twitterDescription,
-  } = seo;
+  } = seo ?? {};
   const url = `www.esc-geretsried.de${uri}`;
 
   return (

@@ -3,7 +3,7 @@ import { graphql } from "gatsby";
 import React from "react";
 import { Layout } from "../organisms/Layout/Layout";
 
-const Gamepitch: React.FC<{ data: GatsbyTypes.GetHockeyDataQuery }> = ({
+const Gamepitch: React.FC<{ data: GatsbyTypes.GetGamepitchDataQuery }> = ({
   data: { gamepitchData, defaultData, seoData },
 }) => {
   return (

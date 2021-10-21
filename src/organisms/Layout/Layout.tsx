@@ -16,7 +16,8 @@ export const Layout: React.FC<{
   header: React.ReactElement;
   seo?: GatsbyTypes.SeoFieldsFragment;
 }> = ({ content, extra, header, seo }) => {
-  const { siteTitle, pathname } = useStore();
+  const store = useStore();
+  const { siteTitle, pathname } = store;
   return (
     <>
       <Seo title={siteTitle} uri={pathname} seo={seo} />
@@ -32,7 +33,9 @@ export const Layout: React.FC<{
             <ExtraContent>{extra}</ExtraContent>
             <MainContent>
               {content}
-              <footer>footer</footer>
+              <footer>
+                footer<pre>{JSON.stringify(store, null, 4)}</pre>
+              </footer>
             </MainContent>
           </ContentGrid>
         </Main>
