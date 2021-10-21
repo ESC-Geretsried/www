@@ -1,6 +1,6 @@
 import { Box, BoxProps } from "@chakra-ui/layout";
 import React from "react";
-import { navHeight, adBannerHeight } from "../../theme";
+import { navHeight, adBannerHeight } from "../../theme/misc";
 
 type AdbannerProps = {
   sponsors: Array<any>;

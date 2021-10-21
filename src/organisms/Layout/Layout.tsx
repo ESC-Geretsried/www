@@ -6,7 +6,6 @@ import { ExtraContent } from "../../atoms/Grid/ExtraContent";
 import { Adbanner } from "../../molecules/Adbanner/Adbanner";
 import { Container } from "./Container";
 import { Main } from "./Main";
-import { useStore } from "../../store/store";
 import { Flex } from "@chakra-ui/layout";
 
 export const Layout: React.FC<{
@@ -14,7 +13,6 @@ export const Layout: React.FC<{
   extra: React.ReactElement;
   header: React.ReactElement;
 }> = ({ content, extra, header }) => {
-  const store = useStore();
   return (
     <>
       <Adbanner sponsors={[]} display={{ base: "none", md: "block" }} />

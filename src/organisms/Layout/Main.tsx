@@ -1,7 +1,8 @@
 import { Box, BoxProps, forwardRef } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
-import { adBannerHeight, mainAnimationProps, navHeight } from "../../theme";
+import { mainAnimationProps } from "../../theme/animations";
+import { navHeight } from "../../theme/misc";
 import { calcColumnWidths } from "../../utils/style.utils";
 
 const MainContainer: React.FC = forwardRef(({ ...rest }, ref) => (

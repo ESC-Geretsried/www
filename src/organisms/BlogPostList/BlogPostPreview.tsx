@@ -4,6 +4,7 @@ import { Link } from "../../atoms/Link";
 import { WPContent } from "../../atoms/WPContent/WPContent";
 import { Post } from "../../templates/news";
 import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
+import { DuotoneImg } from "../../atoms/DuotoneImg/DuotoneImg";
 
 type BlogPostPreviewProps = {
   post: Post;
@@ -17,8 +18,19 @@ export const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({ post }) => {
   }
 
   return (
-    <LinkBox py={8}>
-      {image && <GatsbyImage image={image} alt={altText ?? ""} />}
+    <LinkBox
+      py={8}
+      role="group"
+      transition="transform 0.2s"
+      _hover={{
+        transform: "scale(1.01)",
+      }}
+    >
+      {image && (
+        <Box paddingBlockEnd={2}>
+          <DuotoneImg image={image} alt={altText ?? ""} />
+        </Box>
+      )}
       <Heading as="h2" fontSize="1rem">
         <LinkOverlay
           as={Link}

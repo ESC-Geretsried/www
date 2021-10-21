@@ -3,7 +3,7 @@ import { ListItem, List, Button, Collapse, ListProps } from "@chakra-ui/react";
 import { MenuItem } from "./MenuItem";
 // import { useActiveMenuItems } from "./MenuUtils";
 import { MenuItemType } from "../../types";
-import { lineBlock } from "../../theme";
+import { lineBlock } from "../../theme/misc";
 import { useStore } from "../../store/store";
 
 export const Menu: React.FC<

@@ -5,7 +5,7 @@ import { calcColumnWidths } from "../../utils/style.utils";
 import { DesktopMenu } from "../DesktopMenu/DesktopMenu";
 import { prepareMenuData } from "../../molecules/Menu/MenuUtils";
 import { MobileHeader } from "../MobileHeader/MobileHeader";
-import { navHeight } from "../../theme";
+import { navHeight } from "../../theme/misc";
 
 export const Nav: React.FC = () => {
   const { wpMenu } = useStaticQuery<GatsbyTypes.GetMainMenuQuery>(graphql`

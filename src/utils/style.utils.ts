@@ -1,5 +1,4 @@
-import { useToken } from "@chakra-ui/system";
-import { containerWidths } from "../theme";
+import { containerWidths } from "../theme/misc";
 import { BreakpointNames, BreakpointObject } from "../types";
 
 export const removeUnit = (value: string, unit: string) => {

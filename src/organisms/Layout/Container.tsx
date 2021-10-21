@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
-import { containerWidths, adBannerHeight } from "../../theme";
+import { containerWidths, adBannerHeight } from "../../theme/misc";
 
 export const Container: React.FC = (props) => {
   return (

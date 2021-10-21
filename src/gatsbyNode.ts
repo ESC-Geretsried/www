@@ -146,12 +146,7 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
           : HOCKEY_CATEGORY_ID;
 
       const { division } = pageACF;
-      console.log(
-        division,
-        categories.nodes.length > 0
-          ? categories.nodes[0].slug
-          : HOCKEY_CATEGORY_ID
-      );
+
       const newsPath = HOCKEY_DIVISIONS.includes(pageACF.division)
         ? `/eishockey/${pageACF.division}/news/`
         : `/${pageACF.division}/news/`;
