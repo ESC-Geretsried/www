@@ -37,7 +37,7 @@ const useDefaultData = (
 const Standard: React.FC<{
   data: GatsbyTypes.GetStandardDataQuery;
   pageContext: GatsbyPageContext;
-}> = ({ data: { defaultData, pageData }, pageContext }) => {
+}> = ({ data: { defaultData, pageData, seoData }, pageContext }) => {
   if (!defaultData?.content) {
     return null;
   }
@@ -63,6 +63,8 @@ const Standard: React.FC<{
           downloads={downloads}
         />
       }
+      header={<>header</>}
+      seo={seoData.pageACF.seo}
     />
   );
 };
@@ -80,6 +82,9 @@ export const StandardQuery = graphql`
 
     defaultData: wpPage(id: { eq: $id }) {
       ...DefaultPageDataFields
+    }
+    seoData: wpPage(id: { eq: $id }) {
+      ...Seo
     }
   }
 `;

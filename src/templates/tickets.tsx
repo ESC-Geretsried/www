@@ -6,18 +6,28 @@ import { GatsbyPageContext } from "../types";
 const Tickets: React.FC<{
   data: GatsbyTypes.GetTicketsDataQuery;
   pageContext: GatsbyPageContext;
-}> = ({ data, pageContext }) => {
-  return <Layout>{data?.wpPage?.title}</Layout>;
+}> = ({ data: { ticketsData, seoData }, pageContext }) => {
+  return (
+    <Layout
+      content={<> {ticketsData.title}</>}
+      extra={<>extra</>}
+      header={<>header</>}
+      seo={seoData.pageACF.seo}
+    ></Layout>
+  );
 };
 
 export const TicketsQuery = graphql`
   query GetTicketsData($id: String!) {
-    wpPage(id: { eq: $id }) {
+    ticketsData: wpPage(id: { eq: $id }) {
       title
     }
 
     defaultData: wpPage(id: { eq: $id }) {
       ...DefaultPageDataFields
+    }
+    seoData: wpPage(id: { eq: $id }) {
+      ...Seo
     }
   }
 `;

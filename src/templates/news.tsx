@@ -12,7 +12,7 @@ export type Post = Mutable<
 const News: React.FC<{
   data: GatsbyTypes.GetAllBlogPostsQuery;
   pageContext: GatsbyPageContext;
-}> = ({ pageContext, data }) => {
+}> = ({ pageContext, data: { allPosts, seoData } }) => {
   return (
     <Layout
       header={
@@ -20,8 +20,9 @@ const News: React.FC<{
           <Heading borders>{pageContext.title}</Heading>
         </>
       }
-      content={<BlogPostList posts={data.allPosts.nodes as Array<Post>} />}
+      content={<BlogPostList posts={allPosts.nodes as Array<Post>} />}
       extra={<>extra</>}
+      seo={seoData?.pageACF?.seo}
     />
   );
 };
@@ -37,6 +38,10 @@ export const NewsQuery = graphql`
       nodes {
         ...BlogPostPreviewFields
       }
+    }
+
+    seoData: wpPage(id: { eq: "cG9zdDoxMw==" }) {
+      ...Seo
     }
   }
 

@@ -11,7 +11,6 @@ export const ContentGrid: React.FC<ContentGridProps & GridProps> = ({
     <Grid
       templateColumns={{ base: "repeat(4, 1fr)", md: "repeat(10, 1fr)" }}
       gap={{ base: 2, md: 6 }}
-      overflow="hidden"
       {...rest}
     >
       {children}

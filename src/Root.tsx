@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useStore } from "./store/store";
 import { GatsbyPageContext } from "./types";
@@ -58,7 +59,7 @@ export const Root: React.FC<RootProps> = ({ pageContext, children }) => {
           </feComponentTransfer>
         </filter>
       </svg>
-      {children}
+      <Box overflow="hidden">{children}</Box>
     </>
   );
 };

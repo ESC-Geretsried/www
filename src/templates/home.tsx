@@ -7,14 +7,24 @@ import { GatsbyPageContext } from "../types";
 const Home: React.FC<{
   data: GatsbyTypes.GetHomeDataQuery;
   pageContext: GatsbyPageContext;
-}> = ({ data: { homeData }, pageContext }) => {
-  return <Layout content={<>{homeData?.title}</>} extra={<>extra</>} />;
+}> = ({ data: { homeData, seoData }, pageContext }) => {
+  return (
+    <Layout
+      content={<>{homeData?.title}</>}
+      extra={<>extra</>}
+      header={<>header</>}
+      seo={seoData?.pageACF?.seo}
+    />
+  );
 };
 
 export const HomeQuery = graphql`
   query GetHomeData($id: String!) {
     homeData: wpPage(id: { eq: $id }) {
       title
+    }
+    seoData: wpPage(id: { eq: $id }) {
+      ...Seo
     }
   }
 `;

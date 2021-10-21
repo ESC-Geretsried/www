@@ -156,7 +156,7 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
         component: path.resolve(`./src/templates/news.tsx`),
         context: {
           id: HOME_PAGE_ID,
-          title: `${division} News`,
+          title: `News`,
           division,
           categoryId,
           pathname: newsPath,
@@ -186,9 +186,19 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
         toPath: `/eishockey/${postACF.division}/news${uri}`,
         statusCode: 301,
       });
+
       blogPostPath = `/eishockey/${postACF.division}/news${uri}`;
     } else {
       blogPostPath = `/${postACF.division}/news${uri}`;
+    }
+
+    if (postACF.division.includes("riverrats")) {
+      createRedirect({
+        redirectInBrowser: true,
+        fromPath: blogPostPath.replace("riverrats", "river-rats"),
+        toPath: blogPostPath,
+        statusCode: 301,
+      });
     }
 
     createPage({

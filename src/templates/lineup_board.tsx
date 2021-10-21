@@ -6,8 +6,15 @@ import { GatsbyPageContext } from "../types";
 const LineupBoard: React.FC<{
   data: GatsbyTypes.GetLineupBoardDataQuery;
   pageContext: GatsbyPageContext;
-}> = ({ pageContext }) => {
-  return <Layout content={<>Lineup</>} extra={<>extra</>} />;
+}> = ({ data: { seoData }, pageContext }) => {
+  return (
+    <Layout
+      content={<>Lineup</>}
+      extra={<>extra</>}
+      header={<>header</>}
+      seo={seoData?.pageACF?.seo}
+    />
+  );
 };
 
 export const LineupBoardQuery = graphql`
@@ -18,6 +25,10 @@ export const LineupBoardQuery = graphql`
 
     defaultData: wpPage(id: { eq: $id }) {
       ...DefaultPageDataFields
+    }
+
+    seoData: wpPage(id: { eq: $id }) {
+      ...Seo
     }
   }
 `;

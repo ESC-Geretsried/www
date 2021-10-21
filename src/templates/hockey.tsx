@@ -6,18 +6,28 @@ import { GatsbyPageContext } from "../types";
 const Hockey: React.FC<{
   data: GatsbyTypes.GetHockeyDataQuery;
   pageContext: GatsbyPageContext;
-}> = ({ data, pageContext }) => {
-  return <Layout content={<>{data?.wpPage?.title}</>} extra={<>extra</>} />;
+}> = ({ data: { seoData, hockeyData }, pageContext }) => {
+  return (
+    <Layout
+      content={<>{hockeyData?.title}</>}
+      extra={<>extra</>}
+      header={<>header</>}
+      seo={seoData?.pageACF?.seo}
+    />
+  );
 };
 
 export const hockeyQuery = graphql`
   query GetHockeyData($id: String!) {
-    wpPage(id: { eq: $id }) {
+    hockeyData: wpPage(id: { eq: $id }) {
       title
     }
 
     defaultData: wpPage(id: { eq: $id }) {
       ...DefaultPageDataFields
+    }
+    seoData: wpPage(id: { eq: $id }) {
+      ...Seo
     }
   }
 `;

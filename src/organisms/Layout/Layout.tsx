@@ -7,14 +7,19 @@ import { Adbanner } from "../../molecules/Adbanner/Adbanner";
 import { Container } from "./Container";
 import { Main } from "./Main";
 import { Flex } from "@chakra-ui/layout";
+import { Seo } from "../../atoms/Seo/Seo";
+import { useStore } from "../../store/store";
 
 export const Layout: React.FC<{
   content: React.ReactElement;
   extra: React.ReactElement;
   header: React.ReactElement;
-}> = ({ content, extra, header }) => {
+  seo?: GatsbyTypes.SeoFieldsFragment;
+}> = ({ content, extra, header, seo }) => {
+  const { siteTitle, pathname } = useStore();
   return (
     <>
+      <Seo title={siteTitle} uri={pathname} seo={seo} />
       <Adbanner sponsors={[]} display={{ base: "none", md: "block" }} />
       <Container>
         <Nav />

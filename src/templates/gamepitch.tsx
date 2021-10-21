@@ -4,16 +4,18 @@ import React from "react";
 import { Layout } from "../organisms/Layout/Layout";
 
 const Gamepitch: React.FC<{ data: GatsbyTypes.GetHockeyDataQuery }> = ({
-  data,
+  data: { gamepitchData, defaultData, seoData },
 }) => {
   return (
     <Layout
       content={
         <>
-          Gamepitch<Box>{JSON.stringify(data)}</Box>
+          Gamepitch<Box>{JSON.stringify(gamepitchData)}</Box>
         </>
       }
       extra={<>extra</>}
+      header={<>header</>}
+      seo={seoData?.pageACF?.seo}
     />
   );
 };
@@ -26,6 +28,9 @@ export const StandardQuery = graphql`
 
     defaultData: wpPage(id: { eq: $id }) {
       ...DefaultPageDataFields
+    }
+    seoData: wpPage(id: { eq: $id }) {
+      ...Seo
     }
   }
 `;

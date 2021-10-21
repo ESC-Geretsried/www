@@ -6,18 +6,28 @@ import { GatsbyPageContext } from "../types";
 const Lineup: React.FC<{
   data: GatsbyTypes.GetLineupDataQuery;
   pageContext: GatsbyPageContext;
-}> = ({ data, pageContext }) => {
-  return <Layout content={<>{data.wpPage?.title}</>} extra={<>extra</>} />;
+}> = ({ data: { lineupData, seoData }, pageContext }) => {
+  return (
+    <Layout
+      content={<>{lineupData?.title}</>}
+      extra={<>extra</>}
+      header={<>header</>}
+      seo={seoData?.pageACF?.seo}
+    />
+  );
 };
 
 export const LineupQuery = graphql`
   query GetLineupData($id: String!) {
-    wpPage(id: { eq: $id }) {
+    lineupData: wpPage(id: { eq: $id }) {
       title
     }
 
     defaultData: wpPage(id: { eq: $id }) {
       ...DefaultPageDataFields
+    }
+    seoData: wpPage(id: { eq: $id }) {
+      ...Seo
     }
   }
 `;
