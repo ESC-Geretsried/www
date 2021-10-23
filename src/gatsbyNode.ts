@@ -224,8 +224,32 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
   });
 };
 
+import util from "util";
+import child_process from "child_process";
+const exec = util.promisify(child_process.exec);
+
+const onPostBuild: GatsbyNode["onPostBuild"] = async (gatsbyNodeHelpers) => {
+  const { reporter } = gatsbyNodeHelpers;
+
+  const reportOut = (report: any) => {
+    const { stderr, stdout } = report;
+
+    if (stderr) {
+      reporter.error(stderr as unknown as Error);
+    }
+    if (stdout) {
+      reporter.info(stdout as unknown as string);
+    }
+  };
+
+  // NOTE: the gatsby build process automatically copies /static/functions to /public/functions
+  // If you use yarn, replace "npm install" with "yarn install"
+  reportOut(await exec("npm run lambda"));
+};
+
 const gatsbyNode: GatsbyNode = {
   createPages,
+  onPostBuild,
 };
 
 export default gatsbyNode;

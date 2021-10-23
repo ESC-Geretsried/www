@@ -38,6 +38,8 @@ const config: GatsbyConfig = {
         path: "./src/assets/",
       },
     },
+    `gatsby-plugin-gatsby-cloud`,
+    `gatsby-plugin-netlify`,
     "gatsby-transformer-yaml",
     {
       resolve: "gatsby-source-filesystem",
