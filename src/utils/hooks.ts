@@ -55,6 +55,9 @@ export const usePaginationButtons = ({
   isMobile?: boolean;
   ellipsisPosition?: number;
 }) => {
+  if (chunkLength <= 1) {
+    return undefined;
+  }
   let buttons = Array.from(
     { length: chunkLength },
     (_chunk, i) =>

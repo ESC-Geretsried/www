@@ -13744,13 +13744,6 @@ type GetLineupBoardDataQueryVariables = Exact<{
 
 type GetLineupBoardDataQuery = { readonly wpPage: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> };
 
-type GetHomeDataQueryVariables = Exact<{
-  id: Scalars['String'];
-}>;
-
-
-type GetHomeDataQuery = { readonly homeData: Maybe<Pick<WpPage, 'title'>>, readonly seoData: Maybe<SeoFragment> };
-
 type BlogPostPreviewFieldsFragment = (
   Pick<WpPost, 'id' | 'title' | 'uri' | 'excerpt' | 'date'>
   & { readonly postACF: Maybe<Pick<WpPost_Postacf, 'division' | 'postCategory'>>, readonly featuredImage: Maybe<{ readonly node: Maybe<(
@@ -13758,6 +13751,13 @@ type BlogPostPreviewFieldsFragment = (
       & { readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
     )> }>, readonly categories: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<Pick<WpCategory, 'name'>>>> }> }
 );
+
+type GetHomeDataQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+type GetHomeDataQuery = { readonly homeData: Maybe<Pick<WpPage, 'title'>>, readonly postsData: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> }, readonly seoData: Maybe<SeoFragment> };
 
 type GetAllBlogPostsQueryVariables = Exact<{
   categoryId: Scalars['String'];

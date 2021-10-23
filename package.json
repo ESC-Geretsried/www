@@ -22,7 +22,7 @@
     "@fontsource/pt-sans": "^4.5.0",
     "@fontsource/rubik": "^4.5.0",
     "@typescript-eslint/parser": "^4.33.0",
-    "date-fns": "^2.25.0",
+    "dayjs": "^1.10.7",
     "eslint": "^7.32.0",
     "eslint-config-peerigon": "^31.0.3",
     "eslint-plugin-graphql": "^4.0.0",

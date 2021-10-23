@@ -3,11 +3,7 @@ import React from "react";
 import { Heading } from "../atoms/Heading/Heading";
 import { BlogPostList } from "../organisms/BlogPostList/BlogPostList";
 import { Layout } from "../organisms/Layout/Layout";
-import { GatsbyPageContext, Mutable } from "../types";
-
-export type Post = Mutable<
-  GatsbyTypes.GetAllBlogPostsQuery["allPosts"]["nodes"]
->[number];
+import { GatsbyPageContext, Mutable, Post } from "../types";
 
 const News: React.FC<{
   data: GatsbyTypes.GetAllBlogPostsQuery;

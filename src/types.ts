@@ -19,3 +19,5 @@ export type BreakpointNames = "base" | "sm" | "md" | "lg" | "xl" | "2xl";
 export type BreakpointObject = { [key in BreakpointNames]?: string };
 
 export type Mutable<T> = { -readonly [P in keyof T]: T[P] };
+
+export type Post = Mutable<GatsbyTypes.BlogPostPreviewFieldsFragment>;

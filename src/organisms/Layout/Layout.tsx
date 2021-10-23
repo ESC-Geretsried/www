@@ -9,10 +9,11 @@ import { Main } from "./Main";
 import { Flex } from "@chakra-ui/layout";
 import { Seo } from "../../atoms/Seo/Seo";
 import { useStore } from "../../store/store";
+import { Box } from "@chakra-ui/react";
 
 export const Layout: React.FC<{
   content: React.ReactElement;
-  extra: React.ReactElement;
+  extra?: React.ReactElement;
   header: React.ReactElement;
   seo?: GatsbyTypes.SeoFieldsFragment;
 }> = ({ content, extra, header, seo }) => {
@@ -30,12 +31,12 @@ export const Layout: React.FC<{
             <Flex as="header" justifyContent="center" gridColumn="1 / -1">
               {header}
             </Flex>
-            <ExtraContent>{extra}</ExtraContent>
-            <MainContent>
+            {extra && <ExtraContent>{extra}</ExtraContent>}
+            <MainContent fullWidth={!Boolean(extra)}>
               {content}
-              <footer>
+              <Box as="footer" gridColumn="1 /-1">
                 footer<pre>{JSON.stringify(store, null, 4)}</pre>
-              </footer>
+              </Box>
             </MainContent>
           </ContentGrid>
         </Main>

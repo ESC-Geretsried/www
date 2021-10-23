@@ -12,7 +12,7 @@ import { useBreakpointValue } from "@chakra-ui/media-query";
 import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "../../atoms/Icons";
-import { Post } from "../../templates/news";
+import { Post } from "../../types";
 import {
   useClientSidePagination,
   usePaginationButtons,
@@ -105,25 +105,27 @@ export const BlogPostList: React.FC<BlogPostListProps & BoxProps> = ({
           })}
         </MotionList>
       </AnimatePresence>
-      <Flex justifyContent="center">
-        <ButtonGroup>
-          <IconButton
-            aria-label="previous Page"
-            onClick={previous}
-            icon={<ChevronLeftIcon />}
-            disabled={isFirstActive}
-          />
-          {buttons.map((button, i) => (
-            <PaginationButton name={button.key} {...button} />
-          ))}
-          <IconButton
-            aria-label="next Page"
-            onClick={next}
-            icon={<ChevronRightIcon />}
-            disabled={isLastActive}
-          />
-        </ButtonGroup>
-      </Flex>
+      {buttons && (
+        <Flex justifyContent="center">
+          <ButtonGroup>
+            <IconButton
+              aria-label="previous Page"
+              onClick={previous}
+              icon={<ChevronLeftIcon />}
+              disabled={isFirstActive}
+            />
+            {buttons.map((button, i) => (
+              <PaginationButton name={button.key} {...button} />
+            ))}
+            <IconButton
+              aria-label="next Page"
+              onClick={next}
+              icon={<ChevronRightIcon />}
+              disabled={isLastActive}
+            />
+          </ButtonGroup>
+        </Flex>
+      )}
     </Box>
   );
 };

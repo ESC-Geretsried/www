@@ -15,7 +15,7 @@ const MainContainer: React.FC = forwardRef(({ ...rest }, ref) => (
         addGap: 6,
       }),
     }}
-    pe={{ base: 6, md: 0 }}
+    pe={{ base: 6 }}
     paddingBlockStart={{
       base: navHeight.base,
       xl: 0,
