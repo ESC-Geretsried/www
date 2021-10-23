@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/layout";
 import { graphql } from "gatsby";
 import React from "react";
+import { Heading } from "../atoms/Heading/Heading";
 import { BlogPostList } from "../organisms/BlogPostList/BlogPostList";
 import { Layout } from "../organisms/Layout/Layout";
 import { GatsbyPageContext, Mutable } from "../types";
@@ -17,10 +18,16 @@ const Home: React.FC<{
           <Box gridColumn="1 / 5">
             <BlogPostList posts={(postsData?.nodes ?? []) as Array<Post>} />
           </Box>
-          <Box gridColumn="5 / -1">testtesttest</Box>
+          <Box gridColumn="5 / -1" paddingBlockStart={6}>
+            testtesttest
+          </Box>
         </>
       }
-      header={<>{homeData?.title}</>}
+      header={
+        <Heading as="h1" borders>
+          {homeData?.title}
+        </Heading>
+      }
       seo={seoData?.pageACF?.seo}
     />
   );

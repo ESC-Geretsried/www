@@ -28,7 +28,12 @@ export const Layout: React.FC<{
         <Adbanner sponsors={[]} display={{ base: "block", md: "none" }} />
         <Main>
           <ContentGrid>
-            <Flex as="header" justifyContent="center" gridColumn="1 / -1">
+            <Flex
+              as="header"
+              justifyContent="center"
+              gridColumn="1 / -1"
+              display={{ base: "none", xl: "flex" }}
+            >
               {header}
             </Flex>
             {extra && <ExtraContent>{extra}</ExtraContent>}

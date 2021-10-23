@@ -33,8 +33,10 @@ export const MobileHeader: React.FC<
     <Flex
       justifyContent="space-between"
       alignItems="center"
-      bg="brand.blue"
       {...rest}
+      pe={{ base: 6, xl: 0 }}
+      ps={{ base: 0, xl: 6 }}
+      bg="brand.blue"
     >
       <BurgerButton
         isOpen={isMobileMenuOpen}

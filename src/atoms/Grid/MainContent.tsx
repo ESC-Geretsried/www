@@ -7,7 +7,7 @@ export const MainContent: React.FC<GridItemProps & { fullWidth?: boolean }> = ({
 }) => {
   return (
     <GridItem
-      colStart={{ base: 1, md: fullWidth ? 1 : 3 }}
+      colStart={{ base: 1, md: fullWidth ? 1 : 4 }}
       colEnd={-1}
       display="grid"
       gridTemplateColumns={{

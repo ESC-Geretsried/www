@@ -19,11 +19,11 @@ export const Heading: React.FC<HeadingProps & ChakraHeadingProps> = ({
 }) => {
   if (borders) {
     return (
-      <Flex width="100%">
+      <Flex>
         <Box
           display="inline-block"
           {...rest}
-          borderBlock="2px solid"
+          borderBlock="4px solid"
           borderColor="brand.ice"
           textAlign="center"
         >

@@ -40,8 +40,6 @@ export const Nav: React.FC = () => {
       as="nav"
       pos="fixed"
       zIndex="sticky"
-      pe={{ base: 6, xl: 0 }}
-      ps={{ base: 0, xl: 6 }}
       width={{
         base: "100%",
         ...calcColumnWidths(2, { excludeBPs: ["base", "sm", "md", "lg"] }),

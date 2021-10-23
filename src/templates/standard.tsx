@@ -6,6 +6,7 @@ import { WPContent } from "../atoms/WPContent/WPContent";
 import { Heading } from "../atoms/Heading/Heading";
 import { Extra } from "../organisms/Extra/Extra";
 import { getPropertyFromGraphqlQueryObject } from "../utils/shared.utils";
+import { Flex } from "@chakra-ui/react";
 
 const useDefaultData = (
   defaultData: GatsbyTypes.DefaultPageDataFieldsFragment
@@ -49,9 +50,11 @@ const Standard: React.FC<{
     <Layout
       content={
         <>
-          <Heading borders marginBlockEnd={6}>
-            {pageACF?.standardContent?.pageContentTitle}
-          </Heading>
+          <Flex justifyContent="center">
+            <Heading borders marginBlockEnd={6}>
+              {pageACF?.standardContent?.pageContentTitle}
+            </Heading>
+          </Flex>
           <WPContent content={defaultData.content} />
         </>
       }
