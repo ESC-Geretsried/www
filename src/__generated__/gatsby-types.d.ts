@@ -13667,31 +13667,6 @@ type TranslationYamlSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
-type DefaultPageDataFieldsFragment = (
-  Pick<WpPage, 'content'>
-  & { readonly pageACF: Maybe<(
-    Pick<WpPage_Pageacf, 'division'>
-    & { readonly standardContent: Maybe<(
-      ContactFragment
-      & AdditionalInfoFragment
-      & DownloadsFragment
-    )> }
-  )> }
-);
-
-type ContactFragment = { readonly contact: Maybe<Pick<WpPage_Pageacf_StandardContent_Contact, 'name' | 'email' | 'tel' | 'website'>> };
-
-type AdditionalInfoFragment = { readonly additionalInfo: Maybe<Pick<WpPage_Pageacf_StandardContent_AdditionalInfo, 'title' | 'content'>> };
-
-type DownloadsFragment = { readonly downloads: Maybe<ReadonlyArray<Maybe<{ readonly file: Maybe<Pick<WpMediaItem, 'mediaItemUrl' | 'title'>> }>>> };
-
-type SeoFragment = { readonly pageACF: Maybe<{ readonly seo: Maybe<SeoFieldsFragment> }> };
-
-type SeoFieldsFragment = (
-  Pick<WpPage_Pageacf_Seo, 'metaDescription' | 'noIndex' | 'ogDescription' | 'title' | 'twitterDescription'>
-  & { readonly socialImage: Maybe<{ readonly localFile: Maybe<Pick<File, 'url'>> }> }
-);
-
 type GetStandardDataQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -13744,14 +13719,6 @@ type GetLineupBoardDataQueryVariables = Exact<{
 
 type GetLineupBoardDataQuery = { readonly wpPage: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> };
 
-type BlogPostPreviewFieldsFragment = (
-  Pick<WpPost, 'id' | 'title' | 'uri' | 'excerpt' | 'date'>
-  & { readonly postACF: Maybe<Pick<WpPost_Postacf, 'division' | 'postCategory'>>, readonly featuredImage: Maybe<{ readonly node: Maybe<(
-      Pick<WpMediaItem, 'altText'>
-      & { readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
-    )> }>, readonly categories: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<Pick<WpCategory, 'name'>>>> }> }
-);
-
 type GetHomeDataQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -13765,6 +13732,14 @@ type GetAllBlogPostsQueryVariables = Exact<{
 
 
 type GetAllBlogPostsQuery = { readonly allPosts: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> }, readonly seoData: Maybe<SeoFragment> };
+
+type BlogPostPreviewFieldsFragment = (
+  Pick<WpPost, 'id' | 'title' | 'uri' | 'excerpt' | 'date'>
+  & { readonly postACF: Maybe<Pick<WpPost_Postacf, 'division' | 'postCategory'>>, readonly featuredImage: Maybe<{ readonly node: Maybe<(
+      Pick<WpMediaItem, 'altText'>
+      & { readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
+    )> }>, readonly categories: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<Pick<WpCategory, 'name'>>>> }> }
+);
 
 type GetPostDataQueryVariables = Exact<{
   id: Scalars['String'];
@@ -13785,11 +13760,6 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
-type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
-
 type GetMainMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -13800,6 +13770,36 @@ type GetMainMenuQuery = { readonly wpMenu: Maybe<(
         & { readonly childItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<Pick<WpMenuItem, 'id' | 'label' | 'url'>>>> }> }
       )>>> }> }
   )> };
+
+type DefaultPageDataFieldsFragment = (
+  Pick<WpPage, 'content'>
+  & { readonly pageACF: Maybe<(
+    Pick<WpPage_Pageacf, 'division'>
+    & { readonly standardContent: Maybe<(
+      ContactFragment
+      & AdditionalInfoFragment
+      & DownloadsFragment
+    )> }
+  )> }
+);
+
+type ContactFragment = { readonly contact: Maybe<Pick<WpPage_Pageacf_StandardContent_Contact, 'name' | 'email' | 'tel' | 'website'>> };
+
+type AdditionalInfoFragment = { readonly additionalInfo: Maybe<Pick<WpPage_Pageacf_StandardContent_AdditionalInfo, 'title' | 'content'>> };
+
+type DownloadsFragment = { readonly downloads: Maybe<ReadonlyArray<Maybe<{ readonly file: Maybe<Pick<WpMediaItem, 'mediaItemUrl' | 'title'>> }>>> };
+
+type SeoFragment = { readonly pageACF: Maybe<{ readonly seo: Maybe<SeoFieldsFragment> }> };
+
+type SeoFieldsFragment = (
+  Pick<WpPage_Pageacf_Seo, 'metaDescription' | 'noIndex' | 'ogDescription' | 'title' | 'twitterDescription'>
+  & { readonly socialImage: Maybe<{ readonly localFile: Maybe<Pick<File, 'url'>> }> }
+);
+
+type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
 
 type GetTranslationQueryVariables = Exact<{ [key: string]: never; }>;
 

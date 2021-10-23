@@ -16,6 +16,7 @@
     "lambda": "netlify-lambda build ./functions"
   },
   "dependencies": {
+    "@babel/preset-typescript": "^7.15.0",
     "@chakra-ui/gatsby-plugin": "^2.0.1",
     "@chakra-ui/react": "^1.6.10",
     "@emotion/react": "^11.5.0",
@@ -24,6 +25,7 @@
     "@fontsource/rubik": "^4.5.0",
     "@netlify/functions": "^0.7.2",
     "@netlify/zip-it-and-ship-it": "^4.26.1",
+    "@types/aws-lambda": "^8.10.84",
     "@typescript-eslint/parser": "^4.33.0",
     "dayjs": "^1.10.7",
     "eslint": "^7.32.0",
@@ -56,7 +58,7 @@
     "zustand": "^3.6.0"
   },
   "devDependencies": {
-    "@types/node": "^16.11.2",
+    "@types/node": "^16.11.4",
     "@types/react-helmet": "^6.1.4",
     "netlify-lambda": "^2.0.15",
     "npm-run-all": "^4.1.5"
