@@ -4,7 +4,8 @@
     "functions",
     "src/types/**/*",
     "src/**/*.d.ts",
-    "webpack.functions.js"
+    "webpack.functions.js",
+    "static"
   ],
   "exclude": ["**/node_modules", "**/.*/"],
   "compilerOptions": {

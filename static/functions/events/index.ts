@@ -1,6 +1,6 @@
 import { Handler } from "@netlify/functions";
 import { Client } from "@microsoft/microsoft-graph-client";
-import { Event } from "../../../types";
+import { Event } from "../../../src/types";
 import {
   ConfidentialClientApplication,
   Configuration,
