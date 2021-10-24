@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { Event } from "../../types";
 
 const getEvents = async () => {
-  const url = new URL("http://localhost:8888/.netlify/functions/events");
+  const url = new URL(process.env.SITE_URL + "/.netlify/functions/events");
 
   // url.search = new URLSearchParams({
   //   start_date: getThisWeeksMonday(new Date()).toISOString(),
