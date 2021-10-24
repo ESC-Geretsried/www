@@ -1,2 +1,4 @@
 [build]
     functions="public/functions"
+[functions]
+	node_bundler = "esbuild"

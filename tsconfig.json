@@ -1,5 +1,11 @@
 {
-  "include": ["src", "functions", "src/types/**/*", "src/**/*.d.ts"],
+  "include": [
+    "src",
+    "functions",
+    "src/types/**/*",
+    "src/**/*.d.ts",
+    "webpack.functions.js"
+  ],
   "exclude": ["**/node_modules", "**/.*/"],
   "compilerOptions": {
     "baseUrl": "./",

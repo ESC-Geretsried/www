@@ -12,6 +12,9 @@ import {
   WrapRootElementNodeArgs,
 } from "gatsby";
 import { GatsbyPageContext } from "./types";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 export const wrapPageElement = ({
   element,
@@ -27,5 +30,7 @@ export const wrapPageElement = ({
 export const wrapRootElement = ({
   element,
 }: WrapRootElementBrowserArgs | WrapRootElementNodeArgs) => (
-  <ChakraProvider theme={theme}>{element}</ChakraProvider>
+  <QueryClientProvider client={queryClient}>
+    <ChakraProvider theme={theme}>{element}</ChakraProvider>
+  </QueryClientProvider>
 );

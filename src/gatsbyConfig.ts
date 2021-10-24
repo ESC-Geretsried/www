@@ -1,4 +1,5 @@
 import { GatsbyConfig } from "gatsby";
+require("dotenv").config();
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -9,7 +10,7 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-source-wordpress",
       options: {
-        url: "https://backend.esc-geretsried.de/graphql",
+        url: process.env.GATSBY_WORDPRESS_GRAPHQL_URL,
       },
     },
     {

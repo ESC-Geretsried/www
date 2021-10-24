@@ -14,10 +14,9 @@
       "typescriptreact"
     ],
     "search.exclude": {
-      "**/node_modules": true,
+      "**/.git": true,
       "**/build": true,
-      "**/dist": true,
-      "**/.git": true
+      "**/dist": true
     },
     "files.exclude": {
       "**/.svn": true,
