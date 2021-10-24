@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import React from "react";
 import { Heading } from "../atoms/Heading/Heading";
 import { BlogPostList } from "../organisms/BlogPostList/BlogPostList";
+import { Calender } from "../organisms/Calender/Calender";
 import { Layout } from "../organisms/Layout/Layout";
 import { GatsbyPageContext, Mutable } from "../types";
 import { Post } from "../types";
@@ -19,7 +20,7 @@ const Home: React.FC<{
             <BlogPostList posts={(postsData?.nodes ?? []) as Array<Post>} />
           </Box>
           <Box gridColumn="5 / -1" paddingBlockStart={6}>
-            testtesttest
+            <Calender />
           </Box>
         </>
       }

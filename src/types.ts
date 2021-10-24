@@ -1,3 +1,5 @@
+import { Event as EventType } from "@microsoft/microsoft-graph-types";
+
 export type MenuItemType = {
   isActive: boolean;
   id: string;
@@ -21,3 +23,16 @@ export type BreakpointObject = { [key in BreakpointNames]?: string };
 export type Mutable<T> = { -readonly [P in keyof T]: T[P] };
 
 export type Post = Mutable<GatsbyTypes.BlogPostPreviewFieldsFragment>;
+
+// subject,body,bodyPreview,categories,start,end,location
+export type Event = Pick<
+  EventType,
+  | "body"
+  | "bodyPreview"
+  | "start"
+  | "end"
+  | "subject"
+  | "id"
+  | "categories"
+  | "location"
+>;
