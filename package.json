@@ -12,8 +12,7 @@
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "build:functions": "netlify-lambda -c ./webpack.functions.js build ./functions/*"
+    "clean": "gatsby clean"
   },
   "dependencies": {
     "@azure/msal-node": "^1.3.2",

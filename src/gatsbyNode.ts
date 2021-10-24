@@ -244,7 +244,7 @@ const onPostBuild: GatsbyNode["onPostBuild"] = async (gatsbyNodeHelpers) => {
 
   // NOTE: the gatsby build process automatically copies /static/functions to /public/functions
   // If you use yarn, replace "npm install" with "yarn install"
-  reportOut(await exec("npm run build:functions"));
+  reportOut(await exec("cd ./public/functions && npm i"));
 };
 
 const gatsbyNode: GatsbyNode = {
