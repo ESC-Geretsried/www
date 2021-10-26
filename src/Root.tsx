@@ -1,7 +1,11 @@
 import { Box } from "@chakra-ui/react";
+import dayjs from "dayjs";
+import "dayjs/locale/de";
 import React, { useEffect } from "react";
 import { useStore } from "./store/store";
 import { GatsbyPageContext } from "./types";
+
+dayjs.locale("de");
 
 type RootProps = {
   pageContext: GatsbyPageContext;

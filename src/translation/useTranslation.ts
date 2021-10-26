@@ -1,24 +1,33 @@
 import { useStaticQuery, graphql } from "gatsby";
 
+type Translations = Omit<
+  GatsbyTypes.TranslationYaml,
+  "id" | "parent" | "children" | "internal"
+>;
+
 export const useTranslation = (
-  key: keyof Omit<
-    GatsbyTypes.TranslationYaml,
-    "id" | "parent" | "children" | "internal"
-  >
+  keys: keyof Translations | Array<keyof Translations>
 ) => {
   const translation = useStaticQuery<GatsbyTypes.GetTranslationQuery>(graphql`
     query GetTranslation {
       translationYaml {
         contact
         menu
-        test {
-          property
-        }
+        oclock
+        adverbIn
+        weekdays
+        address
       }
     }
   `);
   if (translation.translationYaml) {
-    return translation.translationYaml[key];
+    if (Array.isArray(keys)) {
+      return Object.entries(translation.translationYaml)
+        .filter(([key, _trans]) => keys.includes(key as keyof Translations))
+        .map(([_key, value]) => value);
+    }
+
+    return [translation.translationYaml[keys]];
   }
-  return "no Translation found";
+  return ["no Translation found"];
 };

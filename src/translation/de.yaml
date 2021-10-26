@@ -1,4 +1,6 @@
 contact: Kontakt
 menu: Menü
-test:
-	- property: testproperty
+weekdays: Montag-Donnerstag
+adverbIn: in
+oclock: Uhr
+address: "Adresse:"

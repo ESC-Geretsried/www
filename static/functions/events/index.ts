@@ -1,88 +1,82 @@
-import { Handler } from "@netlify/functions";
 import { Client } from "@microsoft/microsoft-graph-client";
-import { Event } from "../../../src/types";
+import { Event } from "@microsoft/microsoft-graph-types";
+import { Handler } from "@netlify/functions";
+import dayjs from "dayjs";
+// import { Event } from "../../../src/types";
 import {
-  ConfidentialClientApplication,
-  Configuration,
-  ClientCredentialRequest,
-} from "@azure/msal-node";
-import "isomorphic-fetch";
+  apiConfig,
+  authProvider,
+  getThisWeeksMonday,
+  getThisWeeksSunday,
+  isWeekend,
+} from "./utils";
 
-/**
- * Configuration object to be passed to MSAL instance on creation.
- * For a full list of MSAL Node configuration parameters, visit:
- * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-node/docs/configuration.md
- */
-const msalConfig: Configuration = {
-  auth: {
-    clientId: process.env.CLIENT_ID!,
-    authority: process.env.AAD_ENDPOINT! + process.env.TENANT_ID!,
-    clientSecret: process.env.CLIENT_SECRET,
-  },
-};
-
-/**
- * With client credentials flows permissions need to be granted in the portal by a tenant administrator.
- * The scope is always in the format '<resource>/.default'. For more, visit:
- * https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow
- */
-export const tokenRequest = {
-  scopes: [process.env.GRAPH_ENDPOINT + ".default"],
-};
-
-export const apiConfig = {
-  uri: "/users/" + process.env.CALENDAR_USER + "/calendars",
-  uriCal:
-    "/users/" +
-    process.env.CALENDAR_USER +
-    "/calendars/" +
-    process.env.CALENDAR_ID +
-    "/events",
-};
-
-/**
- * Initialize a confidential client application. For more info, visit:
- * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-node/docs/initialize-confidential-client-application.md
- */
-const cca = new ConfidentialClientApplication(msalConfig);
-
-/**
- * Acquires token with client credentials.
- * @param {object} tokenRequest
- */
-export const getToken = async (tokenRequest: ClientCredentialRequest) => {
-  return cca.acquireTokenByClientCredential(tokenRequest);
-};
-
-const graphClient = Client.init({
-  authProvider: async (callback) => {
-    const authResponse = await getToken(tokenRequest);
-    if (authResponse === null) {
-      callback("Error while getting token", null);
-      return;
-    }
-    callback(null, authResponse.accessToken);
-    return;
-  },
+export const graphClient = Client.init({
+  authProvider,
 });
 
-const callApi = (uri: string, accessToken: string) => {
-  return fetch(uri, { headers: { Authorization: `Bearer ${accessToken}` } });
-};
+const keys = [
+  "id",
+  "subject",
+  "body",
+  "bodyPreview",
+  "categories",
+  "start",
+  "end",
+  "location",
+] as const;
+
+type Keys = typeof keys[number];
+export type EventType = Pick<Event, Keys>;
 
 const handler: Handler = async (event, context) => {
+  const now = new Date();
+  const mondayMorning = dayjs(getThisWeeksMonday(now))
+    .set("hour", 0)
+    .set("minute", 0)
+    .set("second", 0)
+    .toDate();
+
+  const sundayEvening = dayjs(getThisWeeksSunday(now))
+    .set("hour", 24)
+    .set("minute", 60)
+    .set("second", 0)
+    .toDate();
+
   try {
-    const events = (await graphClient
+    const events: { value: Array<EventType> } = await graphClient
       .api(apiConfig.uriCal)
-      .select("subject,body,bodyPreview,categories,start,end,location") // if adjusted please also adjust typings
-      .get()) as Array<Event>;
+      .select(keys as unknown as Array<string>)
+      .filter(
+        `start/dateTime ge '${mondayMorning.toISOString()}' and end/dateTime le '${sundayEvening.toISOString()}'`
+      )
+      .get();
+
+    const sortedEvents = events.value
+      .filter((event) => event.subject)
+      .reduce((prev, curr) => {
+        const startDate = dayjs(curr.start?.dateTime);
+        const weekday = isWeekend(startDate.toDate())
+          ? startDate.format("YYYY-MM-DD").toLowerCase()
+          : "weekdays";
+
+        if (Array.isArray(prev[weekday])) {
+          prev[weekday].push(curr);
+
+          return prev;
+        }
+
+        prev[weekday] = [curr];
+
+        return prev;
+      }, {} as { [key: string]: Array<EventType> });
 
     return {
       statusCode: 200,
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ data: events }),
+      body: JSON.stringify({ data: sortedEvents }),
     };
   } catch (error) {
     console.log("Graph Error: ", error);

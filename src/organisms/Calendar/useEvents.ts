@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { Event } from "../../types";
+import { EventType } from "../../../static/functions/events/";
 
 const getEvents = async () => {
   const url = new URL(
@@ -12,7 +12,9 @@ const getEvents = async () => {
   // }).toString();
 
   const response = await fetch(url.toString());
-  const json = (await response.json()) as { data: Array<Event> };
+  const json = (await response.json()) as {
+    data: { [key: string]: Array<EventType> };
+  };
 
   console.log(json.data);
   return {
