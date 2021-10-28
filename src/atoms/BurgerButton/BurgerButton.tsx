@@ -1,30 +1,28 @@
-import { Box, BoxProps } from "@chakra-ui/react";
-import { ChakraProps, forwardRef } from "@chakra-ui/system";
+import { ButtonProps, useMultiStyleConfig } from "@chakra-ui/react";
+import { chakra, forwardRef } from "@chakra-ui/system";
 import VisuallyHidden from "@chakra-ui/visually-hidden";
 import React from "react";
+import { Span } from "../Span";
 
-type BurgerButtonProps = React.FC<
-  { isOpen: boolean; onClick: () => void } & ChakraProps
->;
+type BurgerButtonProps = { isOpen: boolean } & ButtonProps;
+const Button = chakra.button;
 
-export const BurgerButton = forwardRef<BoxProps, BurgerButtonProps>(
-  ({ isOpen, onClick, ...rest }, ref) => {
+export const BurgerButton = forwardRef<BurgerButtonProps, "button">(
+  ({ isOpen, ...rest }, ref) => {
+    const styles = useMultiStyleConfig("BurgerButton", {});
+
     return (
-      <Box
-        ref={ref}
-        as="button"
-        onClick={onClick}
+      <Button
         {...rest}
-        className={`hamburger hamburger--squeeze ${isOpen ? "is-active" : ""}`}
+        ref={ref}
+        __css={styles.Hamburger}
+        className={isOpen ? "is-active" : ""}
       >
-        <span
-          className="hamburger-box"
-          style={{ transform: " translate(-50%, 50%)" }}
-        >
-          <span className="hamburger-inner" />
-        </span>
-        {/* <VisuallyHidden>Menu</VisuallyHidden> */}
-      </Box>
+        <Span __css={styles.HamburgerBox}>
+          <Span __css={styles.HamburgerInner} />
+        </Span>
+        <VisuallyHidden>Menü Button</VisuallyHidden>
+      </Button>
     );
   }
 );

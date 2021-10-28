@@ -1,9 +1,9 @@
 import { ThemeConfig } from "@chakra-ui/theme";
-import { MenuLinkStyles } from "../molecules/Menu/MenuItem";
 import { mode, StyleFunctionProps } from "@chakra-ui/theme-tools";
 import { BurgerButtonStyles } from "../atoms/BurgerButton/BurgerButtonStyles";
-import { Buttons } from "./buttons";
+import { Button } from "./Button";
 import { extendTheme } from "@chakra-ui/react";
+import { Link } from "./Link";
 
 const config: ThemeConfig = {
   initialColorMode: "dark",
@@ -33,7 +33,6 @@ const defaultTheme = extendTheme({
         backgroundColor: mode("white", "brand.blue")(props),
         color: mode("almostBlack", "brand.ice")(props),
       },
-      ...BurgerButtonStyles,
     }),
   },
   fonts: {
@@ -41,8 +40,10 @@ const defaultTheme = extendTheme({
     body: "PT Sans",
   },
   components: {
-    Link: MenuLinkStyles,
-    Button: Buttons,
+    Link,
+    //MenuLinkStyles,
+    BurgerButton: BurgerButtonStyles,
+    Button,
     Heading: {
       variants: {
         MobileSiteTitle: {

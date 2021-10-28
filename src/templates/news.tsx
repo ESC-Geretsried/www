@@ -8,15 +8,25 @@ import { GatsbyPageContext, Mutable, Post } from "../types";
 const News: React.FC<{
   data: GatsbyTypes.GetAllBlogPostsQuery;
   pageContext: GatsbyPageContext;
-}> = ({ pageContext, data: { allPosts, seoData } }) => {
+}> = ({
+  pageContext: { title, currentPage, pagesTotal, limit },
+  data: { allPosts, seoData },
+}) => {
   return (
     <Layout
       header={
         <>
-          <Heading borders>{pageContext.title}</Heading>
+          <Heading borders>{title}</Heading>
         </>
       }
-      content={<BlogPostList posts={allPosts.nodes as Array<Post>} />}
+      content={
+        <BlogPostList
+          posts={allPosts.nodes as Array<Post>}
+          currentPageIndex={currentPage ?? 0}
+          limit={limit ?? 6}
+          pagesTotal={pagesTotal ?? 1}
+        />
+      }
       extra={<>extra</>}
       seo={seoData?.pageACF?.seo}
     />
@@ -24,12 +34,10 @@ const News: React.FC<{
 };
 
 export const NewsQuery = graphql`
-  query GetAllBlogPosts($categoryId: String!) {
+  query GetAllBlogPosts($skip: Int!, $limit: Int!) {
     allPosts: allWpPost(
-      filter: {
-        categories: { nodes: { elemMatch: { id: { eq: $categoryId } } } }
-        postACF: { postCategory: { ne: "flash" } }
-      }
+      limit: $limit
+      skip: $skip # filter: { #   categories: { nodes: { elemMatch: { id: { eq: $categoryId } } } } #   postACF: { postCategory: { ne: "flash" } } # }
     ) {
       nodes {
         ...BlogPostPreviewFields

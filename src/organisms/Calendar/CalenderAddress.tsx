@@ -1,6 +1,7 @@
 import { LinkBox, Box, LinkOverlay } from "@chakra-ui/layout";
 import { PhysicalAddress } from "@microsoft/microsoft-graph-types";
 import React from "react";
+import { Span } from "../../atoms/Span";
 import { useTranslation } from "../../translation/useTranslation";
 
 type CalenderAddressProps = {
@@ -42,9 +43,7 @@ export const CalenderAddress: React.FC<CalenderAddressProps> = ({
   const [addressTitle] = useTranslation(["address"]);
   return (
     <>
-      <Box as="span" fontWeight="bold">
-        {addressTitle}
-      </Box>
+      <Span fontWeight="bold">{addressTitle}</Span>
       <LinkBox role="group">
         <Box transition="color 0.15s" _groupHover={{ color: "brand.gold" }}>
           {displayName && (

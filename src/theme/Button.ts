@@ -1,6 +1,6 @@
 import { ComponentSingleStyleConfig } from "@chakra-ui/react";
 
-export const Buttons: ComponentSingleStyleConfig = {
+export const Button: ComponentSingleStyleConfig = {
   baseStyle: {
     background: "none",
     backgroundColor: "transparent",

@@ -4,6 +4,7 @@ import { Location } from "@microsoft/microsoft-graph-types";
 import dayjs from "dayjs";
 import React from "react";
 import { EventType } from "../../../static/functions/events";
+import { Span } from "../../atoms/Span";
 import { useTranslation } from "../../translation/useTranslation";
 import { CalenderAddress } from "./CalenderAddress";
 
@@ -43,28 +44,27 @@ export const Event: React.FC<EventProps & BoxProps> = ({
         role="group"
       >
         <Box maxW="68%" paddingInlineEnd={2}>
-          <Box
-            as="span"
+          <Span
             fontWeight="bold"
             transition="color 0.15s"
             _groupHover={{ color: "brand.gold" }}
           >
             {event.subject}
-          </Box>
+          </Span>
           {event.location?.address?.city && (
-            <Box as="span">
+            <Span>
               {" "}
               {adverbIn} {event.location.address.city}
-            </Box>
+            </Span>
           )}
         </Box>
         <Box>
-          <Box as="span">
+          <Span>
             {dayjs(event.start?.dateTime).format(
               isWeekday ? "ddd D.MM, HH:mm" : "HH:mm"
             )}{" "}
             {oclock}
-          </Box>
+          </Span>
         </Box>
       </AccordionButton>
       <AccordionPanel px={0}>

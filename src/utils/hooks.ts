@@ -1,104 +1,54 @@
-import { useState, useMemo } from "react";
-import { chunk } from "./shared.utils";
-// import { useQueryParams, NumberParam } from "use-query-params";
+import { LinkProps } from "../atoms/Link";
+import { Optional } from "../types";
 
-type ButtonProps = {
-  onClick?: () => void;
-  children: string;
-  isActive?: boolean;
-  key: string;
-};
-
-export const useClientSidePagination = <T>(
-  data: Array<T>,
-  {
-    pageSize,
-  }: { pageSize: number; isMobile?: boolean; ellipsisPosition?: number }
-) => {
-  const [currentPageIndex, setCurrentPageIndex] = useState(0);
-
-  const chunks = useMemo(() => chunk(data, pageSize), [data, pageSize]);
-
-  const currentPage = chunks[currentPageIndex];
-
-  const next = () =>
-    setCurrentPageIndex(
-      currentPageIndex < chunks.length - 1
-        ? currentPageIndex + 1
-        : chunks.length - 1
-    );
-  const previous = () =>
-    setCurrentPageIndex(currentPageIndex > 0 ? currentPageIndex - 1 : 0);
-
-  return {
-    chunks,
-    currentPageIndex,
-    setCurrentPageIndex,
-    currentPage,
-    next,
-    previous,
-    isFirstActive: currentPageIndex === 0,
-    isLastActive: currentPageIndex === chunks.length - 1,
-  };
-};
-
-export const usePaginationButtons = ({
-  chunkLength,
-  setCurrentPageIndex,
+export const usePaginationLinks = ({
+  pagesTotal,
   currentPageIndex,
+  urlBase,
   isMobile = false,
-  ellipsisPosition = 2,
+  ellipsisDelta = 0,
 }: {
-  chunkLength: number;
-  setCurrentPageIndex: (index: number) => void;
+  pagesTotal: number;
   currentPageIndex: number;
+  urlBase: string;
   isMobile?: boolean;
-  ellipsisPosition?: number;
+  ellipsisDelta?: number;
 }) => {
-  if (chunkLength <= 1) {
+  if (pagesTotal <= 1) {
     return undefined;
   }
-  let buttons = Array.from(
-    { length: chunkLength },
-    (_chunk, i) =>
-      ({
-        onClick: () => setCurrentPageIndex(i),
-        children: `${i + 1}`,
-        isActive: currentPageIndex === i,
-        key: `${i + 1}`,
-      } as ButtonProps)
-  ).filter(
-    (_chunk, i) =>
-      i === chunkLength - 1 || // always show last
-      i === 0 || // always show first
-      currentPageIndex === i || // always show current
-      (currentPageIndex - ellipsisPosition <= i && // show previous 2
-        i <= currentPageIndex + ellipsisPosition) // show next 2
-  );
+  let links: Array<Optional<LinkProps, "to"> & { isActive?: boolean }> =
+    Array.from({ length: pagesTotal }, (_chunk, i) => ({
+      to: `${urlBase}${i === 0 ? "" : i + 1}/`,
+      children: `${i + 1}`,
+      isActive: currentPageIndex === i,
+      key: `${i + 1}`,
+    })).filter(
+      (_chunk, i) =>
+        i === pagesTotal - 1 || // always show last
+        i === 0 || // always show first
+        currentPageIndex === i || // always show current
+        (currentPageIndex <= i + 1 && // show previous 2
+          currentPageIndex >= i - 1) // show next 2
+    );
 
-  if (
-    buttons.length <= chunkLength &&
-    ellipsisPosition <= currentPageIndex - ellipsisPosition
-  ) {
-    buttons.splice(1, 0, {
+  if (currentPageIndex >= 3) {
+    links.splice(1, 0, {
       children: "...",
       key: "ellipsis-start",
     });
   }
 
-  if (
-    buttons.length <= chunkLength &&
-    chunkLength - ellipsisPosition >= currentPageIndex + ellipsisPosition + 1
-  ) {
-    buttons.splice(buttons.length - 1, 0, {
+  if (currentPageIndex <= links.length - 2) {
+    links.splice(links.length - 1, 0, {
       children: "...",
       key: "ellipsis-end",
     });
   }
 
   if (isMobile) {
-    buttons = [{ children: `${currentPageIndex + 1}`, key: "show-only-index" }];
+    links = [{ children: `${currentPageIndex + 1}`, key: "show-only-index" }];
   }
 
-  return buttons;
+  return links;
 };

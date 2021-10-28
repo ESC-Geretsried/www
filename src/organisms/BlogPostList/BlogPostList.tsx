@@ -8,23 +8,24 @@ import {
   ListItemProps,
   ListProps,
 } from "@chakra-ui/layout";
-import { useBreakpointValue } from "@chakra-ui/media-query";
 import { AnimatePresence, motion } from "framer-motion";
-import React from "react";
+import React, { useMemo } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "../../atoms/Icons";
+import { Link } from "../../atoms/Link";
 import { Post } from "../../types";
-import {
-  useClientSidePagination,
-  usePaginationButtons,
-} from "../../utils/hooks";
+import { usePaginationLinks } from "../../utils/hooks";
 import { BlogPostPreview } from "./BlogPostPreview";
-import { PaginationButton } from "./PaginationButton";
+import { PaginationLink } from "./PaginationLink";
+import { useLocation } from "@reach/router";
+import VisuallyHidden from "@chakra-ui/visually-hidden";
+import { Span } from "../../atoms/Span";
 
 type BlogPostListProps = {
   posts: Array<Post>;
+  currentPageIndex: number;
+  pagesTotal: number;
+  limit: number;
 };
-
-const PAGESIZE = 6;
 
 const MotionList = motion<ListProps>(List);
 const MotionListItem = motion<ListItemProps>(ListItem);
@@ -59,26 +60,34 @@ const item = {
 
 export const BlogPostList: React.FC<BlogPostListProps & BoxProps> = ({
   posts,
+  currentPageIndex,
+  pagesTotal,
+  limit,
+
   ...rest
 }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
-  const {
-    chunks,
-    currentPageIndex,
-    isFirstActive,
-    isLastActive,
-    currentPage,
-    previous,
-    setCurrentPageIndex,
-    next,
-  } = useClientSidePagination<Post>(posts, { pageSize: PAGESIZE, isMobile });
+  const { pathname } = useLocation();
+  const { urlBase, nextPageUrl, prevPageUrl } = useMemo(() => {
+    const index = pathname.indexOf("/news");
+    const urlBase = pathname.slice(0, index) + "/news/";
 
-  const buttons = usePaginationButtons({
-    chunkLength: chunks.length,
-    currentPageIndex,
-    setCurrentPageIndex,
-    isMobile,
-  });
+    const prevPageUrl =
+      currentPageIndex - 1 === 0
+        ? urlBase
+        : `${urlBase}${currentPageIndex - 1}`;
+    const nextPageUrl = `${urlBase}${currentPageIndex + 2}`;
+
+    return {
+      urlBase,
+      prevPageUrl,
+      nextPageUrl,
+    };
+  }, [pathname]);
+
+  console.log("currentPageIndex", currentPageIndex);
+  const isFirstActive = currentPageIndex === 0;
+  const isLastActive = currentPageIndex === pagesTotal;
+  const links = usePaginationLinks({ pagesTotal, currentPageIndex, urlBase });
 
   return (
     <Box {...rest}>
@@ -90,7 +99,7 @@ export const BlogPostList: React.FC<BlogPostListProps & BoxProps> = ({
           variants={list}
           key={currentPageIndex}
         >
-          {currentPage.map((post) => {
+          {posts.map((post) => {
             return (
               <MotionListItem
                 key={post.id}
@@ -105,24 +114,30 @@ export const BlogPostList: React.FC<BlogPostListProps & BoxProps> = ({
           })}
         </MotionList>
       </AnimatePresence>
-      {buttons && (
+      {pagesTotal > 1 && (
         <Flex justifyContent="center">
           <ButtonGroup>
-            <IconButton
-              aria-label="previous Page"
-              onClick={previous}
-              icon={<ChevronLeftIcon />}
-              disabled={isFirstActive}
-            />
-            {buttons.map((button, i) => (
-              <PaginationButton name={button.key} {...button} />
+            <PaginationLink
+              to={prevPageUrl}
+              disabled={isFirstActive && "DisabledButton"}
+              display="flex"
+              alignItems="center"
+            >
+              <ChevronLeftIcon />
+              <VisuallyHidden>Seite zurück</VisuallyHidden>
+            </PaginationLink>
+            {links?.map((link) => (
+              <PaginationLink {...link} />
             ))}
-            <IconButton
-              aria-label="next Page"
-              onClick={next}
-              icon={<ChevronRightIcon />}
-              disabled={isLastActive}
-            />
+            <PaginationLink
+              to={nextPageUrl}
+              disabled={isLastActive && "DisabledButton"}
+              display="flex"
+              alignItems="center"
+            >
+              <ChevronRightIcon />
+              <VisuallyHidden>Seite vor</VisuallyHidden>
+            </PaginationLink>
           </ButtonGroup>
         </Flex>
       )}

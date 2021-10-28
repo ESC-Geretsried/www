@@ -14,7 +14,15 @@ export type MenuItemType = {
   }>;
 };
 
-export type GatsbyPageContext = { id: string; pathname: string; title: string };
+export type GatsbyPageContext = {
+  id: string;
+  pathname: string;
+  title: string;
+  limit?: number;
+  skip?: number;
+  pagesTotalp?: number;
+  currentPage?: number;
+};
 
 export type BreakpointNames = "base" | "sm" | "md" | "lg" | "xl" | "2xl";
 
@@ -22,6 +30,7 @@ export type BreakpointObject = { [key in BreakpointNames]?: string };
 
 export type Mutable<T> = { -readonly [P in keyof T]: T[P] };
 export type Unmutable<T> = { readonly [P in keyof T]: T[P] };
+export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
 export type Post = Mutable<GatsbyTypes.BlogPostPreviewFieldsFragment>;
 

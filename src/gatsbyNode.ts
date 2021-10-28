@@ -5,6 +5,7 @@ import {
   HOCKEY_CATEGORY_ID,
   HOCKEY_DIVISIONS,
   HOME_PAGE_ID,
+  ALL_DIVISIONS,
 } from "./const";
 
 const getPath = (uri: string) => {
@@ -52,6 +53,13 @@ type GetBlogPostQuery = {
       uri: string;
       slug: string;
       title: string;
+      categories: {
+        nodes: Array<{
+          id: string;
+          name: string;
+          slug: string;
+        }>;
+      };
       postACF: {
         division: string;
         postCategory: string;
@@ -95,6 +103,13 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
           uri
           slug
           title
+          categories {
+            nodes {
+              id
+              name
+              slug
+            }
+          }
           postACF {
             division
             postCategory
@@ -130,91 +145,123 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
     }
   );
 
-  pages.data?.allWpPage.nodes
-    //find unique divisions
-    .filter((page, index, self) => {
-      return (
-        self
-          .map((page) => page.pageACF.division)
-          .indexOf(page.pageACF.division) === index
+  const isCategoryADivision = (category: string) =>
+    ALL_DIVISIONS.findIndex((division) => division === category) !== -1;
+
+  const postsSortedByDivision = blogPosts.data?.allWpPost.nodes
+    .filter(({ postACF: { postCategory } }) => postCategory !== "flash") // no flash posts
+    .reduce((prev, curr) => {
+      const {
+        postACF: { division },
+        categories: { nodes: categories },
+      } = curr;
+
+      // get all categories that are also divisions, so posts can appear on multiple lists
+      const categoriesAsDivision = categories.filter(({ slug }) =>
+        isCategoryADivision(slug)
       );
-    })
-    .forEach(({ pageACF, categories }) => {
-      const categoryId =
-        categories.nodes.length > 0
-          ? categories.nodes[0].id
-          : HOCKEY_CATEGORY_ID;
+      // iterate over all categories that fit
+      categoriesAsDivision.forEach(({ slug: _division }) => {
+        if (HOCKEY_DIVISIONS.includes(_division)) {
+          if (Array.isArray(prev["eishockey"])) {
+            prev["eishockey"].push(curr);
+          } else {
+            prev["eishockey"] = [curr];
+          }
+        }
+        // when the element is not already present, push into array or create new entry
+        if (
+          Array.isArray(prev[_division]) &&
+          // check if current post is already present
+          prev[_division].findIndex(({ id }) => id === curr.id) === -1
+        ) {
+          prev[_division].push(curr);
+        } else {
+          prev[_division] = [curr];
+        }
+      });
 
-      const { division } = pageACF;
+      // add normal division to entry
+      if (
+        Array.isArray(prev[division]) &&
+        // check if current post is already present
+        prev[division].findIndex(({ id }) => id === curr.id) === -1
+      ) {
+        prev[division].push(curr);
+        return prev;
+      } else if (Array.isArray(prev[division])) {
+        return prev;
+      }
 
-      const newsPath = HOCKEY_DIVISIONS.includes(pageACF.division)
-        ? `/eishockey/${pageACF.division}/news/`
-        : `/${pageACF.division}/news/`;
+      // cannot be an category as division since it only runs if it's not already an array
+      prev[division] = [curr];
+      return prev;
+    }, {} as { [key: string]: Array<GetBlogPostQuery["allWpPost"]["nodes"][number]> });
+
+  console.log(
+    JSON.stringify(Object.keys(postsSortedByDivision ?? {}), null, 2)
+  );
+
+  const postsPerPage = 6;
+  Object.entries(postsSortedByDivision ?? {}).forEach(([division, posts]) => {
+    const pagesTotal = Math.ceil(posts.length / postsPerPage);
+
+    Array.from({ length: pagesTotal }).forEach((_, i) => {
+      const newsPath =
+        (HOCKEY_DIVISIONS.includes(division)
+          ? `/eishockey/${division}/news/`
+          : `/${division}/news/`) + (i === 0 ? "" : `${i + 1}`);
+      if (division === "eishockey") {
+        console.log("eishockey page: ", i);
+      }
 
       createPage({
         path: newsPath,
         component: path.resolve(`./src/templates/news.tsx`),
         context: {
-          id: HOME_PAGE_ID,
-          title: `News`,
-          division,
-          categoryId,
           pathname: newsPath,
+          id: HOME_PAGE_ID,
+          limit: postsPerPage,
+          skip: i * postsPerPage,
+          pagesTotal,
+          currentPage: i,
         },
       });
     });
-
-  createPage({
-    path: "/eishockey/news/",
-    context: {
-      id: HOME_PAGE_ID,
-      pathname: "/eishockey/news/",
-      division: "eishockey",
-      categoryId: HOCKEY_CATEGORY_ID,
-      title: "Eishockey News",
-    },
-    component: path.resolve(`./src/templates/news.tsx`),
   });
 
-  blogPosts.data?.allWpPost.nodes.forEach(({ title, uri, postACF, id }) => {
-    let blogPostPath: string;
-    if (HOCKEY_DIVISIONS.includes(postACF.division)) {
-      // add legacy redirect
-      createRedirect({
-        redirectInBrowser: true,
-        fromPath: `/${postACF.division}/news${uri}`,
-        toPath: `/eishockey/${postACF.division}/news${uri}`,
-        statusCode: 301,
+  blogPosts.data?.allWpPost.nodes.forEach(
+    ({ title, uri, postACF, id }, index) => {
+      let blogPostPath: string;
+      if (HOCKEY_DIVISIONS.includes(postACF.division)) {
+        // add legacy redirect
+        createRedirect({
+          redirectInBrowser: true,
+          fromPath: `/${postACF.division}/news${uri}`,
+          toPath: `/eishockey/${postACF.division}/news${uri}`,
+          statusCode: 301,
+        });
+
+        blogPostPath = `/eishockey/${postACF.division}/news${uri}`;
+      } else {
+        blogPostPath = `/${postACF.division}/news${uri}`;
+      }
+
+      createPage({
+        path: blogPostPath,
+        component: path.resolve(
+          `./src/templates/${
+            postACF.postCategory === "post" ? "blogPost" : "matchReport"
+          }.tsx`
+        ),
+        context: {
+          id,
+          title,
+          pathname: getPath(uri ?? ""),
+        },
       });
-
-      blogPostPath = `/eishockey/${postACF.division}/news${uri}`;
-    } else {
-      blogPostPath = `/${postACF.division}/news${uri}`;
     }
-
-    if (postACF.division.includes("riverrats")) {
-      createRedirect({
-        redirectInBrowser: true,
-        fromPath: blogPostPath.replace("riverrats", "river-rats"),
-        toPath: blogPostPath,
-        statusCode: 301,
-      });
-    }
-
-    createPage({
-      path: blogPostPath,
-      component: path.resolve(
-        `./src/templates/${
-          postACF.postCategory === "post" ? "blogPost" : "matchReport"
-        }.tsx`
-      ),
-      context: {
-        id,
-        title,
-        pathname: getPath(uri ?? ""),
-      },
-    });
-  });
+  );
 
   createRedirect({
     redirectInBrowser: true,
@@ -225,6 +272,7 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
 };
 
 import util from "util";
+import fs from "fs";
 import child_process from "child_process";
 const exec = util.promisify(child_process.exec);
 
@@ -241,7 +289,6 @@ const onPostBuild: GatsbyNode["onPostBuild"] = async (gatsbyNodeHelpers) => {
       reporter.info(stdout as unknown as string);
     }
   };
-
   // NOTE: the gatsby build process automatically copies /static/functions to /public/functions
   // If you use yarn, replace "npm install" with "yarn install"
   reportOut(await exec("cd ./public/functions && npm i"));

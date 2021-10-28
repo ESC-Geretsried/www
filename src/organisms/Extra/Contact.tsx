@@ -1,6 +1,8 @@
 import { Box, Flex } from "@chakra-ui/layout";
 import React from "react";
 import { Heading } from "../../atoms/Heading/Heading";
+import { Span } from "../../atoms/Span";
+import { Strong } from "../../atoms/Strong";
 import { useTranslation } from "../../translation/useTranslation";
 
 type ContactProps = {
@@ -29,37 +31,37 @@ export const Contact: React.FC<ContactProps> = ({
       {name}
       {coach && (
         <ContactElement>
-          <Box as="strong">Trainer</Box>
-          <Box as="span">{coach}</Box>
+          <Strong>Trainer</Strong>
+          <Span>{coach}</Span>
         </ContactElement>
       )}
       {assistant && (
         <ContactElement>
-          <Box as="strong">Betreuer</Box>
-          <Box as="span">{assistant}</Box>
+          <Strong>Betreuer</Strong>
+          <Span>{assistant}</Span>
         </ContactElement>
       )}
       {manager && (
         <ContactElement>
-          <Box as="strong">Teamleiter</Box>
-          <Box as="span">{manager}</Box>
+          <Strong>Teamleiter</Strong>
+          <Span>{manager}</Span>
         </ContactElement>
       )}
       {email && (
         <ContactElement>
-          <Box as="strong">Email</Box>
+          <Strong>Email</Strong>
           <a href={`mailto:${email}`}>{email}</a>
         </ContactElement>
       )}
       {tel && (
         <ContactElement>
-          <Box as="strong">Telefon</Box>
+          <Strong>Telefon</Strong>
           <a href={`tel:${tel}`}>{tel}</a>
         </ContactElement>
       )}
       {website && (
         <ContactElement>
-          <Box as="strong">Website</Box>
+          <Strong>Website</Strong>
           <a href={website}>{website.replace("https://", "")}</a>
         </ContactElement>
       )}
