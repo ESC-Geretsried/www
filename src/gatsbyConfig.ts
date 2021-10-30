@@ -11,6 +11,25 @@ const config: GatsbyConfig = {
       resolve: "gatsby-source-wordpress",
       options: {
         url: process.env.GATSBY_WORDPRESS_GRAPHQL_URL,
+        html: {
+          imageMaxWidth: 1024,
+          fallbackImageMaxWidth: 1024,
+          generateWebpImages: true,
+        },
+        type: {
+          User: {
+            exclude: true,
+          },
+          UserRole: {
+            exclude: true,
+          },
+          Tag: {
+            exclude: true,
+          },
+          Comment: {
+            exclude: true,
+          },
+        },
       },
     },
     {

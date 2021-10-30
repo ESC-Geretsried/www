@@ -16,14 +16,16 @@ const Home: React.FC<{
     <Layout
       content={
         <>
-          <Box gridColumn={{ base: "1/-1", lg: "1 / 5" }}>
+          <Box
+            gridColumn={{ base: "1/-1", lg: "1 / 5" }}
+            gridRow={{ base: 2, lg: 1 }}
+          >
+            <Heading borders>News</Heading>
             <BlogPostList posts={(postsData?.nodes ?? []) as Array<Post>} />
           </Box>
-          <Box
-            gridColumn={{ base: "1/-1", lg: "5 / -1" }}
-            paddingBlockStart={6}
-          >
-            <Calendar />
+          <Box gridColumn={{ base: "1/-1", lg: "5 / -1" }} gridRow={1}>
+            <Heading borders>Termine</Heading>
+            <Calendar pt={6} />
           </Box>
         </>
       }

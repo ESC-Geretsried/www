@@ -11,7 +11,7 @@ export const containerWidths: BreakpointObject = {
 export const adBannerHeight = "60px";
 
 export const navHeight: BreakpointObject = {
-  base: "78px",
+  base: "72px",
   xl: "auto",
 };
 

@@ -1,4 +1,4 @@
-import { ButtonGroup, IconButton } from "@chakra-ui/button";
+import { ButtonGroup } from "@chakra-ui/button";
 import {
   Box,
   BoxProps,
@@ -8,23 +8,22 @@ import {
   ListItemProps,
   ListProps,
 } from "@chakra-ui/layout";
+import { useBreakpointValue } from "@chakra-ui/media-query";
+import VisuallyHidden from "@chakra-ui/visually-hidden";
+import { useLocation } from "@reach/router";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useMemo } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "../../atoms/Icons";
-import { Link } from "../../atoms/Link";
 import { Post } from "../../types";
 import { usePaginationLinks } from "../../utils/hooks";
 import { BlogPostPreview } from "./BlogPostPreview";
 import { PaginationLink } from "./PaginationLink";
-import { useLocation } from "@reach/router";
-import VisuallyHidden from "@chakra-ui/visually-hidden";
-import { Span } from "../../atoms/Span";
 
 type BlogPostListProps = {
   posts: Array<Post>;
-  currentPageIndex: number;
-  pagesTotal: number;
-  limit: number;
+  currentPageIndex?: number;
+  pagesTotal?: number;
+  limit?: number;
 };
 
 const MotionList = motion<ListProps>(List);
@@ -67,9 +66,15 @@ export const BlogPostList: React.FC<BlogPostListProps & BoxProps> = ({
   ...rest
 }) => {
   const { pathname } = useLocation();
+  const isMobile = useBreakpointValue({ base: true, lg: false });
+
   const { urlBase, nextPageUrl, prevPageUrl } = useMemo(() => {
     const index = pathname.indexOf("/news");
     const urlBase = pathname.slice(0, index) + "/news/";
+
+    if (!currentPageIndex) {
+      return { urlBase };
+    }
 
     const prevPageUrl =
       currentPageIndex - 1 === 0
@@ -82,12 +87,17 @@ export const BlogPostList: React.FC<BlogPostListProps & BoxProps> = ({
       prevPageUrl,
       nextPageUrl,
     };
-  }, [pathname]);
+  }, [pathname, currentPageIndex]);
 
-  console.log("currentPageIndex", currentPageIndex);
   const isFirstActive = currentPageIndex === 0;
   const isLastActive = currentPageIndex === pagesTotal;
-  const links = usePaginationLinks({ pagesTotal, currentPageIndex, urlBase });
+
+  const links = usePaginationLinks({
+    pagesTotal,
+    currentPageIndex,
+    urlBase,
+    isMobile,
+  });
 
   return (
     <Box {...rest}>
@@ -104,7 +114,7 @@ export const BlogPostList: React.FC<BlogPostListProps & BoxProps> = ({
               <MotionListItem
                 key={post.id}
                 variants={item}
-                borderBlockEnd="2px solid "
+                borderBlockEnd="2px solid"
                 borderColor="brand.ice"
                 _last={{ border: "none" }}
               >
@@ -114,7 +124,7 @@ export const BlogPostList: React.FC<BlogPostListProps & BoxProps> = ({
           })}
         </MotionList>
       </AnimatePresence>
-      {pagesTotal > 1 && (
+      {pagesTotal && pagesTotal > 1 && (
         <Flex justifyContent="center">
           <ButtonGroup>
             <PaginationLink

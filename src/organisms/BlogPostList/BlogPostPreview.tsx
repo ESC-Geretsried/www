@@ -1,4 +1,12 @@
-import { Box, Flex, Heading, LinkBox, LinkOverlay } from "@chakra-ui/layout";
+import {
+  Box,
+  Flex,
+  Heading,
+  Stack,
+  LinkBox,
+  LinkOverlay,
+} from "@chakra-ui/layout";
+import { Tag } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { getImage, ImageDataLike } from "gatsby-plugin-image";
 import React, { memo } from "react";
@@ -37,17 +45,18 @@ export const BlogPostPreview: React.FC<BlogPostPreviewProps> = memo(
           <LinkOverlay
             as={Link}
             to={`/${post.postACF?.division}/news${post.uri}`}
+            fontStyle="normal"
           >
             {post.title}
           </LinkOverlay>
         </Heading>
         <WPContent content={post.excerpt ?? ""} marginBlockEnd="0" />
-        <Flex justifyContent="space-between">
-          <Box>
-            {post.categories?.nodes
-              ?.map((category) => category?.name)
-              .join(", ")}
-          </Box>
+        <Flex justifyContent="space-between" paddingBlockStart={2}>
+          <Flex flexWrap="wrap" ms={-1} mt={-1}>
+            {post.categories?.nodes?.map((category) => (
+              <Tag m={1}>{category?.name}</Tag>
+            ))}
+          </Flex>
           <Box>{dayjs(post.date).format("DD.MM.YYYY")}</Box>
         </Flex>
       </LinkBox>

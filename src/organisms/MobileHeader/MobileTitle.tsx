@@ -12,7 +12,10 @@ export const MobileTitle: React.FC = () => {
 
   return (
     <AnimatePresence exitBeforeEnter>
-      <MotionBox key={isMobileMenuOpen ? menu : siteTitle} {...headerAnimation}>
+      <MotionBox
+        key={(isMobileMenuOpen ? menu : siteTitle) as React.Key}
+        {...headerAnimation}
+      >
         <Heading as="h1" variant="MobileSiteTitle">
           {isMobileMenuOpen ? menu : siteTitle}
         </Heading>

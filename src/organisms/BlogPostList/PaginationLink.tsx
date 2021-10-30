@@ -10,7 +10,7 @@ export const PaginationLink: React.FC<
   if (to === undefined) {
     return (
       <Flex key={key}>
-        <Span {...props} px={3} />
+        <Span {...props} px={4} py={2} />
       </Flex>
     );
   }

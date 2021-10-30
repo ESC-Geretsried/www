@@ -1,13 +1,15 @@
 import path from "path";
 import { GatsbyNode } from "gatsby";
+import util from "util";
+import child_process from "child_process";
 import {
   VEREIN_CATEGORY_ID,
-  HOCKEY_CATEGORY_ID,
   HOCKEY_DIVISIONS,
   HOME_PAGE_ID,
   ALL_DIVISIONS,
 } from "./const";
 
+const exec = util.promisify(child_process.exec);
 const getPath = (uri: string) => {
   switch (uri) {
     case "/home/":
@@ -198,10 +200,6 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
       return prev;
     }, {} as { [key: string]: Array<GetBlogPostQuery["allWpPost"]["nodes"][number]> });
 
-  console.log(
-    JSON.stringify(Object.keys(postsSortedByDivision ?? {}), null, 2)
-  );
-
   const postsPerPage = 6;
   Object.entries(postsSortedByDivision ?? {}).forEach(([division, posts]) => {
     const pagesTotal = Math.ceil(posts.length / postsPerPage);
@@ -211,15 +209,13 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
         (HOCKEY_DIVISIONS.includes(division)
           ? `/eishockey/${division}/news/`
           : `/${division}/news/`) + (i === 0 ? "" : `${i + 1}`);
-      if (division === "eishockey") {
-        console.log("eishockey page: ", i);
-      }
 
       createPage({
         path: newsPath,
         component: path.resolve(`./src/templates/news.tsx`),
         context: {
           pathname: newsPath,
+          title: `${division.replace("-", " ")} News`,
           id: HOME_PAGE_ID,
           limit: postsPerPage,
           skip: i * postsPerPage,
@@ -270,11 +266,6 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
     statusCode: 404,
   });
 };
-
-import util from "util";
-import fs from "fs";
-import child_process from "child_process";
-const exec = util.promisify(child_process.exec);
 
 const onPostBuild: GatsbyNode["onPostBuild"] = async (gatsbyNodeHelpers) => {
   const { reporter } = gatsbyNodeHelpers;

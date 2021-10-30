@@ -39,7 +39,7 @@ export const Layout: React.FC<{
             {extra && <ExtraContent>{extra}</ExtraContent>}
             <MainContent fullWidth={!Boolean(extra)}>
               {content}
-              <Box as="footer" gridColumn="1 /-1">
+              <Box as="footer" gridColumn="1 /-1" overflow="hidden">
                 footer<pre>{JSON.stringify(store, null, 4)}</pre>
               </Box>
             </MainContent>

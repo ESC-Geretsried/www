@@ -15,6 +15,7 @@ const config = {
 };
 
 const HamburgerLine = {
+  display: "block",
   width: config.width,
   height: config.strokeWidth,
   backgroundColor: "brand.ice",
@@ -26,7 +27,7 @@ export const BurgerButtonStyles: ComponentMultiStyleConfig = {
   baseStyle: {
     Hamburger: {
       padding: 6,
-      display: "inline-block",
+      display: "flex",
       cursor: "pointer",
       transitionProperty: "opacity, filter",
       transitionDuration: "0.15s",
@@ -40,9 +41,6 @@ export const BurgerButtonStyles: ComponentMultiStyleConfig = {
       overflow: "visible",
       _hover: {
         opacity: 0.7,
-        // borderRadius: 0,
-        // outline: "none",
-        // backgroundColor: "1px solid brand.ice",
       },
       _focus: {
         borderRadius: 0,
@@ -52,7 +50,6 @@ export const BurgerButtonStyles: ComponentMultiStyleConfig = {
     },
     HamburgerInner: {
       ...HamburgerLine,
-      display: "block",
       top: "50%",
       marginTop: "-2px",
       transitionProperty: "transform",
@@ -61,14 +58,12 @@ export const BurgerButtonStyles: ComponentMultiStyleConfig = {
       _before: {
         ...HamburgerLine,
         content: "''",
-        display: "block",
         top: "-10px",
         transition: "top 0.075s 0.12s ease, opacity 0.075s ease",
       },
       _after: {
         ...HamburgerLine,
         content: "''",
-        display: "block",
         bottom: "-10px",
         transition:
           "bottom 0.075s 0.12s ease, transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19)",

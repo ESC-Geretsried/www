@@ -389,8 +389,6 @@ type WpContentNode = {
   readonly isContentNode: Scalars['Boolean'];
   /** Whether the node is a Term */
   readonly isTermNode: Scalars['Boolean'];
-  /** The user that most recently edited the node */
-  readonly lastEditedBy: Maybe<WpContentNodeToEditLastConnectionEdge>;
   /** The permalink of the post */
   readonly link: Maybe<Scalars['String']>;
   /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
@@ -654,65 +652,6 @@ type WpPostTypeLabelDetails = {
 type WpContentNodeToEditLockConnectionEdge = {
   /** The timestamp for when the node was last edited */
   readonly lockTimestamp: Maybe<Scalars['String']>;
-  /** The node of the connection, without the edges */
-  readonly node: Maybe<WpUser>;
-};
-
-/** A User object */
-type WpUser = Node & WpNode & WpUniformResourceIdentifiable & WpCommenter & WpDatabaseIdentifier & {
-  /** Avatar object for user. The avatar object can be retrieved in different sizes by specifying the size argument. */
-  readonly avatar: Maybe<WpAvatar>;
-  /** User metadata option name. Usually it will be &quot;wp_capabilities&quot;. */
-  readonly capKey: Maybe<Scalars['String']>;
-  /** A list of capabilities (permissions) granted to the user */
-  readonly capabilities: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  /** Connection between the User type and the Comment type */
-  readonly comments: Maybe<WpUserToCommentConnection>;
-  /** Identifies the primary key from the database. */
-  readonly databaseId: Scalars['Int'];
-  /** Description of the user. */
-  readonly description: Maybe<Scalars['String']>;
-  /** Email address of the user. This is equivalent to the WP_User-&gt;user_email property. */
-  readonly email: Maybe<Scalars['String']>;
-  /** A complete list of capabilities including capabilities inherited from a role. This is equivalent to the array keys of WP_User-&gt;allcaps. */
-  readonly extraCapabilities: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  /** First name of the user. This is equivalent to the WP_User-&gt;user_first_name property. */
-  readonly firstName: Maybe<Scalars['String']>;
-  readonly id: Scalars['ID'];
-  /** Whether the node is a Content Node */
-  readonly isContentNode: Scalars['Boolean'];
-  /** Whether the node is a Term */
-  readonly isTermNode: Scalars['Boolean'];
-  /** Last name of the user. This is equivalent to the WP_User-&gt;user_last_name property. */
-  readonly lastName: Maybe<Scalars['String']>;
-  /** The preferred language locale set for the user. Value derived from get_user_locale(). */
-  readonly locale: Maybe<Scalars['String']>;
-  /** Display name of the user. This is equivalent to the WP_User-&gt;dispaly_name property. */
-  readonly name: Maybe<Scalars['String']>;
-  /** The nicename for the user. This field is equivalent to WP_User-&gt;user_nicename */
-  readonly nicename: Maybe<Scalars['String']>;
-  /** Nickname of the user. */
-  readonly nickname: Maybe<Scalars['String']>;
-  /** Connection between the User type and the page type */
-  readonly pages: Maybe<WpUserToPageConnection>;
-  /** Connection between the User type and the post type */
-  readonly posts: Maybe<WpUserToPostConnection>;
-  /** The date the user registered or was created. The field follows a full ISO8601 date string format. */
-  readonly registeredDate: Maybe<Scalars['String']>;
-  /** Connection between the User type and the UserRole type */
-  readonly roles: Maybe<WpUserToUserRoleConnection>;
-  /** The slug for the user. This field is equivalent to WP_User-&gt;user_nicename */
-  readonly slug: Maybe<Scalars['String']>;
-  /** The unique resource identifier path */
-  readonly uri: Maybe<Scalars['String']>;
-  /** A website url that is associated with the user. */
-  readonly url: Maybe<Scalars['String']>;
-  /** Username for the user. This field is equivalent to WP_User-&gt;user_login. */
-  readonly username: Maybe<Scalars['String']>;
-  readonly nodeType: Maybe<Scalars['String']>;
-  readonly parent: Maybe<Node>;
-  readonly children: ReadonlyArray<Node>;
-  readonly internal: Internal;
 };
 
 type WpCommenter = {
@@ -733,125 +672,12 @@ type WpDatabaseIdentifier = {
   readonly databaseId: Scalars['Int'];
 };
 
-/** Avatars are profile images for users. WordPress by default uses the Gravatar service to host and fetch avatars from. */
-type WpAvatar = {
-  /** URL for the default image or a default type. Accepts &#039;404&#039; (return a 404 instead of a default image), &#039;retro&#039; (8bit), &#039;monsterid&#039; (monster), &#039;wavatar&#039; (cartoon face), &#039;indenticon&#039; (the &#039;quilt&#039;), &#039;mystery&#039;, &#039;mm&#039;, or &#039;mysteryman&#039; (The Oyster Man), &#039;blank&#039; (transparent GIF), or &#039;gravatar_default&#039; (the Gravatar logo). */
-  readonly default: Maybe<Scalars['String']>;
-  /** HTML attributes to insert in the IMG element. Is not sanitized. */
-  readonly extraAttr: Maybe<Scalars['String']>;
-  /** Whether to always show the default image, never the Gravatar. */
-  readonly forceDefault: Maybe<Scalars['Boolean']>;
-  /** Whether the avatar was successfully found. */
-  readonly foundAvatar: Maybe<Scalars['Boolean']>;
-  /** Height of the avatar image. */
-  readonly height: Maybe<Scalars['Int']>;
-  /** What rating to display avatars up to. Accepts &#039;G&#039;, &#039;PG&#039;, &#039;R&#039;, &#039;X&#039;, and are judged in that order. */
-  readonly rating: Maybe<Scalars['String']>;
-  /** Type of url scheme to use. Typically HTTP vs. HTTPS. */
-  readonly scheme: Maybe<Scalars['String']>;
-  /** The size of the avatar in pixels. A value of 96 will match a 96px x 96px gravatar image. */
-  readonly size: Maybe<Scalars['Int']>;
-  /** URL for the gravatar image source. */
-  readonly url: Maybe<Scalars['String']>;
-  /** Width of the avatar image. */
-  readonly width: Maybe<Scalars['Int']>;
-};
-
-/** Connection between the User type and the Comment type */
-type WpUserToCommentConnection = {
-  /** The nodes of the connection, without the edges */
-  readonly nodes: Maybe<ReadonlyArray<Maybe<WpComment>>>;
-};
-
-/** A Comment object */
-type WpComment = Node & WpNode & WpDatabaseIdentifier & {
-  /** User agent used to post the comment. This field is equivalent to WP_Comment-&gt;comment_agent and the value matching the &quot;comment_agent&quot; column in SQL. */
-  readonly agent: Maybe<Scalars['String']>;
-  /** The approval status of the comment. This field is equivalent to WP_Comment-&gt;comment_approved and the value matching the &quot;comment_approved&quot; column in SQL. */
-  readonly approved: Maybe<Scalars['Boolean']>;
-  /** The author of the comment */
-  readonly author: Maybe<WpCommentToCommenterConnectionEdge>;
-  /** IP address for the author. This field is equivalent to WP_Comment-&gt;comment_author_IP and the value matching the &quot;comment_author_IP&quot; column in SQL. */
-  readonly authorIp: Maybe<Scalars['String']>;
-  /** Connection between the Comment type and the ContentNode type */
-  readonly commentedOn: Maybe<WpCommentToContentNodeConnectionEdge>;
-  /** Content of the comment. This field is equivalent to WP_Comment-&gt;comment_content and the value matching the &quot;comment_content&quot; column in SQL. */
-  readonly content: Maybe<Scalars['String']>;
-  /** The unique identifier stored in the database */
-  readonly databaseId: Scalars['Int'];
-  /** Date the comment was posted in local time. This field is equivalent to WP_Comment-&gt;date and the value matching the &quot;date&quot; column in SQL. */
-  readonly date: Maybe<Scalars['Date']>;
-  /** Date the comment was posted in GMT. This field is equivalent to WP_Comment-&gt;date_gmt and the value matching the &quot;date_gmt&quot; column in SQL. */
-  readonly dateGmt: Maybe<Scalars['Date']>;
-  readonly id: Scalars['ID'];
-  /** Karma value for the comment. This field is equivalent to WP_Comment-&gt;comment_karma and the value matching the &quot;comment_karma&quot; column in SQL. */
-  readonly karma: Maybe<Scalars['Int']>;
-  /** Connection between the Comment type and the Comment type */
-  readonly wpParent: Maybe<WpCommentToParentCommentConnectionEdge>;
-  /** The database id of the parent comment node or null if it is the root comment */
-  readonly parentDatabaseId: Maybe<Scalars['Int']>;
-  /** The globally unique identifier of the parent comment node. */
-  readonly parentId: Maybe<Scalars['ID']>;
-  /** Connection between the Comment type and the Comment type */
-  readonly replies: Maybe<WpCommentToCommentConnection>;
-  /** Type of comment. This field is equivalent to WP_Comment-&gt;comment_type and the value matching the &quot;comment_type&quot; column in SQL. */
-  readonly type: Maybe<Scalars['String']>;
-  readonly nodeType: Maybe<Scalars['String']>;
-  readonly parent: Maybe<Node>;
-  readonly children: ReadonlyArray<Node>;
-  readonly internal: Internal;
-};
-
-
-/** A Comment object */
-type WpComment_dateArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-
-/** A Comment object */
-type WpComment_dateGmtArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-/** Connection between the Comment type and the Commenter type */
-type WpCommentToCommenterConnectionEdge = {
-  /** The node of the connection, without the edges */
-  readonly node: Maybe<WpCommenter>;
-};
-
-/** Connection between the Comment type and the ContentNode type */
-type WpCommentToContentNodeConnectionEdge = {
-  /** The node of the connection, without the edges */
-  readonly node: Maybe<WpContentNode>;
-};
-
-/** Connection between the Comment type and the Comment type */
-type WpCommentToParentCommentConnectionEdge = {
-  /** The node of the connection, without the edges */
-  readonly node: Maybe<WpComment>;
-};
-
-/** Connection between the Comment type and the Comment type */
-type WpCommentToCommentConnection = {
-  /** The nodes of the connection, without the edges */
-  readonly nodes: Maybe<ReadonlyArray<Maybe<WpComment>>>;
-};
-
 /** The mediaItem type */
 type WpMediaItem = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable & WpDatabaseIdentifier & WpNodeWithTemplate & WpNodeWithTitle & WpNodeWithAuthor & WpNodeWithComments & WpHierarchicalContentNode & {
   /** Alternative text to display when resource is not displayed */
   readonly altText: Maybe<Scalars['String']>;
   /** Returns ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   readonly ancestors: Maybe<WpHierarchicalContentNodeToContentNodeAncestorsConnection>;
-  /** Connection between the NodeWithAuthor type and the User type */
-  readonly author: Maybe<WpNodeWithAuthorToUserConnectionEdge>;
   /** The database identifier of the author of the node */
   readonly authorDatabaseId: Maybe<Scalars['Int']>;
   /** The globally unique identifier of the author of the node */
@@ -864,8 +690,6 @@ type WpMediaItem = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable
   readonly commentCount: Maybe<Scalars['Int']>;
   /** Whether the comments are open or closed for this particular post. */
   readonly commentStatus: Maybe<Scalars['String']>;
-  /** Connection between the mediaItem type and the Comment type */
-  readonly comments: Maybe<WpMediaItemToCommentConnection>;
   /** Connection between the ContentNode type and the ContentType type */
   readonly contentType: Maybe<WpContentNodeToContentTypeConnectionEdge>;
   /** The unique identifier stored in the database */
@@ -889,8 +713,6 @@ type WpMediaItem = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable
   readonly isContentNode: Scalars['Boolean'];
   /** Whether the node is a Term */
   readonly isTermNode: Scalars['Boolean'];
-  /** The user that most recently edited the node */
-  readonly lastEditedBy: Maybe<WpContentNodeToEditLastConnectionEdge>;
   /** The permalink of the post */
   readonly link: Maybe<Scalars['String']>;
   /** Details about the mediaItem */
@@ -985,8 +807,6 @@ type WpNodeWithTitle = {
 };
 
 type WpNodeWithAuthor = {
-  /** Connection between the NodeWithAuthor type and the User type */
-  readonly author: Maybe<WpNodeWithAuthorToUserConnectionEdge>;
   /** The database identifier of the author of the node */
   readonly authorDatabaseId: Maybe<Scalars['Int']>;
   /** The globally unique identifier of the author of the node */
@@ -1018,12 +838,6 @@ type WpContentTemplate = {
   readonly templateName: Maybe<Scalars['String']>;
 };
 
-/** Connection between the NodeWithAuthor type and the User type */
-type WpNodeWithAuthorToUserConnectionEdge = {
-  /** The node of the connection, without the edges */
-  readonly node: Maybe<WpUser>;
-};
-
 /** Connection between the HierarchicalContentNode type and the ContentNode type */
 type WpHierarchicalContentNodeToContentNodeAncestorsConnection = {
   /** The nodes of the connection, without the edges */
@@ -1040,18 +854,6 @@ type WpHierarchicalContentNodeToContentNodeChildrenConnection = {
 type WpHierarchicalContentNodeToParentContentNodeConnectionEdge = {
   /** The node of the connection, without the edges */
   readonly node: Maybe<WpContentNode>;
-};
-
-/** Connection between the mediaItem type and the Comment type */
-type WpMediaItemToCommentConnection = {
-  /** The nodes of the connection, without the edges */
-  readonly nodes: Maybe<ReadonlyArray<Maybe<WpComment>>>;
-};
-
-/** Connection between the ContentNode type and the User type */
-type WpContentNodeToEditLastConnectionEdge = {
-  /** The node of the connection, without the edges */
-  readonly node: Maybe<WpUser>;
 };
 
 /** File details for a Media Item */
@@ -1150,18 +952,10 @@ type WpTermNode = {
   readonly internal: Internal;
 };
 
-/** Connection between the User type and the page type */
-type WpUserToPageConnection = {
-  /** The nodes of the connection, without the edges */
-  readonly nodes: Maybe<ReadonlyArray<Maybe<WpPage>>>;
-};
-
 /** The page type */
 type WpPage = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable & WpDatabaseIdentifier & WpNodeWithTemplate & WpNodeWithTitle & WpNodeWithContentEditor & WpNodeWithAuthor & WpNodeWithFeaturedImage & WpNodeWithComments & WpNodeWithRevisions & WpNodeWithPageAttributes & WpHierarchicalContentNode & WpMenuItemLinkable & {
   /** Returns ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   readonly ancestors: Maybe<WpHierarchicalContentNodeToContentNodeAncestorsConnection>;
-  /** Connection between the NodeWithAuthor type and the User type */
-  readonly author: Maybe<WpNodeWithAuthorToUserConnectionEdge>;
   /** The database identifier of the author of the node */
   readonly authorDatabaseId: Maybe<Scalars['Int']>;
   /** The globally unique identifier of the author of the node */
@@ -1174,8 +968,6 @@ type WpPage = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable & Wp
   readonly commentCount: Maybe<Scalars['Int']>;
   /** Whether the comments are open or closed for this particular post. */
   readonly commentStatus: Maybe<Scalars['String']>;
-  /** Connection between the page type and the Comment type */
-  readonly comments: Maybe<WpPageToCommentConnection>;
   /** The content of the post. */
   readonly content: Maybe<Scalars['String']>;
   /** Connection between the ContentNode type and the ContentType type */
@@ -1213,8 +1005,6 @@ type WpPage = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable & Wp
   readonly isRevision: Maybe<Scalars['Boolean']>;
   /** Whether the node is a Term */
   readonly isTermNode: Scalars['Boolean'];
-  /** The user that most recently edited the node */
-  readonly lastEditedBy: Maybe<WpContentNodeToEditLastConnectionEdge>;
   /** The permalink of the post */
   readonly link: Maybe<Scalars['String']>;
   /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
@@ -1236,8 +1026,6 @@ type WpPage = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable & Wp
   readonly slug: Maybe<Scalars['String']>;
   /** The current status of the object */
   readonly status: Maybe<Scalars['String']>;
-  /** Connection between the page type and the tag type */
-  readonly tags: Maybe<WpPageToTagConnection>;
   /** The template assigned to a node of content */
   readonly template: Maybe<WpContentTemplate>;
   /** Connection between the page type and the TermNode type */
@@ -1320,8 +1108,6 @@ type WpNodeWithFeaturedImage = {
   readonly isContentNode: Scalars['Boolean'];
   /** Whether the node is a Term */
   readonly isTermNode: Scalars['Boolean'];
-  /** The user that most recently edited the node */
-  readonly lastEditedBy: Maybe<WpContentNodeToEditLastConnectionEdge>;
   /** The permalink of the post */
   readonly link: Maybe<Scalars['String']>;
   /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
@@ -1469,8 +1255,6 @@ type WpCategoryToPostConnection = {
 
 /** The post type */
 type WpPost = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable & WpDatabaseIdentifier & WpNodeWithTemplate & WpNodeWithTitle & WpNodeWithContentEditor & WpNodeWithAuthor & WpNodeWithFeaturedImage & WpNodeWithExcerpt & WpNodeWithComments & WpNodeWithTrackbacks & WpNodeWithRevisions & WpMenuItemLinkable & {
-  /** Connection between the NodeWithAuthor type and the User type */
-  readonly author: Maybe<WpNodeWithAuthorToUserConnectionEdge>;
   /** The database identifier of the author of the node */
   readonly authorDatabaseId: Maybe<Scalars['Int']>;
   /** The globally unique identifier of the author of the node */
@@ -1481,8 +1265,6 @@ type WpPost = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable & Wp
   readonly commentCount: Maybe<Scalars['Int']>;
   /** Whether the comments are open or closed for this particular post. */
   readonly commentStatus: Maybe<Scalars['String']>;
-  /** Connection between the post type and the Comment type */
-  readonly comments: Maybe<WpPostToCommentConnection>;
   /** The content of the post. */
   readonly content: Maybe<Scalars['String']>;
   /** Connection between the ContentNode type and the ContentType type */
@@ -1516,8 +1298,6 @@ type WpPost = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable & Wp
   readonly isSticky: Scalars['Boolean'];
   /** Whether the node is a Term */
   readonly isTermNode: Scalars['Boolean'];
-  /** The user that most recently edited the node */
-  readonly lastEditedBy: Maybe<WpContentNodeToEditLastConnectionEdge>;
   /** The permalink of the post */
   readonly link: Maybe<Scalars['String']>;
   /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
@@ -1535,8 +1315,6 @@ type WpPost = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable & Wp
   readonly slug: Maybe<Scalars['String']>;
   /** The current status of the object */
   readonly status: Maybe<Scalars['String']>;
-  /** Connection between the post type and the tag type */
-  readonly tags: Maybe<WpPostToTagConnection>;
   /** The template assigned to a node of content */
   readonly template: Maybe<WpContentTemplate>;
   /** Connection between the post type and the TermNode type */
@@ -1607,12 +1385,6 @@ type WpNodeWithTrackbacks = {
 type WpPostToCategoryConnection = {
   /** The nodes of the connection, without the edges */
   readonly nodes: Maybe<ReadonlyArray<Maybe<WpCategory>>>;
-};
-
-/** Connection between the post type and the Comment type */
-type WpPostToCommentConnection = {
-  /** The nodes of the connection, without the edges */
-  readonly nodes: Maybe<ReadonlyArray<Maybe<WpComment>>>;
 };
 
 /** Field Group */
@@ -1720,51 +1492,6 @@ type WpPostFormatToTaxonomyConnectionEdge = {
   readonly node: Maybe<WpTaxonomy>;
 };
 
-/** Connection between the post type and the tag type */
-type WpPostToTagConnection = {
-  /** The nodes of the connection, without the edges */
-  readonly nodes: Maybe<ReadonlyArray<Maybe<WpTag>>>;
-};
-
-/** The tag type */
-type WpTag = Node & WpNode & WpTermNode & WpUniformResourceIdentifiable & WpDatabaseIdentifier & WpMenuItemLinkable & {
-  /** Connection between the tag type and the ContentNode type */
-  readonly contentNodes: Maybe<WpTagToContentNodeConnection>;
-  /** The number of objects connected to the object */
-  readonly count: Maybe<Scalars['Int']>;
-  /** The unique resource identifier path */
-  readonly databaseId: Scalars['Int'];
-  /** The description of the object */
-  readonly description: Maybe<Scalars['String']>;
-  readonly id: Scalars['ID'];
-  /** Whether the node is a Content Node */
-  readonly isContentNode: Scalars['Boolean'];
-  /** Whether the node is a Term */
-  readonly isTermNode: Scalars['Boolean'];
-  /** The link to the term */
-  readonly link: Maybe<Scalars['String']>;
-  /** The human friendly name of the object. */
-  readonly name: Maybe<Scalars['String']>;
-  /** Connection between the tag type and the page type */
-  readonly pages: Maybe<WpTagToPageConnection>;
-  /** Connection between the tag type and the post type */
-  readonly posts: Maybe<WpTagToPostConnection>;
-  /** An alphanumeric identifier for the object unique to its type. */
-  readonly slug: Maybe<Scalars['String']>;
-  /** Connection between the tag type and the Taxonomy type */
-  readonly taxonomy: Maybe<WpTagToTaxonomyConnectionEdge>;
-  /** The ID of the term group that this term object belongs to */
-  readonly termGroupId: Maybe<Scalars['Int']>;
-  /** The taxonomy ID that the object is associated with */
-  readonly termTaxonomyId: Maybe<Scalars['Int']>;
-  /** The unique resource identifier path */
-  readonly uri: Maybe<Scalars['String']>;
-  readonly nodeType: Maybe<Scalars['String']>;
-  readonly parent: Maybe<Node>;
-  readonly children: ReadonlyArray<Node>;
-  readonly internal: Internal;
-};
-
 /** Connection between the tag type and the ContentNode type */
 type WpTagToContentNodeConnection = {
   /** The nodes of the connection, without the edges */
@@ -1799,12 +1526,6 @@ type WpPostToTermNodeConnection = {
 type WpCategoryToTaxonomyConnectionEdge = {
   /** The node of the connection, without the edges */
   readonly node: Maybe<WpTaxonomy>;
-};
-
-/** Connection between the page type and the Comment type */
-type WpPageToCommentConnection = {
-  /** The nodes of the connection, without the edges */
-  readonly nodes: Maybe<ReadonlyArray<Maybe<WpComment>>>;
 };
 
 /** Field Group */
@@ -2067,43 +1788,10 @@ type WpPage_Riverratsacf = {
   readonly teamId: Maybe<Scalars['String']>;
 };
 
-/** Connection between the page type and the tag type */
-type WpPageToTagConnection = {
-  /** The nodes of the connection, without the edges */
-  readonly nodes: Maybe<ReadonlyArray<Maybe<WpTag>>>;
-};
-
 /** Connection between the page type and the TermNode type */
 type WpPageToTermNodeConnection = {
   /** The nodes of the connection, without the edges */
   readonly nodes: Maybe<ReadonlyArray<Maybe<WpTermNode>>>;
-};
-
-/** Connection between the User type and the post type */
-type WpUserToPostConnection = {
-  /** The nodes of the connection, without the edges */
-  readonly nodes: Maybe<ReadonlyArray<Maybe<WpPost>>>;
-};
-
-/** Connection between the User type and the UserRole type */
-type WpUserToUserRoleConnection = {
-  /** The nodes of the connection, without the edges */
-  readonly nodes: Maybe<ReadonlyArray<Maybe<WpUserRole>>>;
-};
-
-/** A user role object */
-type WpUserRole = Node & WpNode & {
-  /** The capabilities that belong to this role */
-  readonly capabilities: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  /** The display name of the role */
-  readonly displayName: Maybe<Scalars['String']>;
-  readonly id: Scalars['ID'];
-  /** The registered name of the role */
-  readonly name: Maybe<Scalars['String']>;
-  readonly nodeType: Maybe<Scalars['String']>;
-  readonly parent: Maybe<Node>;
-  readonly children: ReadonlyArray<Node>;
-  readonly internal: Internal;
 };
 
 /** All of the registered settings */
@@ -2287,23 +1975,6 @@ type WpWritingSettings = {
   readonly useSmilies: Maybe<Scalars['Boolean']>;
 };
 
-/** A Comment Author object */
-type WpCommentAuthor = Node & WpNode & WpCommenter & {
-  /** Identifies the primary key from the database. */
-  readonly databaseId: Scalars['Int'];
-  /** The email for the comment author */
-  readonly email: Maybe<Scalars['String']>;
-  readonly id: Scalars['ID'];
-  /** The name for the comment author. */
-  readonly name: Maybe<Scalars['String']>;
-  /** The url the comment author. */
-  readonly url: Maybe<Scalars['String']>;
-  readonly nodeType: Maybe<Scalars['String']>;
-  readonly parent: Maybe<Node>;
-  readonly children: ReadonlyArray<Node>;
-  readonly internal: Internal;
-};
-
 /** The template assigned to the node */
 type WpDefaultTemplate = WpContentTemplate & {
   /** The name of the template */
@@ -2320,6 +1991,8 @@ type Wp = Node & {
   readonly generalSettings: Maybe<WpGeneralSettings>;
   /** Fields of the &#039;ReadingSettings&#039; settings group */
   readonly readingSettings: Maybe<WpReadingSettings>;
+  /** Returns an MD5 hash of the schema, useful in determining if the schema has changed. */
+  readonly schemaMd5: Maybe<Scalars['String']>;
   /** Information needed by gatsby-source-wordpress. */
   readonly wpGatsby: Maybe<WpWPGatsby>;
   /** Fields of the &#039;WritingSettings&#039; settings group */
@@ -2614,10 +2287,6 @@ type Query = {
   readonly allWpContentType: WpContentTypeConnection;
   readonly wpTaxonomy: Maybe<WpTaxonomy>;
   readonly allWpTaxonomy: WpTaxonomyConnection;
-  readonly wpUser: Maybe<WpUser>;
-  readonly allWpUser: WpUserConnection;
-  readonly wpComment: Maybe<WpComment>;
-  readonly allWpComment: WpCommentConnection;
   readonly wpMediaItem: Maybe<WpMediaItem>;
   readonly allWpMediaItem: WpMediaItemConnection;
   readonly wpTermNode: Maybe<WpTermNode>;
@@ -2630,16 +2299,10 @@ type Query = {
   readonly allWpPost: WpPostConnection;
   readonly wpPostFormat: Maybe<WpPostFormat>;
   readonly allWpPostFormat: WpPostFormatConnection;
-  readonly wpTag: Maybe<WpTag>;
-  readonly allWpTag: WpTagConnection;
-  readonly wpUserRole: Maybe<WpUserRole>;
-  readonly allWpUserRole: WpUserRoleConnection;
   readonly wpMenu: Maybe<WpMenu>;
   readonly allWpMenu: WpMenuConnection;
   readonly wpMenuItem: Maybe<WpMenuItem>;
   readonly allWpMenuItem: WpMenuItemConnection;
-  readonly wpCommentAuthor: Maybe<WpCommentAuthor>;
-  readonly allWpCommentAuthor: WpCommentAuthorConnection;
   readonly wp: Maybe<Wp>;
   readonly allWp: WpConnection;
   readonly imageSharp: Maybe<ImageSharp>;
@@ -2872,7 +2535,6 @@ type Query_wpContentNodeArgs = {
   id: Maybe<StringQueryOperatorInput>;
   isContentNode: Maybe<BooleanQueryOperatorInput>;
   isTermNode: Maybe<BooleanQueryOperatorInput>;
-  lastEditedBy: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
   link: Maybe<StringQueryOperatorInput>;
   modified: Maybe<DateQueryOperatorInput>;
   modifiedGmt: Maybe<DateQueryOperatorInput>;
@@ -2979,90 +2641,15 @@ type Query_allWpTaxonomyArgs = {
 };
 
 
-type Query_wpUserArgs = {
-  avatar: Maybe<WpAvatarFilterInput>;
-  capKey: Maybe<StringQueryOperatorInput>;
-  capabilities: Maybe<StringQueryOperatorInput>;
-  comments: Maybe<WpUserToCommentConnectionFilterInput>;
-  databaseId: Maybe<IntQueryOperatorInput>;
-  description: Maybe<StringQueryOperatorInput>;
-  email: Maybe<StringQueryOperatorInput>;
-  extraCapabilities: Maybe<StringQueryOperatorInput>;
-  firstName: Maybe<StringQueryOperatorInput>;
-  id: Maybe<StringQueryOperatorInput>;
-  isContentNode: Maybe<BooleanQueryOperatorInput>;
-  isTermNode: Maybe<BooleanQueryOperatorInput>;
-  lastName: Maybe<StringQueryOperatorInput>;
-  locale: Maybe<StringQueryOperatorInput>;
-  name: Maybe<StringQueryOperatorInput>;
-  nicename: Maybe<StringQueryOperatorInput>;
-  nickname: Maybe<StringQueryOperatorInput>;
-  pages: Maybe<WpUserToPageConnectionFilterInput>;
-  posts: Maybe<WpUserToPostConnectionFilterInput>;
-  registeredDate: Maybe<StringQueryOperatorInput>;
-  roles: Maybe<WpUserToUserRoleConnectionFilterInput>;
-  slug: Maybe<StringQueryOperatorInput>;
-  uri: Maybe<StringQueryOperatorInput>;
-  url: Maybe<StringQueryOperatorInput>;
-  username: Maybe<StringQueryOperatorInput>;
-  nodeType: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-};
-
-
-type Query_allWpUserArgs = {
-  filter: Maybe<WpUserFilterInput>;
-  sort: Maybe<WpUserSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
-type Query_wpCommentArgs = {
-  agent: Maybe<StringQueryOperatorInput>;
-  approved: Maybe<BooleanQueryOperatorInput>;
-  author: Maybe<WpCommentToCommenterConnectionEdgeFilterInput>;
-  authorIp: Maybe<StringQueryOperatorInput>;
-  commentedOn: Maybe<WpCommentToContentNodeConnectionEdgeFilterInput>;
-  content: Maybe<StringQueryOperatorInput>;
-  databaseId: Maybe<IntQueryOperatorInput>;
-  date: Maybe<DateQueryOperatorInput>;
-  dateGmt: Maybe<DateQueryOperatorInput>;
-  id: Maybe<StringQueryOperatorInput>;
-  karma: Maybe<IntQueryOperatorInput>;
-  wpParent: Maybe<WpCommentToParentCommentConnectionEdgeFilterInput>;
-  parentDatabaseId: Maybe<IntQueryOperatorInput>;
-  parentId: Maybe<IDQueryOperatorInput>;
-  replies: Maybe<WpCommentToCommentConnectionFilterInput>;
-  type: Maybe<StringQueryOperatorInput>;
-  nodeType: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-};
-
-
-type Query_allWpCommentArgs = {
-  filter: Maybe<WpCommentFilterInput>;
-  sort: Maybe<WpCommentSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
 type Query_wpMediaItemArgs = {
   altText: Maybe<StringQueryOperatorInput>;
   ancestors: Maybe<WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput>;
-  author: Maybe<WpNodeWithAuthorToUserConnectionEdgeFilterInput>;
   authorDatabaseId: Maybe<IntQueryOperatorInput>;
   authorId: Maybe<IDQueryOperatorInput>;
   caption: Maybe<StringQueryOperatorInput>;
   wpChildren: Maybe<WpHierarchicalContentNodeToContentNodeChildrenConnectionFilterInput>;
   commentCount: Maybe<IntQueryOperatorInput>;
   commentStatus: Maybe<StringQueryOperatorInput>;
-  comments: Maybe<WpMediaItemToCommentConnectionFilterInput>;
   contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
   databaseId: Maybe<IntQueryOperatorInput>;
   date: Maybe<DateQueryOperatorInput>;
@@ -3075,7 +2662,6 @@ type Query_wpMediaItemArgs = {
   id: Maybe<StringQueryOperatorInput>;
   isContentNode: Maybe<BooleanQueryOperatorInput>;
   isTermNode: Maybe<BooleanQueryOperatorInput>;
-  lastEditedBy: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
   link: Maybe<StringQueryOperatorInput>;
   mediaDetails: Maybe<WpMediaDetailsFilterInput>;
   mediaItemUrl: Maybe<StringQueryOperatorInput>;
@@ -3142,14 +2728,12 @@ type Query_allWpTermNodeArgs = {
 
 type Query_wpPageArgs = {
   ancestors: Maybe<WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput>;
-  author: Maybe<WpNodeWithAuthorToUserConnectionEdgeFilterInput>;
   authorDatabaseId: Maybe<IntQueryOperatorInput>;
   authorId: Maybe<IDQueryOperatorInput>;
   categories: Maybe<WpPageToCategoryConnectionFilterInput>;
   wpChildren: Maybe<WpHierarchicalContentNodeToContentNodeChildrenConnectionFilterInput>;
   commentCount: Maybe<IntQueryOperatorInput>;
   commentStatus: Maybe<StringQueryOperatorInput>;
-  comments: Maybe<WpPageToCommentConnectionFilterInput>;
   content: Maybe<StringQueryOperatorInput>;
   contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
   databaseId: Maybe<IntQueryOperatorInput>;
@@ -3169,7 +2753,6 @@ type Query_wpPageArgs = {
   isPrivacyPage: Maybe<BooleanQueryOperatorInput>;
   isRevision: Maybe<BooleanQueryOperatorInput>;
   isTermNode: Maybe<BooleanQueryOperatorInput>;
-  lastEditedBy: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
   link: Maybe<StringQueryOperatorInput>;
   menuOrder: Maybe<IntQueryOperatorInput>;
   modified: Maybe<DateQueryOperatorInput>;
@@ -3181,7 +2764,6 @@ type Query_wpPageArgs = {
   riverratsACF: Maybe<WpPage_RiverratsacfFilterInput>;
   slug: Maybe<StringQueryOperatorInput>;
   status: Maybe<StringQueryOperatorInput>;
-  tags: Maybe<WpPageToTagConnectionFilterInput>;
   template: Maybe<WpContentTemplateFilterInput>;
   terms: Maybe<WpPageToTermNodeConnectionFilterInput>;
   title: Maybe<StringQueryOperatorInput>;
@@ -3239,13 +2821,11 @@ type Query_allWpCategoryArgs = {
 
 
 type Query_wpPostArgs = {
-  author: Maybe<WpNodeWithAuthorToUserConnectionEdgeFilterInput>;
   authorDatabaseId: Maybe<IntQueryOperatorInput>;
   authorId: Maybe<IDQueryOperatorInput>;
   categories: Maybe<WpPostToCategoryConnectionFilterInput>;
   commentCount: Maybe<IntQueryOperatorInput>;
   commentStatus: Maybe<StringQueryOperatorInput>;
-  comments: Maybe<WpPostToCommentConnectionFilterInput>;
   content: Maybe<StringQueryOperatorInput>;
   contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
   databaseId: Maybe<IntQueryOperatorInput>;
@@ -3263,7 +2843,6 @@ type Query_wpPostArgs = {
   isRevision: Maybe<BooleanQueryOperatorInput>;
   isSticky: Maybe<BooleanQueryOperatorInput>;
   isTermNode: Maybe<BooleanQueryOperatorInput>;
-  lastEditedBy: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
   link: Maybe<StringQueryOperatorInput>;
   modified: Maybe<DateQueryOperatorInput>;
   modifiedGmt: Maybe<DateQueryOperatorInput>;
@@ -3273,7 +2852,6 @@ type Query_wpPostArgs = {
   postFormats: Maybe<WpPostToPostFormatConnectionFilterInput>;
   slug: Maybe<StringQueryOperatorInput>;
   status: Maybe<StringQueryOperatorInput>;
-  tags: Maybe<WpPostToTagConnectionFilterInput>;
   template: Maybe<WpContentTemplateFilterInput>;
   terms: Maybe<WpPostToTermNodeConnectionFilterInput>;
   title: Maybe<StringQueryOperatorInput>;
@@ -3320,58 +2898,6 @@ type Query_wpPostFormatArgs = {
 type Query_allWpPostFormatArgs = {
   filter: Maybe<WpPostFormatFilterInput>;
   sort: Maybe<WpPostFormatSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
-type Query_wpTagArgs = {
-  contentNodes: Maybe<WpTagToContentNodeConnectionFilterInput>;
-  count: Maybe<IntQueryOperatorInput>;
-  databaseId: Maybe<IntQueryOperatorInput>;
-  description: Maybe<StringQueryOperatorInput>;
-  id: Maybe<StringQueryOperatorInput>;
-  isContentNode: Maybe<BooleanQueryOperatorInput>;
-  isTermNode: Maybe<BooleanQueryOperatorInput>;
-  link: Maybe<StringQueryOperatorInput>;
-  name: Maybe<StringQueryOperatorInput>;
-  pages: Maybe<WpTagToPageConnectionFilterInput>;
-  posts: Maybe<WpTagToPostConnectionFilterInput>;
-  slug: Maybe<StringQueryOperatorInput>;
-  taxonomy: Maybe<WpTagToTaxonomyConnectionEdgeFilterInput>;
-  termGroupId: Maybe<IntQueryOperatorInput>;
-  termTaxonomyId: Maybe<IntQueryOperatorInput>;
-  uri: Maybe<StringQueryOperatorInput>;
-  nodeType: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-};
-
-
-type Query_allWpTagArgs = {
-  filter: Maybe<WpTagFilterInput>;
-  sort: Maybe<WpTagSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
-type Query_wpUserRoleArgs = {
-  capabilities: Maybe<StringQueryOperatorInput>;
-  displayName: Maybe<StringQueryOperatorInput>;
-  id: Maybe<StringQueryOperatorInput>;
-  name: Maybe<StringQueryOperatorInput>;
-  nodeType: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-};
-
-
-type Query_allWpUserRoleArgs = {
-  filter: Maybe<WpUserRoleFilterInput>;
-  sort: Maybe<WpUserRoleSortInput>;
   skip: Maybe<Scalars['Int']>;
   limit: Maybe<Scalars['Int']>;
 };
@@ -3433,32 +2959,12 @@ type Query_allWpMenuItemArgs = {
 };
 
 
-type Query_wpCommentAuthorArgs = {
-  databaseId: Maybe<IntQueryOperatorInput>;
-  email: Maybe<StringQueryOperatorInput>;
-  id: Maybe<StringQueryOperatorInput>;
-  name: Maybe<StringQueryOperatorInput>;
-  url: Maybe<StringQueryOperatorInput>;
-  nodeType: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-};
-
-
-type Query_allWpCommentAuthorArgs = {
-  filter: Maybe<WpCommentAuthorFilterInput>;
-  sort: Maybe<WpCommentAuthorSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
 type Query_wpArgs = {
   allSettings: Maybe<WpSettingsFilterInput>;
   discussionSettings: Maybe<WpDiscussionSettingsFilterInput>;
   generalSettings: Maybe<WpGeneralSettingsFilterInput>;
   readingSettings: Maybe<WpReadingSettingsFilterInput>;
+  schemaMd5: Maybe<StringQueryOperatorInput>;
   wpGatsby: Maybe<WpWPGatsbyFilterInput>;
   writingSettings: Maybe<WpWritingSettingsFilterInput>;
   nodeType: Maybe<StringQueryOperatorInput>;
@@ -5576,7 +5082,6 @@ type WpContentNodeFilterInput = {
   readonly id: Maybe<StringQueryOperatorInput>;
   readonly isContentNode: Maybe<BooleanQueryOperatorInput>;
   readonly isTermNode: Maybe<BooleanQueryOperatorInput>;
-  readonly lastEditedBy: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
   readonly link: Maybe<StringQueryOperatorInput>;
   readonly modified: Maybe<DateQueryOperatorInput>;
   readonly modifiedGmt: Maybe<DateQueryOperatorInput>;
@@ -5588,865 +5093,10 @@ type WpContentNodeFilterInput = {
   readonly parent: Maybe<NodeFilterInput>;
   readonly children: Maybe<NodeFilterListInput>;
   readonly internal: Maybe<InternalFilterInput>;
-};
-
-type WpContentNodeToEditLastConnectionEdgeFilterInput = {
-  readonly node: Maybe<WpUserFilterInput>;
-};
-
-type WpUserFilterInput = {
-  readonly avatar: Maybe<WpAvatarFilterInput>;
-  readonly capKey: Maybe<StringQueryOperatorInput>;
-  readonly capabilities: Maybe<StringQueryOperatorInput>;
-  readonly comments: Maybe<WpUserToCommentConnectionFilterInput>;
-  readonly databaseId: Maybe<IntQueryOperatorInput>;
-  readonly description: Maybe<StringQueryOperatorInput>;
-  readonly email: Maybe<StringQueryOperatorInput>;
-  readonly extraCapabilities: Maybe<StringQueryOperatorInput>;
-  readonly firstName: Maybe<StringQueryOperatorInput>;
-  readonly id: Maybe<StringQueryOperatorInput>;
-  readonly isContentNode: Maybe<BooleanQueryOperatorInput>;
-  readonly isTermNode: Maybe<BooleanQueryOperatorInput>;
-  readonly lastName: Maybe<StringQueryOperatorInput>;
-  readonly locale: Maybe<StringQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly nicename: Maybe<StringQueryOperatorInput>;
-  readonly nickname: Maybe<StringQueryOperatorInput>;
-  readonly pages: Maybe<WpUserToPageConnectionFilterInput>;
-  readonly posts: Maybe<WpUserToPostConnectionFilterInput>;
-  readonly registeredDate: Maybe<StringQueryOperatorInput>;
-  readonly roles: Maybe<WpUserToUserRoleConnectionFilterInput>;
-  readonly slug: Maybe<StringQueryOperatorInput>;
-  readonly uri: Maybe<StringQueryOperatorInput>;
-  readonly url: Maybe<StringQueryOperatorInput>;
-  readonly username: Maybe<StringQueryOperatorInput>;
-  readonly nodeType: Maybe<StringQueryOperatorInput>;
-  readonly parent: Maybe<NodeFilterInput>;
-  readonly children: Maybe<NodeFilterListInput>;
-  readonly internal: Maybe<InternalFilterInput>;
-};
-
-type WpAvatarFilterInput = {
-  readonly default: Maybe<StringQueryOperatorInput>;
-  readonly extraAttr: Maybe<StringQueryOperatorInput>;
-  readonly forceDefault: Maybe<BooleanQueryOperatorInput>;
-  readonly foundAvatar: Maybe<BooleanQueryOperatorInput>;
-  readonly height: Maybe<IntQueryOperatorInput>;
-  readonly rating: Maybe<StringQueryOperatorInput>;
-  readonly scheme: Maybe<StringQueryOperatorInput>;
-  readonly size: Maybe<IntQueryOperatorInput>;
-  readonly url: Maybe<StringQueryOperatorInput>;
-  readonly width: Maybe<IntQueryOperatorInput>;
-};
-
-type WpUserToCommentConnectionFilterInput = {
-  readonly nodes: Maybe<WpCommentFilterListInput>;
-};
-
-type WpCommentFilterListInput = {
-  readonly elemMatch: Maybe<WpCommentFilterInput>;
-};
-
-type WpCommentFilterInput = {
-  readonly agent: Maybe<StringQueryOperatorInput>;
-  readonly approved: Maybe<BooleanQueryOperatorInput>;
-  readonly author: Maybe<WpCommentToCommenterConnectionEdgeFilterInput>;
-  readonly authorIp: Maybe<StringQueryOperatorInput>;
-  readonly commentedOn: Maybe<WpCommentToContentNodeConnectionEdgeFilterInput>;
-  readonly content: Maybe<StringQueryOperatorInput>;
-  readonly databaseId: Maybe<IntQueryOperatorInput>;
-  readonly date: Maybe<DateQueryOperatorInput>;
-  readonly dateGmt: Maybe<DateQueryOperatorInput>;
-  readonly id: Maybe<StringQueryOperatorInput>;
-  readonly karma: Maybe<IntQueryOperatorInput>;
-  readonly wpParent: Maybe<WpCommentToParentCommentConnectionEdgeFilterInput>;
-  readonly parentDatabaseId: Maybe<IntQueryOperatorInput>;
-  readonly parentId: Maybe<IDQueryOperatorInput>;
-  readonly replies: Maybe<WpCommentToCommentConnectionFilterInput>;
-  readonly type: Maybe<StringQueryOperatorInput>;
-  readonly nodeType: Maybe<StringQueryOperatorInput>;
-  readonly parent: Maybe<NodeFilterInput>;
-  readonly children: Maybe<NodeFilterListInput>;
-  readonly internal: Maybe<InternalFilterInput>;
-};
-
-type WpCommentToCommenterConnectionEdgeFilterInput = {
-  readonly node: Maybe<WpCommenterFilterInput>;
-};
-
-type WpCommenterFilterInput = {
-  readonly databaseId: Maybe<IntQueryOperatorInput>;
-  readonly email: Maybe<StringQueryOperatorInput>;
-  readonly id: Maybe<IDQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly url: Maybe<StringQueryOperatorInput>;
-};
-
-type IDQueryOperatorInput = {
-  readonly eq: Maybe<Scalars['ID']>;
-  readonly ne: Maybe<Scalars['ID']>;
-  readonly in: Maybe<ReadonlyArray<Maybe<Scalars['ID']>>>;
-  readonly nin: Maybe<ReadonlyArray<Maybe<Scalars['ID']>>>;
-};
-
-type WpCommentToContentNodeConnectionEdgeFilterInput = {
-  readonly node: Maybe<WpContentNodeFilterInput>;
-};
-
-type WpCommentToParentCommentConnectionEdgeFilterInput = {
-  readonly node: Maybe<WpCommentFilterInput>;
-};
-
-type WpCommentToCommentConnectionFilterInput = {
-  readonly nodes: Maybe<WpCommentFilterListInput>;
-};
-
-type WpUserToPageConnectionFilterInput = {
-  readonly nodes: Maybe<WpPageFilterListInput>;
-};
-
-type WpPageFilterListInput = {
-  readonly elemMatch: Maybe<WpPageFilterInput>;
-};
-
-type WpPageFilterInput = {
-  readonly ancestors: Maybe<WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput>;
-  readonly author: Maybe<WpNodeWithAuthorToUserConnectionEdgeFilterInput>;
-  readonly authorDatabaseId: Maybe<IntQueryOperatorInput>;
-  readonly authorId: Maybe<IDQueryOperatorInput>;
-  readonly categories: Maybe<WpPageToCategoryConnectionFilterInput>;
-  readonly wpChildren: Maybe<WpHierarchicalContentNodeToContentNodeChildrenConnectionFilterInput>;
-  readonly commentCount: Maybe<IntQueryOperatorInput>;
-  readonly commentStatus: Maybe<StringQueryOperatorInput>;
-  readonly comments: Maybe<WpPageToCommentConnectionFilterInput>;
-  readonly content: Maybe<StringQueryOperatorInput>;
-  readonly contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
-  readonly databaseId: Maybe<IntQueryOperatorInput>;
-  readonly date: Maybe<DateQueryOperatorInput>;
-  readonly dateGmt: Maybe<DateQueryOperatorInput>;
-  readonly desiredSlug: Maybe<StringQueryOperatorInput>;
-  readonly enclosure: Maybe<StringQueryOperatorInput>;
-  readonly featuredImage: Maybe<WpNodeWithFeaturedImageToMediaItemConnectionEdgeFilterInput>;
-  readonly featuredImageDatabaseId: Maybe<IntQueryOperatorInput>;
-  readonly featuredImageId: Maybe<IDQueryOperatorInput>;
-  readonly guid: Maybe<StringQueryOperatorInput>;
-  readonly homeACF: Maybe<WpPage_HomeacfFilterInput>;
-  readonly id: Maybe<StringQueryOperatorInput>;
-  readonly isContentNode: Maybe<BooleanQueryOperatorInput>;
-  readonly isFrontPage: Maybe<BooleanQueryOperatorInput>;
-  readonly isPostsPage: Maybe<BooleanQueryOperatorInput>;
-  readonly isPrivacyPage: Maybe<BooleanQueryOperatorInput>;
-  readonly isRevision: Maybe<BooleanQueryOperatorInput>;
-  readonly isTermNode: Maybe<BooleanQueryOperatorInput>;
-  readonly lastEditedBy: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
-  readonly link: Maybe<StringQueryOperatorInput>;
-  readonly menuOrder: Maybe<IntQueryOperatorInput>;
-  readonly modified: Maybe<DateQueryOperatorInput>;
-  readonly modifiedGmt: Maybe<DateQueryOperatorInput>;
-  readonly pageACF: Maybe<WpPage_PageacfFilterInput>;
-  readonly wpParent: Maybe<WpHierarchicalContentNodeToParentContentNodeConnectionEdgeFilterInput>;
-  readonly parentDatabaseId: Maybe<IntQueryOperatorInput>;
-  readonly parentId: Maybe<IDQueryOperatorInput>;
-  readonly riverratsACF: Maybe<WpPage_RiverratsacfFilterInput>;
-  readonly slug: Maybe<StringQueryOperatorInput>;
-  readonly status: Maybe<StringQueryOperatorInput>;
-  readonly tags: Maybe<WpPageToTagConnectionFilterInput>;
-  readonly template: Maybe<WpContentTemplateFilterInput>;
-  readonly terms: Maybe<WpPageToTermNodeConnectionFilterInput>;
-  readonly title: Maybe<StringQueryOperatorInput>;
-  readonly uri: Maybe<StringQueryOperatorInput>;
-  readonly nodeType: Maybe<StringQueryOperatorInput>;
-  readonly parent: Maybe<NodeFilterInput>;
-  readonly children: Maybe<NodeFilterListInput>;
-  readonly internal: Maybe<InternalFilterInput>;
-};
-
-type WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput = {
-  readonly nodes: Maybe<WpContentNodeFilterListInput>;
-};
-
-type WpNodeWithAuthorToUserConnectionEdgeFilterInput = {
-  readonly node: Maybe<WpUserFilterInput>;
-};
-
-type WpPageToCategoryConnectionFilterInput = {
-  readonly nodes: Maybe<WpCategoryFilterListInput>;
-};
-
-type WpCategoryFilterListInput = {
-  readonly elemMatch: Maybe<WpCategoryFilterInput>;
-};
-
-type WpCategoryFilterInput = {
-  readonly ancestors: Maybe<WpCategoryToAncestorsCategoryConnectionFilterInput>;
-  readonly wpChildren: Maybe<WpCategoryToCategoryConnectionFilterInput>;
-  readonly contentNodes: Maybe<WpCategoryToContentNodeConnectionFilterInput>;
-  readonly count: Maybe<IntQueryOperatorInput>;
-  readonly databaseId: Maybe<IntQueryOperatorInput>;
-  readonly description: Maybe<StringQueryOperatorInput>;
-  readonly id: Maybe<StringQueryOperatorInput>;
-  readonly isContentNode: Maybe<BooleanQueryOperatorInput>;
-  readonly isTermNode: Maybe<BooleanQueryOperatorInput>;
-  readonly link: Maybe<StringQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly pages: Maybe<WpCategoryToPageConnectionFilterInput>;
-  readonly wpParent: Maybe<WpCategoryToParentCategoryConnectionEdgeFilterInput>;
-  readonly parentDatabaseId: Maybe<IntQueryOperatorInput>;
-  readonly parentId: Maybe<IDQueryOperatorInput>;
-  readonly posts: Maybe<WpCategoryToPostConnectionFilterInput>;
-  readonly slug: Maybe<StringQueryOperatorInput>;
-  readonly taxonomy: Maybe<WpCategoryToTaxonomyConnectionEdgeFilterInput>;
-  readonly termGroupId: Maybe<IntQueryOperatorInput>;
-  readonly termTaxonomyId: Maybe<IntQueryOperatorInput>;
-  readonly uri: Maybe<StringQueryOperatorInput>;
-  readonly nodeType: Maybe<StringQueryOperatorInput>;
-  readonly parent: Maybe<NodeFilterInput>;
-  readonly children: Maybe<NodeFilterListInput>;
-  readonly internal: Maybe<InternalFilterInput>;
-};
-
-type WpCategoryToAncestorsCategoryConnectionFilterInput = {
-  readonly nodes: Maybe<WpCategoryFilterListInput>;
-};
-
-type WpCategoryToCategoryConnectionFilterInput = {
-  readonly nodes: Maybe<WpCategoryFilterListInput>;
-};
-
-type WpCategoryToContentNodeConnectionFilterInput = {
-  readonly nodes: Maybe<WpContentNodeFilterListInput>;
-};
-
-type WpCategoryToPageConnectionFilterInput = {
-  readonly nodes: Maybe<WpPageFilterListInput>;
-};
-
-type WpCategoryToParentCategoryConnectionEdgeFilterInput = {
-  readonly node: Maybe<WpCategoryFilterInput>;
-};
-
-type WpCategoryToPostConnectionFilterInput = {
-  readonly nodes: Maybe<WpPostFilterListInput>;
-};
-
-type WpPostFilterListInput = {
-  readonly elemMatch: Maybe<WpPostFilterInput>;
-};
-
-type WpPostFilterInput = {
-  readonly author: Maybe<WpNodeWithAuthorToUserConnectionEdgeFilterInput>;
-  readonly authorDatabaseId: Maybe<IntQueryOperatorInput>;
-  readonly authorId: Maybe<IDQueryOperatorInput>;
-  readonly categories: Maybe<WpPostToCategoryConnectionFilterInput>;
-  readonly commentCount: Maybe<IntQueryOperatorInput>;
-  readonly commentStatus: Maybe<StringQueryOperatorInput>;
-  readonly comments: Maybe<WpPostToCommentConnectionFilterInput>;
-  readonly content: Maybe<StringQueryOperatorInput>;
-  readonly contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
-  readonly databaseId: Maybe<IntQueryOperatorInput>;
-  readonly date: Maybe<DateQueryOperatorInput>;
-  readonly dateGmt: Maybe<DateQueryOperatorInput>;
-  readonly desiredSlug: Maybe<StringQueryOperatorInput>;
-  readonly enclosure: Maybe<StringQueryOperatorInput>;
-  readonly excerpt: Maybe<StringQueryOperatorInput>;
-  readonly featuredImage: Maybe<WpNodeWithFeaturedImageToMediaItemConnectionEdgeFilterInput>;
-  readonly featuredImageDatabaseId: Maybe<IntQueryOperatorInput>;
-  readonly featuredImageId: Maybe<IDQueryOperatorInput>;
-  readonly guid: Maybe<StringQueryOperatorInput>;
-  readonly id: Maybe<StringQueryOperatorInput>;
-  readonly isContentNode: Maybe<BooleanQueryOperatorInput>;
-  readonly isRevision: Maybe<BooleanQueryOperatorInput>;
-  readonly isSticky: Maybe<BooleanQueryOperatorInput>;
-  readonly isTermNode: Maybe<BooleanQueryOperatorInput>;
-  readonly lastEditedBy: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
-  readonly link: Maybe<StringQueryOperatorInput>;
-  readonly modified: Maybe<DateQueryOperatorInput>;
-  readonly modifiedGmt: Maybe<DateQueryOperatorInput>;
-  readonly pingStatus: Maybe<StringQueryOperatorInput>;
-  readonly pinged: Maybe<StringQueryOperatorInput>;
-  readonly postACF: Maybe<WpPost_PostacfFilterInput>;
-  readonly postFormats: Maybe<WpPostToPostFormatConnectionFilterInput>;
-  readonly slug: Maybe<StringQueryOperatorInput>;
-  readonly status: Maybe<StringQueryOperatorInput>;
-  readonly tags: Maybe<WpPostToTagConnectionFilterInput>;
-  readonly template: Maybe<WpContentTemplateFilterInput>;
-  readonly terms: Maybe<WpPostToTermNodeConnectionFilterInput>;
-  readonly title: Maybe<StringQueryOperatorInput>;
-  readonly toPing: Maybe<StringQueryOperatorInput>;
-  readonly uri: Maybe<StringQueryOperatorInput>;
-  readonly nodeType: Maybe<StringQueryOperatorInput>;
-  readonly parent: Maybe<NodeFilterInput>;
-  readonly children: Maybe<NodeFilterListInput>;
-  readonly internal: Maybe<InternalFilterInput>;
-};
-
-type WpPostToCategoryConnectionFilterInput = {
-  readonly nodes: Maybe<WpCategoryFilterListInput>;
-};
-
-type WpPostToCommentConnectionFilterInput = {
-  readonly nodes: Maybe<WpCommentFilterListInput>;
-};
-
-type WpNodeWithFeaturedImageToMediaItemConnectionEdgeFilterInput = {
-  readonly node: Maybe<WpMediaItemFilterInput>;
-};
-
-type WpMediaItemFilterInput = {
-  readonly altText: Maybe<StringQueryOperatorInput>;
-  readonly ancestors: Maybe<WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput>;
-  readonly author: Maybe<WpNodeWithAuthorToUserConnectionEdgeFilterInput>;
-  readonly authorDatabaseId: Maybe<IntQueryOperatorInput>;
-  readonly authorId: Maybe<IDQueryOperatorInput>;
-  readonly caption: Maybe<StringQueryOperatorInput>;
-  readonly wpChildren: Maybe<WpHierarchicalContentNodeToContentNodeChildrenConnectionFilterInput>;
-  readonly commentCount: Maybe<IntQueryOperatorInput>;
-  readonly commentStatus: Maybe<StringQueryOperatorInput>;
-  readonly comments: Maybe<WpMediaItemToCommentConnectionFilterInput>;
-  readonly contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
-  readonly databaseId: Maybe<IntQueryOperatorInput>;
-  readonly date: Maybe<DateQueryOperatorInput>;
-  readonly dateGmt: Maybe<DateQueryOperatorInput>;
-  readonly description: Maybe<StringQueryOperatorInput>;
-  readonly desiredSlug: Maybe<StringQueryOperatorInput>;
-  readonly enclosure: Maybe<StringQueryOperatorInput>;
-  readonly fileSize: Maybe<IntQueryOperatorInput>;
-  readonly guid: Maybe<StringQueryOperatorInput>;
-  readonly id: Maybe<StringQueryOperatorInput>;
-  readonly isContentNode: Maybe<BooleanQueryOperatorInput>;
-  readonly isTermNode: Maybe<BooleanQueryOperatorInput>;
-  readonly lastEditedBy: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
-  readonly link: Maybe<StringQueryOperatorInput>;
-  readonly mediaDetails: Maybe<WpMediaDetailsFilterInput>;
-  readonly mediaItemUrl: Maybe<StringQueryOperatorInput>;
-  readonly mediaType: Maybe<StringQueryOperatorInput>;
-  readonly mimeType: Maybe<StringQueryOperatorInput>;
-  readonly modified: Maybe<DateQueryOperatorInput>;
-  readonly modifiedGmt: Maybe<DateQueryOperatorInput>;
-  readonly wpParent: Maybe<WpHierarchicalContentNodeToParentContentNodeConnectionEdgeFilterInput>;
-  readonly parentDatabaseId: Maybe<IntQueryOperatorInput>;
-  readonly parentId: Maybe<IDQueryOperatorInput>;
-  readonly sizes: Maybe<StringQueryOperatorInput>;
-  readonly slug: Maybe<StringQueryOperatorInput>;
-  readonly sourceUrl: Maybe<StringQueryOperatorInput>;
-  readonly srcSet: Maybe<StringQueryOperatorInput>;
-  readonly status: Maybe<StringQueryOperatorInput>;
-  readonly template: Maybe<WpContentTemplateFilterInput>;
-  readonly terms: Maybe<WpMediaItemToTermNodeConnectionFilterInput>;
-  readonly title: Maybe<StringQueryOperatorInput>;
-  readonly uri: Maybe<StringQueryOperatorInput>;
-  readonly nodeType: Maybe<StringQueryOperatorInput>;
-  readonly remoteFile: Maybe<FileFilterInput>;
-  readonly localFile: Maybe<FileFilterInput>;
-  readonly parent: Maybe<NodeFilterInput>;
-  readonly children: Maybe<NodeFilterListInput>;
-  readonly internal: Maybe<InternalFilterInput>;
-};
-
-type WpHierarchicalContentNodeToContentNodeChildrenConnectionFilterInput = {
-  readonly nodes: Maybe<WpContentNodeFilterListInput>;
-};
-
-type WpMediaItemToCommentConnectionFilterInput = {
-  readonly nodes: Maybe<WpCommentFilterListInput>;
-};
-
-type WpMediaDetailsFilterInput = {
-  readonly file: Maybe<StringQueryOperatorInput>;
-  readonly height: Maybe<IntQueryOperatorInput>;
-  readonly meta: Maybe<WpMediaItemMetaFilterInput>;
-  readonly sizes: Maybe<WpMediaSizeFilterListInput>;
-  readonly width: Maybe<IntQueryOperatorInput>;
-};
-
-type WpMediaItemMetaFilterInput = {
-  readonly aperture: Maybe<FloatQueryOperatorInput>;
-  readonly camera: Maybe<StringQueryOperatorInput>;
-  readonly caption: Maybe<StringQueryOperatorInput>;
-  readonly copyright: Maybe<StringQueryOperatorInput>;
-  readonly createdTimestamp: Maybe<IntQueryOperatorInput>;
-  readonly credit: Maybe<StringQueryOperatorInput>;
-  readonly focalLength: Maybe<FloatQueryOperatorInput>;
-  readonly iso: Maybe<IntQueryOperatorInput>;
-  readonly keywords: Maybe<StringQueryOperatorInput>;
-  readonly orientation: Maybe<StringQueryOperatorInput>;
-  readonly shutterSpeed: Maybe<FloatQueryOperatorInput>;
-  readonly title: Maybe<StringQueryOperatorInput>;
-};
-
-type WpMediaSizeFilterListInput = {
-  readonly elemMatch: Maybe<WpMediaSizeFilterInput>;
-};
-
-type WpMediaSizeFilterInput = {
-  readonly file: Maybe<StringQueryOperatorInput>;
-  readonly fileSize: Maybe<IntQueryOperatorInput>;
-  readonly height: Maybe<StringQueryOperatorInput>;
-  readonly mimeType: Maybe<StringQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly sourceUrl: Maybe<StringQueryOperatorInput>;
-  readonly width: Maybe<StringQueryOperatorInput>;
-};
-
-type WpHierarchicalContentNodeToParentContentNodeConnectionEdgeFilterInput = {
-  readonly node: Maybe<WpContentNodeFilterInput>;
 };
 
 type WpContentTemplateFilterInput = {
   readonly templateName: Maybe<StringQueryOperatorInput>;
-};
-
-type WpMediaItemToTermNodeConnectionFilterInput = {
-  readonly nodes: Maybe<WpTermNodeFilterListInput>;
-};
-
-type WpTermNodeFilterListInput = {
-  readonly elemMatch: Maybe<WpTermNodeFilterInput>;
-};
-
-type WpTermNodeFilterInput = {
-  readonly count: Maybe<IntQueryOperatorInput>;
-  readonly databaseId: Maybe<IntQueryOperatorInput>;
-  readonly description: Maybe<StringQueryOperatorInput>;
-  readonly id: Maybe<StringQueryOperatorInput>;
-  readonly isContentNode: Maybe<BooleanQueryOperatorInput>;
-  readonly isTermNode: Maybe<BooleanQueryOperatorInput>;
-  readonly link: Maybe<StringQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly slug: Maybe<StringQueryOperatorInput>;
-  readonly termGroupId: Maybe<IntQueryOperatorInput>;
-  readonly termTaxonomyId: Maybe<IntQueryOperatorInput>;
-  readonly uri: Maybe<StringQueryOperatorInput>;
-  readonly nodeType: Maybe<StringQueryOperatorInput>;
-  readonly parent: Maybe<NodeFilterInput>;
-  readonly children: Maybe<NodeFilterListInput>;
-  readonly internal: Maybe<InternalFilterInput>;
-};
-
-type WpPost_PostacfFilterInput = {
-  readonly division: Maybe<StringQueryOperatorInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly flashPost: Maybe<WpPost_Postacf_FlashPostFilterInput>;
-  readonly matchReport: Maybe<WpPost_Postacf_MatchReportFilterInput>;
-  readonly normalPost: Maybe<WpPost_Postacf_NormalPostFilterInput>;
-  readonly postCategory: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPost_Postacf_FlashPostFilterInput = {
-  readonly end: Maybe<StringQueryOperatorInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly start: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPost_Postacf_MatchReportFilterInput = {
-  readonly assists: Maybe<StringQueryOperatorInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly gameDay: Maybe<StringQueryOperatorInput>;
-  readonly penalties: Maybe<StringQueryOperatorInput>;
-  readonly periodResults: Maybe<StringQueryOperatorInput>;
-  readonly scoreGuest: Maybe<FloatQueryOperatorInput>;
-  readonly scoreHome: Maybe<FloatQueryOperatorInput>;
-  readonly scorer: Maybe<StringQueryOperatorInput>;
-  readonly specialCase: Maybe<StringQueryOperatorInput>;
-  readonly spectators: Maybe<StringQueryOperatorInput>;
-  readonly teamGuest: Maybe<StringQueryOperatorInput>;
-  readonly teamGuestSlug: Maybe<StringQueryOperatorInput>;
-  readonly teamHome: Maybe<StringQueryOperatorInput>;
-  readonly teamHomeSlug: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPost_Postacf_NormalPostFilterInput = {
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly imageGallery: Maybe<WpMediaItemFilterListInput>;
-};
-
-type WpMediaItemFilterListInput = {
-  readonly elemMatch: Maybe<WpMediaItemFilterInput>;
-};
-
-type WpPostToPostFormatConnectionFilterInput = {
-  readonly nodes: Maybe<WpPostFormatFilterListInput>;
-};
-
-type WpPostFormatFilterListInput = {
-  readonly elemMatch: Maybe<WpPostFormatFilterInput>;
-};
-
-type WpPostFormatFilterInput = {
-  readonly contentNodes: Maybe<WpPostFormatToContentNodeConnectionFilterInput>;
-  readonly count: Maybe<IntQueryOperatorInput>;
-  readonly databaseId: Maybe<IntQueryOperatorInput>;
-  readonly description: Maybe<StringQueryOperatorInput>;
-  readonly id: Maybe<StringQueryOperatorInput>;
-  readonly isContentNode: Maybe<BooleanQueryOperatorInput>;
-  readonly isTermNode: Maybe<BooleanQueryOperatorInput>;
-  readonly link: Maybe<StringQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly posts: Maybe<WpPostFormatToPostConnectionFilterInput>;
-  readonly slug: Maybe<StringQueryOperatorInput>;
-  readonly taxonomy: Maybe<WpPostFormatToTaxonomyConnectionEdgeFilterInput>;
-  readonly termGroupId: Maybe<IntQueryOperatorInput>;
-  readonly termTaxonomyId: Maybe<IntQueryOperatorInput>;
-  readonly uri: Maybe<StringQueryOperatorInput>;
-  readonly nodeType: Maybe<StringQueryOperatorInput>;
-  readonly parent: Maybe<NodeFilterInput>;
-  readonly children: Maybe<NodeFilterListInput>;
-  readonly internal: Maybe<InternalFilterInput>;
-};
-
-type WpPostFormatToContentNodeConnectionFilterInput = {
-  readonly nodes: Maybe<WpContentNodeFilterListInput>;
-};
-
-type WpPostFormatToPostConnectionFilterInput = {
-  readonly nodes: Maybe<WpPostFilterListInput>;
-};
-
-type WpPostFormatToTaxonomyConnectionEdgeFilterInput = {
-  readonly node: Maybe<WpTaxonomyFilterInput>;
-};
-
-type WpPostToTagConnectionFilterInput = {
-  readonly nodes: Maybe<WpTagFilterListInput>;
-};
-
-type WpTagFilterListInput = {
-  readonly elemMatch: Maybe<WpTagFilterInput>;
-};
-
-type WpTagFilterInput = {
-  readonly contentNodes: Maybe<WpTagToContentNodeConnectionFilterInput>;
-  readonly count: Maybe<IntQueryOperatorInput>;
-  readonly databaseId: Maybe<IntQueryOperatorInput>;
-  readonly description: Maybe<StringQueryOperatorInput>;
-  readonly id: Maybe<StringQueryOperatorInput>;
-  readonly isContentNode: Maybe<BooleanQueryOperatorInput>;
-  readonly isTermNode: Maybe<BooleanQueryOperatorInput>;
-  readonly link: Maybe<StringQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly pages: Maybe<WpTagToPageConnectionFilterInput>;
-  readonly posts: Maybe<WpTagToPostConnectionFilterInput>;
-  readonly slug: Maybe<StringQueryOperatorInput>;
-  readonly taxonomy: Maybe<WpTagToTaxonomyConnectionEdgeFilterInput>;
-  readonly termGroupId: Maybe<IntQueryOperatorInput>;
-  readonly termTaxonomyId: Maybe<IntQueryOperatorInput>;
-  readonly uri: Maybe<StringQueryOperatorInput>;
-  readonly nodeType: Maybe<StringQueryOperatorInput>;
-  readonly parent: Maybe<NodeFilterInput>;
-  readonly children: Maybe<NodeFilterListInput>;
-  readonly internal: Maybe<InternalFilterInput>;
-};
-
-type WpTagToContentNodeConnectionFilterInput = {
-  readonly nodes: Maybe<WpContentNodeFilterListInput>;
-};
-
-type WpTagToPageConnectionFilterInput = {
-  readonly nodes: Maybe<WpPageFilterListInput>;
-};
-
-type WpTagToPostConnectionFilterInput = {
-  readonly nodes: Maybe<WpPostFilterListInput>;
-};
-
-type WpTagToTaxonomyConnectionEdgeFilterInput = {
-  readonly node: Maybe<WpTaxonomyFilterInput>;
-};
-
-type WpPostToTermNodeConnectionFilterInput = {
-  readonly nodes: Maybe<WpTermNodeFilterListInput>;
-};
-
-type WpCategoryToTaxonomyConnectionEdgeFilterInput = {
-  readonly node: Maybe<WpTaxonomyFilterInput>;
-};
-
-type WpPageToCommentConnectionFilterInput = {
-  readonly nodes: Maybe<WpCommentFilterListInput>;
-};
-
-type WpPage_HomeacfFilterInput = {
-  readonly adresse: Maybe<StringQueryOperatorInput>;
-  readonly facebookLink: Maybe<StringQueryOperatorInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly instagramLink: Maybe<StringQueryOperatorInput>;
-  readonly tickarooLink: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPage_PageacfFilterInput = {
-  readonly boardMembers: Maybe<WpPage_Pageacf_boardMembersFilterListInput>;
-  readonly division: Maybe<StringQueryOperatorInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly gamepitchWidget: Maybe<StringQueryOperatorInput>;
-  readonly lineup: Maybe<WpPage_Pageacf_LineupFilterInput>;
-  readonly seo: Maybe<WpPage_Pageacf_SeoFilterInput>;
-  readonly shop: Maybe<WpPage_Pageacf_ShopFilterInput>;
-  readonly sponsorsContent: Maybe<WpPage_Pageacf_sponsorsContentFilterListInput>;
-  readonly standardContent: Maybe<WpPage_Pageacf_StandardContentFilterInput>;
-  readonly teamContent: Maybe<WpPage_Pageacf_TeamContentFilterInput>;
-  readonly template: Maybe<StringQueryOperatorInput>;
-  readonly ticketsContent: Maybe<WpPage_Pageacf_TicketsContentFilterInput>;
-};
-
-type WpPage_Pageacf_boardMembersFilterListInput = {
-  readonly elemMatch: Maybe<WpPage_Pageacf_boardMembersFilterInput>;
-};
-
-type WpPage_Pageacf_boardMembersFilterInput = {
-  readonly email: Maybe<StringQueryOperatorInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly level: Maybe<StringQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly portrait: Maybe<WpMediaItemFilterInput>;
-  readonly position: Maybe<StringQueryOperatorInput>;
-  readonly telephone: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPage_Pageacf_LineupFilterInput = {
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly team: Maybe<WpPage_Pageacf_Lineup_teamFilterListInput>;
-  readonly teamPicture: Maybe<WpMediaItemFilterInput>;
-};
-
-type WpPage_Pageacf_Lineup_teamFilterListInput = {
-  readonly elemMatch: Maybe<WpPage_Pageacf_Lineup_teamFilterInput>;
-};
-
-type WpPage_Pageacf_Lineup_teamFilterInput = {
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly nationality: Maybe<StringQueryOperatorInput>;
-  readonly number: Maybe<FloatQueryOperatorInput>;
-  readonly portrait: Maybe<WpMediaItemFilterInput>;
-  readonly position: Maybe<StringQueryOperatorInput>;
-  readonly rodiLink: Maybe<StringQueryOperatorInput>;
-  readonly stickSide: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPage_Pageacf_SeoFilterInput = {
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly metaDescription: Maybe<StringQueryOperatorInput>;
-  readonly noIndex: Maybe<BooleanQueryOperatorInput>;
-  readonly ogDescription: Maybe<StringQueryOperatorInput>;
-  readonly socialImage: Maybe<WpMediaItemFilterInput>;
-  readonly title: Maybe<StringQueryOperatorInput>;
-  readonly twitterDescription: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPage_Pageacf_ShopFilterInput = {
-  readonly contact: Maybe<WpPage_Pageacf_Shop_ContactFilterInput>;
-  readonly downloads: Maybe<WpPage_Pageacf_Shop_downloadsFilterListInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly info: Maybe<StringQueryOperatorInput>;
-  readonly products: Maybe<WpPage_Pageacf_Shop_productsFilterListInput>;
-};
-
-type WpPage_Pageacf_Shop_ContactFilterInput = {
-  readonly email: Maybe<StringQueryOperatorInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly telephone: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPage_Pageacf_Shop_downloadsFilterListInput = {
-  readonly elemMatch: Maybe<WpPage_Pageacf_Shop_downloadsFilterInput>;
-};
-
-type WpPage_Pageacf_Shop_downloadsFilterInput = {
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly file: Maybe<WpMediaItemFilterInput>;
-};
-
-type WpPage_Pageacf_Shop_productsFilterListInput = {
-  readonly elemMatch: Maybe<WpPage_Pageacf_Shop_productsFilterInput>;
-};
-
-type WpPage_Pageacf_Shop_productsFilterInput = {
-  readonly description: Maybe<StringQueryOperatorInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly id: Maybe<StringQueryOperatorInput>;
-  readonly image: Maybe<WpMediaItemFilterInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly price: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPage_Pageacf_sponsorsContentFilterListInput = {
-  readonly elemMatch: Maybe<WpPage_Pageacf_sponsorsContentFilterInput>;
-};
-
-type WpPage_Pageacf_sponsorsContentFilterInput = {
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly level: Maybe<StringQueryOperatorInput>;
-  readonly logo: Maybe<WpMediaItemFilterInput>;
-  readonly logoInvert: Maybe<WpMediaItemFilterInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly url: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPage_Pageacf_StandardContentFilterInput = {
-  readonly additionalInfo: Maybe<WpPage_Pageacf_StandardContent_AdditionalInfoFilterInput>;
-  readonly contact: Maybe<WpPage_Pageacf_StandardContent_ContactFilterInput>;
-  readonly downloads: Maybe<WpPage_Pageacf_StandardContent_downloadsFilterListInput>;
-  readonly featurePic: Maybe<WpMediaItemFilterInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly pageContentTitle: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPage_Pageacf_StandardContent_AdditionalInfoFilterInput = {
-  readonly content: Maybe<StringQueryOperatorInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly title: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPage_Pageacf_StandardContent_ContactFilterInput = {
-  readonly email: Maybe<StringQueryOperatorInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly tel: Maybe<StringQueryOperatorInput>;
-  readonly website: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPage_Pageacf_StandardContent_downloadsFilterListInput = {
-  readonly elemMatch: Maybe<WpPage_Pageacf_StandardContent_downloadsFilterInput>;
-};
-
-type WpPage_Pageacf_StandardContent_downloadsFilterInput = {
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly file: Maybe<WpMediaItemFilterInput>;
-};
-
-type WpPage_Pageacf_TeamContentFilterInput = {
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly ranking: Maybe<WpPage_Pageacf_TeamContent_rankingFilterListInput>;
-  readonly showTable: Maybe<BooleanQueryOperatorInput>;
-  readonly team: Maybe<WpPage_Pageacf_TeamContent_TeamFilterInput>;
-  readonly teamPicture: Maybe<WpMediaItemFilterInput>;
-};
-
-type WpPage_Pageacf_TeamContent_rankingFilterListInput = {
-  readonly elemMatch: Maybe<WpPage_Pageacf_TeamContent_rankingFilterInput>;
-};
-
-type WpPage_Pageacf_TeamContent_rankingFilterInput = {
-  readonly defeats: Maybe<FloatQueryOperatorInput>;
-  readonly draws: Maybe<FloatQueryOperatorInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly gamesAmount: Maybe<FloatQueryOperatorInput>;
-  readonly goals: Maybe<FloatQueryOperatorInput>;
-  readonly goalsAgainst: Maybe<FloatQueryOperatorInput>;
-  readonly points: Maybe<FloatQueryOperatorInput>;
-  readonly team: Maybe<StringQueryOperatorInput>;
-  readonly wins: Maybe<FloatQueryOperatorInput>;
-};
-
-type WpPage_Pageacf_TeamContent_TeamFilterInput = {
-  readonly contact: Maybe<WpPage_Pageacf_TeamContent_Team_ContactFilterInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly teamMembers: Maybe<WpPage_Pageacf_TeamContent_Team_teamMembersFilterListInput>;
-};
-
-type WpPage_Pageacf_TeamContent_Team_ContactFilterInput = {
-  readonly assistant: Maybe<StringQueryOperatorInput>;
-  readonly coach: Maybe<StringQueryOperatorInput>;
-  readonly email: Maybe<StringQueryOperatorInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly manager: Maybe<StringQueryOperatorInput>;
-  readonly telephone: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPage_Pageacf_TeamContent_Team_teamMembersFilterListInput = {
-  readonly elemMatch: Maybe<WpPage_Pageacf_TeamContent_Team_teamMembersFilterInput>;
-};
-
-type WpPage_Pageacf_TeamContent_Team_teamMembersFilterInput = {
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly number: Maybe<FloatQueryOperatorInput>;
-  readonly pos: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPage_Pageacf_TicketsContentFilterInput = {
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly season: Maybe<StringQueryOperatorInput>;
-  readonly seasonpass: Maybe<WpPage_Pageacf_TicketsContent_SeasonpassFilterInput>;
-  readonly seating: Maybe<WpPage_Pageacf_TicketsContent_seatingFilterListInput>;
-  readonly standing: Maybe<WpPage_Pageacf_TicketsContent_standingFilterListInput>;
-  readonly suffix: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPage_Pageacf_TicketsContent_SeasonpassFilterInput = {
-  readonly applications: Maybe<WpPage_Pageacf_TicketsContent_Seasonpass_applicationsFilterListInput>;
-  readonly description: Maybe<StringQueryOperatorInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPage_Pageacf_TicketsContent_Seasonpass_applicationsFilterListInput = {
-  readonly elemMatch: Maybe<WpPage_Pageacf_TicketsContent_Seasonpass_applicationsFilterInput>;
-};
-
-type WpPage_Pageacf_TicketsContent_Seasonpass_applicationsFilterInput = {
-  readonly application: Maybe<WpMediaItemFilterInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly title: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPage_Pageacf_TicketsContent_seatingFilterListInput = {
-  readonly elemMatch: Maybe<WpPage_Pageacf_TicketsContent_seatingFilterInput>;
-};
-
-type WpPage_Pageacf_TicketsContent_seatingFilterInput = {
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly kind: Maybe<StringQueryOperatorInput>;
-  readonly seasonpassCost: Maybe<FloatQueryOperatorInput>;
-  readonly singleCost: Maybe<FloatQueryOperatorInput>;
-};
-
-type WpPage_Pageacf_TicketsContent_standingFilterListInput = {
-  readonly elemMatch: Maybe<WpPage_Pageacf_TicketsContent_standingFilterInput>;
-};
-
-type WpPage_Pageacf_TicketsContent_standingFilterInput = {
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly kind: Maybe<StringQueryOperatorInput>;
-  readonly seasonpassCost: Maybe<FloatQueryOperatorInput>;
-  readonly singleCost: Maybe<FloatQueryOperatorInput>;
-};
-
-type WpPage_RiverratsacfFilterInput = {
-  readonly divisionId: Maybe<StringQueryOperatorInput>;
-  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
-  readonly teamId: Maybe<StringQueryOperatorInput>;
-};
-
-type WpPageToTagConnectionFilterInput = {
-  readonly nodes: Maybe<WpTagFilterListInput>;
-};
-
-type WpPageToTermNodeConnectionFilterInput = {
-  readonly nodes: Maybe<WpTermNodeFilterListInput>;
-};
-
-type WpUserToPostConnectionFilterInput = {
-  readonly nodes: Maybe<WpPostFilterListInput>;
-};
-
-type WpUserToUserRoleConnectionFilterInput = {
-  readonly nodes: Maybe<WpUserRoleFilterListInput>;
-};
-
-type WpUserRoleFilterListInput = {
-  readonly elemMatch: Maybe<WpUserRoleFilterInput>;
-};
-
-type WpUserRoleFilterInput = {
-  readonly capabilities: Maybe<StringQueryOperatorInput>;
-  readonly displayName: Maybe<StringQueryOperatorInput>;
-  readonly id: Maybe<StringQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly nodeType: Maybe<StringQueryOperatorInput>;
-  readonly parent: Maybe<NodeFilterInput>;
-  readonly children: Maybe<NodeFilterListInput>;
-  readonly internal: Maybe<InternalFilterInput>;
 };
 
 type WpPostTypeLabelDetailsFilterInput = {
@@ -6602,54 +5252,6 @@ type WpContentNodeFieldsEnum =
   | 'id'
   | 'isContentNode'
   | 'isTermNode'
-  | 'lastEditedBy.node.avatar.default'
-  | 'lastEditedBy.node.avatar.extraAttr'
-  | 'lastEditedBy.node.avatar.forceDefault'
-  | 'lastEditedBy.node.avatar.foundAvatar'
-  | 'lastEditedBy.node.avatar.height'
-  | 'lastEditedBy.node.avatar.rating'
-  | 'lastEditedBy.node.avatar.scheme'
-  | 'lastEditedBy.node.avatar.size'
-  | 'lastEditedBy.node.avatar.url'
-  | 'lastEditedBy.node.avatar.width'
-  | 'lastEditedBy.node.capKey'
-  | 'lastEditedBy.node.capabilities'
-  | 'lastEditedBy.node.comments.nodes'
-  | 'lastEditedBy.node.databaseId'
-  | 'lastEditedBy.node.description'
-  | 'lastEditedBy.node.email'
-  | 'lastEditedBy.node.extraCapabilities'
-  | 'lastEditedBy.node.firstName'
-  | 'lastEditedBy.node.id'
-  | 'lastEditedBy.node.isContentNode'
-  | 'lastEditedBy.node.isTermNode'
-  | 'lastEditedBy.node.lastName'
-  | 'lastEditedBy.node.locale'
-  | 'lastEditedBy.node.name'
-  | 'lastEditedBy.node.nicename'
-  | 'lastEditedBy.node.nickname'
-  | 'lastEditedBy.node.pages.nodes'
-  | 'lastEditedBy.node.posts.nodes'
-  | 'lastEditedBy.node.registeredDate'
-  | 'lastEditedBy.node.roles.nodes'
-  | 'lastEditedBy.node.slug'
-  | 'lastEditedBy.node.uri'
-  | 'lastEditedBy.node.url'
-  | 'lastEditedBy.node.username'
-  | 'lastEditedBy.node.nodeType'
-  | 'lastEditedBy.node.parent.id'
-  | 'lastEditedBy.node.parent.children'
-  | 'lastEditedBy.node.children'
-  | 'lastEditedBy.node.children.id'
-  | 'lastEditedBy.node.children.children'
-  | 'lastEditedBy.node.internal.content'
-  | 'lastEditedBy.node.internal.contentDigest'
-  | 'lastEditedBy.node.internal.description'
-  | 'lastEditedBy.node.internal.fieldOwners'
-  | 'lastEditedBy.node.internal.ignoreType'
-  | 'lastEditedBy.node.internal.mediaType'
-  | 'lastEditedBy.node.internal.owner'
-  | 'lastEditedBy.node.internal.type'
   | 'link'
   | 'modified'
   | 'modifiedGmt'
@@ -7358,660 +5960,87 @@ type WpTaxonomySortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
-type WpUserConnection = {
-  readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<WpUserEdge>;
-  readonly nodes: ReadonlyArray<WpUser>;
-  readonly pageInfo: PageInfo;
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<WpUserGroupConnection>;
+type WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput = {
+  readonly nodes: Maybe<WpContentNodeFilterListInput>;
 };
 
-
-type WpUserConnection_distinctArgs = {
-  field: WpUserFieldsEnum;
+type IDQueryOperatorInput = {
+  readonly eq: Maybe<Scalars['ID']>;
+  readonly ne: Maybe<Scalars['ID']>;
+  readonly in: Maybe<ReadonlyArray<Maybe<Scalars['ID']>>>;
+  readonly nin: Maybe<ReadonlyArray<Maybe<Scalars['ID']>>>;
 };
 
-
-type WpUserConnection_maxArgs = {
-  field: WpUserFieldsEnum;
+type WpHierarchicalContentNodeToContentNodeChildrenConnectionFilterInput = {
+  readonly nodes: Maybe<WpContentNodeFilterListInput>;
 };
 
-
-type WpUserConnection_minArgs = {
-  field: WpUserFieldsEnum;
+type WpMediaDetailsFilterInput = {
+  readonly file: Maybe<StringQueryOperatorInput>;
+  readonly height: Maybe<IntQueryOperatorInput>;
+  readonly meta: Maybe<WpMediaItemMetaFilterInput>;
+  readonly sizes: Maybe<WpMediaSizeFilterListInput>;
+  readonly width: Maybe<IntQueryOperatorInput>;
 };
 
-
-type WpUserConnection_sumArgs = {
-  field: WpUserFieldsEnum;
+type WpMediaItemMetaFilterInput = {
+  readonly aperture: Maybe<FloatQueryOperatorInput>;
+  readonly camera: Maybe<StringQueryOperatorInput>;
+  readonly caption: Maybe<StringQueryOperatorInput>;
+  readonly copyright: Maybe<StringQueryOperatorInput>;
+  readonly createdTimestamp: Maybe<IntQueryOperatorInput>;
+  readonly credit: Maybe<StringQueryOperatorInput>;
+  readonly focalLength: Maybe<FloatQueryOperatorInput>;
+  readonly iso: Maybe<IntQueryOperatorInput>;
+  readonly keywords: Maybe<StringQueryOperatorInput>;
+  readonly orientation: Maybe<StringQueryOperatorInput>;
+  readonly shutterSpeed: Maybe<FloatQueryOperatorInput>;
+  readonly title: Maybe<StringQueryOperatorInput>;
 };
 
-
-type WpUserConnection_groupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: WpUserFieldsEnum;
+type WpMediaSizeFilterListInput = {
+  readonly elemMatch: Maybe<WpMediaSizeFilterInput>;
 };
 
-type WpUserEdge = {
-  readonly next: Maybe<WpUser>;
-  readonly node: WpUser;
-  readonly previous: Maybe<WpUser>;
+type WpMediaSizeFilterInput = {
+  readonly file: Maybe<StringQueryOperatorInput>;
+  readonly fileSize: Maybe<IntQueryOperatorInput>;
+  readonly height: Maybe<StringQueryOperatorInput>;
+  readonly mimeType: Maybe<StringQueryOperatorInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly sourceUrl: Maybe<StringQueryOperatorInput>;
+  readonly width: Maybe<StringQueryOperatorInput>;
 };
 
-type WpUserFieldsEnum =
-  | 'avatar.default'
-  | 'avatar.extraAttr'
-  | 'avatar.forceDefault'
-  | 'avatar.foundAvatar'
-  | 'avatar.height'
-  | 'avatar.rating'
-  | 'avatar.scheme'
-  | 'avatar.size'
-  | 'avatar.url'
-  | 'avatar.width'
-  | 'capKey'
-  | 'capabilities'
-  | 'comments.nodes'
-  | 'comments.nodes.agent'
-  | 'comments.nodes.approved'
-  | 'comments.nodes.authorIp'
-  | 'comments.nodes.content'
-  | 'comments.nodes.databaseId'
-  | 'comments.nodes.date'
-  | 'comments.nodes.dateGmt'
-  | 'comments.nodes.id'
-  | 'comments.nodes.karma'
-  | 'comments.nodes.parentDatabaseId'
-  | 'comments.nodes.parentId'
-  | 'comments.nodes.replies.nodes'
-  | 'comments.nodes.type'
-  | 'comments.nodes.nodeType'
-  | 'comments.nodes.parent.id'
-  | 'comments.nodes.parent.children'
-  | 'comments.nodes.children'
-  | 'comments.nodes.children.id'
-  | 'comments.nodes.children.children'
-  | 'comments.nodes.internal.content'
-  | 'comments.nodes.internal.contentDigest'
-  | 'comments.nodes.internal.description'
-  | 'comments.nodes.internal.fieldOwners'
-  | 'comments.nodes.internal.ignoreType'
-  | 'comments.nodes.internal.mediaType'
-  | 'comments.nodes.internal.owner'
-  | 'comments.nodes.internal.type'
-  | 'databaseId'
-  | 'description'
-  | 'email'
-  | 'extraCapabilities'
-  | 'firstName'
-  | 'id'
-  | 'isContentNode'
-  | 'isTermNode'
-  | 'lastName'
-  | 'locale'
-  | 'name'
-  | 'nicename'
-  | 'nickname'
-  | 'pages.nodes'
-  | 'pages.nodes.ancestors.nodes'
-  | 'pages.nodes.authorDatabaseId'
-  | 'pages.nodes.authorId'
-  | 'pages.nodes.categories.nodes'
-  | 'pages.nodes.wpChildren.nodes'
-  | 'pages.nodes.commentCount'
-  | 'pages.nodes.commentStatus'
-  | 'pages.nodes.comments.nodes'
-  | 'pages.nodes.content'
-  | 'pages.nodes.databaseId'
-  | 'pages.nodes.date'
-  | 'pages.nodes.dateGmt'
-  | 'pages.nodes.desiredSlug'
-  | 'pages.nodes.enclosure'
-  | 'pages.nodes.featuredImageDatabaseId'
-  | 'pages.nodes.featuredImageId'
-  | 'pages.nodes.guid'
-  | 'pages.nodes.homeACF.adresse'
-  | 'pages.nodes.homeACF.facebookLink'
-  | 'pages.nodes.homeACF.fieldGroupName'
-  | 'pages.nodes.homeACF.instagramLink'
-  | 'pages.nodes.homeACF.tickarooLink'
-  | 'pages.nodes.id'
-  | 'pages.nodes.isContentNode'
-  | 'pages.nodes.isFrontPage'
-  | 'pages.nodes.isPostsPage'
-  | 'pages.nodes.isPrivacyPage'
-  | 'pages.nodes.isRevision'
-  | 'pages.nodes.isTermNode'
-  | 'pages.nodes.link'
-  | 'pages.nodes.menuOrder'
-  | 'pages.nodes.modified'
-  | 'pages.nodes.modifiedGmt'
-  | 'pages.nodes.pageACF.boardMembers'
-  | 'pages.nodes.pageACF.division'
-  | 'pages.nodes.pageACF.fieldGroupName'
-  | 'pages.nodes.pageACF.gamepitchWidget'
-  | 'pages.nodes.pageACF.sponsorsContent'
-  | 'pages.nodes.pageACF.template'
-  | 'pages.nodes.parentDatabaseId'
-  | 'pages.nodes.parentId'
-  | 'pages.nodes.riverratsACF.divisionId'
-  | 'pages.nodes.riverratsACF.fieldGroupName'
-  | 'pages.nodes.riverratsACF.teamId'
-  | 'pages.nodes.slug'
-  | 'pages.nodes.status'
-  | 'pages.nodes.tags.nodes'
-  | 'pages.nodes.template.templateName'
-  | 'pages.nodes.terms.nodes'
-  | 'pages.nodes.title'
-  | 'pages.nodes.uri'
-  | 'pages.nodes.nodeType'
-  | 'pages.nodes.parent.id'
-  | 'pages.nodes.parent.children'
-  | 'pages.nodes.children'
-  | 'pages.nodes.children.id'
-  | 'pages.nodes.children.children'
-  | 'pages.nodes.internal.content'
-  | 'pages.nodes.internal.contentDigest'
-  | 'pages.nodes.internal.description'
-  | 'pages.nodes.internal.fieldOwners'
-  | 'pages.nodes.internal.ignoreType'
-  | 'pages.nodes.internal.mediaType'
-  | 'pages.nodes.internal.owner'
-  | 'pages.nodes.internal.type'
-  | 'posts.nodes'
-  | 'posts.nodes.authorDatabaseId'
-  | 'posts.nodes.authorId'
-  | 'posts.nodes.categories.nodes'
-  | 'posts.nodes.commentCount'
-  | 'posts.nodes.commentStatus'
-  | 'posts.nodes.comments.nodes'
-  | 'posts.nodes.content'
-  | 'posts.nodes.databaseId'
-  | 'posts.nodes.date'
-  | 'posts.nodes.dateGmt'
-  | 'posts.nodes.desiredSlug'
-  | 'posts.nodes.enclosure'
-  | 'posts.nodes.excerpt'
-  | 'posts.nodes.featuredImageDatabaseId'
-  | 'posts.nodes.featuredImageId'
-  | 'posts.nodes.guid'
-  | 'posts.nodes.id'
-  | 'posts.nodes.isContentNode'
-  | 'posts.nodes.isRevision'
-  | 'posts.nodes.isSticky'
-  | 'posts.nodes.isTermNode'
-  | 'posts.nodes.link'
-  | 'posts.nodes.modified'
-  | 'posts.nodes.modifiedGmt'
-  | 'posts.nodes.pingStatus'
-  | 'posts.nodes.pinged'
-  | 'posts.nodes.postACF.division'
-  | 'posts.nodes.postACF.fieldGroupName'
-  | 'posts.nodes.postACF.postCategory'
-  | 'posts.nodes.postFormats.nodes'
-  | 'posts.nodes.slug'
-  | 'posts.nodes.status'
-  | 'posts.nodes.tags.nodes'
-  | 'posts.nodes.template.templateName'
-  | 'posts.nodes.terms.nodes'
-  | 'posts.nodes.title'
-  | 'posts.nodes.toPing'
-  | 'posts.nodes.uri'
-  | 'posts.nodes.nodeType'
-  | 'posts.nodes.parent.id'
-  | 'posts.nodes.parent.children'
-  | 'posts.nodes.children'
-  | 'posts.nodes.children.id'
-  | 'posts.nodes.children.children'
-  | 'posts.nodes.internal.content'
-  | 'posts.nodes.internal.contentDigest'
-  | 'posts.nodes.internal.description'
-  | 'posts.nodes.internal.fieldOwners'
-  | 'posts.nodes.internal.ignoreType'
-  | 'posts.nodes.internal.mediaType'
-  | 'posts.nodes.internal.owner'
-  | 'posts.nodes.internal.type'
-  | 'registeredDate'
-  | 'roles.nodes'
-  | 'roles.nodes.capabilities'
-  | 'roles.nodes.displayName'
-  | 'roles.nodes.id'
-  | 'roles.nodes.name'
-  | 'roles.nodes.nodeType'
-  | 'roles.nodes.parent.id'
-  | 'roles.nodes.parent.children'
-  | 'roles.nodes.children'
-  | 'roles.nodes.children.id'
-  | 'roles.nodes.children.children'
-  | 'roles.nodes.internal.content'
-  | 'roles.nodes.internal.contentDigest'
-  | 'roles.nodes.internal.description'
-  | 'roles.nodes.internal.fieldOwners'
-  | 'roles.nodes.internal.ignoreType'
-  | 'roles.nodes.internal.mediaType'
-  | 'roles.nodes.internal.owner'
-  | 'roles.nodes.internal.type'
-  | 'slug'
-  | 'uri'
-  | 'url'
-  | 'username'
-  | 'nodeType'
-  | 'parent.id'
-  | 'parent.parent.id'
-  | 'parent.parent.parent.id'
-  | 'parent.parent.parent.children'
-  | 'parent.parent.children'
-  | 'parent.parent.children.id'
-  | 'parent.parent.children.children'
-  | 'parent.parent.internal.content'
-  | 'parent.parent.internal.contentDigest'
-  | 'parent.parent.internal.description'
-  | 'parent.parent.internal.fieldOwners'
-  | 'parent.parent.internal.ignoreType'
-  | 'parent.parent.internal.mediaType'
-  | 'parent.parent.internal.owner'
-  | 'parent.parent.internal.type'
-  | 'parent.children'
-  | 'parent.children.id'
-  | 'parent.children.parent.id'
-  | 'parent.children.parent.children'
-  | 'parent.children.children'
-  | 'parent.children.children.id'
-  | 'parent.children.children.children'
-  | 'parent.children.internal.content'
-  | 'parent.children.internal.contentDigest'
-  | 'parent.children.internal.description'
-  | 'parent.children.internal.fieldOwners'
-  | 'parent.children.internal.ignoreType'
-  | 'parent.children.internal.mediaType'
-  | 'parent.children.internal.owner'
-  | 'parent.children.internal.type'
-  | 'parent.internal.content'
-  | 'parent.internal.contentDigest'
-  | 'parent.internal.description'
-  | 'parent.internal.fieldOwners'
-  | 'parent.internal.ignoreType'
-  | 'parent.internal.mediaType'
-  | 'parent.internal.owner'
-  | 'parent.internal.type'
-  | 'children'
-  | 'children.id'
-  | 'children.parent.id'
-  | 'children.parent.parent.id'
-  | 'children.parent.parent.children'
-  | 'children.parent.children'
-  | 'children.parent.children.id'
-  | 'children.parent.children.children'
-  | 'children.parent.internal.content'
-  | 'children.parent.internal.contentDigest'
-  | 'children.parent.internal.description'
-  | 'children.parent.internal.fieldOwners'
-  | 'children.parent.internal.ignoreType'
-  | 'children.parent.internal.mediaType'
-  | 'children.parent.internal.owner'
-  | 'children.parent.internal.type'
-  | 'children.children'
-  | 'children.children.id'
-  | 'children.children.parent.id'
-  | 'children.children.parent.children'
-  | 'children.children.children'
-  | 'children.children.children.id'
-  | 'children.children.children.children'
-  | 'children.children.internal.content'
-  | 'children.children.internal.contentDigest'
-  | 'children.children.internal.description'
-  | 'children.children.internal.fieldOwners'
-  | 'children.children.internal.ignoreType'
-  | 'children.children.internal.mediaType'
-  | 'children.children.internal.owner'
-  | 'children.children.internal.type'
-  | 'children.internal.content'
-  | 'children.internal.contentDigest'
-  | 'children.internal.description'
-  | 'children.internal.fieldOwners'
-  | 'children.internal.ignoreType'
-  | 'children.internal.mediaType'
-  | 'children.internal.owner'
-  | 'children.internal.type'
-  | 'internal.content'
-  | 'internal.contentDigest'
-  | 'internal.description'
-  | 'internal.fieldOwners'
-  | 'internal.ignoreType'
-  | 'internal.mediaType'
-  | 'internal.owner'
-  | 'internal.type';
-
-type WpUserGroupConnection = {
-  readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<WpUserEdge>;
-  readonly nodes: ReadonlyArray<WpUser>;
-  readonly pageInfo: PageInfo;
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<WpUserGroupConnection>;
-  readonly field: Scalars['String'];
-  readonly fieldValue: Maybe<Scalars['String']>;
+type WpHierarchicalContentNodeToParentContentNodeConnectionEdgeFilterInput = {
+  readonly node: Maybe<WpContentNodeFilterInput>;
 };
 
-
-type WpUserGroupConnection_distinctArgs = {
-  field: WpUserFieldsEnum;
+type WpMediaItemToTermNodeConnectionFilterInput = {
+  readonly nodes: Maybe<WpTermNodeFilterListInput>;
 };
 
-
-type WpUserGroupConnection_maxArgs = {
-  field: WpUserFieldsEnum;
+type WpTermNodeFilterListInput = {
+  readonly elemMatch: Maybe<WpTermNodeFilterInput>;
 };
 
-
-type WpUserGroupConnection_minArgs = {
-  field: WpUserFieldsEnum;
-};
-
-
-type WpUserGroupConnection_sumArgs = {
-  field: WpUserFieldsEnum;
-};
-
-
-type WpUserGroupConnection_groupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: WpUserFieldsEnum;
-};
-
-type WpUserSortInput = {
-  readonly fields: Maybe<ReadonlyArray<Maybe<WpUserFieldsEnum>>>;
-  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
-};
-
-type WpCommentConnection = {
-  readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<WpCommentEdge>;
-  readonly nodes: ReadonlyArray<WpComment>;
-  readonly pageInfo: PageInfo;
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<WpCommentGroupConnection>;
-};
-
-
-type WpCommentConnection_distinctArgs = {
-  field: WpCommentFieldsEnum;
-};
-
-
-type WpCommentConnection_maxArgs = {
-  field: WpCommentFieldsEnum;
-};
-
-
-type WpCommentConnection_minArgs = {
-  field: WpCommentFieldsEnum;
-};
-
-
-type WpCommentConnection_sumArgs = {
-  field: WpCommentFieldsEnum;
-};
-
-
-type WpCommentConnection_groupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: WpCommentFieldsEnum;
-};
-
-type WpCommentEdge = {
-  readonly next: Maybe<WpComment>;
-  readonly node: WpComment;
-  readonly previous: Maybe<WpComment>;
-};
-
-type WpCommentFieldsEnum =
-  | 'agent'
-  | 'approved'
-  | 'author.node.databaseId'
-  | 'author.node.email'
-  | 'author.node.id'
-  | 'author.node.name'
-  | 'author.node.url'
-  | 'authorIp'
-  | 'commentedOn.node.databaseId'
-  | 'commentedOn.node.date'
-  | 'commentedOn.node.dateGmt'
-  | 'commentedOn.node.desiredSlug'
-  | 'commentedOn.node.enclosure'
-  | 'commentedOn.node.guid'
-  | 'commentedOn.node.id'
-  | 'commentedOn.node.isContentNode'
-  | 'commentedOn.node.isTermNode'
-  | 'commentedOn.node.link'
-  | 'commentedOn.node.modified'
-  | 'commentedOn.node.modifiedGmt'
-  | 'commentedOn.node.slug'
-  | 'commentedOn.node.status'
-  | 'commentedOn.node.template.templateName'
-  | 'commentedOn.node.uri'
-  | 'commentedOn.node.nodeType'
-  | 'commentedOn.node.parent.id'
-  | 'commentedOn.node.parent.children'
-  | 'commentedOn.node.children'
-  | 'commentedOn.node.children.id'
-  | 'commentedOn.node.children.children'
-  | 'commentedOn.node.internal.content'
-  | 'commentedOn.node.internal.contentDigest'
-  | 'commentedOn.node.internal.description'
-  | 'commentedOn.node.internal.fieldOwners'
-  | 'commentedOn.node.internal.ignoreType'
-  | 'commentedOn.node.internal.mediaType'
-  | 'commentedOn.node.internal.owner'
-  | 'commentedOn.node.internal.type'
-  | 'content'
-  | 'databaseId'
-  | 'date'
-  | 'dateGmt'
-  | 'id'
-  | 'karma'
-  | 'wpParent.node.agent'
-  | 'wpParent.node.approved'
-  | 'wpParent.node.authorIp'
-  | 'wpParent.node.content'
-  | 'wpParent.node.databaseId'
-  | 'wpParent.node.date'
-  | 'wpParent.node.dateGmt'
-  | 'wpParent.node.id'
-  | 'wpParent.node.karma'
-  | 'wpParent.node.parentDatabaseId'
-  | 'wpParent.node.parentId'
-  | 'wpParent.node.replies.nodes'
-  | 'wpParent.node.type'
-  | 'wpParent.node.nodeType'
-  | 'wpParent.node.parent.id'
-  | 'wpParent.node.parent.children'
-  | 'wpParent.node.children'
-  | 'wpParent.node.children.id'
-  | 'wpParent.node.children.children'
-  | 'wpParent.node.internal.content'
-  | 'wpParent.node.internal.contentDigest'
-  | 'wpParent.node.internal.description'
-  | 'wpParent.node.internal.fieldOwners'
-  | 'wpParent.node.internal.ignoreType'
-  | 'wpParent.node.internal.mediaType'
-  | 'wpParent.node.internal.owner'
-  | 'wpParent.node.internal.type'
-  | 'parentDatabaseId'
-  | 'parentId'
-  | 'replies.nodes'
-  | 'replies.nodes.agent'
-  | 'replies.nodes.approved'
-  | 'replies.nodes.authorIp'
-  | 'replies.nodes.content'
-  | 'replies.nodes.databaseId'
-  | 'replies.nodes.date'
-  | 'replies.nodes.dateGmt'
-  | 'replies.nodes.id'
-  | 'replies.nodes.karma'
-  | 'replies.nodes.parentDatabaseId'
-  | 'replies.nodes.parentId'
-  | 'replies.nodes.replies.nodes'
-  | 'replies.nodes.type'
-  | 'replies.nodes.nodeType'
-  | 'replies.nodes.parent.id'
-  | 'replies.nodes.parent.children'
-  | 'replies.nodes.children'
-  | 'replies.nodes.children.id'
-  | 'replies.nodes.children.children'
-  | 'replies.nodes.internal.content'
-  | 'replies.nodes.internal.contentDigest'
-  | 'replies.nodes.internal.description'
-  | 'replies.nodes.internal.fieldOwners'
-  | 'replies.nodes.internal.ignoreType'
-  | 'replies.nodes.internal.mediaType'
-  | 'replies.nodes.internal.owner'
-  | 'replies.nodes.internal.type'
-  | 'type'
-  | 'nodeType'
-  | 'parent.id'
-  | 'parent.parent.id'
-  | 'parent.parent.parent.id'
-  | 'parent.parent.parent.children'
-  | 'parent.parent.children'
-  | 'parent.parent.children.id'
-  | 'parent.parent.children.children'
-  | 'parent.parent.internal.content'
-  | 'parent.parent.internal.contentDigest'
-  | 'parent.parent.internal.description'
-  | 'parent.parent.internal.fieldOwners'
-  | 'parent.parent.internal.ignoreType'
-  | 'parent.parent.internal.mediaType'
-  | 'parent.parent.internal.owner'
-  | 'parent.parent.internal.type'
-  | 'parent.children'
-  | 'parent.children.id'
-  | 'parent.children.parent.id'
-  | 'parent.children.parent.children'
-  | 'parent.children.children'
-  | 'parent.children.children.id'
-  | 'parent.children.children.children'
-  | 'parent.children.internal.content'
-  | 'parent.children.internal.contentDigest'
-  | 'parent.children.internal.description'
-  | 'parent.children.internal.fieldOwners'
-  | 'parent.children.internal.ignoreType'
-  | 'parent.children.internal.mediaType'
-  | 'parent.children.internal.owner'
-  | 'parent.children.internal.type'
-  | 'parent.internal.content'
-  | 'parent.internal.contentDigest'
-  | 'parent.internal.description'
-  | 'parent.internal.fieldOwners'
-  | 'parent.internal.ignoreType'
-  | 'parent.internal.mediaType'
-  | 'parent.internal.owner'
-  | 'parent.internal.type'
-  | 'children'
-  | 'children.id'
-  | 'children.parent.id'
-  | 'children.parent.parent.id'
-  | 'children.parent.parent.children'
-  | 'children.parent.children'
-  | 'children.parent.children.id'
-  | 'children.parent.children.children'
-  | 'children.parent.internal.content'
-  | 'children.parent.internal.contentDigest'
-  | 'children.parent.internal.description'
-  | 'children.parent.internal.fieldOwners'
-  | 'children.parent.internal.ignoreType'
-  | 'children.parent.internal.mediaType'
-  | 'children.parent.internal.owner'
-  | 'children.parent.internal.type'
-  | 'children.children'
-  | 'children.children.id'
-  | 'children.children.parent.id'
-  | 'children.children.parent.children'
-  | 'children.children.children'
-  | 'children.children.children.id'
-  | 'children.children.children.children'
-  | 'children.children.internal.content'
-  | 'children.children.internal.contentDigest'
-  | 'children.children.internal.description'
-  | 'children.children.internal.fieldOwners'
-  | 'children.children.internal.ignoreType'
-  | 'children.children.internal.mediaType'
-  | 'children.children.internal.owner'
-  | 'children.children.internal.type'
-  | 'children.internal.content'
-  | 'children.internal.contentDigest'
-  | 'children.internal.description'
-  | 'children.internal.fieldOwners'
-  | 'children.internal.ignoreType'
-  | 'children.internal.mediaType'
-  | 'children.internal.owner'
-  | 'children.internal.type'
-  | 'internal.content'
-  | 'internal.contentDigest'
-  | 'internal.description'
-  | 'internal.fieldOwners'
-  | 'internal.ignoreType'
-  | 'internal.mediaType'
-  | 'internal.owner'
-  | 'internal.type';
-
-type WpCommentGroupConnection = {
-  readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<WpCommentEdge>;
-  readonly nodes: ReadonlyArray<WpComment>;
-  readonly pageInfo: PageInfo;
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<WpCommentGroupConnection>;
-  readonly field: Scalars['String'];
-  readonly fieldValue: Maybe<Scalars['String']>;
-};
-
-
-type WpCommentGroupConnection_distinctArgs = {
-  field: WpCommentFieldsEnum;
-};
-
-
-type WpCommentGroupConnection_maxArgs = {
-  field: WpCommentFieldsEnum;
-};
-
-
-type WpCommentGroupConnection_minArgs = {
-  field: WpCommentFieldsEnum;
-};
-
-
-type WpCommentGroupConnection_sumArgs = {
-  field: WpCommentFieldsEnum;
-};
-
-
-type WpCommentGroupConnection_groupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: WpCommentFieldsEnum;
-};
-
-type WpCommentSortInput = {
-  readonly fields: Maybe<ReadonlyArray<Maybe<WpCommentFieldsEnum>>>;
-  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
+type WpTermNodeFilterInput = {
+  readonly count: Maybe<IntQueryOperatorInput>;
+  readonly databaseId: Maybe<IntQueryOperatorInput>;
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly isContentNode: Maybe<BooleanQueryOperatorInput>;
+  readonly isTermNode: Maybe<BooleanQueryOperatorInput>;
+  readonly link: Maybe<StringQueryOperatorInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly slug: Maybe<StringQueryOperatorInput>;
+  readonly termGroupId: Maybe<IntQueryOperatorInput>;
+  readonly termTaxonomyId: Maybe<IntQueryOperatorInput>;
+  readonly uri: Maybe<StringQueryOperatorInput>;
+  readonly nodeType: Maybe<StringQueryOperatorInput>;
+  readonly parent: Maybe<NodeFilterInput>;
+  readonly children: Maybe<NodeFilterListInput>;
+  readonly internal: Maybe<InternalFilterInput>;
 };
 
 type WpMediaItemConnection = {
@@ -8092,54 +6121,6 @@ type WpMediaItemFieldsEnum =
   | 'ancestors.nodes.internal.mediaType'
   | 'ancestors.nodes.internal.owner'
   | 'ancestors.nodes.internal.type'
-  | 'author.node.avatar.default'
-  | 'author.node.avatar.extraAttr'
-  | 'author.node.avatar.forceDefault'
-  | 'author.node.avatar.foundAvatar'
-  | 'author.node.avatar.height'
-  | 'author.node.avatar.rating'
-  | 'author.node.avatar.scheme'
-  | 'author.node.avatar.size'
-  | 'author.node.avatar.url'
-  | 'author.node.avatar.width'
-  | 'author.node.capKey'
-  | 'author.node.capabilities'
-  | 'author.node.comments.nodes'
-  | 'author.node.databaseId'
-  | 'author.node.description'
-  | 'author.node.email'
-  | 'author.node.extraCapabilities'
-  | 'author.node.firstName'
-  | 'author.node.id'
-  | 'author.node.isContentNode'
-  | 'author.node.isTermNode'
-  | 'author.node.lastName'
-  | 'author.node.locale'
-  | 'author.node.name'
-  | 'author.node.nicename'
-  | 'author.node.nickname'
-  | 'author.node.pages.nodes'
-  | 'author.node.posts.nodes'
-  | 'author.node.registeredDate'
-  | 'author.node.roles.nodes'
-  | 'author.node.slug'
-  | 'author.node.uri'
-  | 'author.node.url'
-  | 'author.node.username'
-  | 'author.node.nodeType'
-  | 'author.node.parent.id'
-  | 'author.node.parent.children'
-  | 'author.node.children'
-  | 'author.node.children.id'
-  | 'author.node.children.children'
-  | 'author.node.internal.content'
-  | 'author.node.internal.contentDigest'
-  | 'author.node.internal.description'
-  | 'author.node.internal.fieldOwners'
-  | 'author.node.internal.ignoreType'
-  | 'author.node.internal.mediaType'
-  | 'author.node.internal.owner'
-  | 'author.node.internal.type'
   | 'authorDatabaseId'
   | 'authorId'
   | 'caption'
@@ -8176,34 +6157,6 @@ type WpMediaItemFieldsEnum =
   | 'wpChildren.nodes.internal.type'
   | 'commentCount'
   | 'commentStatus'
-  | 'comments.nodes'
-  | 'comments.nodes.agent'
-  | 'comments.nodes.approved'
-  | 'comments.nodes.authorIp'
-  | 'comments.nodes.content'
-  | 'comments.nodes.databaseId'
-  | 'comments.nodes.date'
-  | 'comments.nodes.dateGmt'
-  | 'comments.nodes.id'
-  | 'comments.nodes.karma'
-  | 'comments.nodes.parentDatabaseId'
-  | 'comments.nodes.parentId'
-  | 'comments.nodes.replies.nodes'
-  | 'comments.nodes.type'
-  | 'comments.nodes.nodeType'
-  | 'comments.nodes.parent.id'
-  | 'comments.nodes.parent.children'
-  | 'comments.nodes.children'
-  | 'comments.nodes.children.id'
-  | 'comments.nodes.children.children'
-  | 'comments.nodes.internal.content'
-  | 'comments.nodes.internal.contentDigest'
-  | 'comments.nodes.internal.description'
-  | 'comments.nodes.internal.fieldOwners'
-  | 'comments.nodes.internal.ignoreType'
-  | 'comments.nodes.internal.mediaType'
-  | 'comments.nodes.internal.owner'
-  | 'comments.nodes.internal.type'
   | 'contentType.node.archivePath'
   | 'contentType.node.canExport'
   | 'contentType.node.connectedTaxonomies.nodes'
@@ -8285,54 +6238,6 @@ type WpMediaItemFieldsEnum =
   | 'id'
   | 'isContentNode'
   | 'isTermNode'
-  | 'lastEditedBy.node.avatar.default'
-  | 'lastEditedBy.node.avatar.extraAttr'
-  | 'lastEditedBy.node.avatar.forceDefault'
-  | 'lastEditedBy.node.avatar.foundAvatar'
-  | 'lastEditedBy.node.avatar.height'
-  | 'lastEditedBy.node.avatar.rating'
-  | 'lastEditedBy.node.avatar.scheme'
-  | 'lastEditedBy.node.avatar.size'
-  | 'lastEditedBy.node.avatar.url'
-  | 'lastEditedBy.node.avatar.width'
-  | 'lastEditedBy.node.capKey'
-  | 'lastEditedBy.node.capabilities'
-  | 'lastEditedBy.node.comments.nodes'
-  | 'lastEditedBy.node.databaseId'
-  | 'lastEditedBy.node.description'
-  | 'lastEditedBy.node.email'
-  | 'lastEditedBy.node.extraCapabilities'
-  | 'lastEditedBy.node.firstName'
-  | 'lastEditedBy.node.id'
-  | 'lastEditedBy.node.isContentNode'
-  | 'lastEditedBy.node.isTermNode'
-  | 'lastEditedBy.node.lastName'
-  | 'lastEditedBy.node.locale'
-  | 'lastEditedBy.node.name'
-  | 'lastEditedBy.node.nicename'
-  | 'lastEditedBy.node.nickname'
-  | 'lastEditedBy.node.pages.nodes'
-  | 'lastEditedBy.node.posts.nodes'
-  | 'lastEditedBy.node.registeredDate'
-  | 'lastEditedBy.node.roles.nodes'
-  | 'lastEditedBy.node.slug'
-  | 'lastEditedBy.node.uri'
-  | 'lastEditedBy.node.url'
-  | 'lastEditedBy.node.username'
-  | 'lastEditedBy.node.nodeType'
-  | 'lastEditedBy.node.parent.id'
-  | 'lastEditedBy.node.parent.children'
-  | 'lastEditedBy.node.children'
-  | 'lastEditedBy.node.children.id'
-  | 'lastEditedBy.node.children.children'
-  | 'lastEditedBy.node.internal.content'
-  | 'lastEditedBy.node.internal.contentDigest'
-  | 'lastEditedBy.node.internal.description'
-  | 'lastEditedBy.node.internal.fieldOwners'
-  | 'lastEditedBy.node.internal.ignoreType'
-  | 'lastEditedBy.node.internal.mediaType'
-  | 'lastEditedBy.node.internal.owner'
-  | 'lastEditedBy.node.internal.type'
   | 'link'
   | 'mediaDetails.file'
   | 'mediaDetails.height'
@@ -8971,6 +6876,54 @@ type WpMediaItemGroupConnection_groupArgs = {
   field: WpMediaItemFieldsEnum;
 };
 
+type WpMediaItemFilterInput = {
+  readonly altText: Maybe<StringQueryOperatorInput>;
+  readonly ancestors: Maybe<WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput>;
+  readonly authorDatabaseId: Maybe<IntQueryOperatorInput>;
+  readonly authorId: Maybe<IDQueryOperatorInput>;
+  readonly caption: Maybe<StringQueryOperatorInput>;
+  readonly wpChildren: Maybe<WpHierarchicalContentNodeToContentNodeChildrenConnectionFilterInput>;
+  readonly commentCount: Maybe<IntQueryOperatorInput>;
+  readonly commentStatus: Maybe<StringQueryOperatorInput>;
+  readonly contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
+  readonly databaseId: Maybe<IntQueryOperatorInput>;
+  readonly date: Maybe<DateQueryOperatorInput>;
+  readonly dateGmt: Maybe<DateQueryOperatorInput>;
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly desiredSlug: Maybe<StringQueryOperatorInput>;
+  readonly enclosure: Maybe<StringQueryOperatorInput>;
+  readonly fileSize: Maybe<IntQueryOperatorInput>;
+  readonly guid: Maybe<StringQueryOperatorInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly isContentNode: Maybe<BooleanQueryOperatorInput>;
+  readonly isTermNode: Maybe<BooleanQueryOperatorInput>;
+  readonly link: Maybe<StringQueryOperatorInput>;
+  readonly mediaDetails: Maybe<WpMediaDetailsFilterInput>;
+  readonly mediaItemUrl: Maybe<StringQueryOperatorInput>;
+  readonly mediaType: Maybe<StringQueryOperatorInput>;
+  readonly mimeType: Maybe<StringQueryOperatorInput>;
+  readonly modified: Maybe<DateQueryOperatorInput>;
+  readonly modifiedGmt: Maybe<DateQueryOperatorInput>;
+  readonly wpParent: Maybe<WpHierarchicalContentNodeToParentContentNodeConnectionEdgeFilterInput>;
+  readonly parentDatabaseId: Maybe<IntQueryOperatorInput>;
+  readonly parentId: Maybe<IDQueryOperatorInput>;
+  readonly sizes: Maybe<StringQueryOperatorInput>;
+  readonly slug: Maybe<StringQueryOperatorInput>;
+  readonly sourceUrl: Maybe<StringQueryOperatorInput>;
+  readonly srcSet: Maybe<StringQueryOperatorInput>;
+  readonly status: Maybe<StringQueryOperatorInput>;
+  readonly template: Maybe<WpContentTemplateFilterInput>;
+  readonly terms: Maybe<WpMediaItemToTermNodeConnectionFilterInput>;
+  readonly title: Maybe<StringQueryOperatorInput>;
+  readonly uri: Maybe<StringQueryOperatorInput>;
+  readonly nodeType: Maybe<StringQueryOperatorInput>;
+  readonly remoteFile: Maybe<FileFilterInput>;
+  readonly localFile: Maybe<FileFilterInput>;
+  readonly parent: Maybe<NodeFilterInput>;
+  readonly children: Maybe<NodeFilterListInput>;
+  readonly internal: Maybe<InternalFilterInput>;
+};
+
 type WpMediaItemSortInput = {
   readonly fields: Maybe<ReadonlyArray<Maybe<WpMediaItemFieldsEnum>>>;
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
@@ -9167,6 +7120,521 @@ type WpTermNodeSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
+type WpPageToCategoryConnectionFilterInput = {
+  readonly nodes: Maybe<WpCategoryFilterListInput>;
+};
+
+type WpCategoryFilterListInput = {
+  readonly elemMatch: Maybe<WpCategoryFilterInput>;
+};
+
+type WpCategoryFilterInput = {
+  readonly ancestors: Maybe<WpCategoryToAncestorsCategoryConnectionFilterInput>;
+  readonly wpChildren: Maybe<WpCategoryToCategoryConnectionFilterInput>;
+  readonly contentNodes: Maybe<WpCategoryToContentNodeConnectionFilterInput>;
+  readonly count: Maybe<IntQueryOperatorInput>;
+  readonly databaseId: Maybe<IntQueryOperatorInput>;
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly isContentNode: Maybe<BooleanQueryOperatorInput>;
+  readonly isTermNode: Maybe<BooleanQueryOperatorInput>;
+  readonly link: Maybe<StringQueryOperatorInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly pages: Maybe<WpCategoryToPageConnectionFilterInput>;
+  readonly wpParent: Maybe<WpCategoryToParentCategoryConnectionEdgeFilterInput>;
+  readonly parentDatabaseId: Maybe<IntQueryOperatorInput>;
+  readonly parentId: Maybe<IDQueryOperatorInput>;
+  readonly posts: Maybe<WpCategoryToPostConnectionFilterInput>;
+  readonly slug: Maybe<StringQueryOperatorInput>;
+  readonly taxonomy: Maybe<WpCategoryToTaxonomyConnectionEdgeFilterInput>;
+  readonly termGroupId: Maybe<IntQueryOperatorInput>;
+  readonly termTaxonomyId: Maybe<IntQueryOperatorInput>;
+  readonly uri: Maybe<StringQueryOperatorInput>;
+  readonly nodeType: Maybe<StringQueryOperatorInput>;
+  readonly parent: Maybe<NodeFilterInput>;
+  readonly children: Maybe<NodeFilterListInput>;
+  readonly internal: Maybe<InternalFilterInput>;
+};
+
+type WpCategoryToAncestorsCategoryConnectionFilterInput = {
+  readonly nodes: Maybe<WpCategoryFilterListInput>;
+};
+
+type WpCategoryToCategoryConnectionFilterInput = {
+  readonly nodes: Maybe<WpCategoryFilterListInput>;
+};
+
+type WpCategoryToContentNodeConnectionFilterInput = {
+  readonly nodes: Maybe<WpContentNodeFilterListInput>;
+};
+
+type WpCategoryToPageConnectionFilterInput = {
+  readonly nodes: Maybe<WpPageFilterListInput>;
+};
+
+type WpPageFilterListInput = {
+  readonly elemMatch: Maybe<WpPageFilterInput>;
+};
+
+type WpPageFilterInput = {
+  readonly ancestors: Maybe<WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput>;
+  readonly authorDatabaseId: Maybe<IntQueryOperatorInput>;
+  readonly authorId: Maybe<IDQueryOperatorInput>;
+  readonly categories: Maybe<WpPageToCategoryConnectionFilterInput>;
+  readonly wpChildren: Maybe<WpHierarchicalContentNodeToContentNodeChildrenConnectionFilterInput>;
+  readonly commentCount: Maybe<IntQueryOperatorInput>;
+  readonly commentStatus: Maybe<StringQueryOperatorInput>;
+  readonly content: Maybe<StringQueryOperatorInput>;
+  readonly contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
+  readonly databaseId: Maybe<IntQueryOperatorInput>;
+  readonly date: Maybe<DateQueryOperatorInput>;
+  readonly dateGmt: Maybe<DateQueryOperatorInput>;
+  readonly desiredSlug: Maybe<StringQueryOperatorInput>;
+  readonly enclosure: Maybe<StringQueryOperatorInput>;
+  readonly featuredImage: Maybe<WpNodeWithFeaturedImageToMediaItemConnectionEdgeFilterInput>;
+  readonly featuredImageDatabaseId: Maybe<IntQueryOperatorInput>;
+  readonly featuredImageId: Maybe<IDQueryOperatorInput>;
+  readonly guid: Maybe<StringQueryOperatorInput>;
+  readonly homeACF: Maybe<WpPage_HomeacfFilterInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly isContentNode: Maybe<BooleanQueryOperatorInput>;
+  readonly isFrontPage: Maybe<BooleanQueryOperatorInput>;
+  readonly isPostsPage: Maybe<BooleanQueryOperatorInput>;
+  readonly isPrivacyPage: Maybe<BooleanQueryOperatorInput>;
+  readonly isRevision: Maybe<BooleanQueryOperatorInput>;
+  readonly isTermNode: Maybe<BooleanQueryOperatorInput>;
+  readonly link: Maybe<StringQueryOperatorInput>;
+  readonly menuOrder: Maybe<IntQueryOperatorInput>;
+  readonly modified: Maybe<DateQueryOperatorInput>;
+  readonly modifiedGmt: Maybe<DateQueryOperatorInput>;
+  readonly pageACF: Maybe<WpPage_PageacfFilterInput>;
+  readonly wpParent: Maybe<WpHierarchicalContentNodeToParentContentNodeConnectionEdgeFilterInput>;
+  readonly parentDatabaseId: Maybe<IntQueryOperatorInput>;
+  readonly parentId: Maybe<IDQueryOperatorInput>;
+  readonly riverratsACF: Maybe<WpPage_RiverratsacfFilterInput>;
+  readonly slug: Maybe<StringQueryOperatorInput>;
+  readonly status: Maybe<StringQueryOperatorInput>;
+  readonly template: Maybe<WpContentTemplateFilterInput>;
+  readonly terms: Maybe<WpPageToTermNodeConnectionFilterInput>;
+  readonly title: Maybe<StringQueryOperatorInput>;
+  readonly uri: Maybe<StringQueryOperatorInput>;
+  readonly nodeType: Maybe<StringQueryOperatorInput>;
+  readonly parent: Maybe<NodeFilterInput>;
+  readonly children: Maybe<NodeFilterListInput>;
+  readonly internal: Maybe<InternalFilterInput>;
+};
+
+type WpNodeWithFeaturedImageToMediaItemConnectionEdgeFilterInput = {
+  readonly node: Maybe<WpMediaItemFilterInput>;
+};
+
+type WpPage_HomeacfFilterInput = {
+  readonly adresse: Maybe<StringQueryOperatorInput>;
+  readonly facebookLink: Maybe<StringQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly instagramLink: Maybe<StringQueryOperatorInput>;
+  readonly tickarooLink: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPage_PageacfFilterInput = {
+  readonly boardMembers: Maybe<WpPage_Pageacf_boardMembersFilterListInput>;
+  readonly division: Maybe<StringQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly gamepitchWidget: Maybe<StringQueryOperatorInput>;
+  readonly lineup: Maybe<WpPage_Pageacf_LineupFilterInput>;
+  readonly seo: Maybe<WpPage_Pageacf_SeoFilterInput>;
+  readonly shop: Maybe<WpPage_Pageacf_ShopFilterInput>;
+  readonly sponsorsContent: Maybe<WpPage_Pageacf_sponsorsContentFilterListInput>;
+  readonly standardContent: Maybe<WpPage_Pageacf_StandardContentFilterInput>;
+  readonly teamContent: Maybe<WpPage_Pageacf_TeamContentFilterInput>;
+  readonly template: Maybe<StringQueryOperatorInput>;
+  readonly ticketsContent: Maybe<WpPage_Pageacf_TicketsContentFilterInput>;
+};
+
+type WpPage_Pageacf_boardMembersFilterListInput = {
+  readonly elemMatch: Maybe<WpPage_Pageacf_boardMembersFilterInput>;
+};
+
+type WpPage_Pageacf_boardMembersFilterInput = {
+  readonly email: Maybe<StringQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly level: Maybe<StringQueryOperatorInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly portrait: Maybe<WpMediaItemFilterInput>;
+  readonly position: Maybe<StringQueryOperatorInput>;
+  readonly telephone: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPage_Pageacf_LineupFilterInput = {
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly team: Maybe<WpPage_Pageacf_Lineup_teamFilterListInput>;
+  readonly teamPicture: Maybe<WpMediaItemFilterInput>;
+};
+
+type WpPage_Pageacf_Lineup_teamFilterListInput = {
+  readonly elemMatch: Maybe<WpPage_Pageacf_Lineup_teamFilterInput>;
+};
+
+type WpPage_Pageacf_Lineup_teamFilterInput = {
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly nationality: Maybe<StringQueryOperatorInput>;
+  readonly number: Maybe<FloatQueryOperatorInput>;
+  readonly portrait: Maybe<WpMediaItemFilterInput>;
+  readonly position: Maybe<StringQueryOperatorInput>;
+  readonly rodiLink: Maybe<StringQueryOperatorInput>;
+  readonly stickSide: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPage_Pageacf_SeoFilterInput = {
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly metaDescription: Maybe<StringQueryOperatorInput>;
+  readonly noIndex: Maybe<BooleanQueryOperatorInput>;
+  readonly ogDescription: Maybe<StringQueryOperatorInput>;
+  readonly socialImage: Maybe<WpMediaItemFilterInput>;
+  readonly title: Maybe<StringQueryOperatorInput>;
+  readonly twitterDescription: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPage_Pageacf_ShopFilterInput = {
+  readonly contact: Maybe<WpPage_Pageacf_Shop_ContactFilterInput>;
+  readonly downloads: Maybe<WpPage_Pageacf_Shop_downloadsFilterListInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly info: Maybe<StringQueryOperatorInput>;
+  readonly products: Maybe<WpPage_Pageacf_Shop_productsFilterListInput>;
+};
+
+type WpPage_Pageacf_Shop_ContactFilterInput = {
+  readonly email: Maybe<StringQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly telephone: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPage_Pageacf_Shop_downloadsFilterListInput = {
+  readonly elemMatch: Maybe<WpPage_Pageacf_Shop_downloadsFilterInput>;
+};
+
+type WpPage_Pageacf_Shop_downloadsFilterInput = {
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly file: Maybe<WpMediaItemFilterInput>;
+};
+
+type WpPage_Pageacf_Shop_productsFilterListInput = {
+  readonly elemMatch: Maybe<WpPage_Pageacf_Shop_productsFilterInput>;
+};
+
+type WpPage_Pageacf_Shop_productsFilterInput = {
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly image: Maybe<WpMediaItemFilterInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly price: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPage_Pageacf_sponsorsContentFilterListInput = {
+  readonly elemMatch: Maybe<WpPage_Pageacf_sponsorsContentFilterInput>;
+};
+
+type WpPage_Pageacf_sponsorsContentFilterInput = {
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly level: Maybe<StringQueryOperatorInput>;
+  readonly logo: Maybe<WpMediaItemFilterInput>;
+  readonly logoInvert: Maybe<WpMediaItemFilterInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly url: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPage_Pageacf_StandardContentFilterInput = {
+  readonly additionalInfo: Maybe<WpPage_Pageacf_StandardContent_AdditionalInfoFilterInput>;
+  readonly contact: Maybe<WpPage_Pageacf_StandardContent_ContactFilterInput>;
+  readonly downloads: Maybe<WpPage_Pageacf_StandardContent_downloadsFilterListInput>;
+  readonly featurePic: Maybe<WpMediaItemFilterInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly pageContentTitle: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPage_Pageacf_StandardContent_AdditionalInfoFilterInput = {
+  readonly content: Maybe<StringQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly title: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPage_Pageacf_StandardContent_ContactFilterInput = {
+  readonly email: Maybe<StringQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly tel: Maybe<StringQueryOperatorInput>;
+  readonly website: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPage_Pageacf_StandardContent_downloadsFilterListInput = {
+  readonly elemMatch: Maybe<WpPage_Pageacf_StandardContent_downloadsFilterInput>;
+};
+
+type WpPage_Pageacf_StandardContent_downloadsFilterInput = {
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly file: Maybe<WpMediaItemFilterInput>;
+};
+
+type WpPage_Pageacf_TeamContentFilterInput = {
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly ranking: Maybe<WpPage_Pageacf_TeamContent_rankingFilterListInput>;
+  readonly showTable: Maybe<BooleanQueryOperatorInput>;
+  readonly team: Maybe<WpPage_Pageacf_TeamContent_TeamFilterInput>;
+  readonly teamPicture: Maybe<WpMediaItemFilterInput>;
+};
+
+type WpPage_Pageacf_TeamContent_rankingFilterListInput = {
+  readonly elemMatch: Maybe<WpPage_Pageacf_TeamContent_rankingFilterInput>;
+};
+
+type WpPage_Pageacf_TeamContent_rankingFilterInput = {
+  readonly defeats: Maybe<FloatQueryOperatorInput>;
+  readonly draws: Maybe<FloatQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly gamesAmount: Maybe<FloatQueryOperatorInput>;
+  readonly goals: Maybe<FloatQueryOperatorInput>;
+  readonly goalsAgainst: Maybe<FloatQueryOperatorInput>;
+  readonly points: Maybe<FloatQueryOperatorInput>;
+  readonly team: Maybe<StringQueryOperatorInput>;
+  readonly wins: Maybe<FloatQueryOperatorInput>;
+};
+
+type WpPage_Pageacf_TeamContent_TeamFilterInput = {
+  readonly contact: Maybe<WpPage_Pageacf_TeamContent_Team_ContactFilterInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly teamMembers: Maybe<WpPage_Pageacf_TeamContent_Team_teamMembersFilterListInput>;
+};
+
+type WpPage_Pageacf_TeamContent_Team_ContactFilterInput = {
+  readonly assistant: Maybe<StringQueryOperatorInput>;
+  readonly coach: Maybe<StringQueryOperatorInput>;
+  readonly email: Maybe<StringQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly manager: Maybe<StringQueryOperatorInput>;
+  readonly telephone: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPage_Pageacf_TeamContent_Team_teamMembersFilterListInput = {
+  readonly elemMatch: Maybe<WpPage_Pageacf_TeamContent_Team_teamMembersFilterInput>;
+};
+
+type WpPage_Pageacf_TeamContent_Team_teamMembersFilterInput = {
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly number: Maybe<FloatQueryOperatorInput>;
+  readonly pos: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPage_Pageacf_TicketsContentFilterInput = {
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly season: Maybe<StringQueryOperatorInput>;
+  readonly seasonpass: Maybe<WpPage_Pageacf_TicketsContent_SeasonpassFilterInput>;
+  readonly seating: Maybe<WpPage_Pageacf_TicketsContent_seatingFilterListInput>;
+  readonly standing: Maybe<WpPage_Pageacf_TicketsContent_standingFilterListInput>;
+  readonly suffix: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPage_Pageacf_TicketsContent_SeasonpassFilterInput = {
+  readonly applications: Maybe<WpPage_Pageacf_TicketsContent_Seasonpass_applicationsFilterListInput>;
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPage_Pageacf_TicketsContent_Seasonpass_applicationsFilterListInput = {
+  readonly elemMatch: Maybe<WpPage_Pageacf_TicketsContent_Seasonpass_applicationsFilterInput>;
+};
+
+type WpPage_Pageacf_TicketsContent_Seasonpass_applicationsFilterInput = {
+  readonly application: Maybe<WpMediaItemFilterInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly title: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPage_Pageacf_TicketsContent_seatingFilterListInput = {
+  readonly elemMatch: Maybe<WpPage_Pageacf_TicketsContent_seatingFilterInput>;
+};
+
+type WpPage_Pageacf_TicketsContent_seatingFilterInput = {
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly kind: Maybe<StringQueryOperatorInput>;
+  readonly seasonpassCost: Maybe<FloatQueryOperatorInput>;
+  readonly singleCost: Maybe<FloatQueryOperatorInput>;
+};
+
+type WpPage_Pageacf_TicketsContent_standingFilterListInput = {
+  readonly elemMatch: Maybe<WpPage_Pageacf_TicketsContent_standingFilterInput>;
+};
+
+type WpPage_Pageacf_TicketsContent_standingFilterInput = {
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly kind: Maybe<StringQueryOperatorInput>;
+  readonly seasonpassCost: Maybe<FloatQueryOperatorInput>;
+  readonly singleCost: Maybe<FloatQueryOperatorInput>;
+};
+
+type WpPage_RiverratsacfFilterInput = {
+  readonly divisionId: Maybe<StringQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly teamId: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPageToTermNodeConnectionFilterInput = {
+  readonly nodes: Maybe<WpTermNodeFilterListInput>;
+};
+
+type WpCategoryToParentCategoryConnectionEdgeFilterInput = {
+  readonly node: Maybe<WpCategoryFilterInput>;
+};
+
+type WpCategoryToPostConnectionFilterInput = {
+  readonly nodes: Maybe<WpPostFilterListInput>;
+};
+
+type WpPostFilterListInput = {
+  readonly elemMatch: Maybe<WpPostFilterInput>;
+};
+
+type WpPostFilterInput = {
+  readonly authorDatabaseId: Maybe<IntQueryOperatorInput>;
+  readonly authorId: Maybe<IDQueryOperatorInput>;
+  readonly categories: Maybe<WpPostToCategoryConnectionFilterInput>;
+  readonly commentCount: Maybe<IntQueryOperatorInput>;
+  readonly commentStatus: Maybe<StringQueryOperatorInput>;
+  readonly content: Maybe<StringQueryOperatorInput>;
+  readonly contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
+  readonly databaseId: Maybe<IntQueryOperatorInput>;
+  readonly date: Maybe<DateQueryOperatorInput>;
+  readonly dateGmt: Maybe<DateQueryOperatorInput>;
+  readonly desiredSlug: Maybe<StringQueryOperatorInput>;
+  readonly enclosure: Maybe<StringQueryOperatorInput>;
+  readonly excerpt: Maybe<StringQueryOperatorInput>;
+  readonly featuredImage: Maybe<WpNodeWithFeaturedImageToMediaItemConnectionEdgeFilterInput>;
+  readonly featuredImageDatabaseId: Maybe<IntQueryOperatorInput>;
+  readonly featuredImageId: Maybe<IDQueryOperatorInput>;
+  readonly guid: Maybe<StringQueryOperatorInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly isContentNode: Maybe<BooleanQueryOperatorInput>;
+  readonly isRevision: Maybe<BooleanQueryOperatorInput>;
+  readonly isSticky: Maybe<BooleanQueryOperatorInput>;
+  readonly isTermNode: Maybe<BooleanQueryOperatorInput>;
+  readonly link: Maybe<StringQueryOperatorInput>;
+  readonly modified: Maybe<DateQueryOperatorInput>;
+  readonly modifiedGmt: Maybe<DateQueryOperatorInput>;
+  readonly pingStatus: Maybe<StringQueryOperatorInput>;
+  readonly pinged: Maybe<StringQueryOperatorInput>;
+  readonly postACF: Maybe<WpPost_PostacfFilterInput>;
+  readonly postFormats: Maybe<WpPostToPostFormatConnectionFilterInput>;
+  readonly slug: Maybe<StringQueryOperatorInput>;
+  readonly status: Maybe<StringQueryOperatorInput>;
+  readonly template: Maybe<WpContentTemplateFilterInput>;
+  readonly terms: Maybe<WpPostToTermNodeConnectionFilterInput>;
+  readonly title: Maybe<StringQueryOperatorInput>;
+  readonly toPing: Maybe<StringQueryOperatorInput>;
+  readonly uri: Maybe<StringQueryOperatorInput>;
+  readonly nodeType: Maybe<StringQueryOperatorInput>;
+  readonly parent: Maybe<NodeFilterInput>;
+  readonly children: Maybe<NodeFilterListInput>;
+  readonly internal: Maybe<InternalFilterInput>;
+};
+
+type WpPostToCategoryConnectionFilterInput = {
+  readonly nodes: Maybe<WpCategoryFilterListInput>;
+};
+
+type WpPost_PostacfFilterInput = {
+  readonly division: Maybe<StringQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly flashPost: Maybe<WpPost_Postacf_FlashPostFilterInput>;
+  readonly matchReport: Maybe<WpPost_Postacf_MatchReportFilterInput>;
+  readonly normalPost: Maybe<WpPost_Postacf_NormalPostFilterInput>;
+  readonly postCategory: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPost_Postacf_FlashPostFilterInput = {
+  readonly end: Maybe<StringQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly start: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPost_Postacf_MatchReportFilterInput = {
+  readonly assists: Maybe<StringQueryOperatorInput>;
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly gameDay: Maybe<StringQueryOperatorInput>;
+  readonly penalties: Maybe<StringQueryOperatorInput>;
+  readonly periodResults: Maybe<StringQueryOperatorInput>;
+  readonly scoreGuest: Maybe<FloatQueryOperatorInput>;
+  readonly scoreHome: Maybe<FloatQueryOperatorInput>;
+  readonly scorer: Maybe<StringQueryOperatorInput>;
+  readonly specialCase: Maybe<StringQueryOperatorInput>;
+  readonly spectators: Maybe<StringQueryOperatorInput>;
+  readonly teamGuest: Maybe<StringQueryOperatorInput>;
+  readonly teamGuestSlug: Maybe<StringQueryOperatorInput>;
+  readonly teamHome: Maybe<StringQueryOperatorInput>;
+  readonly teamHomeSlug: Maybe<StringQueryOperatorInput>;
+};
+
+type WpPost_Postacf_NormalPostFilterInput = {
+  readonly fieldGroupName: Maybe<StringQueryOperatorInput>;
+  readonly imageGallery: Maybe<WpMediaItemFilterListInput>;
+};
+
+type WpMediaItemFilterListInput = {
+  readonly elemMatch: Maybe<WpMediaItemFilterInput>;
+};
+
+type WpPostToPostFormatConnectionFilterInput = {
+  readonly nodes: Maybe<WpPostFormatFilterListInput>;
+};
+
+type WpPostFormatFilterListInput = {
+  readonly elemMatch: Maybe<WpPostFormatFilterInput>;
+};
+
+type WpPostFormatFilterInput = {
+  readonly contentNodes: Maybe<WpPostFormatToContentNodeConnectionFilterInput>;
+  readonly count: Maybe<IntQueryOperatorInput>;
+  readonly databaseId: Maybe<IntQueryOperatorInput>;
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly isContentNode: Maybe<BooleanQueryOperatorInput>;
+  readonly isTermNode: Maybe<BooleanQueryOperatorInput>;
+  readonly link: Maybe<StringQueryOperatorInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly posts: Maybe<WpPostFormatToPostConnectionFilterInput>;
+  readonly slug: Maybe<StringQueryOperatorInput>;
+  readonly taxonomy: Maybe<WpPostFormatToTaxonomyConnectionEdgeFilterInput>;
+  readonly termGroupId: Maybe<IntQueryOperatorInput>;
+  readonly termTaxonomyId: Maybe<IntQueryOperatorInput>;
+  readonly uri: Maybe<StringQueryOperatorInput>;
+  readonly nodeType: Maybe<StringQueryOperatorInput>;
+  readonly parent: Maybe<NodeFilterInput>;
+  readonly children: Maybe<NodeFilterListInput>;
+  readonly internal: Maybe<InternalFilterInput>;
+};
+
+type WpPostFormatToContentNodeConnectionFilterInput = {
+  readonly nodes: Maybe<WpContentNodeFilterListInput>;
+};
+
+type WpPostFormatToPostConnectionFilterInput = {
+  readonly nodes: Maybe<WpPostFilterListInput>;
+};
+
+type WpPostFormatToTaxonomyConnectionEdgeFilterInput = {
+  readonly node: Maybe<WpTaxonomyFilterInput>;
+};
+
+type WpPostToTermNodeConnectionFilterInput = {
+  readonly nodes: Maybe<WpTermNodeFilterListInput>;
+};
+
+type WpCategoryToTaxonomyConnectionEdgeFilterInput = {
+  readonly node: Maybe<WpTaxonomyFilterInput>;
+};
+
 type WpPageConnection = {
   readonly totalCount: Scalars['Int'];
   readonly edges: ReadonlyArray<WpPageEdge>;
@@ -9244,54 +7712,6 @@ type WpPageFieldsEnum =
   | 'ancestors.nodes.internal.mediaType'
   | 'ancestors.nodes.internal.owner'
   | 'ancestors.nodes.internal.type'
-  | 'author.node.avatar.default'
-  | 'author.node.avatar.extraAttr'
-  | 'author.node.avatar.forceDefault'
-  | 'author.node.avatar.foundAvatar'
-  | 'author.node.avatar.height'
-  | 'author.node.avatar.rating'
-  | 'author.node.avatar.scheme'
-  | 'author.node.avatar.size'
-  | 'author.node.avatar.url'
-  | 'author.node.avatar.width'
-  | 'author.node.capKey'
-  | 'author.node.capabilities'
-  | 'author.node.comments.nodes'
-  | 'author.node.databaseId'
-  | 'author.node.description'
-  | 'author.node.email'
-  | 'author.node.extraCapabilities'
-  | 'author.node.firstName'
-  | 'author.node.id'
-  | 'author.node.isContentNode'
-  | 'author.node.isTermNode'
-  | 'author.node.lastName'
-  | 'author.node.locale'
-  | 'author.node.name'
-  | 'author.node.nicename'
-  | 'author.node.nickname'
-  | 'author.node.pages.nodes'
-  | 'author.node.posts.nodes'
-  | 'author.node.registeredDate'
-  | 'author.node.roles.nodes'
-  | 'author.node.slug'
-  | 'author.node.uri'
-  | 'author.node.url'
-  | 'author.node.username'
-  | 'author.node.nodeType'
-  | 'author.node.parent.id'
-  | 'author.node.parent.children'
-  | 'author.node.children'
-  | 'author.node.children.id'
-  | 'author.node.children.children'
-  | 'author.node.internal.content'
-  | 'author.node.internal.contentDigest'
-  | 'author.node.internal.description'
-  | 'author.node.internal.fieldOwners'
-  | 'author.node.internal.ignoreType'
-  | 'author.node.internal.mediaType'
-  | 'author.node.internal.owner'
-  | 'author.node.internal.type'
   | 'authorDatabaseId'
   | 'authorId'
   | 'categories.nodes'
@@ -9361,34 +7781,6 @@ type WpPageFieldsEnum =
   | 'wpChildren.nodes.internal.type'
   | 'commentCount'
   | 'commentStatus'
-  | 'comments.nodes'
-  | 'comments.nodes.agent'
-  | 'comments.nodes.approved'
-  | 'comments.nodes.authorIp'
-  | 'comments.nodes.content'
-  | 'comments.nodes.databaseId'
-  | 'comments.nodes.date'
-  | 'comments.nodes.dateGmt'
-  | 'comments.nodes.id'
-  | 'comments.nodes.karma'
-  | 'comments.nodes.parentDatabaseId'
-  | 'comments.nodes.parentId'
-  | 'comments.nodes.replies.nodes'
-  | 'comments.nodes.type'
-  | 'comments.nodes.nodeType'
-  | 'comments.nodes.parent.id'
-  | 'comments.nodes.parent.children'
-  | 'comments.nodes.children'
-  | 'comments.nodes.children.id'
-  | 'comments.nodes.children.children'
-  | 'comments.nodes.internal.content'
-  | 'comments.nodes.internal.contentDigest'
-  | 'comments.nodes.internal.description'
-  | 'comments.nodes.internal.fieldOwners'
-  | 'comments.nodes.internal.ignoreType'
-  | 'comments.nodes.internal.mediaType'
-  | 'comments.nodes.internal.owner'
-  | 'comments.nodes.internal.type'
   | 'content'
   | 'contentType.node.archivePath'
   | 'contentType.node.canExport'
@@ -9473,7 +7865,6 @@ type WpPageFieldsEnum =
   | 'featuredImage.node.wpChildren.nodes'
   | 'featuredImage.node.commentCount'
   | 'featuredImage.node.commentStatus'
-  | 'featuredImage.node.comments.nodes'
   | 'featuredImage.node.databaseId'
   | 'featuredImage.node.date'
   | 'featuredImage.node.dateGmt'
@@ -9613,54 +8004,6 @@ type WpPageFieldsEnum =
   | 'isPrivacyPage'
   | 'isRevision'
   | 'isTermNode'
-  | 'lastEditedBy.node.avatar.default'
-  | 'lastEditedBy.node.avatar.extraAttr'
-  | 'lastEditedBy.node.avatar.forceDefault'
-  | 'lastEditedBy.node.avatar.foundAvatar'
-  | 'lastEditedBy.node.avatar.height'
-  | 'lastEditedBy.node.avatar.rating'
-  | 'lastEditedBy.node.avatar.scheme'
-  | 'lastEditedBy.node.avatar.size'
-  | 'lastEditedBy.node.avatar.url'
-  | 'lastEditedBy.node.avatar.width'
-  | 'lastEditedBy.node.capKey'
-  | 'lastEditedBy.node.capabilities'
-  | 'lastEditedBy.node.comments.nodes'
-  | 'lastEditedBy.node.databaseId'
-  | 'lastEditedBy.node.description'
-  | 'lastEditedBy.node.email'
-  | 'lastEditedBy.node.extraCapabilities'
-  | 'lastEditedBy.node.firstName'
-  | 'lastEditedBy.node.id'
-  | 'lastEditedBy.node.isContentNode'
-  | 'lastEditedBy.node.isTermNode'
-  | 'lastEditedBy.node.lastName'
-  | 'lastEditedBy.node.locale'
-  | 'lastEditedBy.node.name'
-  | 'lastEditedBy.node.nicename'
-  | 'lastEditedBy.node.nickname'
-  | 'lastEditedBy.node.pages.nodes'
-  | 'lastEditedBy.node.posts.nodes'
-  | 'lastEditedBy.node.registeredDate'
-  | 'lastEditedBy.node.roles.nodes'
-  | 'lastEditedBy.node.slug'
-  | 'lastEditedBy.node.uri'
-  | 'lastEditedBy.node.url'
-  | 'lastEditedBy.node.username'
-  | 'lastEditedBy.node.nodeType'
-  | 'lastEditedBy.node.parent.id'
-  | 'lastEditedBy.node.parent.children'
-  | 'lastEditedBy.node.children'
-  | 'lastEditedBy.node.children.id'
-  | 'lastEditedBy.node.children.children'
-  | 'lastEditedBy.node.internal.content'
-  | 'lastEditedBy.node.internal.contentDigest'
-  | 'lastEditedBy.node.internal.description'
-  | 'lastEditedBy.node.internal.fieldOwners'
-  | 'lastEditedBy.node.internal.ignoreType'
-  | 'lastEditedBy.node.internal.mediaType'
-  | 'lastEditedBy.node.internal.owner'
-  | 'lastEditedBy.node.internal.type'
   | 'link'
   | 'menuOrder'
   | 'modified'
@@ -10027,36 +8370,6 @@ type WpPageFieldsEnum =
   | 'riverratsACF.teamId'
   | 'slug'
   | 'status'
-  | 'tags.nodes'
-  | 'tags.nodes.contentNodes.nodes'
-  | 'tags.nodes.count'
-  | 'tags.nodes.databaseId'
-  | 'tags.nodes.description'
-  | 'tags.nodes.id'
-  | 'tags.nodes.isContentNode'
-  | 'tags.nodes.isTermNode'
-  | 'tags.nodes.link'
-  | 'tags.nodes.name'
-  | 'tags.nodes.pages.nodes'
-  | 'tags.nodes.posts.nodes'
-  | 'tags.nodes.slug'
-  | 'tags.nodes.termGroupId'
-  | 'tags.nodes.termTaxonomyId'
-  | 'tags.nodes.uri'
-  | 'tags.nodes.nodeType'
-  | 'tags.nodes.parent.id'
-  | 'tags.nodes.parent.children'
-  | 'tags.nodes.children'
-  | 'tags.nodes.children.id'
-  | 'tags.nodes.children.children'
-  | 'tags.nodes.internal.content'
-  | 'tags.nodes.internal.contentDigest'
-  | 'tags.nodes.internal.description'
-  | 'tags.nodes.internal.fieldOwners'
-  | 'tags.nodes.internal.ignoreType'
-  | 'tags.nodes.internal.mediaType'
-  | 'tags.nodes.internal.owner'
-  | 'tags.nodes.internal.type'
   | 'template.templateName'
   | 'terms.nodes'
   | 'terms.nodes.count'
@@ -10381,7 +8694,6 @@ type WpCategoryFieldsEnum =
   | 'pages.nodes.wpChildren.nodes'
   | 'pages.nodes.commentCount'
   | 'pages.nodes.commentStatus'
-  | 'pages.nodes.comments.nodes'
   | 'pages.nodes.content'
   | 'pages.nodes.databaseId'
   | 'pages.nodes.date'
@@ -10420,7 +8732,6 @@ type WpCategoryFieldsEnum =
   | 'pages.nodes.riverratsACF.teamId'
   | 'pages.nodes.slug'
   | 'pages.nodes.status'
-  | 'pages.nodes.tags.nodes'
   | 'pages.nodes.template.templateName'
   | 'pages.nodes.terms.nodes'
   | 'pages.nodes.title'
@@ -10480,7 +8791,6 @@ type WpCategoryFieldsEnum =
   | 'posts.nodes.categories.nodes'
   | 'posts.nodes.commentCount'
   | 'posts.nodes.commentStatus'
-  | 'posts.nodes.comments.nodes'
   | 'posts.nodes.content'
   | 'posts.nodes.databaseId'
   | 'posts.nodes.date'
@@ -10507,7 +8817,6 @@ type WpCategoryFieldsEnum =
   | 'posts.nodes.postFormats.nodes'
   | 'posts.nodes.slug'
   | 'posts.nodes.status'
-  | 'posts.nodes.tags.nodes'
   | 'posts.nodes.template.templateName'
   | 'posts.nodes.terms.nodes'
   | 'posts.nodes.title'
@@ -10744,54 +9053,6 @@ type WpPostEdge = {
 };
 
 type WpPostFieldsEnum =
-  | 'author.node.avatar.default'
-  | 'author.node.avatar.extraAttr'
-  | 'author.node.avatar.forceDefault'
-  | 'author.node.avatar.foundAvatar'
-  | 'author.node.avatar.height'
-  | 'author.node.avatar.rating'
-  | 'author.node.avatar.scheme'
-  | 'author.node.avatar.size'
-  | 'author.node.avatar.url'
-  | 'author.node.avatar.width'
-  | 'author.node.capKey'
-  | 'author.node.capabilities'
-  | 'author.node.comments.nodes'
-  | 'author.node.databaseId'
-  | 'author.node.description'
-  | 'author.node.email'
-  | 'author.node.extraCapabilities'
-  | 'author.node.firstName'
-  | 'author.node.id'
-  | 'author.node.isContentNode'
-  | 'author.node.isTermNode'
-  | 'author.node.lastName'
-  | 'author.node.locale'
-  | 'author.node.name'
-  | 'author.node.nicename'
-  | 'author.node.nickname'
-  | 'author.node.pages.nodes'
-  | 'author.node.posts.nodes'
-  | 'author.node.registeredDate'
-  | 'author.node.roles.nodes'
-  | 'author.node.slug'
-  | 'author.node.uri'
-  | 'author.node.url'
-  | 'author.node.username'
-  | 'author.node.nodeType'
-  | 'author.node.parent.id'
-  | 'author.node.parent.children'
-  | 'author.node.children'
-  | 'author.node.children.id'
-  | 'author.node.children.children'
-  | 'author.node.internal.content'
-  | 'author.node.internal.contentDigest'
-  | 'author.node.internal.description'
-  | 'author.node.internal.fieldOwners'
-  | 'author.node.internal.ignoreType'
-  | 'author.node.internal.mediaType'
-  | 'author.node.internal.owner'
-  | 'author.node.internal.type'
   | 'authorDatabaseId'
   | 'authorId'
   | 'categories.nodes'
@@ -10830,34 +9091,6 @@ type WpPostFieldsEnum =
   | 'categories.nodes.internal.type'
   | 'commentCount'
   | 'commentStatus'
-  | 'comments.nodes'
-  | 'comments.nodes.agent'
-  | 'comments.nodes.approved'
-  | 'comments.nodes.authorIp'
-  | 'comments.nodes.content'
-  | 'comments.nodes.databaseId'
-  | 'comments.nodes.date'
-  | 'comments.nodes.dateGmt'
-  | 'comments.nodes.id'
-  | 'comments.nodes.karma'
-  | 'comments.nodes.parentDatabaseId'
-  | 'comments.nodes.parentId'
-  | 'comments.nodes.replies.nodes'
-  | 'comments.nodes.type'
-  | 'comments.nodes.nodeType'
-  | 'comments.nodes.parent.id'
-  | 'comments.nodes.parent.children'
-  | 'comments.nodes.children'
-  | 'comments.nodes.children.id'
-  | 'comments.nodes.children.children'
-  | 'comments.nodes.internal.content'
-  | 'comments.nodes.internal.contentDigest'
-  | 'comments.nodes.internal.description'
-  | 'comments.nodes.internal.fieldOwners'
-  | 'comments.nodes.internal.ignoreType'
-  | 'comments.nodes.internal.mediaType'
-  | 'comments.nodes.internal.owner'
-  | 'comments.nodes.internal.type'
   | 'content'
   | 'contentType.node.archivePath'
   | 'contentType.node.canExport'
@@ -10943,7 +9176,6 @@ type WpPostFieldsEnum =
   | 'featuredImage.node.wpChildren.nodes'
   | 'featuredImage.node.commentCount'
   | 'featuredImage.node.commentStatus'
-  | 'featuredImage.node.comments.nodes'
   | 'featuredImage.node.databaseId'
   | 'featuredImage.node.date'
   | 'featuredImage.node.dateGmt'
@@ -11076,54 +9308,6 @@ type WpPostFieldsEnum =
   | 'isRevision'
   | 'isSticky'
   | 'isTermNode'
-  | 'lastEditedBy.node.avatar.default'
-  | 'lastEditedBy.node.avatar.extraAttr'
-  | 'lastEditedBy.node.avatar.forceDefault'
-  | 'lastEditedBy.node.avatar.foundAvatar'
-  | 'lastEditedBy.node.avatar.height'
-  | 'lastEditedBy.node.avatar.rating'
-  | 'lastEditedBy.node.avatar.scheme'
-  | 'lastEditedBy.node.avatar.size'
-  | 'lastEditedBy.node.avatar.url'
-  | 'lastEditedBy.node.avatar.width'
-  | 'lastEditedBy.node.capKey'
-  | 'lastEditedBy.node.capabilities'
-  | 'lastEditedBy.node.comments.nodes'
-  | 'lastEditedBy.node.databaseId'
-  | 'lastEditedBy.node.description'
-  | 'lastEditedBy.node.email'
-  | 'lastEditedBy.node.extraCapabilities'
-  | 'lastEditedBy.node.firstName'
-  | 'lastEditedBy.node.id'
-  | 'lastEditedBy.node.isContentNode'
-  | 'lastEditedBy.node.isTermNode'
-  | 'lastEditedBy.node.lastName'
-  | 'lastEditedBy.node.locale'
-  | 'lastEditedBy.node.name'
-  | 'lastEditedBy.node.nicename'
-  | 'lastEditedBy.node.nickname'
-  | 'lastEditedBy.node.pages.nodes'
-  | 'lastEditedBy.node.posts.nodes'
-  | 'lastEditedBy.node.registeredDate'
-  | 'lastEditedBy.node.roles.nodes'
-  | 'lastEditedBy.node.slug'
-  | 'lastEditedBy.node.uri'
-  | 'lastEditedBy.node.url'
-  | 'lastEditedBy.node.username'
-  | 'lastEditedBy.node.nodeType'
-  | 'lastEditedBy.node.parent.id'
-  | 'lastEditedBy.node.parent.children'
-  | 'lastEditedBy.node.children'
-  | 'lastEditedBy.node.children.id'
-  | 'lastEditedBy.node.children.children'
-  | 'lastEditedBy.node.internal.content'
-  | 'lastEditedBy.node.internal.contentDigest'
-  | 'lastEditedBy.node.internal.description'
-  | 'lastEditedBy.node.internal.fieldOwners'
-  | 'lastEditedBy.node.internal.ignoreType'
-  | 'lastEditedBy.node.internal.mediaType'
-  | 'lastEditedBy.node.internal.owner'
-  | 'lastEditedBy.node.internal.type'
   | 'link'
   | 'modified'
   | 'modifiedGmt'
@@ -11216,36 +9400,6 @@ type WpPostFieldsEnum =
   | 'postFormats.nodes.internal.type'
   | 'slug'
   | 'status'
-  | 'tags.nodes'
-  | 'tags.nodes.contentNodes.nodes'
-  | 'tags.nodes.count'
-  | 'tags.nodes.databaseId'
-  | 'tags.nodes.description'
-  | 'tags.nodes.id'
-  | 'tags.nodes.isContentNode'
-  | 'tags.nodes.isTermNode'
-  | 'tags.nodes.link'
-  | 'tags.nodes.name'
-  | 'tags.nodes.pages.nodes'
-  | 'tags.nodes.posts.nodes'
-  | 'tags.nodes.slug'
-  | 'tags.nodes.termGroupId'
-  | 'tags.nodes.termTaxonomyId'
-  | 'tags.nodes.uri'
-  | 'tags.nodes.nodeType'
-  | 'tags.nodes.parent.id'
-  | 'tags.nodes.parent.children'
-  | 'tags.nodes.children'
-  | 'tags.nodes.children.id'
-  | 'tags.nodes.children.children'
-  | 'tags.nodes.internal.content'
-  | 'tags.nodes.internal.contentDigest'
-  | 'tags.nodes.internal.description'
-  | 'tags.nodes.internal.fieldOwners'
-  | 'tags.nodes.internal.ignoreType'
-  | 'tags.nodes.internal.mediaType'
-  | 'tags.nodes.internal.owner'
-  | 'tags.nodes.internal.type'
   | 'template.templateName'
   | 'terms.nodes'
   | 'terms.nodes.count'
@@ -11501,7 +9655,6 @@ type WpPostFormatFieldsEnum =
   | 'posts.nodes.categories.nodes'
   | 'posts.nodes.commentCount'
   | 'posts.nodes.commentStatus'
-  | 'posts.nodes.comments.nodes'
   | 'posts.nodes.content'
   | 'posts.nodes.databaseId'
   | 'posts.nodes.date'
@@ -11528,7 +9681,6 @@ type WpPostFormatFieldsEnum =
   | 'posts.nodes.postFormats.nodes'
   | 'posts.nodes.slug'
   | 'posts.nodes.status'
-  | 'posts.nodes.tags.nodes'
   | 'posts.nodes.template.templateName'
   | 'posts.nodes.terms.nodes'
   | 'posts.nodes.title'
@@ -11716,564 +9868,6 @@ type WpPostFormatGroupConnection_groupArgs = {
 
 type WpPostFormatSortInput = {
   readonly fields: Maybe<ReadonlyArray<Maybe<WpPostFormatFieldsEnum>>>;
-  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
-};
-
-type WpTagConnection = {
-  readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<WpTagEdge>;
-  readonly nodes: ReadonlyArray<WpTag>;
-  readonly pageInfo: PageInfo;
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<WpTagGroupConnection>;
-};
-
-
-type WpTagConnection_distinctArgs = {
-  field: WpTagFieldsEnum;
-};
-
-
-type WpTagConnection_maxArgs = {
-  field: WpTagFieldsEnum;
-};
-
-
-type WpTagConnection_minArgs = {
-  field: WpTagFieldsEnum;
-};
-
-
-type WpTagConnection_sumArgs = {
-  field: WpTagFieldsEnum;
-};
-
-
-type WpTagConnection_groupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: WpTagFieldsEnum;
-};
-
-type WpTagEdge = {
-  readonly next: Maybe<WpTag>;
-  readonly node: WpTag;
-  readonly previous: Maybe<WpTag>;
-};
-
-type WpTagFieldsEnum =
-  | 'contentNodes.nodes'
-  | 'contentNodes.nodes.databaseId'
-  | 'contentNodes.nodes.date'
-  | 'contentNodes.nodes.dateGmt'
-  | 'contentNodes.nodes.desiredSlug'
-  | 'contentNodes.nodes.enclosure'
-  | 'contentNodes.nodes.guid'
-  | 'contentNodes.nodes.id'
-  | 'contentNodes.nodes.isContentNode'
-  | 'contentNodes.nodes.isTermNode'
-  | 'contentNodes.nodes.link'
-  | 'contentNodes.nodes.modified'
-  | 'contentNodes.nodes.modifiedGmt'
-  | 'contentNodes.nodes.slug'
-  | 'contentNodes.nodes.status'
-  | 'contentNodes.nodes.template.templateName'
-  | 'contentNodes.nodes.uri'
-  | 'contentNodes.nodes.nodeType'
-  | 'contentNodes.nodes.parent.id'
-  | 'contentNodes.nodes.parent.children'
-  | 'contentNodes.nodes.children'
-  | 'contentNodes.nodes.children.id'
-  | 'contentNodes.nodes.children.children'
-  | 'contentNodes.nodes.internal.content'
-  | 'contentNodes.nodes.internal.contentDigest'
-  | 'contentNodes.nodes.internal.description'
-  | 'contentNodes.nodes.internal.fieldOwners'
-  | 'contentNodes.nodes.internal.ignoreType'
-  | 'contentNodes.nodes.internal.mediaType'
-  | 'contentNodes.nodes.internal.owner'
-  | 'contentNodes.nodes.internal.type'
-  | 'count'
-  | 'databaseId'
-  | 'description'
-  | 'id'
-  | 'isContentNode'
-  | 'isTermNode'
-  | 'link'
-  | 'name'
-  | 'pages.nodes'
-  | 'pages.nodes.ancestors.nodes'
-  | 'pages.nodes.authorDatabaseId'
-  | 'pages.nodes.authorId'
-  | 'pages.nodes.categories.nodes'
-  | 'pages.nodes.wpChildren.nodes'
-  | 'pages.nodes.commentCount'
-  | 'pages.nodes.commentStatus'
-  | 'pages.nodes.comments.nodes'
-  | 'pages.nodes.content'
-  | 'pages.nodes.databaseId'
-  | 'pages.nodes.date'
-  | 'pages.nodes.dateGmt'
-  | 'pages.nodes.desiredSlug'
-  | 'pages.nodes.enclosure'
-  | 'pages.nodes.featuredImageDatabaseId'
-  | 'pages.nodes.featuredImageId'
-  | 'pages.nodes.guid'
-  | 'pages.nodes.homeACF.adresse'
-  | 'pages.nodes.homeACF.facebookLink'
-  | 'pages.nodes.homeACF.fieldGroupName'
-  | 'pages.nodes.homeACF.instagramLink'
-  | 'pages.nodes.homeACF.tickarooLink'
-  | 'pages.nodes.id'
-  | 'pages.nodes.isContentNode'
-  | 'pages.nodes.isFrontPage'
-  | 'pages.nodes.isPostsPage'
-  | 'pages.nodes.isPrivacyPage'
-  | 'pages.nodes.isRevision'
-  | 'pages.nodes.isTermNode'
-  | 'pages.nodes.link'
-  | 'pages.nodes.menuOrder'
-  | 'pages.nodes.modified'
-  | 'pages.nodes.modifiedGmt'
-  | 'pages.nodes.pageACF.boardMembers'
-  | 'pages.nodes.pageACF.division'
-  | 'pages.nodes.pageACF.fieldGroupName'
-  | 'pages.nodes.pageACF.gamepitchWidget'
-  | 'pages.nodes.pageACF.sponsorsContent'
-  | 'pages.nodes.pageACF.template'
-  | 'pages.nodes.parentDatabaseId'
-  | 'pages.nodes.parentId'
-  | 'pages.nodes.riverratsACF.divisionId'
-  | 'pages.nodes.riverratsACF.fieldGroupName'
-  | 'pages.nodes.riverratsACF.teamId'
-  | 'pages.nodes.slug'
-  | 'pages.nodes.status'
-  | 'pages.nodes.tags.nodes'
-  | 'pages.nodes.template.templateName'
-  | 'pages.nodes.terms.nodes'
-  | 'pages.nodes.title'
-  | 'pages.nodes.uri'
-  | 'pages.nodes.nodeType'
-  | 'pages.nodes.parent.id'
-  | 'pages.nodes.parent.children'
-  | 'pages.nodes.children'
-  | 'pages.nodes.children.id'
-  | 'pages.nodes.children.children'
-  | 'pages.nodes.internal.content'
-  | 'pages.nodes.internal.contentDigest'
-  | 'pages.nodes.internal.description'
-  | 'pages.nodes.internal.fieldOwners'
-  | 'pages.nodes.internal.ignoreType'
-  | 'pages.nodes.internal.mediaType'
-  | 'pages.nodes.internal.owner'
-  | 'pages.nodes.internal.type'
-  | 'posts.nodes'
-  | 'posts.nodes.authorDatabaseId'
-  | 'posts.nodes.authorId'
-  | 'posts.nodes.categories.nodes'
-  | 'posts.nodes.commentCount'
-  | 'posts.nodes.commentStatus'
-  | 'posts.nodes.comments.nodes'
-  | 'posts.nodes.content'
-  | 'posts.nodes.databaseId'
-  | 'posts.nodes.date'
-  | 'posts.nodes.dateGmt'
-  | 'posts.nodes.desiredSlug'
-  | 'posts.nodes.enclosure'
-  | 'posts.nodes.excerpt'
-  | 'posts.nodes.featuredImageDatabaseId'
-  | 'posts.nodes.featuredImageId'
-  | 'posts.nodes.guid'
-  | 'posts.nodes.id'
-  | 'posts.nodes.isContentNode'
-  | 'posts.nodes.isRevision'
-  | 'posts.nodes.isSticky'
-  | 'posts.nodes.isTermNode'
-  | 'posts.nodes.link'
-  | 'posts.nodes.modified'
-  | 'posts.nodes.modifiedGmt'
-  | 'posts.nodes.pingStatus'
-  | 'posts.nodes.pinged'
-  | 'posts.nodes.postACF.division'
-  | 'posts.nodes.postACF.fieldGroupName'
-  | 'posts.nodes.postACF.postCategory'
-  | 'posts.nodes.postFormats.nodes'
-  | 'posts.nodes.slug'
-  | 'posts.nodes.status'
-  | 'posts.nodes.tags.nodes'
-  | 'posts.nodes.template.templateName'
-  | 'posts.nodes.terms.nodes'
-  | 'posts.nodes.title'
-  | 'posts.nodes.toPing'
-  | 'posts.nodes.uri'
-  | 'posts.nodes.nodeType'
-  | 'posts.nodes.parent.id'
-  | 'posts.nodes.parent.children'
-  | 'posts.nodes.children'
-  | 'posts.nodes.children.id'
-  | 'posts.nodes.children.children'
-  | 'posts.nodes.internal.content'
-  | 'posts.nodes.internal.contentDigest'
-  | 'posts.nodes.internal.description'
-  | 'posts.nodes.internal.fieldOwners'
-  | 'posts.nodes.internal.ignoreType'
-  | 'posts.nodes.internal.mediaType'
-  | 'posts.nodes.internal.owner'
-  | 'posts.nodes.internal.type'
-  | 'slug'
-  | 'taxonomy.node.archivePath'
-  | 'taxonomy.node.connectedContentTypes.nodes'
-  | 'taxonomy.node.description'
-  | 'taxonomy.node.graphqlPluralName'
-  | 'taxonomy.node.graphqlSingleName'
-  | 'taxonomy.node.hierarchical'
-  | 'taxonomy.node.id'
-  | 'taxonomy.node.label'
-  | 'taxonomy.node.name'
-  | 'taxonomy.node.public'
-  | 'taxonomy.node.restBase'
-  | 'taxonomy.node.restControllerClass'
-  | 'taxonomy.node.showCloud'
-  | 'taxonomy.node.showInAdminColumn'
-  | 'taxonomy.node.showInGraphql'
-  | 'taxonomy.node.showInMenu'
-  | 'taxonomy.node.showInNavMenus'
-  | 'taxonomy.node.showInQuickEdit'
-  | 'taxonomy.node.showInRest'
-  | 'taxonomy.node.showUi'
-  | 'taxonomy.node.nodeType'
-  | 'taxonomy.node.parent.id'
-  | 'taxonomy.node.parent.children'
-  | 'taxonomy.node.children'
-  | 'taxonomy.node.children.id'
-  | 'taxonomy.node.children.children'
-  | 'taxonomy.node.internal.content'
-  | 'taxonomy.node.internal.contentDigest'
-  | 'taxonomy.node.internal.description'
-  | 'taxonomy.node.internal.fieldOwners'
-  | 'taxonomy.node.internal.ignoreType'
-  | 'taxonomy.node.internal.mediaType'
-  | 'taxonomy.node.internal.owner'
-  | 'taxonomy.node.internal.type'
-  | 'termGroupId'
-  | 'termTaxonomyId'
-  | 'uri'
-  | 'nodeType'
-  | 'parent.id'
-  | 'parent.parent.id'
-  | 'parent.parent.parent.id'
-  | 'parent.parent.parent.children'
-  | 'parent.parent.children'
-  | 'parent.parent.children.id'
-  | 'parent.parent.children.children'
-  | 'parent.parent.internal.content'
-  | 'parent.parent.internal.contentDigest'
-  | 'parent.parent.internal.description'
-  | 'parent.parent.internal.fieldOwners'
-  | 'parent.parent.internal.ignoreType'
-  | 'parent.parent.internal.mediaType'
-  | 'parent.parent.internal.owner'
-  | 'parent.parent.internal.type'
-  | 'parent.children'
-  | 'parent.children.id'
-  | 'parent.children.parent.id'
-  | 'parent.children.parent.children'
-  | 'parent.children.children'
-  | 'parent.children.children.id'
-  | 'parent.children.children.children'
-  | 'parent.children.internal.content'
-  | 'parent.children.internal.contentDigest'
-  | 'parent.children.internal.description'
-  | 'parent.children.internal.fieldOwners'
-  | 'parent.children.internal.ignoreType'
-  | 'parent.children.internal.mediaType'
-  | 'parent.children.internal.owner'
-  | 'parent.children.internal.type'
-  | 'parent.internal.content'
-  | 'parent.internal.contentDigest'
-  | 'parent.internal.description'
-  | 'parent.internal.fieldOwners'
-  | 'parent.internal.ignoreType'
-  | 'parent.internal.mediaType'
-  | 'parent.internal.owner'
-  | 'parent.internal.type'
-  | 'children'
-  | 'children.id'
-  | 'children.parent.id'
-  | 'children.parent.parent.id'
-  | 'children.parent.parent.children'
-  | 'children.parent.children'
-  | 'children.parent.children.id'
-  | 'children.parent.children.children'
-  | 'children.parent.internal.content'
-  | 'children.parent.internal.contentDigest'
-  | 'children.parent.internal.description'
-  | 'children.parent.internal.fieldOwners'
-  | 'children.parent.internal.ignoreType'
-  | 'children.parent.internal.mediaType'
-  | 'children.parent.internal.owner'
-  | 'children.parent.internal.type'
-  | 'children.children'
-  | 'children.children.id'
-  | 'children.children.parent.id'
-  | 'children.children.parent.children'
-  | 'children.children.children'
-  | 'children.children.children.id'
-  | 'children.children.children.children'
-  | 'children.children.internal.content'
-  | 'children.children.internal.contentDigest'
-  | 'children.children.internal.description'
-  | 'children.children.internal.fieldOwners'
-  | 'children.children.internal.ignoreType'
-  | 'children.children.internal.mediaType'
-  | 'children.children.internal.owner'
-  | 'children.children.internal.type'
-  | 'children.internal.content'
-  | 'children.internal.contentDigest'
-  | 'children.internal.description'
-  | 'children.internal.fieldOwners'
-  | 'children.internal.ignoreType'
-  | 'children.internal.mediaType'
-  | 'children.internal.owner'
-  | 'children.internal.type'
-  | 'internal.content'
-  | 'internal.contentDigest'
-  | 'internal.description'
-  | 'internal.fieldOwners'
-  | 'internal.ignoreType'
-  | 'internal.mediaType'
-  | 'internal.owner'
-  | 'internal.type';
-
-type WpTagGroupConnection = {
-  readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<WpTagEdge>;
-  readonly nodes: ReadonlyArray<WpTag>;
-  readonly pageInfo: PageInfo;
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<WpTagGroupConnection>;
-  readonly field: Scalars['String'];
-  readonly fieldValue: Maybe<Scalars['String']>;
-};
-
-
-type WpTagGroupConnection_distinctArgs = {
-  field: WpTagFieldsEnum;
-};
-
-
-type WpTagGroupConnection_maxArgs = {
-  field: WpTagFieldsEnum;
-};
-
-
-type WpTagGroupConnection_minArgs = {
-  field: WpTagFieldsEnum;
-};
-
-
-type WpTagGroupConnection_sumArgs = {
-  field: WpTagFieldsEnum;
-};
-
-
-type WpTagGroupConnection_groupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: WpTagFieldsEnum;
-};
-
-type WpTagSortInput = {
-  readonly fields: Maybe<ReadonlyArray<Maybe<WpTagFieldsEnum>>>;
-  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
-};
-
-type WpUserRoleConnection = {
-  readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<WpUserRoleEdge>;
-  readonly nodes: ReadonlyArray<WpUserRole>;
-  readonly pageInfo: PageInfo;
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<WpUserRoleGroupConnection>;
-};
-
-
-type WpUserRoleConnection_distinctArgs = {
-  field: WpUserRoleFieldsEnum;
-};
-
-
-type WpUserRoleConnection_maxArgs = {
-  field: WpUserRoleFieldsEnum;
-};
-
-
-type WpUserRoleConnection_minArgs = {
-  field: WpUserRoleFieldsEnum;
-};
-
-
-type WpUserRoleConnection_sumArgs = {
-  field: WpUserRoleFieldsEnum;
-};
-
-
-type WpUserRoleConnection_groupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: WpUserRoleFieldsEnum;
-};
-
-type WpUserRoleEdge = {
-  readonly next: Maybe<WpUserRole>;
-  readonly node: WpUserRole;
-  readonly previous: Maybe<WpUserRole>;
-};
-
-type WpUserRoleFieldsEnum =
-  | 'capabilities'
-  | 'displayName'
-  | 'id'
-  | 'name'
-  | 'nodeType'
-  | 'parent.id'
-  | 'parent.parent.id'
-  | 'parent.parent.parent.id'
-  | 'parent.parent.parent.children'
-  | 'parent.parent.children'
-  | 'parent.parent.children.id'
-  | 'parent.parent.children.children'
-  | 'parent.parent.internal.content'
-  | 'parent.parent.internal.contentDigest'
-  | 'parent.parent.internal.description'
-  | 'parent.parent.internal.fieldOwners'
-  | 'parent.parent.internal.ignoreType'
-  | 'parent.parent.internal.mediaType'
-  | 'parent.parent.internal.owner'
-  | 'parent.parent.internal.type'
-  | 'parent.children'
-  | 'parent.children.id'
-  | 'parent.children.parent.id'
-  | 'parent.children.parent.children'
-  | 'parent.children.children'
-  | 'parent.children.children.id'
-  | 'parent.children.children.children'
-  | 'parent.children.internal.content'
-  | 'parent.children.internal.contentDigest'
-  | 'parent.children.internal.description'
-  | 'parent.children.internal.fieldOwners'
-  | 'parent.children.internal.ignoreType'
-  | 'parent.children.internal.mediaType'
-  | 'parent.children.internal.owner'
-  | 'parent.children.internal.type'
-  | 'parent.internal.content'
-  | 'parent.internal.contentDigest'
-  | 'parent.internal.description'
-  | 'parent.internal.fieldOwners'
-  | 'parent.internal.ignoreType'
-  | 'parent.internal.mediaType'
-  | 'parent.internal.owner'
-  | 'parent.internal.type'
-  | 'children'
-  | 'children.id'
-  | 'children.parent.id'
-  | 'children.parent.parent.id'
-  | 'children.parent.parent.children'
-  | 'children.parent.children'
-  | 'children.parent.children.id'
-  | 'children.parent.children.children'
-  | 'children.parent.internal.content'
-  | 'children.parent.internal.contentDigest'
-  | 'children.parent.internal.description'
-  | 'children.parent.internal.fieldOwners'
-  | 'children.parent.internal.ignoreType'
-  | 'children.parent.internal.mediaType'
-  | 'children.parent.internal.owner'
-  | 'children.parent.internal.type'
-  | 'children.children'
-  | 'children.children.id'
-  | 'children.children.parent.id'
-  | 'children.children.parent.children'
-  | 'children.children.children'
-  | 'children.children.children.id'
-  | 'children.children.children.children'
-  | 'children.children.internal.content'
-  | 'children.children.internal.contentDigest'
-  | 'children.children.internal.description'
-  | 'children.children.internal.fieldOwners'
-  | 'children.children.internal.ignoreType'
-  | 'children.children.internal.mediaType'
-  | 'children.children.internal.owner'
-  | 'children.children.internal.type'
-  | 'children.internal.content'
-  | 'children.internal.contentDigest'
-  | 'children.internal.description'
-  | 'children.internal.fieldOwners'
-  | 'children.internal.ignoreType'
-  | 'children.internal.mediaType'
-  | 'children.internal.owner'
-  | 'children.internal.type'
-  | 'internal.content'
-  | 'internal.contentDigest'
-  | 'internal.description'
-  | 'internal.fieldOwners'
-  | 'internal.ignoreType'
-  | 'internal.mediaType'
-  | 'internal.owner'
-  | 'internal.type';
-
-type WpUserRoleGroupConnection = {
-  readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<WpUserRoleEdge>;
-  readonly nodes: ReadonlyArray<WpUserRole>;
-  readonly pageInfo: PageInfo;
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<WpUserRoleGroupConnection>;
-  readonly field: Scalars['String'];
-  readonly fieldValue: Maybe<Scalars['String']>;
-};
-
-
-type WpUserRoleGroupConnection_distinctArgs = {
-  field: WpUserRoleFieldsEnum;
-};
-
-
-type WpUserRoleGroupConnection_maxArgs = {
-  field: WpUserRoleFieldsEnum;
-};
-
-
-type WpUserRoleGroupConnection_minArgs = {
-  field: WpUserRoleFieldsEnum;
-};
-
-
-type WpUserRoleGroupConnection_sumArgs = {
-  field: WpUserRoleFieldsEnum;
-};
-
-
-type WpUserRoleGroupConnection_groupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: WpUserRoleFieldsEnum;
-};
-
-type WpUserRoleSortInput = {
-  readonly fields: Maybe<ReadonlyArray<Maybe<WpUserRoleFieldsEnum>>>;
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
@@ -12810,202 +10404,6 @@ type WpMenuItemSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
-type WpCommentAuthorConnection = {
-  readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<WpCommentAuthorEdge>;
-  readonly nodes: ReadonlyArray<WpCommentAuthor>;
-  readonly pageInfo: PageInfo;
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<WpCommentAuthorGroupConnection>;
-};
-
-
-type WpCommentAuthorConnection_distinctArgs = {
-  field: WpCommentAuthorFieldsEnum;
-};
-
-
-type WpCommentAuthorConnection_maxArgs = {
-  field: WpCommentAuthorFieldsEnum;
-};
-
-
-type WpCommentAuthorConnection_minArgs = {
-  field: WpCommentAuthorFieldsEnum;
-};
-
-
-type WpCommentAuthorConnection_sumArgs = {
-  field: WpCommentAuthorFieldsEnum;
-};
-
-
-type WpCommentAuthorConnection_groupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: WpCommentAuthorFieldsEnum;
-};
-
-type WpCommentAuthorEdge = {
-  readonly next: Maybe<WpCommentAuthor>;
-  readonly node: WpCommentAuthor;
-  readonly previous: Maybe<WpCommentAuthor>;
-};
-
-type WpCommentAuthorFieldsEnum =
-  | 'databaseId'
-  | 'email'
-  | 'id'
-  | 'name'
-  | 'url'
-  | 'nodeType'
-  | 'parent.id'
-  | 'parent.parent.id'
-  | 'parent.parent.parent.id'
-  | 'parent.parent.parent.children'
-  | 'parent.parent.children'
-  | 'parent.parent.children.id'
-  | 'parent.parent.children.children'
-  | 'parent.parent.internal.content'
-  | 'parent.parent.internal.contentDigest'
-  | 'parent.parent.internal.description'
-  | 'parent.parent.internal.fieldOwners'
-  | 'parent.parent.internal.ignoreType'
-  | 'parent.parent.internal.mediaType'
-  | 'parent.parent.internal.owner'
-  | 'parent.parent.internal.type'
-  | 'parent.children'
-  | 'parent.children.id'
-  | 'parent.children.parent.id'
-  | 'parent.children.parent.children'
-  | 'parent.children.children'
-  | 'parent.children.children.id'
-  | 'parent.children.children.children'
-  | 'parent.children.internal.content'
-  | 'parent.children.internal.contentDigest'
-  | 'parent.children.internal.description'
-  | 'parent.children.internal.fieldOwners'
-  | 'parent.children.internal.ignoreType'
-  | 'parent.children.internal.mediaType'
-  | 'parent.children.internal.owner'
-  | 'parent.children.internal.type'
-  | 'parent.internal.content'
-  | 'parent.internal.contentDigest'
-  | 'parent.internal.description'
-  | 'parent.internal.fieldOwners'
-  | 'parent.internal.ignoreType'
-  | 'parent.internal.mediaType'
-  | 'parent.internal.owner'
-  | 'parent.internal.type'
-  | 'children'
-  | 'children.id'
-  | 'children.parent.id'
-  | 'children.parent.parent.id'
-  | 'children.parent.parent.children'
-  | 'children.parent.children'
-  | 'children.parent.children.id'
-  | 'children.parent.children.children'
-  | 'children.parent.internal.content'
-  | 'children.parent.internal.contentDigest'
-  | 'children.parent.internal.description'
-  | 'children.parent.internal.fieldOwners'
-  | 'children.parent.internal.ignoreType'
-  | 'children.parent.internal.mediaType'
-  | 'children.parent.internal.owner'
-  | 'children.parent.internal.type'
-  | 'children.children'
-  | 'children.children.id'
-  | 'children.children.parent.id'
-  | 'children.children.parent.children'
-  | 'children.children.children'
-  | 'children.children.children.id'
-  | 'children.children.children.children'
-  | 'children.children.internal.content'
-  | 'children.children.internal.contentDigest'
-  | 'children.children.internal.description'
-  | 'children.children.internal.fieldOwners'
-  | 'children.children.internal.ignoreType'
-  | 'children.children.internal.mediaType'
-  | 'children.children.internal.owner'
-  | 'children.children.internal.type'
-  | 'children.internal.content'
-  | 'children.internal.contentDigest'
-  | 'children.internal.description'
-  | 'children.internal.fieldOwners'
-  | 'children.internal.ignoreType'
-  | 'children.internal.mediaType'
-  | 'children.internal.owner'
-  | 'children.internal.type'
-  | 'internal.content'
-  | 'internal.contentDigest'
-  | 'internal.description'
-  | 'internal.fieldOwners'
-  | 'internal.ignoreType'
-  | 'internal.mediaType'
-  | 'internal.owner'
-  | 'internal.type';
-
-type WpCommentAuthorGroupConnection = {
-  readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<WpCommentAuthorEdge>;
-  readonly nodes: ReadonlyArray<WpCommentAuthor>;
-  readonly pageInfo: PageInfo;
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<WpCommentAuthorGroupConnection>;
-  readonly field: Scalars['String'];
-  readonly fieldValue: Maybe<Scalars['String']>;
-};
-
-
-type WpCommentAuthorGroupConnection_distinctArgs = {
-  field: WpCommentAuthorFieldsEnum;
-};
-
-
-type WpCommentAuthorGroupConnection_maxArgs = {
-  field: WpCommentAuthorFieldsEnum;
-};
-
-
-type WpCommentAuthorGroupConnection_minArgs = {
-  field: WpCommentAuthorFieldsEnum;
-};
-
-
-type WpCommentAuthorGroupConnection_sumArgs = {
-  field: WpCommentAuthorFieldsEnum;
-};
-
-
-type WpCommentAuthorGroupConnection_groupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: WpCommentAuthorFieldsEnum;
-};
-
-type WpCommentAuthorFilterInput = {
-  readonly databaseId: Maybe<IntQueryOperatorInput>;
-  readonly email: Maybe<StringQueryOperatorInput>;
-  readonly id: Maybe<StringQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly url: Maybe<StringQueryOperatorInput>;
-  readonly nodeType: Maybe<StringQueryOperatorInput>;
-  readonly parent: Maybe<NodeFilterInput>;
-  readonly children: Maybe<NodeFilterListInput>;
-  readonly internal: Maybe<InternalFilterInput>;
-};
-
-type WpCommentAuthorSortInput = {
-  readonly fields: Maybe<ReadonlyArray<Maybe<WpCommentAuthorFieldsEnum>>>;
-  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
-};
-
 type WpSettingsFilterInput = {
   readonly discussionSettingsDefaultCommentStatus: Maybe<StringQueryOperatorInput>;
   readonly discussionSettingsDefaultPingStatus: Maybe<StringQueryOperatorInput>;
@@ -13129,6 +10527,7 @@ type WpFieldsEnum =
   | 'generalSettings.title'
   | 'generalSettings.url'
   | 'readingSettings.postsPerPage'
+  | 'schemaMd5'
   | 'wpGatsby.arePrettyPermalinksEnabled'
   | 'wpGatsby.isPreviewFrontendOnline'
   | 'writingSettings.defaultCategory'
@@ -13268,6 +10667,7 @@ type WpFilterInput = {
   readonly discussionSettings: Maybe<WpDiscussionSettingsFilterInput>;
   readonly generalSettings: Maybe<WpGeneralSettingsFilterInput>;
   readonly readingSettings: Maybe<WpReadingSettingsFilterInput>;
+  readonly schemaMd5: Maybe<StringQueryOperatorInput>;
   readonly wpGatsby: Maybe<WpWPGatsbyFilterInput>;
   readonly writingSettings: Maybe<WpWritingSettingsFilterInput>;
   readonly nodeType: Maybe<StringQueryOperatorInput>;
@@ -13678,31 +11078,6 @@ type TranslationYamlSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
-type DefaultPageDataFieldsFragment = (
-  Pick<WpPage, 'content'>
-  & { readonly pageACF: Maybe<(
-    Pick<WpPage_Pageacf, 'division'>
-    & { readonly standardContent: Maybe<(
-      ContactFragment
-      & AdditionalInfoFragment
-      & DownloadsFragment
-    )> }
-  )> }
-);
-
-type ContactFragment = { readonly contact: Maybe<Pick<WpPage_Pageacf_StandardContent_Contact, 'name' | 'email' | 'tel' | 'website'>> };
-
-type AdditionalInfoFragment = { readonly additionalInfo: Maybe<Pick<WpPage_Pageacf_StandardContent_AdditionalInfo, 'title' | 'content'>> };
-
-type DownloadsFragment = { readonly downloads: Maybe<ReadonlyArray<Maybe<{ readonly file: Maybe<Pick<WpMediaItem, 'mediaItemUrl' | 'title'>> }>>> };
-
-type SeoFragment = { readonly pageACF: Maybe<{ readonly seo: Maybe<SeoFieldsFragment> }> };
-
-type SeoFieldsFragment = (
-  Pick<WpPage_Pageacf_Seo, 'metaDescription' | 'noIndex' | 'ogDescription' | 'title' | 'twitterDescription'>
-  & { readonly socialImage: Maybe<{ readonly localFile: Maybe<Pick<File, 'url'>> }> }
-);
-
 type GetStandardDataQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -13755,14 +11130,6 @@ type GetLineupBoardDataQueryVariables = Exact<{
 
 type GetLineupBoardDataQuery = { readonly wpPage: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> };
 
-type BlogPostPreviewFieldsFragment = (
-  Pick<WpPost, 'id' | 'title' | 'uri' | 'excerpt' | 'date'>
-  & { readonly postACF: Maybe<Pick<WpPost_Postacf, 'division' | 'postCategory'>>, readonly featuredImage: Maybe<{ readonly node: Maybe<(
-      Pick<WpMediaItem, 'altText'>
-      & { readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
-    )> }>, readonly categories: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<Pick<WpCategory, 'name'>>>> }> }
-);
-
 type GetHomeDataQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -13777,6 +11144,14 @@ type GetAllBlogPostsQueryVariables = Exact<{
 
 
 type GetAllBlogPostsQuery = { readonly allPosts: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> }, readonly seoData: Maybe<SeoFragment> };
+
+type BlogPostPreviewFieldsFragment = (
+  Pick<WpPost, 'id' | 'title' | 'uri' | 'excerpt' | 'date'>
+  & { readonly postACF: Maybe<Pick<WpPost_Postacf, 'division' | 'postCategory'>>, readonly featuredImage: Maybe<{ readonly node: Maybe<(
+      Pick<WpMediaItem, 'altText'>
+      & { readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
+    )> }>, readonly categories: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<Pick<WpCategory, 'name'>>>> }> }
+);
 
 type GetGameReportDataQueryVariables = Exact<{
   id: Scalars['String'];
@@ -13797,6 +11172,36 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
+type SeoFragment = { readonly pageACF: Maybe<{ readonly seo: Maybe<SeoFieldsFragment> }> };
+
+type SeoFieldsFragment = (
+  Pick<WpPage_Pageacf_Seo, 'metaDescription' | 'noIndex' | 'ogDescription' | 'title' | 'twitterDescription'>
+  & { readonly socialImage: Maybe<{ readonly localFile: Maybe<Pick<File, 'url'>> }> }
+);
+
+type DefaultPageDataFieldsFragment = (
+  Pick<WpPage, 'content'>
+  & { readonly pageACF: Maybe<(
+    Pick<WpPage_Pageacf, 'division'>
+    & { readonly standardContent: Maybe<(
+      ContactFragment
+      & AdditionalInfoFragment
+      & DownloadsFragment
+    )> }
+  )> }
+);
+
+type ContactFragment = { readonly contact: Maybe<Pick<WpPage_Pageacf_StandardContent_Contact, 'name' | 'email' | 'tel' | 'website'>> };
+
+type AdditionalInfoFragment = { readonly additionalInfo: Maybe<Pick<WpPage_Pageacf_StandardContent_AdditionalInfo, 'title' | 'content'>> };
+
+type DownloadsFragment = { readonly downloads: Maybe<ReadonlyArray<Maybe<{ readonly file: Maybe<Pick<WpMediaItem, 'mediaItemUrl' | 'title'>> }>>> };
+
+type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
+
 type GetMainMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -13807,11 +11212,6 @@ type GetMainMenuQuery = { readonly wpMenu: Maybe<(
         & { readonly childItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<Pick<WpMenuItem, 'id' | 'label' | 'url'>>>> }> }
       )>>> }> }
   )> };
-
-type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
 
 type GetTranslationQueryVariables = Exact<{ [key: string]: never; }>;
 

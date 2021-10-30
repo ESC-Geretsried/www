@@ -6,16 +6,22 @@ export const usePaginationLinks = ({
   currentPageIndex,
   urlBase,
   isMobile = false,
-  ellipsisDelta = 0,
 }: {
-  pagesTotal: number;
-  currentPageIndex: number;
+  pagesTotal?: number;
+  currentPageIndex?: number;
   urlBase: string;
   isMobile?: boolean;
   ellipsisDelta?: number;
 }) => {
+  if (!pagesTotal || !currentPageIndex) {
+    return undefined;
+  }
+
   if (pagesTotal <= 1) {
     return undefined;
+  }
+  if (isMobile) {
+    return [{ children: `${currentPageIndex + 1}`, key: "show-only-index" }];
   }
   let links: Array<Optional<LinkProps, "to"> & { isActive?: boolean }> =
     Array.from({ length: pagesTotal }, (_chunk, i) => ({
@@ -44,10 +50,6 @@ export const usePaginationLinks = ({
       children: "...",
       key: "ellipsis-end",
     });
-  }
-
-  if (isMobile) {
-    links = [{ children: `${currentPageIndex + 1}`, key: "show-only-index" }];
   }
 
   return links;
