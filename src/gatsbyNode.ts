@@ -208,7 +208,7 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
       const newsPath =
         (HOCKEY_DIVISIONS.includes(division)
           ? `/eishockey/${division}/news/`
-          : `/${division}/news/`) + (i === 0 ? "" : `${i + 1}`);
+          : `/${division}/news/`) + (i === 0 ? "" : `${i + 1}/`);
 
       createPage({
         path: newsPath,

@@ -7,6 +7,7 @@ const config: GatsbyConfig = {
     title: "esc-geretsried-2.0",
   },
   plugins: [
+    "gatsby-plugin-image",
     {
       resolve: "gatsby-source-wordpress",
       options: {
@@ -38,7 +39,6 @@ const config: GatsbyConfig = {
         outputPath: `src/__generated__/gatsby-types.d.ts`,
       },
     },
-    "gatsby-plugin-image",
     "@chakra-ui/gatsby-plugin",
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sitemap",
