@@ -55,3 +55,9 @@ export const chunk = <T>(array: Array<T>, chunkSize: number) => {
   }
   return chunks;
 };
+
+export const isObjectEmpty = (obj: object | undefined) => {
+  return obj
+    ? Object.values(obj).every((value) => value === null || value === undefined)
+    : false;
+};

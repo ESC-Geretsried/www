@@ -72,15 +72,15 @@ export const BlogPostList: React.FC<BlogPostListProps & BoxProps> = ({
     const index = pathname.indexOf("/news");
     const urlBase = pathname.slice(0, index) + "/news/";
 
-    if (!currentPageIndex) {
+    if (currentPageIndex === undefined) {
       return { urlBase };
     }
 
     const prevPageUrl =
       currentPageIndex - 1 === 0
         ? urlBase
-        : `${urlBase}${currentPageIndex - 1}`;
-    const nextPageUrl = `${urlBase}${currentPageIndex + 2}`;
+        : `${urlBase}${currentPageIndex - 1}/`;
+    const nextPageUrl = `${urlBase}${currentPageIndex + 2}/`;
 
     return {
       urlBase,
@@ -137,7 +137,7 @@ export const BlogPostList: React.FC<BlogPostListProps & BoxProps> = ({
               <VisuallyHidden>Seite zurück</VisuallyHidden>
             </PaginationLink>
             {links?.map((link) => (
-              <PaginationLink {...link} />
+              <PaginationLink key={link.to} {...link} />
             ))}
             <PaginationLink
               to={nextPageUrl}

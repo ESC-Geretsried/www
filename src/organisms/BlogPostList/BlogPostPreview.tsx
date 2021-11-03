@@ -54,7 +54,9 @@ export const BlogPostPreview: React.FC<BlogPostPreviewProps> = memo(
         <Flex justifyContent="space-between" paddingBlockStart={2}>
           <Flex flexWrap="wrap" ms={-1} mt={-1}>
             {post.categories?.nodes?.map((category) => (
-              <Tag m={1}>{category?.name}</Tag>
+              <Tag key={category?.name} m={1}>
+                {category?.name}
+              </Tag>
             ))}
           </Flex>
           <Box>{dayjs(post.date).format("DD.MM.YYYY")}</Box>

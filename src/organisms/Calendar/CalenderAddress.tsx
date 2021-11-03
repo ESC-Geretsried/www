@@ -16,15 +16,6 @@ const getDirectionsUrl = (address: PhysicalAddress, displayName?: string) => {
   const city = address.city ?? "";
   const postalCode = address.postalCode ?? "";
 
-  console.log(
-    base +
-      encodeURIComponent(
-        `${displayName ? `${displayName}, ` : ""}${street} ${
-          postalCode ? `${postalCode}, ` : ""
-        }${city}`
-      )
-  );
-
   return (
     base +
     encodeURIComponent(

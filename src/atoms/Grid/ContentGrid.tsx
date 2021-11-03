@@ -10,7 +10,7 @@ export const ContentGrid: React.FC<ContentGridProps & GridProps> = ({
   return (
     <Grid
       templateColumns={{ base: "repeat(4, 1fr)", md: "repeat(10, 1fr)" }}
-      gap={{ base: 2, md: 6 }}
+      gridGap={{ base: 2, md: 6, "2xl": 12 }}
       {...rest}
     >
       {children}

@@ -10,7 +10,7 @@ export const calcColumnWidths = (
   {
     excludeBPs,
     addGap,
-  }: { excludeBPs: Array<BreakpointNames>; addGap?: number }
+  }: { excludeBPs: Array<BreakpointNames>; addGap?: BreakpointObject }
 ) => {
   return Object.entries(containerWidths)
     .filter(([key]) => !excludeBPs.includes(key as BreakpointNames))
@@ -26,9 +26,10 @@ export const calcColumnWidths = (
 
       const defaultWidth = `${(oneColumWidth * columns).toFixed(2)}em`;
 
-      prev[key] = addGap
-        ? `calc(${defaultWidth} + var(--chakra-space-${addGap}))`
-        : defaultWidth;
+      prev[key] =
+        addGap && addGap[key]
+          ? `calc(${defaultWidth} + var(--chakra-space-${addGap[key]}))`
+          : defaultWidth;
 
       return prev;
     }, {} as BreakpointObject);

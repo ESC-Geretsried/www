@@ -14,7 +14,7 @@ export const MainContent: React.FC<GridItemProps & { fullWidth?: boolean }> = ({
         base: "1fr",
         md: fullWidth ? "repeat(8, 1fr)" : "1fr",
       }}
-      gridGap={6}
+      gridGap={{ base: 2, md: 6, "2xl": 12 }}
       {...rest}
     />
   );

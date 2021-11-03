@@ -17,7 +17,6 @@ export const Calendar: React.FC<BoxProps> = (props) => {
       {result && (
         <div>
           {Object.entries(result?.data).map(([day, events]) => {
-            console.log(day, events);
             return (
               <Box key={day}>
                 <Heading

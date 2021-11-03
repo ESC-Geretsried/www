@@ -81,6 +81,8 @@ const Standard: React.FC<{
 
 export const StandardQuery = graphql`
   query GetStandardData($id: String!, $categorySlug: String!) {
+    ...NewestPosts
+
     pageData: wpPage(id: { eq: $id }) {
       title
       pageACF {

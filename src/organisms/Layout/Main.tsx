@@ -12,7 +12,7 @@ const MainContainer: React.FC = forwardRef(({ ...rest }, ref) => (
       base: 6,
       ...calcColumnWidths(2, {
         excludeBPs: ["base", "sm", "md", "lg"],
-        addGap: 6,
+        addGap: { md: 6, "2xl": 12 },
       }),
     }}
     pe={{ base: 6 }}

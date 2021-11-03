@@ -25,8 +25,8 @@ export const Link: ComponentSingleStyleConfig = {
     },
     Button: {
       ...(Button.baseStyle ?? {}),
-      paddingInline: 4,
-      paddingBlock: 2,
+      paddingInline: 3,
+      paddingBlock: 1,
       // fontFamily: "Rubik",
       fontWeight: "bold",
       fontStyle: "normal",
@@ -40,8 +40,8 @@ export const Link: ComponentSingleStyleConfig = {
     },
     DisabledButton: {
       ...(Button.baseStyle ?? {}),
-      paddingInline: 4,
-      paddingBlock: 2,
+      paddingInline: 3,
+      paddingBlock: 1,
       fontWeight: "bold",
       fontStyle: "normal",
       opacity: 0.7,

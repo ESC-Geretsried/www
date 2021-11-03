@@ -11058,6 +11058,16 @@ type TranslationYamlSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
+type NewestPostsFragment = { readonly newestPosts: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> } };
+
+type BlogPostPreviewFieldsFragment = (
+  Pick<WpPost, 'id' | 'title' | 'uri' | 'excerpt' | 'date'>
+  & { readonly postACF: Maybe<Pick<WpPost_Postacf, 'division' | 'postCategory'>>, readonly featuredImage: Maybe<{ readonly node: Maybe<(
+      Pick<WpMediaItem, 'altText'>
+      & { readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
+    )> }>, readonly categories: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<Pick<WpCategory, 'name'>>>> }> }
+);
+
 type DefaultPageDataFieldsFragment = (
   Pick<WpPage, 'content'>
   & { readonly pageACF: Maybe<(
@@ -11075,16 +11085,6 @@ type ContactFragment = { readonly contact: Maybe<Pick<WpPage_Pageacf_StandardCon
 type AdditionalInfoFragment = { readonly additionalInfo: Maybe<Pick<WpPage_Pageacf_StandardContent_AdditionalInfo, 'title' | 'content'>> };
 
 type DownloadsFragment = { readonly downloads: Maybe<ReadonlyArray<Maybe<{ readonly file: Maybe<Pick<WpMediaItem, 'mediaItemUrl' | 'title'>> }>>> };
-
-type NewestPostsFragment = { readonly newestPosts: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> } };
-
-type BlogPostPreviewFieldsFragment = (
-  Pick<WpPost, 'id' | 'title' | 'uri' | 'excerpt' | 'date'>
-  & { readonly postACF: Maybe<Pick<WpPost_Postacf, 'division' | 'postCategory'>>, readonly featuredImage: Maybe<{ readonly node: Maybe<(
-      Pick<WpMediaItem, 'altText'>
-      & { readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
-    )> }>, readonly categories: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<Pick<WpCategory, 'name'>>>> }> }
-);
 
 type SeoFragment = { readonly pageACF: Maybe<{ readonly seo: Maybe<SeoFieldsFragment> }> };
 
@@ -11104,6 +11104,7 @@ type GetStandardDataQuery = (
     Pick<WpPage, 'title'>
     & { readonly pageACF: Maybe<{ readonly standardContent: Maybe<Pick<WpPage_Pageacf_StandardContent, 'pageContentTitle'>> }> }
   )>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
+  & NewestPostsFragment
   & NewestPostsFragment
 );
 

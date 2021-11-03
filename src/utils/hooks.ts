@@ -13,7 +13,11 @@ export const usePaginationLinks = ({
   isMobile?: boolean;
   ellipsisDelta?: number;
 }) => {
-  if (!pagesTotal || !currentPageIndex) {
+  if (
+    !pagesTotal ||
+    currentPageIndex === undefined ||
+    currentPageIndex === null
+  ) {
     return undefined;
   }
 
