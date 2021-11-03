@@ -2,6 +2,7 @@ import { graphql } from "gatsby";
 import React from "react";
 import { Heading } from "../atoms/Heading/Heading";
 import { BlogPostList } from "../organisms/BlogPostList/BlogPostList";
+import { BlogPostPreview } from "../organisms/BlogPostList/BlogPostPreview";
 import { Layout } from "../organisms/Layout/Layout";
 import { GatsbyPageContext, Mutable, Post } from "../types";
 
@@ -9,8 +10,8 @@ const News: React.FC<{
   data: GatsbyTypes.GetAllBlogPostsQuery;
   pageContext: GatsbyPageContext;
 }> = ({
-  pageContext: { title, currentPage, pagesTotal, limit },
-  data: { allPosts, seoData },
+  pageContext: { title, currentPage, pagesTotal, limit, categorySlug },
+  data: { newestPosts, allPosts, seoData },
 }) => {
   return (
     <Layout
@@ -27,15 +28,19 @@ const News: React.FC<{
           pagesTotal={pagesTotal ?? 1}
         />
       }
-      extra={<>extra</>}
+      extra={<BlogPostPreview post={newestPosts.nodes[0]} />}
       seo={seoData?.pageACF?.seo}
     />
   );
 };
 
 export const NewsQuery = graphql`
-  query GetAllBlogPosts($skip: Int!, $limit: Int!) {
+  query GetAllBlogPosts($skip: Int!, $limit: Int!, $categorySlug: String!) {
+    ...NewestPosts
     allPosts: allWpPost(
+      filter: {
+        categories: { nodes: { elemMatch: { slug: { eq: $categorySlug } } } }
+      }
       limit: $limit
       skip: $skip # filter: { #   categories: { nodes: { elemMatch: { id: { eq: $categoryId } } } } #   postACF: { postCategory: { ne: "flash" } } # }
     ) {

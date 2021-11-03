@@ -47,3 +47,18 @@ export const Downloads = graphql`
     }
   }
 `;
+
+export const NewestPosts = graphql`
+  fragment NewestPosts on Query {
+    newestPosts: allWpPost(
+      filter: {
+        categories: { nodes: { elemMatch: { slug: { eq: $categorySlug } } } }
+      }
+      limit: 1
+    ) {
+      nodes {
+        ...BlogPostPreviewFields
+      }
+    }
+  }
+`;

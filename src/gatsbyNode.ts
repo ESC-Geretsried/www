@@ -125,10 +125,8 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
 
   pages.data?.allWpPage.nodes.forEach(
     ({ id, uri, slug, title, categories, pageACF }) => {
-      const categoryId =
-        categories.nodes.length > 0
-          ? categories.nodes[0].id
-          : VEREIN_CATEGORY_ID;
+      const categorySlug =
+        categories.nodes.length > 0 ? categories.nodes[0].slug : "verein";
 
       const { division, template } = pageACF;
 
@@ -140,7 +138,7 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
           id,
           title,
           division,
-          categoryId,
+          categorySlug,
           pathname: getPath(uri),
         },
       });
@@ -221,6 +219,7 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
           skip: i * postsPerPage,
           pagesTotal,
           currentPage: i,
+          categorySlug: division,
         },
       });
     });

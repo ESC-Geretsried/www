@@ -20,8 +20,9 @@ export type GatsbyPageContext = {
   title: string;
   limit?: number;
   skip?: number;
-  pagesTotalp?: number;
+  pagesTotal?: number;
   currentPage?: number;
+  categorySlug?: string;
 };
 
 export type BreakpointNames = "base" | "sm" | "md" | "lg" | "xl" | "2xl";

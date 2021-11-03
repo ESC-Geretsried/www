@@ -1,16 +1,17 @@
 import { graphql } from "gatsby";
 import React from "react";
+import { BlogPostPreview } from "../organisms/BlogPostList/BlogPostPreview";
 import { Layout } from "../organisms/Layout/Layout";
 import { GatsbyPageContext } from "../types";
 
 const Sponsors: React.FC<{
   data: GatsbyTypes.GetSponsorsDataQuery;
   pageContext: GatsbyPageContext;
-}> = ({ data: { sponsorsData, seoData }, pageContext }) => {
+}> = ({ data: { newestPosts, sponsorsData, seoData }, pageContext }) => {
   return (
     <Layout
       content={<>{sponsorsData?.title}</>}
-      extra={<>extra</>}
+      extra={<BlogPostPreview post={newestPosts.nodes[0]} />}
       header={<>header</>}
       seo={seoData?.pageACF?.seo}
     />
@@ -18,7 +19,7 @@ const Sponsors: React.FC<{
 };
 
 export const SponsorsQuery = graphql`
-  query GetSponsorsData($id: String!) {
+  query GetSponsorsData($id: String!, $categorySlug: String!) {
     sponsorsData: wpPage(id: { eq: $id }) {
       title
     }
@@ -26,6 +27,9 @@ export const SponsorsQuery = graphql`
     defaultData: wpPage(id: { eq: $id }) {
       ...DefaultPageDataFields
     }
+
+    ...NewestPosts
+
     seoData: wpPage(id: { eq: $id }) {
       ...Seo
     }

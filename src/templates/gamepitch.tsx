@@ -1,10 +1,11 @@
 import { Box } from "@chakra-ui/react";
 import { graphql } from "gatsby";
 import React from "react";
+import { BlogPostPreview } from "../organisms/BlogPostList/BlogPostPreview";
 import { Layout } from "../organisms/Layout/Layout";
 
 const Gamepitch: React.FC<{ data: GatsbyTypes.GetGamepitchDataQuery }> = ({
-  data: { gamepitchData, defaultData, seoData },
+  data: { newestPosts, gamepitchData, defaultData, seoData },
 }) => {
   return (
     <Layout
@@ -13,7 +14,7 @@ const Gamepitch: React.FC<{ data: GatsbyTypes.GetGamepitchDataQuery }> = ({
           Gamepitch<Box>{JSON.stringify(gamepitchData)}</Box>
         </>
       }
-      extra={<>extra</>}
+      extra={<BlogPostPreview post={newestPosts.nodes[0]} />}
       header={<>header</>}
       seo={seoData?.pageACF?.seo}
     />
@@ -21,7 +22,7 @@ const Gamepitch: React.FC<{ data: GatsbyTypes.GetGamepitchDataQuery }> = ({
 };
 
 export const StandardQuery = graphql`
-  query GetGamepitchData($id: String!) {
+  query GetGamepitchData($id: String!, $categorySlug: String!) {
     gamepitchData: wpPage(id: { eq: $id }) {
       title
     }
@@ -29,6 +30,9 @@ export const StandardQuery = graphql`
     defaultData: wpPage(id: { eq: $id }) {
       ...DefaultPageDataFields
     }
+
+    ...NewestPosts
+
     seoData: wpPage(id: { eq: $id }) {
       ...Seo
     }

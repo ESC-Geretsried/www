@@ -1,16 +1,17 @@
 import { graphql } from "gatsby";
 import React from "react";
+import { BlogPostPreview } from "../organisms/BlogPostList/BlogPostPreview";
 import { Layout } from "../organisms/Layout/Layout";
 import { GatsbyPageContext } from "../types";
 
 const LineupBoard: React.FC<{
   data: GatsbyTypes.GetLineupBoardDataQuery;
   pageContext: GatsbyPageContext;
-}> = ({ data: { seoData }, pageContext }) => {
+}> = ({ data: { newestPosts, seoData }, pageContext }) => {
   return (
     <Layout
       content={<>Lineup</>}
-      extra={<>extra</>}
+      extra={<BlogPostPreview post={newestPosts.nodes[0]} />}
       header={<>header</>}
       seo={seoData?.pageACF?.seo}
     />
@@ -18,7 +19,7 @@ const LineupBoard: React.FC<{
 };
 
 export const LineupBoardQuery = graphql`
-  query GetLineupBoardData($id: String!) {
+  query GetLineupBoardData($id: String!, $categorySlug: String!) {
     wpPage(id: { eq: $id }) {
       title
     }
@@ -26,6 +27,8 @@ export const LineupBoardQuery = graphql`
     defaultData: wpPage(id: { eq: $id }) {
       ...DefaultPageDataFields
     }
+
+    ...NewestPosts
 
     seoData: wpPage(id: { eq: $id }) {
       ...Seo

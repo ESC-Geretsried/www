@@ -1,16 +1,17 @@
 import { graphql } from "gatsby";
 import React from "react";
+import { BlogPostPreview } from "../organisms/BlogPostList/BlogPostPreview";
 import { Layout } from "../organisms/Layout/Layout";
 import { GatsbyPageContext } from "../types";
 
 const Tickets: React.FC<{
   data: GatsbyTypes.GetTicketsDataQuery;
   pageContext: GatsbyPageContext;
-}> = ({ data: { ticketsData, seoData }, pageContext }) => {
+}> = ({ data: { newestPosts, ticketsData, seoData }, pageContext }) => {
   return (
     <Layout
       content={<> {ticketsData?.title}</>}
-      extra={<>extra</>}
+      extra={<BlogPostPreview post={newestPosts.nodes[0]} />}
       header={<>header</>}
       seo={seoData?.pageACF?.seo}
     ></Layout>
@@ -18,7 +19,7 @@ const Tickets: React.FC<{
 };
 
 export const TicketsQuery = graphql`
-  query GetTicketsData($id: String!) {
+  query GetTicketsData($id: String!, $categorySlug: String!) {
     ticketsData: wpPage(id: { eq: $id }) {
       title
     }
@@ -26,6 +27,9 @@ export const TicketsQuery = graphql`
     defaultData: wpPage(id: { eq: $id }) {
       ...DefaultPageDataFields
     }
+
+    ...NewestPosts
+
     seoData: wpPage(id: { eq: $id }) {
       ...Seo
     }

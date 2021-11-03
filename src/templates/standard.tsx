@@ -7,6 +7,7 @@ import { Heading } from "../atoms/Heading/Heading";
 import { Extra } from "../organisms/Extra/Extra";
 import { getPropertyFromGraphqlQueryObject } from "../utils/shared.utils";
 import { Flex } from "@chakra-ui/react";
+import { BlogPostPreview } from "../organisms/BlogPostList/BlogPostPreview";
 
 const useDefaultData = (
   defaultData: GatsbyTypes.DefaultPageDataFieldsFragment
@@ -38,7 +39,10 @@ const useDefaultData = (
 const Standard: React.FC<{
   data: GatsbyTypes.GetStandardDataQuery;
   pageContext: GatsbyPageContext;
-}> = ({ data: { defaultData, pageData, seoData }, pageContext }) => {
+}> = ({
+  data: { newestPosts, defaultData, pageData, seoData },
+  pageContext,
+}) => {
   if (!defaultData?.content) {
     return null;
   }
@@ -59,12 +63,15 @@ const Standard: React.FC<{
         </>
       }
       extra={
-        <Extra
-          post={{}}
-          contact={contact}
-          additionalInfo={additionalInfo}
-          downloads={downloads}
-        />
+        <>
+          <BlogPostPreview post={newestPosts.nodes[0]} />
+          <Extra
+            post={{}}
+            contact={contact}
+            additionalInfo={additionalInfo}
+            downloads={downloads}
+          />
+        </>
       }
       header={<>header</>}
       seo={seoData?.pageACF?.seo}
@@ -73,7 +80,7 @@ const Standard: React.FC<{
 };
 
 export const StandardQuery = graphql`
-  query GetStandardData($id: String!) {
+  query GetStandardData($id: String!, $categorySlug: String!) {
     pageData: wpPage(id: { eq: $id }) {
       title
       pageACF {
@@ -86,6 +93,9 @@ export const StandardQuery = graphql`
     defaultData: wpPage(id: { eq: $id }) {
       ...DefaultPageDataFields
     }
+
+    ...NewestPosts
+
     seoData: wpPage(id: { eq: $id }) {
       ...Seo
     }

@@ -1,16 +1,17 @@
 import { graphql } from "gatsby";
 import React from "react";
+import { BlogPostPreview } from "../organisms/BlogPostList/BlogPostPreview";
 import { Layout } from "../organisms/Layout/Layout";
 import { GatsbyPageContext } from "../types";
 
 const Hockey: React.FC<{
   data: GatsbyTypes.GetHockeyDataQuery;
   pageContext: GatsbyPageContext;
-}> = ({ data: { seoData, hockeyData }, pageContext }) => {
+}> = ({ data: { newestPosts, seoData, hockeyData }, pageContext }) => {
   return (
     <Layout
       content={<>{hockeyData?.title}</>}
-      extra={<>extra</>}
+      extra={<BlogPostPreview post={newestPosts.nodes[0]} />}
       header={<>header</>}
       seo={seoData?.pageACF?.seo}
     />
@@ -18,7 +19,7 @@ const Hockey: React.FC<{
 };
 
 export const hockeyQuery = graphql`
-  query GetHockeyData($id: String!) {
+  query GetHockeyData($id: String!, $categorySlug: String!) {
     hockeyData: wpPage(id: { eq: $id }) {
       title
     }
@@ -26,6 +27,9 @@ export const hockeyQuery = graphql`
     defaultData: wpPage(id: { eq: $id }) {
       ...DefaultPageDataFields
     }
+
+    ...NewestPosts
+
     seoData: wpPage(id: { eq: $id }) {
       ...Seo
     }
