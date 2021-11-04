@@ -1,3 +1,4 @@
+import { isString } from "./shared.utils";
 import { containerWidths } from "../theme/misc";
 import { BreakpointNames, BreakpointObject } from "../types";
 
@@ -19,8 +20,13 @@ export const calcColumnWidths = (
         BreakpointNames,
         BreakpointObject[BreakpointNames]
       ];
-      const valueAsInt =
-        value === undefined ? 0 : parseInt(removeUnit(value, "em"));
+
+      let valueAsInt: number;
+      if (isString(value)) {
+        valueAsInt = parseInt(removeUnit(value, "px"));
+      } else {
+        valueAsInt = value ?? 0;
+      }
 
       const oneColumWidth = valueAsInt / 12;
 
