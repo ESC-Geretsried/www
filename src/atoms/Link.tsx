@@ -19,11 +19,11 @@ export const Link: React.FC<LinkProps> = ({
   children,
   ...rest
 }) => {
-  const DisabledSyles = useStyleConfig("Link", {
+  const DisabledStyles = useStyleConfig("Link", {
     variant: typeof disabled === "string" ? disabled : "Disabled",
   });
   if (disabled) {
-    return <Span __css={DisabledSyles}>{children}</Span>;
+    return <Span __css={DisabledStyles}>{children}</Span>;
   }
   const isExternalLink = to.match(/^http.*/);
   const isEmailAddress = to.match(/^mailto:/);

@@ -1,14 +1,11 @@
-import React, { memo } from "react";
-import { MobileMenu } from "../../molecules/Menu/MobileMenu";
-import { BurgerButton } from "../../atoms/BurgerButton/BurgerButton";
-import { MotionBox } from "../../atoms/MotionBox/MotionBox";
 import { Box, Flex } from "@chakra-ui/layout";
-import { MenuItemType } from "../../types";
 import { ChakraProps } from "@chakra-ui/system";
-import { AnimatePresence, motion } from "framer-motion";
-import { useStore } from "../../store/store";
-import { Heading } from "@chakra-ui/react";
+import React, { memo } from "react";
 import Logo from "../../assets/logo-cropped.svg";
+import { BurgerButton } from "../../atoms/BurgerButton/BurgerButton";
+import { MobileMenu } from "../../molecules/Menu/MobileMenu";
+import { useStore } from "../../store/store";
+import { MenuItemType } from "../../types";
 import { MobileTitle } from "./MobileTitle";
 
 export const headerAnimation = {
@@ -31,10 +28,12 @@ export const MobileHeader: React.FC<
 
   return (
     <Flex
+      pos="fixed"
+      width="100%"
       justifyContent="space-between"
       alignItems="center"
       {...rest}
-      pe={{ base: 6, xl: 0 }}
+      pe={{ base: 4, xl: 0 }}
       ps={{ base: 0, xl: 6 }}
       bg="brand.blue"
     >

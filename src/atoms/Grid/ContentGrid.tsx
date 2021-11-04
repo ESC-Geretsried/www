@@ -1,16 +1,16 @@
 import { Grid, GridProps } from "@chakra-ui/layout";
 import React from "react";
+import { containerWidths, adBannerHeight, navHeight } from "../../theme/misc";
 
-type ContentGridProps = {};
-
-export const ContentGrid: React.FC<ContentGridProps & GridProps> = ({
-  children,
-  ...rest
-}) => {
+export const ContentGrid: React.FC<GridProps> = ({ children, ...rest }) => {
   return (
     <Grid
-      templateColumns={{ base: "repeat(4, 1fr)", md: "repeat(10, 1fr)" }}
+      mx="auto"
+      width={containerWidths}
+      marginBlockStart={{ base: navHeight.base, xl: adBannerHeight }}
+      templateColumns={{ base: "repeat(4, 1fr)", md: "repeat(12, 1fr)" }}
       gridGap={{ base: 2, md: 6, "2xl": 12 }}
+      alignItems="baseline"
       {...rest}
     >
       {children}

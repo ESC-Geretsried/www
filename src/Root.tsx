@@ -63,7 +63,7 @@ export const Root: React.FC<RootProps> = ({ pageContext, children }) => {
           </feComponentTransfer>
         </filter>
       </svg>
-      <Box overflow="hidden">{children}</Box>
+      <Box>{children}</Box>
     </>
   );
 };

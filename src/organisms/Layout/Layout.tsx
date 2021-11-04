@@ -4,7 +4,6 @@ import { ContentGrid } from "../../atoms/Grid/ContentGrid";
 import { MainContent } from "../../atoms/Grid/MainContent";
 import { ExtraContent } from "../../atoms/Grid/ExtraContent";
 import { Adbanner } from "../../molecules/Adbanner/Adbanner";
-import { Container } from "./Container";
 import { Main } from "./Main";
 import { Flex } from "@chakra-ui/layout";
 import { Seo } from "../../atoms/Seo/Seo";
@@ -22,30 +21,27 @@ export const Layout: React.FC<{
   return (
     <>
       <Seo title={siteTitle} uri={pathname} seo={seo} />
-      <Adbanner sponsors={[]} display={{ base: "none", md: "block" }} />
-      <Container>
+      <ContentGrid>
         <Nav />
-        <Adbanner sponsors={[]} display={{ base: "block", md: "none" }} />
+        <Adbanner sponsors={[]} />
         <Main>
-          <ContentGrid>
-            <Flex
-              as="header"
-              justifyContent="center"
-              gridColumn="1 / -1"
-              display={{ base: "none", xl: "flex" }}
-            >
-              {header}
-            </Flex>
-            {extra && <ExtraContent>{extra}</ExtraContent>}
-            <MainContent fullWidth={!Boolean(extra)}>
-              {content}
-              <Box as="footer" gridColumn="1 /-1" overflow="hidden">
-                footer<pre>{JSON.stringify(store, null, 4)}</pre>
-              </Box>
-            </MainContent>
-          </ContentGrid>
+          <Flex
+            as="header"
+            justifyContent="center"
+            gridColumn="1 / -1"
+            display={{ base: "none", xl: "flex" }}
+          >
+            {header}
+          </Flex>
+          {extra && <ExtraContent>{extra}</ExtraContent>}
+          <MainContent fullWidth={!Boolean(extra)}>
+            {content}
+            <Box as="footer" gridColumn="1 /-1" overflow="hidden">
+              footer<pre>{JSON.stringify(store, null, 4)}</pre>
+            </Box>
+          </MainContent>
         </Main>
-      </Container>
+      </ContentGrid>
     </>
   );
 };

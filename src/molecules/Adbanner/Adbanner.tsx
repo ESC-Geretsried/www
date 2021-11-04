@@ -9,10 +9,12 @@ type AdbannerProps = {
 export const Adbanner: React.FC<AdbannerProps & BoxProps> = ({ ...rest }) => {
   return (
     <Box
-      pos={{ base: "relative", md: "fixed" }}
-      top={{ base: navHeight.base, xl: 0 }}
-      left="0"
-      right="0"
+      pos={{ base: "relative", xl: "fixed" }}
+      top={{ base: "inherit", xl: 0 }}
+      zIndex={{ base: "auto", xl: "banner" }}
+      left={{ xl: 0 }}
+      right={{ xl: 0 }}
+      gridColumn="1/-1"
       height={adBannerHeight}
       backgroundColor="brand.blue"
       {...rest}

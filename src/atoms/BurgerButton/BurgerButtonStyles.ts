@@ -26,7 +26,8 @@ export const BurgerButtonStyles: ComponentMultiStyleConfig = {
   parts: ["Hamburger", "HamburgerInner", "HamburgerBox"],
   baseStyle: {
     Hamburger: {
-      padding: 6,
+      paddingInline: 4,
+      paddingBlock: 6,
       display: "flex",
       cursor: "pointer",
       transitionProperty: "opacity, filter",

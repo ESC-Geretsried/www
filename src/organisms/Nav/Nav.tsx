@@ -1,13 +1,22 @@
-import { Box } from "@chakra-ui/layout";
+import { BoxProps, chakra } from "@chakra-ui/react";
 import { graphql, useStaticQuery } from "gatsby";
 import React, { useMemo } from "react";
 import { prepareMenuData } from "../../molecules/Menu/MenuUtils";
-import { navHeight } from "../../theme/misc";
-import { calcColumnWidths } from "../../utils/style.utils";
+import { adBannerHeight, navHeight } from "../../theme/misc";
 import { DesktopMenu } from "../DesktopMenu/DesktopMenu";
 import { MobileHeader } from "../MobileHeader/MobileHeader";
 
-export const Nav: React.FC = () => {
+const CNav = chakra("nav", {
+  baseStyle: {
+    top: { base: 0, xl: adBannerHeight },
+    pos: { base: "fixed", xl: "sticky" },
+    zIndex: "sticky",
+    alignSelf: "start",
+    gridColumn: { base: "1/-1", lg: "1/4" },
+  },
+});
+
+export const Nav: React.FC<BoxProps> = (props) => {
   const { wpMenu } = useStaticQuery<GatsbyTypes.GetMainMenuQuery>(graphql`
     query GetMainMenu {
       wpMenu(name: { regex: "/main/" }) {
@@ -36,16 +45,7 @@ export const Nav: React.FC = () => {
   }, [wpMenu]);
 
   return (
-    <Box
-      as="nav"
-      pos="fixed"
-      zIndex="sticky"
-      width={{
-        base: "100%",
-        ...calcColumnWidths(2, { excludeBPs: ["base", "sm", "md", "lg"] }),
-      }}
-      height={navHeight}
-    >
+    <CNav>
       <MobileHeader
         display={{ base: "flex", xl: "none" }}
         menuItems={menuItems}
@@ -54,6 +54,6 @@ export const Nav: React.FC = () => {
         display={{ base: "none", xl: "block" }}
         menuItems={menuItems}
       />
-    </Box>
+    </CNav>
   );
 };
