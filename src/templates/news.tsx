@@ -1,9 +1,9 @@
 import { graphql } from "gatsby";
 import React from "react";
 import { Heading } from "../atoms/Heading/Heading";
-import { BlogPostList } from "../organisms/BlogPostList/BlogPostList";
-import { BlogPostPreview } from "../organisms/BlogPostList/BlogPostPreview";
-import { Layout } from "../organisms/Layout/Layout";
+import { BlogPostList } from "../components/BlogPostList/BlogPostList";
+import { BlogPostPreview } from "../components/BlogPostList/BlogPostPreview";
+import { Layout } from "../components/Layout/Layout";
 import { GatsbyPageContext, Mutable, Post } from "../types";
 
 const News: React.FC<{

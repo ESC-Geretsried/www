@@ -1,11 +1,13 @@
-import { Box, Flex } from "@chakra-ui/layout";
+import { Flex } from "@chakra-ui/layout";
 import { ChakraProps } from "@chakra-ui/system";
+import VisuallyHidden from "@chakra-ui/visually-hidden";
 import React, { memo } from "react";
 import Logo from "../../assets/logo-cropped.svg";
 import { BurgerButton } from "../../atoms/BurgerButton/BurgerButton";
-import { MobileMenu } from "../../molecules/Menu/MobileMenu";
+import { Link } from "../../atoms/Link";
 import { useStore } from "../../store/store";
 import { MenuItemType } from "../../types";
+import { MobileMenu } from "../Menu/MobileMenu";
 import { MobileTitle } from "./MobileTitle";
 
 export const headerAnimation = {
@@ -49,9 +51,10 @@ export const MobileHeader: React.FC<
       />
       <MobileTitle />
 
-      <Box>
+      <Link to="/">
         <Logo width="3.2em" height="3.2em" />
-      </Box>
+        <VisuallyHidden>Home</VisuallyHidden>
+      </Link>
     </Flex>
   );
 });

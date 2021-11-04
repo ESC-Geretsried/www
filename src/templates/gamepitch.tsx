@@ -1,8 +1,8 @@
 import { Box } from "@chakra-ui/react";
 import { graphql } from "gatsby";
 import React from "react";
-import { BlogPostPreview } from "../organisms/BlogPostList/BlogPostPreview";
-import { Layout } from "../organisms/Layout/Layout";
+import { BlogPostPreview } from "../components/BlogPostList/BlogPostPreview";
+import { Layout } from "../components/Layout/Layout";
 
 const Gamepitch: React.FC<{ data: GatsbyTypes.GetGamepitchDataQuery }> = ({
   data: { newestPosts, gamepitchData, defaultData, seoData },

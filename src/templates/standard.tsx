@@ -1,13 +1,13 @@
 import { graphql } from "gatsby";
 import React, { useMemo } from "react";
-import { Layout } from "../organisms/Layout/Layout";
+import { Layout } from "../components/Layout/Layout";
 import { GatsbyPageContext } from "../types";
 import { WPContent } from "../atoms/WPContent/WPContent";
 import { Heading } from "../atoms/Heading/Heading";
-import { Extra } from "../organisms/Extra/Extra";
+import { Extra } from "../components/Extra/Extra";
 import { getPropertyFromGraphqlQueryObject } from "../utils/shared.utils";
 import { Flex } from "@chakra-ui/react";
-import { BlogPostPreview } from "../organisms/BlogPostList/BlogPostPreview";
+import { BlogPostPreview } from "../components/BlogPostList/BlogPostPreview";
 
 const useDefaultData = (
   defaultData: GatsbyTypes.DefaultPageDataFieldsFragment

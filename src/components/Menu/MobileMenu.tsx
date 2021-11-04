@@ -10,7 +10,7 @@ import { Menu } from "./Menu";
 import { navHeight } from "../../theme/misc";
 import { MenuItemType } from "../../types";
 import { useStore } from "../../store/store";
-import { SocialButtonGroup } from "../../molecules/SocialButtonGroup/SocialButtonGroup";
+import { SocialButtonGroup } from "../SocialButtonGroup/SocialButtonGroup";
 
 export const MobileMenu: React.FC<
   Omit<DrawerProps, "children" | "isOpen" | "onClose"> & {

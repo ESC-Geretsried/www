@@ -1,7 +1,7 @@
 import { graphql } from "gatsby";
 import React from "react";
-import { BlogPostPreview } from "../organisms/BlogPostList/BlogPostPreview";
-import { Layout } from "../organisms/Layout/Layout";
+import { BlogPostPreview } from "../components/BlogPostList/BlogPostPreview";
+import { Layout } from "../components/Layout/Layout";
 import { GatsbyPageContext } from "../types";
 
 const Hockey: React.FC<{

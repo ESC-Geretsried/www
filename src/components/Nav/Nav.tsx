@@ -1,10 +1,10 @@
 import { BoxProps, chakra } from "@chakra-ui/react";
 import { graphql, useStaticQuery } from "gatsby";
 import React, { useMemo } from "react";
-import { prepareMenuData } from "../../molecules/Menu/MenuUtils";
+import { prepareMenuData } from "../Menu/MenuUtils";
 import { adBannerHeight, navHeight } from "../../theme/misc";
-import { DesktopMenu } from "../DesktopMenu/DesktopMenu";
-import { MobileHeader } from "../MobileHeader/MobileHeader";
+import { DesktopMenu } from "../Menu/DesktopMenu";
+import { MobileHeader } from "./MobileHeader";
 
 const CNav = chakra("nav", {
   baseStyle: {

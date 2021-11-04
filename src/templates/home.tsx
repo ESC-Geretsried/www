@@ -2,9 +2,9 @@ import { Box } from "@chakra-ui/layout";
 import { graphql } from "gatsby";
 import React from "react";
 import { Heading } from "../atoms/Heading/Heading";
-import { BlogPostList } from "../organisms/BlogPostList/BlogPostList";
-import { Calendar } from "../organisms/Calendar/Calendar";
-import { Layout } from "../organisms/Layout/Layout";
+import { BlogPostList } from "../components/BlogPostList/BlogPostList";
+import { Calendar } from "../components/Calendar/Calendar";
+import { Layout } from "../components/Layout/Layout";
 import { GatsbyPageContext, Mutable } from "../types";
 import { Post } from "../types";
 
