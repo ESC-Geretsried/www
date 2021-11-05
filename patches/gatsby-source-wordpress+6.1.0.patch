@@ -1,0 +1,22 @@
+diff --git a/node_modules/gatsby-source-wordpress/dist/gatsby-browser.js b/node_modules/gatsby-source-wordpress/dist/gatsby-browser.js
+index 7d625c6..f6f2455 100644
+--- a/node_modules/gatsby-source-wordpress/dist/gatsby-browser.js
++++ b/node_modules/gatsby-source-wordpress/dist/gatsby-browser.js
+@@ -1,12 +1,12 @@
+ import * as React from "react";
+ import * as ReactDOM from "react-dom";
+ let hydrateRef;
+-let isFirstHydration = true;
++// let isFirstHydration = true;
+ export function onRouteUpdate() {
+-  if (isFirstHydration) {
+-    isFirstHydration = false;
+-    return;
+-  }
++  // if (isFirstHydration) {
++  //   isFirstHydration = false;
++  //   return;
++  // }
+ 
+   if (`requestIdleCallback` in window) {
+     if (hydrateRef) {
