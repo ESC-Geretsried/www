@@ -44,6 +44,8 @@ export const CalenderAddress: React.FC<CalenderAddressProps> = ({
                   href={getDirectionsUrl(address, displayName)}
                   target="_blank"
                   rel="noopener noreferrer"
+                  backgroundImage="none"
+                  _hover={{ backgroundImage: "none" }}
                 >
                   {displayName}
                 </LinkOverlay>

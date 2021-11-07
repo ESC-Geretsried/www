@@ -14,7 +14,12 @@ type ContactProps = {
 };
 
 const ContactElement: React.FC = (props) => (
-  <Flex flexDirection="column" marginBlockEnd={2} {...props} />
+  <Flex
+    flexDirection="column"
+    alignItems="flex-start"
+    marginBlockEnd={2}
+    {...props}
+  />
 );
 
 export const Contact: React.FC<ContactProps> = ({
@@ -25,10 +30,12 @@ export const Contact: React.FC<ContactProps> = ({
 
   return (
     <Box {...rest}>
-      <Heading as="h3" borders>
+      <Heading as="h3" borders size="lg">
         {contactTitle}
       </Heading>
-      {name}
+      <Span paddingBlockStart={2} display="inline-block">
+        {name}
+      </Span>
       {coach && (
         <ContactElement>
           <Strong>Trainer</Strong>

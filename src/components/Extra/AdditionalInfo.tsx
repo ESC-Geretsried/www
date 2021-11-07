@@ -12,10 +12,10 @@ export const AdditionalInfo: React.FC<AdditionalInfoProps> = ({
 }) => {
   return (
     <div {...rest}>
-      <Heading as="h3" borders>
+      <Heading as="h3" borders size="lg">
         {additionalInfo?.title}
       </Heading>
-      <WPContent content={additionalInfo?.content ?? ""} />
+      <WPContent content={additionalInfo?.content ?? ""} marginBlockEnd={0} />
     </div>
   );
 };

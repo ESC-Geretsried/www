@@ -1,5 +1,6 @@
-import { Box, BoxProps } from "@chakra-ui/layout";
+import { Box, BoxProps, Stack } from "@chakra-ui/layout";
 import React from "react";
+import { adBannerHeight, navHeight } from "../../theme/misc";
 import { isObjectEmpty } from "../../utils/shared.utils";
 import { AdditionalInfo } from "./AdditionalInfo";
 import { Contact } from "./Contact";
@@ -16,10 +17,16 @@ export const Extra: React.FC<ExtraProps & BoxProps> = ({
   contact,
   additionalInfo,
   downloads,
+  post,
   ...rest
 }) => {
   return (
-    <Box {...rest}>
+    <Stack
+      {...rest}
+      top={{ md: navHeight.base, xl: adBannerHeight }}
+      pos="sticky"
+      spacing={6}
+    >
       {contact && !isObjectEmpty(contact) && <Contact contact={contact} />}
       {additionalInfo && !isObjectEmpty(additionalInfo) && (
         <AdditionalInfo additionalInfo={additionalInfo} />
@@ -27,6 +34,6 @@ export const Extra: React.FC<ExtraProps & BoxProps> = ({
       {downloads && !isObjectEmpty(downloads) && (
         <Downloads downloads={downloads} />
       )}
-    </Box>
+    </Stack>
   );
 };

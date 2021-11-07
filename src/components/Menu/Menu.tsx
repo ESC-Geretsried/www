@@ -41,6 +41,7 @@ export const Menu: React.FC<
                 toggleActiveMenuItems([menuItem.id], { allowMultiple: false })
               }
               variant="MenuButton"
+              textTransform="uppercase"
             >
               {menuItem.label}
             </Button>

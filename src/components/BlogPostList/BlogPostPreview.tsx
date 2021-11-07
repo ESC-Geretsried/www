@@ -5,27 +5,34 @@ import {
   Stack,
   LinkBox,
   LinkOverlay,
+  BoxProps,
 } from "@chakra-ui/layout";
 import { Tag } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { getImage, ImageDataLike } from "gatsby-plugin-image";
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import { DuotoneImg } from "../../atoms/DuotoneImg/DuotoneImg";
 import { Link } from "../../atoms/Link";
 import { WPContent } from "../../atoms/WPContent/WPContent";
 import { Post } from "../../types";
+import { Tags } from "./Tags";
 
 type BlogPostPreviewProps = {
   post: Post;
-};
+} & BoxProps;
 
 export const BlogPostPreview: React.FC<BlogPostPreviewProps> = memo(
-  ({ post }) => {
+  ({ post, ...rest }) => {
     let image, altText;
     if (post.featuredImage?.node?.localFile) {
       image = getImage(post.featuredImage.node.localFile as ImageDataLike);
       altText = post.featuredImage.node.altText;
     }
+
+    const tags = useMemo(
+      () => post.categories?.nodes?.map((node) => node?.name),
+      [post]
+    );
 
     return (
       <LinkBox
@@ -35,6 +42,7 @@ export const BlogPostPreview: React.FC<BlogPostPreviewProps> = memo(
         _hover={{
           transform: "scale(1.01)",
         }}
+        {...rest}
       >
         {image && (
           <Box paddingBlockEnd={2}>
@@ -46,19 +54,17 @@ export const BlogPostPreview: React.FC<BlogPostPreviewProps> = memo(
             as={Link}
             to={`/${post.postACF?.division}/news${post.uri}`}
             fontStyle="normal"
+            backgroundImage="none"
+            _hover={{
+              backgroundImage: "none",
+            }}
           >
             {post.title}
           </LinkOverlay>
         </Heading>
-        <WPContent content={post.excerpt ?? ""} marginBlockEnd="0" />
+        <WPContent content={post.excerpt ?? ""} marginBlockEnd={0} mx={0} />
         <Flex justifyContent="space-between" paddingBlockStart={2}>
-          <Flex flexWrap="wrap" ms={-1} mt={-1}>
-            {post.categories?.nodes?.map((category) => (
-              <Tag key={category?.name} m={1}>
-                {category?.name}
-              </Tag>
-            ))}
-          </Flex>
+          <Tags tags={tags} />
           <Box>{dayjs(post.date).format("DD.MM.YYYY")}</Box>
         </Flex>
       </LinkBox>

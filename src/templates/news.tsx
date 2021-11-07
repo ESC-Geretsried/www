@@ -1,9 +1,11 @@
+import { Box } from "@chakra-ui/layout";
 import { graphql } from "gatsby";
 import React from "react";
 import { Heading } from "../atoms/Heading/Heading";
 import { BlogPostList } from "../components/BlogPostList/BlogPostList";
 import { BlogPostPreview } from "../components/BlogPostList/BlogPostPreview";
 import { Layout } from "../components/Layout/Layout";
+import { adBannerHeight, navHeight } from "../theme/misc";
 import { GatsbyPageContext, Mutable, Post } from "../types";
 
 const News: React.FC<{
@@ -28,7 +30,14 @@ const News: React.FC<{
           pagesTotal={pagesTotal ?? 1}
         />
       }
-      extra={<BlogPostPreview post={newestPosts.nodes[0]} />}
+      extra={
+        <Box pos="sticky" top={{ md: navHeight.base, xl: adBannerHeight }}>
+          <Heading as="h3" size="lg" borders>
+            News
+          </Heading>
+          <BlogPostPreview post={newestPosts.nodes[0]} />
+        </Box>
+      }
       seo={seoData?.pageACF?.seo}
     />
   );

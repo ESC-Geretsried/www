@@ -64,6 +64,9 @@ const Standard: React.FC<{
       }
       extra={
         <>
+          <Heading borders size="lg">
+            News
+          </Heading>
           <BlogPostPreview post={newestPosts.nodes[0]} />
           <Extra
             post={{}}

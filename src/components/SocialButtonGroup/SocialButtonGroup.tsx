@@ -39,8 +39,10 @@ export const SocialButtonGroup: React.FC = ({ ...rest }) => {
           aria-label={platform}
           icon={getIcon(platform)}
           backgroundColor="transparent"
+          backgroundImage="none"
           border="none"
           _hover={{
+            backgroundImage: "none",
             backgroundColor: "transparent",
             color: "brand.gold",
           }}

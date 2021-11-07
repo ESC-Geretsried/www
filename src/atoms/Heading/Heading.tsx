@@ -7,36 +7,34 @@ import {
 import React from "react";
 
 type HeadingProps = {
-  borders: boolean;
+  borders?: boolean;
 };
 
 export const Heading: React.FC<HeadingProps & ChakraHeadingProps> = ({
   as,
   variant,
   borders = true,
+  size,
   children,
   ...rest
 }) => {
   if (borders) {
     return (
-      <Flex>
-        <Box
-          display="inline-block"
+      <Flex display="grid" justifyItems="start">
+        <ChakraHeading
+          as={as}
+          size={size}
+          variant={borders ? "Border" : undefined}
           {...rest}
-          borderBlock="4px solid"
-          borderColor="brand.ice"
-          textAlign="center"
         >
-          <ChakraHeading as={as} hyphen="auto" padding="0.25em 0">
-            {children}
-          </ChakraHeading>
-        </Box>
+          {children}
+        </ChakraHeading>
       </Flex>
     );
   }
 
   return (
-    <ChakraHeading as={as} {...rest}>
+    <ChakraHeading as={as} size={size} hyphens="auto" {...rest}>
       {children}
     </ChakraHeading>
   );

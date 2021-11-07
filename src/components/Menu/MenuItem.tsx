@@ -24,6 +24,12 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         setIsMobileMenuOpen(false);
       }}
       variant={isChildItem ? "MenuChildItem" : "MenuItem"}
+      textTransform={isChildItem ? undefined : "uppercase"}
+      backgroundImage="none"
+      _hover={{
+        backgroundImage: "none",
+        color: "brand.gold",
+      }}
     >
       {label}
     </Link>

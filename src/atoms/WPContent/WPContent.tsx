@@ -15,6 +15,8 @@ export const WPContent: React.FC<WPContentProps & BoxProps> = ({
       width="100%"
       wordBreak="break-word"
       marginBlockEnd="3rem"
+      maxW={{ "2xl": "41rem" }}
+      mx={{ "2xl": "auto" }}
       zIndex="base"
       {...rest}
       sx={{
@@ -24,8 +26,9 @@ export const WPContent: React.FC<WPContentProps & BoxProps> = ({
         ul: {
           paddingInlineStart: 5,
         },
-        a: {
-          textDecoration: "underline",
+        pre: {
+          maxWidth: "100%",
+          whiteSpace: "pre-wrap",
         },
         "h1, h2": {
           fontSize: "2rem",
@@ -41,16 +44,14 @@ export const WPContent: React.FC<WPContentProps & BoxProps> = ({
           marginBlockStart: 4,
         },
         ".gatsby-image-wrapper": {
-          width: "100%",
           margin: { base: 0, md: 6 },
-          img: {
-            margin: { base: "1rem auto", md: 0 },
-            maxWidth: "calc(100% - 4rem)",
-          },
         },
         ".aligncenter": {
-          marginBlock: 6,
-          marginInline: "auto",
+          // width: "100%",
+          // display: "flex",
+          // justifyContent: "center",
+          // marginBlock: 6,
+          // mx: "auto",
         },
         ".button": {
           textDecor: "none",
