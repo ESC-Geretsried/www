@@ -5,6 +5,19 @@ import React from "react";
 import { useEvents } from "./useEvents";
 import { useTranslation } from "../../translation/useTranslation";
 import { Accordion, AccordionItem } from "@chakra-ui/accordion";
+import { Skeleton, SkeletonText } from "@chakra-ui/skeleton";
+import { isObjectEmpty } from "../../utils/shared.utils";
+
+const LoadingSkeleton = () => {
+  return (
+    <>
+      <Skeleton>
+        <Heading>Heading</Heading>
+      </Skeleton>
+      <SkeletonText noOfLines={4} spacing="4" mt={4} />
+    </>
+  );
+};
 
 export const Calendar: React.FC<BoxProps> = (props) => {
   const { data: result, isError, isLoading, error } = useEvents();
@@ -12,11 +25,13 @@ export const Calendar: React.FC<BoxProps> = (props) => {
 
   return (
     <Box {...props}>
-      {isLoading && <div>"loading!"</div>}
-      {isError && <pre>{JSON.stringify(error)}</pre>}
-      {result && (
+      {isLoading && <LoadingSkeleton />}
+      {isError && <pre>{JSON.stringify(error, null, 4)}</pre>}
+      {!result || isObjectEmpty(result?.data) ? (
+        "no data found"
+      ) : (
         <div>
-          {Object.entries(result?.data).map(([day, events]) => {
+          {Object.entries(result.data).map(([day, events]) => {
             return (
               <Box key={day}>
                 <Heading

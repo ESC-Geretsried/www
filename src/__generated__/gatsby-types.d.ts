@@ -11193,19 +11193,19 @@ type GetAllBlogPostsQuery = (
   & NewestPostsFragment
 );
 
-type GetPostDataQueryVariables = Exact<{
-  id: Scalars['String'];
-}>;
-
-
-type GetPostDataQuery = { readonly post: Maybe<Pick<WpPost, 'title'>> };
-
 type GetGameReportDataQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
 type GetGameReportDataQuery = { readonly wpPost: Maybe<Pick<WpPost, 'title'>> };
+
+type GetPostDataQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+type GetPostDataQuery = { readonly post: Maybe<Pick<WpPost, 'title'>> };
 
 type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 

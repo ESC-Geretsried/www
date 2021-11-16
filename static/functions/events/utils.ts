@@ -34,7 +34,7 @@ export const apiConfig = {
     process.env.CALENDAR_USER +
     "/calendars/" +
     process.env.CALENDAR_ID +
-    "/events",
+    "/calendarview",
 };
 
 /**

@@ -23,7 +23,9 @@ export const wrapPageElement = ({
   | WrapPageElementBrowserArgs<any, GatsbyPageContext>
   | WrapPageElementNodeArgs<any, GatsbyPageContext>) => (
   <Root pageContext={props.pageContext}>
-    <AnimatePresence exitBeforeEnter>{element}</AnimatePresence>
+    {/* <AnimatePresence exitBeforeEnter> */}
+    {element}
+    {/* </AnimatePresence> */}
   </Root>
 );
 

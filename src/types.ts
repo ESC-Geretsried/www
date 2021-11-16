@@ -32,6 +32,8 @@ export type BreakpointObject = { [key in BreakpointNames]?: string | number };
 export type Mutable<T> = { -readonly [P in keyof T]: T[P] };
 export type Unmutable<T> = { readonly [P in keyof T]: T[P] };
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+export type MakePropRequired<T, K extends keyof T> = Omit<T, K> &
+  Required<Pick<T, K>>;
 
 export type Post = Mutable<GatsbyTypes.BlogPostPreviewFieldsFragment>;
 

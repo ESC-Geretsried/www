@@ -49,6 +49,7 @@ const styles: Styles = {
 };
 
 const defaultTheme = extendTheme({
+  colors,
   config,
   styles,
   fonts: {
@@ -73,7 +74,5 @@ const defaultTheme = extendTheme({
     Heading,
   },
 } as Partial<ChakraTheme>);
-
-defaultTheme.colors = colors;
 
 export const theme = defaultTheme;

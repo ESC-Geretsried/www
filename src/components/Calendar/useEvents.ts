@@ -15,6 +15,7 @@ const getEvents = async () => {
   const json = (await response.json()) as {
     data: { [key: string]: Array<EventType> };
   };
+  console.log("(data)", json);
 
   return {
     ...json,

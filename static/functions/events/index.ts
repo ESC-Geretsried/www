@@ -35,21 +35,24 @@ const handler: Handler = async (event, context) => {
     .set("hour", 0)
     .set("minute", 0)
     .set("second", 0)
+    .set("millisecond", 0)
     .toDate();
 
   const sundayEvening = dayjs(getThisWeeksSunday(now))
     .set("hour", 24)
     .set("minute", 60)
     .set("second", 0)
+    .set("millisecond", 0)
     .toDate();
 
   try {
     const events: { value: Array<EventType> } = await graphClient
       .api(apiConfig.uriCal)
+      .query({
+        startDateTime: mondayMorning.toISOString(),
+        endDateTime: sundayEvening.toISOString(),
+      })
       .select(keys as unknown as Array<string>)
-      .filter(
-        `start/dateTime ge '${mondayMorning.toISOString()}' and end/dateTime le '${sundayEvening.toISOString()}'`
-      )
       .get();
 
     const sortedEvents = events.value
@@ -70,6 +73,10 @@ const handler: Handler = async (event, context) => {
 
         return prev;
       }, {} as { [key: string]: Array<EventType> });
+
+    if (Object.keys(sortedEvents).length === 0) {
+      throw new Error("No events found");
+    }
 
     return {
       statusCode: 200,

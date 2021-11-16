@@ -61,7 +61,7 @@ export const isObjectEmpty = (obj: object | undefined) => {
     ? Object.values(obj).every(
         (value) => value === null || value === undefined || value === ""
       )
-    : false;
+    : true;
 };
 
 export const isString = (value: any): value is string => {

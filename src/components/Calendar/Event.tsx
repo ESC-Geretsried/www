@@ -6,20 +6,12 @@ import React from "react";
 import { EventType } from "../../../static/functions/events";
 import { Span } from "../../atoms/Span";
 import { useTranslation } from "../../translation/useTranslation";
+import { MakePropRequired } from "../../types";
 import { CalenderAddress } from "./CalenderAddress";
 
 type EventProps = {
   event: EventType;
   isWeekday?: boolean;
-};
-
-const isLocationEmpty = (location: Location) => {
-  return (
-    !location.displayName &&
-    !location.address?.city &&
-    !location.address?.street &&
-    !location.address?.postalCode
-  );
 };
 
 export const Event: React.FC<EventProps & BoxProps> = ({
@@ -67,16 +59,33 @@ export const Event: React.FC<EventProps & BoxProps> = ({
           </Span>
         </Box>
       </AccordionButton>
-      <AccordionPanel px={0}>
-        {event.location && !isLocationEmpty(event.location) && (
-          <CalenderAddress
-            displayName={event.location.displayName}
-            address={event.location.address}
-            isLastChild={!Boolean(event.bodyPreview)}
-          />
-        )}
-        {event.bodyPreview && <Box>{event.bodyPreview}</Box>}
-      </AccordionPanel>
+      {showPanel(event) && (
+        <AccordionPanel px={0}>
+          {event.location && !isLocationEmpty(event.location) && (
+            <CalenderAddress
+              displayName={event.location.displayName}
+              address={event.location.address}
+              isLastChild={!Boolean(event.bodyPreview)}
+            />
+          )}
+          {event.bodyPreview && event.bodyPreview !== "" && (
+            <Box>{event.bodyPreview}</Box>
+          )}
+        </AccordionPanel>
+      )}
     </Box>
   );
 };
+
+const isLocationEmpty = (location: Location) => {
+  return (
+    !location.displayName &&
+    !location.address?.city &&
+    !location.address?.street &&
+    !location.address?.postalCode
+  );
+};
+
+const showPanel = (event: EventType) =>
+  (event.bodyPreview !== undefined && event.bodyPreview !== "") ||
+  (event.location && !isLocationEmpty(event.location));
