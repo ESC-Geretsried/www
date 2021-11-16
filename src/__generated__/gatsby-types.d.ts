@@ -11193,13 +11193,6 @@ type GetAllBlogPostsQuery = (
   & NewestPostsFragment
 );
 
-type GetGameReportDataQueryVariables = Exact<{
-  id: Scalars['String'];
-}>;
-
-
-type GetGameReportDataQuery = { readonly wpPost: Maybe<Pick<WpPost, 'title'>> };
-
 type GetPostDataQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -11207,17 +11200,17 @@ type GetPostDataQueryVariables = Exact<{
 
 type GetPostDataQuery = { readonly post: Maybe<Pick<WpPost, 'title'>> };
 
+type GetGameReportDataQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+type GetGameReportDataQuery = { readonly wpPost: Maybe<Pick<WpPost, 'title'>> };
+
 type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
-
-type MenuItemFragment = (
-  Pick<WpMenuItem, 'id' | 'label' | 'url' | 'parentId'>
-  & { readonly childItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuChildItemFragment>>> }> }
-);
-
-type MenuChildItemFragment = Pick<WpMenuItem, 'id' | 'label' | 'url'>;
 
 type GetFooterMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -11226,6 +11219,13 @@ type GetFooterMenuQuery = { readonly wpMenu: Maybe<(
     Pick<WpMenu, 'name'>
     & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
   )> };
+
+type MenuItemFragment = (
+  Pick<WpMenuItem, 'id' | 'label' | 'url' | 'parentId'>
+  & { readonly childItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuChildItemFragment>>> }> }
+);
+
+type MenuChildItemFragment = Pick<WpMenuItem, 'id' | 'label' | 'url'>;
 
 type GetMainMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
