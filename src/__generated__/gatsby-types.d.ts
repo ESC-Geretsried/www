@@ -11212,6 +11212,21 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
+type MenuItemFragment = (
+  Pick<WpMenuItem, 'id' | 'label' | 'url' | 'parentId'>
+  & { readonly childItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuChildItemFragment>>> }> }
+);
+
+type MenuChildItemFragment = Pick<WpMenuItem, 'id' | 'label' | 'url'>;
+
+type GetFooterMenuQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetFooterMenuQuery = { readonly wpMenu: Maybe<(
+    Pick<WpMenu, 'name'>
+    & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
+  )> };
+
 type GetMainMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
 

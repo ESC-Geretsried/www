@@ -9,7 +9,7 @@ type DownloadsProps = {
 export const Downloads: React.FC<DownloadsProps> = ({ downloads, ...rest }) => {
   return (
     <div {...rest}>
-      <Heading as="h3" borders size="lg">
+      <Heading borders size="lg">
         Downloads
       </Heading>
       <List ps={4} listStyleType="disc" paddingBlockStart={2}>

@@ -29,11 +29,7 @@ const Home: React.FC<{
           </Box>
         </>
       }
-      header={
-        <Heading as="h1" borders>
-          {homeData?.title}
-        </Heading>
-      }
+      header={<Heading borders>{homeData?.title}</Heading>}
       seo={seoData?.pageACF?.seo}
     />
   );

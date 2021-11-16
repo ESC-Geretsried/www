@@ -30,7 +30,7 @@ export const Contact: React.FC<ContactProps> = ({
 
   return (
     <Box {...rest}>
-      <Heading as="h3" borders size="lg">
+      <Heading borders size="lg">
         {contactTitle}
       </Heading>
       <Span paddingBlockStart={2} display="inline-block">

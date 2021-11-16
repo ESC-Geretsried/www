@@ -5,6 +5,7 @@ import {
   HeadingProps as ChakraHeadingProps,
 } from "@chakra-ui/layout";
 import React from "react";
+import { Hx } from "../../components/headings";
 
 type HeadingProps = {
   borders?: boolean;
@@ -21,21 +22,16 @@ export const Heading: React.FC<HeadingProps & ChakraHeadingProps> = ({
   if (borders) {
     return (
       <Flex display="grid" justifyItems="start">
-        <ChakraHeading
-          as={as}
-          size={size}
-          variant={borders ? "Border" : undefined}
-          {...rest}
-        >
+        <Hx size={size} variant={borders ? "Border" : undefined} {...rest}>
           {children}
-        </ChakraHeading>
+        </Hx>
       </Flex>
     );
   }
 
   return (
-    <ChakraHeading as={as} size={size} hyphens="auto" {...rest}>
+    <Hx size={size} hyphens="auto" {...rest}>
       {children}
-    </ChakraHeading>
+    </Hx>
   );
 };

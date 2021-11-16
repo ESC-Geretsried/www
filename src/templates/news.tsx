@@ -32,7 +32,7 @@ const News: React.FC<{
       }
       extra={
         <Box pos="sticky" top={{ md: navHeight.base, xl: adBannerHeight }}>
-          <Heading as="h3" size="lg" borders>
+          <Heading size="lg" borders>
             News
           </Heading>
           <BlogPostPreview post={newestPosts.nodes[0]} />

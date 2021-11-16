@@ -15,6 +15,7 @@ import { DuotoneImg } from "../../atoms/DuotoneImg/DuotoneImg";
 import { Link } from "../../atoms/Link";
 import { WPContent } from "../../atoms/WPContent/WPContent";
 import { Post } from "../../types";
+import { Hx } from "../headings";
 import { Tags } from "./Tags";
 
 type BlogPostPreviewProps = {
@@ -49,7 +50,7 @@ export const BlogPostPreview: React.FC<BlogPostPreviewProps> = memo(
             <DuotoneImg image={image} alt={altText ?? ""} />
           </Box>
         )}
-        <Heading as="h2" fontSize="1rem">
+        <Hx fontSize="1rem">
           <LinkOverlay
             as={Link}
             to={`/${post.postACF?.division}/news${post.uri}`}
@@ -61,7 +62,7 @@ export const BlogPostPreview: React.FC<BlogPostPreviewProps> = memo(
           >
             {post.title}
           </LinkOverlay>
-        </Heading>
+        </Hx>
         <WPContent content={post.excerpt ?? ""} marginBlockEnd={0} mx={0} />
         <Flex justifyContent="space-between" paddingBlockStart={2}>
           <Tags tags={tags} />

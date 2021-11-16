@@ -1,19 +1,5 @@
 import { Event as EventType } from "@microsoft/microsoft-graph-types";
 
-export type MenuItemType = {
-  isActive: boolean;
-  id: string;
-  url: string;
-  label: string;
-  parentId: string;
-  childItems: Array<{
-    isActive: boolean;
-    id: string;
-    url: string;
-    label: string;
-  }>;
-};
-
 export type GatsbyPageContext = {
   id: string;
   pathname: string;

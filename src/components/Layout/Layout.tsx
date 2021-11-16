@@ -8,7 +8,9 @@ import { Main } from "./Main";
 import { Flex } from "@chakra-ui/layout";
 import { Seo } from "../../atoms/Seo/Seo";
 import { useStore } from "../../store/store";
-import { Box } from "@chakra-ui/react";
+import { Box, chakra } from "@chakra-ui/react";
+import { Footer } from "./Footer";
+import { HeadingLevelBoundary } from "../headings";
 
 export const Layout: React.FC<{
   content: React.ReactElement;
@@ -33,13 +35,12 @@ export const Layout: React.FC<{
           >
             {header}
           </Flex>
-          {extra && <ExtraContent>{extra}</ExtraContent>}
-          <MainContent fullWidth={!Boolean(extra)}>
-            {content}
-            <Box as="footer" gridColumn="1 /-1" overflow="hidden">
-              footer<pre>{JSON.stringify(store, null, 4)}</pre>
-            </Box>
-          </MainContent>
+          <HeadingLevelBoundary>
+            {extra && <ExtraContent>{extra}</ExtraContent>}
+            <MainContent fullWidth={!Boolean(extra)}>{content}</MainContent>
+
+            <Footer />
+          </HeadingLevelBoundary>
         </Main>
       </ContentGrid>
     </>

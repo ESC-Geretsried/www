@@ -4,6 +4,7 @@ import React from "react";
 import { MotionBox } from "../../atoms/MotionBox/MotionBox";
 import { useStore } from "../../store/store";
 import { useTranslation } from "../../translation/useTranslation";
+import { Hx } from "../headings";
 import { headerAnimation } from "./MobileHeader";
 
 export const MobileTitle: React.FC = () => {
@@ -16,9 +17,7 @@ export const MobileTitle: React.FC = () => {
         key={(isMobileMenuOpen ? menu : siteTitle) as React.Key}
         {...headerAnimation}
       >
-        <Heading as="h1" variant="MobileSiteTitle">
-          {isMobileMenuOpen ? menu : siteTitle}
-        </Heading>
+        <Hx variant="MobileSiteTitle">{isMobileMenuOpen ? menu : siteTitle}</Hx>
       </MotionBox>
     </AnimatePresence>
   );

@@ -1,12 +1,13 @@
-import { Box, BoxProps, Heading, List, ListItem } from "@chakra-ui/layout";
-import { Event } from "./Event";
+import { Accordion, AccordionItem } from "@chakra-ui/accordion";
+import { Box, BoxProps, Heading } from "@chakra-ui/layout";
+import { Skeleton, SkeletonText } from "@chakra-ui/skeleton";
 import dayjs from "dayjs";
 import React from "react";
-import { useEvents } from "./useEvents";
 import { useTranslation } from "../../translation/useTranslation";
-import { Accordion, AccordionItem } from "@chakra-ui/accordion";
-import { Skeleton, SkeletonText } from "@chakra-ui/skeleton";
 import { isObjectEmpty } from "../../utils/shared.utils";
+import { HeadingLevelBoundary, Hx } from "../headings";
+import { Event } from "./Event";
+import { useEvents } from "./useEvents";
 
 const LoadingSkeleton = () => {
   return (
@@ -24,37 +25,38 @@ export const Calendar: React.FC<BoxProps> = (props) => {
   const [weekdays] = useTranslation("weekdays");
 
   return (
-    <Box {...props}>
-      {isLoading && <LoadingSkeleton />}
-      {isError && <pre>{JSON.stringify(error, null, 4)}</pre>}
-      {!result || isObjectEmpty(result?.data) ? (
-        "no data found"
-      ) : (
-        <div>
-          {Object.entries(result.data).map(([day, events]) => {
-            return (
-              <Box key={day}>
-                <Heading
-                  as="h3"
-                  fontSize="1rem"
-                  borderBlockEnd="2px solid"
-                  borderColor="brand.ice"
-                  py={2}
-                >
-                  {day !== "weekdays" ? dayjs(day).format("dddd") : weekdays}
-                </Heading>
-                <Accordion allowToggle>
-                  {events.map((event) => (
-                    <AccordionItem key={event.id} border="none">
-                      <Event event={event} isWeekday={day === "weekdays"} />
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </Box>
-            );
-          })}
-        </div>
-      )}
-    </Box>
+    <HeadingLevelBoundary>
+      <Box {...props}>
+        {isLoading && <LoadingSkeleton />}
+        {isError && <pre>{JSON.stringify(error, null, 4)}</pre>}
+        {!result || isObjectEmpty(result?.data) ? (
+          "no data found"
+        ) : (
+          <div>
+            {Object.entries(result.data).map(([day, events]) => {
+              return (
+                <Box key={day}>
+                  <Hx
+                    size="sm"
+                    borderBlockEnd="2px solid"
+                    borderColor="brand.ice"
+                    py={2}
+                  >
+                    {day !== "weekdays" ? dayjs(day).format("dddd") : weekdays}
+                  </Hx>
+                  <Accordion allowToggle>
+                    {events.map((event) => (
+                      <AccordionItem key={event.id} border="none">
+                        <Event event={event} isWeekday={day === "weekdays"} />
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </Box>
+              );
+            })}
+          </div>
+        )}
+      </Box>
+    </HeadingLevelBoundary>
   );
 };
