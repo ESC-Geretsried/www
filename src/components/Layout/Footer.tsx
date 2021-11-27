@@ -40,7 +40,7 @@ export const Footer: React.FC<ChakraProps> = ({ ...rest }) => {
           const hasHeading = !["misc", "legal"].includes(label);
 
           return (
-            <chakra.div __css={styles.column}>
+            <chakra.div key={label} __css={styles.column}>
               {hasHeading && (
                 <Hx size="sm" lineHeight="2">
                   {label}

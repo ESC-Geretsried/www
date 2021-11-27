@@ -26,7 +26,7 @@ const Home: React.FC<{
       </Box>
       <Box gridColumn={{ base: "1/-1", lg: "5 / -1" }} gridRow={1}>
         <Heading borders>Termine</Heading>
-        <Calendar pt={6} />
+        <Calendar pt={4} />
       </Box>
     </Layout>
   );

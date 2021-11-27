@@ -1,3 +1,4 @@
+import { useStyles } from "@chakra-ui/system";
 import React from "react";
 import { Heading } from "../../atoms/Heading/Heading";
 import { WPContent } from "../../atoms/WPContent/WPContent";
@@ -10,9 +11,11 @@ export const AdditionalInfo: React.FC<AdditionalInfoProps> = ({
   additionalInfo,
   ...rest
 }) => {
+  const styles = useStyles();
+
   return (
     <div {...rest}>
-      <Heading borders size="lg">
+      <Heading borders size="lg" sx={styles.heading}>
         {additionalInfo?.title}
       </Heading>
       <WPContent content={additionalInfo?.content ?? ""} marginBlockEnd={0} />

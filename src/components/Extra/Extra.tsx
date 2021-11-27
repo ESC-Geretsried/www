@@ -1,4 +1,5 @@
 import { Box, BoxProps, Stack } from "@chakra-ui/layout";
+import { StylesProvider, useMultiStyleConfig } from "@chakra-ui/system";
 import React from "react";
 import { adBannerHeight, navHeight } from "../../theme/misc";
 import { isObjectEmpty } from "../../utils/shared.utils";
@@ -20,20 +21,19 @@ export const Extra: React.FC<ExtraProps & BoxProps> = ({
   post,
   ...rest
 }) => {
+  const styles = useMultiStyleConfig("Extra", {});
+
   return (
-    <Stack
-      {...rest}
-      top={{ md: navHeight.base, xl: adBannerHeight }}
-      pos="sticky"
-      spacing={6}
-    >
-      {contact && !isObjectEmpty(contact) && <Contact contact={contact} />}
-      {additionalInfo && !isObjectEmpty(additionalInfo) && (
-        <AdditionalInfo additionalInfo={additionalInfo} />
-      )}
-      {downloads && !isObjectEmpty(downloads) && (
-        <Downloads downloads={downloads} />
-      )}
+    <Stack {...rest} spacing={6} sx={styles.wrapper}>
+      <StylesProvider value={styles}>
+        {contact && !isObjectEmpty(contact) && <Contact contact={contact} />}
+        {additionalInfo && !isObjectEmpty(additionalInfo) && (
+          <AdditionalInfo additionalInfo={additionalInfo} />
+        )}
+        {downloads && !isObjectEmpty(downloads) && (
+          <Downloads downloads={downloads} />
+        )}
+      </StylesProvider>
     </Stack>
   );
 };

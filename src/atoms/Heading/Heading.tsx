@@ -21,8 +21,8 @@ export const Heading: React.FC<HeadingProps & ChakraHeadingProps> = ({
 }) => {
   if (borders) {
     return (
-      <Flex display="grid" justifyItems="start">
-        <Hx size={size} variant={borders ? "Border" : undefined} {...rest}>
+      <Flex display="grid" justifyItems="start" {...rest}>
+        <Hx size={size} variant={borders ? "Border" : undefined}>
           {children}
         </Hx>
       </Flex>

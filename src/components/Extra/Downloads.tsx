@@ -1,4 +1,5 @@
 import { List, ListItem } from "@chakra-ui/layout";
+import { useStyles } from "@chakra-ui/system";
 import React from "react";
 import { Heading } from "../../atoms/Heading/Heading";
 
@@ -7,12 +8,14 @@ type DownloadsProps = {
 };
 
 export const Downloads: React.FC<DownloadsProps> = ({ downloads, ...rest }) => {
+  const styles = useStyles();
+
   return (
     <div {...rest}>
-      <Heading borders size="lg">
+      <Heading borders size="lg" sx={styles.heading}>
         Downloads
       </Heading>
-      <List ps={4} listStyleType="disc" paddingBlockStart={2}>
+      <List variant="downloads">
         {downloads?.map((download) => (
           <ListItem key={download?.file?.title}>
             <a href={download?.file?.mediaItemUrl} download>

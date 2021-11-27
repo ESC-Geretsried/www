@@ -7,6 +7,8 @@ import { Link } from "./Link";
 import { Heading } from "./Heading";
 import { MatchReportHeader } from "./matchReportHeader";
 import { Footer } from "./footer";
+import { Extra } from "./Extra";
+import { BlogPostPreview } from "./blogPostPreview";
 
 const config: ThemeConfig = {
   initialColorMode: "dark",
@@ -76,6 +78,19 @@ const defaultTheme = extendTheme({
     Heading,
     MatchReportHeader,
     Footer,
+    Extra,
+    BlogPostPreview,
+    List: {
+      variants: {
+        downloads: {
+          container: {
+            ps: "1.5rem",
+            listStyleType: "disc",
+            listStyle: "disc",
+          },
+        },
+      },
+    },
   },
 } as Partial<ChakraTheme>);
 

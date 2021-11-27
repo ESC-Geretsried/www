@@ -1,4 +1,5 @@
-import { Box, BoxProps, Flex, LinkBox, LinkOverlay } from "@chakra-ui/layout";
+import { Box, BoxProps, LinkBox, LinkOverlay } from "@chakra-ui/layout";
+import { chakra, useMultiStyleConfig } from "@chakra-ui/system";
 import dayjs from "dayjs";
 import { getImage, ImageDataLike } from "gatsby-plugin-image";
 import React, { memo, useMemo } from "react";
@@ -26,39 +27,29 @@ export const BlogPostPreview: React.FC<BlogPostPreviewProps> = memo(
       [post]
     );
 
+    const styles = useMultiStyleConfig("BlogPostPreview", {});
+
     return (
-      <LinkBox
-        py={8}
-        role="group"
-        transition="transform 0.2s"
-        _hover={{
-          transform: "scale(1.01)",
-        }}
-        {...rest}
-      >
+      <LinkBox role="group" sx={styles.linkBox} {...rest}>
         {image && (
-          <Box paddingBlockEnd={2}>
+          <chakra.div __css={styles.imgWrapper}>
             <DuotoneImg image={image} alt={altText ?? ""} />
-          </Box>
+          </chakra.div>
         )}
         <Hx fontSize="1rem">
           <LinkOverlay
             as={Link}
             to={`/${post.postACF?.division}/news${post.uri}`}
-            fontStyle="normal"
-            backgroundImage="none"
-            _hover={{
-              backgroundImage: "none",
-            }}
+            sx={styles.link}
           >
             {post.title}
           </LinkOverlay>
         </Hx>
         <WPContent content={post.excerpt ?? ""} marginBlockEnd={0} mx={0} />
-        <Flex justifyContent="space-between" paddingBlockStart={2}>
+        <chakra.div __css={styles.tags}>
           <Tags tags={tags} />
           <Box>{dayjs(post.date).format("DD.MM.YYYY")}</Box>
-        </Flex>
+        </chakra.div>
       </LinkBox>
     );
   }
