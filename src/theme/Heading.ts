@@ -32,8 +32,23 @@ export const Heading: ComponentSingleStyleConfig = {
       borderBlock: "4px solid",
       borderColor: "brand.ice",
       textTransform: "uppercase",
-
       fontStyle: "italic",
+    },
+    Calendar: {
+      borderBlockEnd: "2px solid",
+      borderColor: "brand.ice",
+      py: 2,
+      fontSize: "1rem",
+      // textTransform: "uppercase",
+    },
+    h6: {
+      fontSize: "1rem",
+      fontWeight: "bold",
+    },
+    "bold-body": {
+      fontFamily: "body",
+      fontSize: "1rem",
+      fontWeight: "bold",
     },
   },
 };

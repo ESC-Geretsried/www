@@ -15,28 +15,37 @@ export const Seo: React.FC<{
   } = seo ?? {};
   const url = `www.esc-geretsried.de${uri}`;
 
+  const description =
+    metaDescription ?? ogDescription ?? twitterDescription ?? "";
+
   return (
     <Helmet title={`ESC Geretsried - ${title}`}>
-      {metaDescription && <meta name="description" content={metaDescription} />}
+      <html lang="de" />
+      <meta name="description" content={description} />
 
       <meta property="og:title" content={title} />
-      {ogDescription && (
-        <meta property="og:description" content={ogDescription} />
-      )}
+      <meta
+        property="og:description"
+        content={ogDescription ?? metaDescription ?? twitterDescription ?? ""}
+      />
 
       <meta property="twitter:title" content={title} />
-      {twitterDescription && (
-        <meta property="twitter:description" content={twitterDescription} />
-      )}
+      <meta
+        property="twitter:description"
+        content={twitterDescription ?? ogDescription ?? metaDescription ?? ""}
+      />
 
       {url && <meta property="og:url" content={url} />}
 
-      {/* {socialImage && <meta property="og:image" content={socialImage.url} />}
+      {socialImage && (
+        <meta property="og:image" content={socialImage.localFile?.url} />
+      )}
 
-      {socialImage && <meta name="twitter:image" content={socialImage.url} />} */}
+      {socialImage && (
+        <meta name="twitter:image" content={socialImage.localFile?.url} />
+      )}
 
       {noIndex && <meta name="robots" content="noindex" />}
-      <html lang="de" />
     </Helmet>
   );
 };

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { ListItem, List, Button, Collapse, ListProps } from "@chakra-ui/react";
 import { MenuItem } from "./MenuItem";
-import { MenuItemType } from "../../types";
 import { lineBlock } from "../../theme/misc";
 import { useStore } from "../../store/store";
+import { MenuItemType } from "../../types";
 
 export const Menu: React.FC<
   {
@@ -15,7 +15,7 @@ export const Menu: React.FC<
 
   useEffect(() => {
     const activeItem = menuItems
-      .filter((menuItem) => menuItem.childItems.length !== 0)
+      .filter((menuItem) => menuItem?.childItems?.length !== 0)
       .find((menuItem) => menuItem.isActive);
 
     setActiveMenuItems(activeItem ? [activeItem.id] : []);
@@ -41,7 +41,6 @@ export const Menu: React.FC<
                 toggleActiveMenuItems([menuItem.id], { allowMultiple: false })
               }
               variant="MenuButton"
-              textTransform="uppercase"
             >
               {menuItem.label}
             </Button>

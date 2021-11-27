@@ -198,7 +198,7 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
       return prev;
     }, {} as { [key: string]: Array<GetBlogPostQuery["allWpPost"]["nodes"][number]> });
 
-  const postsPerPage = 6;
+  const postsPerPage = 5;
   Object.entries(postsSortedByDivision ?? {}).forEach(([division, posts]) => {
     const pagesTotal = Math.ceil(posts.length / postsPerPage);
 
@@ -241,6 +241,8 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
       } else {
         blogPostPath = `/${postACF.division}/news${uri}`;
       }
+
+      console.log(title, postACF.postCategory);
 
       createPage({
         path: blogPostPath,

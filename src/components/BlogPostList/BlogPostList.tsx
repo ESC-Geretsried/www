@@ -16,6 +16,7 @@ import React, { useMemo } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "../../atoms/Icons";
 import { Post } from "../../types";
 import { usePaginationLinks } from "../../utils/hooks";
+import { HeadingLevelBoundary } from "../headings";
 import { BlogPostPreview } from "./BlogPostPreview";
 import { PaginationLink } from "./PaginationLink";
 
@@ -100,57 +101,59 @@ export const BlogPostList: React.FC<BlogPostListProps & BoxProps> = ({
   });
 
   return (
-    <Box {...rest}>
-      <AnimatePresence exitBeforeEnter>
-        <MotionList
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          variants={list}
-          key={currentPageIndex}
-        >
-          {posts.map((post) => {
-            return (
-              <MotionListItem
-                key={post.id}
-                variants={item}
-                borderBlockEnd="2px solid"
-                borderColor="brand.ice"
-                _last={{ border: "none" }}
+    <HeadingLevelBoundary>
+      <Box {...rest}>
+        <AnimatePresence exitBeforeEnter>
+          <MotionList
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={list}
+            key={currentPageIndex}
+          >
+            {posts.map((post) => {
+              return (
+                <MotionListItem
+                  key={post.id}
+                  variants={item}
+                  borderBlockEnd="2px solid"
+                  borderColor="brand.ice"
+                  _last={{ border: "none" }}
+                >
+                  <BlogPostPreview post={post} />
+                </MotionListItem>
+              );
+            })}
+          </MotionList>
+        </AnimatePresence>
+        {pagesTotal && pagesTotal > 1 && (
+          <Flex justifyContent="center">
+            <ButtonGroup>
+              <PaginationLink
+                to={prevPageUrl}
+                disabled={isFirstActive && "DisabledButton"}
+                display="flex"
+                alignItems="center"
               >
-                <BlogPostPreview post={post} />
-              </MotionListItem>
-            );
-          })}
-        </MotionList>
-      </AnimatePresence>
-      {pagesTotal && pagesTotal > 1 && (
-        <Flex justifyContent="center">
-          <ButtonGroup>
-            <PaginationLink
-              to={prevPageUrl}
-              disabled={isFirstActive && "DisabledButton"}
-              display="flex"
-              alignItems="center"
-            >
-              <ChevronLeftIcon />
-              <VisuallyHidden>Seite zurück</VisuallyHidden>
-            </PaginationLink>
-            {links?.map((link) => (
-              <PaginationLink key={link.to} {...link} />
-            ))}
-            <PaginationLink
-              to={nextPageUrl}
-              disabled={isLastActive && "DisabledButton"}
-              display="flex"
-              alignItems="center"
-            >
-              <ChevronRightIcon />
-              <VisuallyHidden>Seite vor</VisuallyHidden>
-            </PaginationLink>
-          </ButtonGroup>
-        </Flex>
-      )}
-    </Box>
+                <ChevronLeftIcon />
+                <VisuallyHidden>Seite zurück</VisuallyHidden>
+              </PaginationLink>
+              {links?.map((link) => (
+                <PaginationLink key={link.to} {...link} />
+              ))}
+              <PaginationLink
+                to={nextPageUrl}
+                disabled={isLastActive && "DisabledButton"}
+                display="flex"
+                alignItems="center"
+              >
+                <ChevronRightIcon />
+                <VisuallyHidden>Seite vor</VisuallyHidden>
+              </PaginationLink>
+            </ButtonGroup>
+          </Flex>
+        )}
+      </Box>
+    </HeadingLevelBoundary>
   );
 };

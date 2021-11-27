@@ -35,3 +35,12 @@ export type Event = Pick<
   | "categories"
   | "location"
 >;
+
+export type MenuItemType = Omit<GatsbyTypes.MenuItemFragment, "childItems"> & {
+  isActive: boolean;
+  childItems: Array<
+    {
+      isActive: boolean;
+    } & GatsbyTypes.MenuChildItemFragment
+  >;
+};

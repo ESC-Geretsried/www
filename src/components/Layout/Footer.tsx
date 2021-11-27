@@ -17,37 +17,16 @@ export const Footer: React.FC<ChakraProps> = ({ ...rest }) => {
         }
       }
     }
-
-    fragment MenuItem on WpMenuItem {
-      id
-      label
-      url
-      parentId
-      childItems {
-        nodes {
-          ...MenuChildItem
-        }
-      }
-    }
-
-    fragment MenuChildItem on WpMenuItem {
-      id
-      label
-      url
-    }
   `);
-  const t = ["Verein", "River Rats", "Eishockey", "misc", "legal"];
 
   const menuItems = useMemo(() => {
-    const temp = prepareMenuData(wpMenu);
-
-    return temp.reduce<{
+    return prepareMenuData(wpMenu).reduce<{
       [key: string]: Array<
         GatsbyTypes.MenuItemFragment | GatsbyTypes.MenuChildItemFragment
       >;
     }>(
       (acc, item) => {
-        if (["Verein"].includes(item.label)) {
+        if (["Verein"].includes(item.label ?? "")) {
           acc.Verein.push(...item.childItems);
           return acc;
         }
@@ -57,19 +36,19 @@ export const Footer: React.FC<ChakraProps> = ({ ...rest }) => {
           return acc;
         }
 
-        if (["River Rats"].includes(item.label)) {
+        if (["River Rats"].includes(item.label ?? "")) {
           acc["River Rats"].push(...item.childItems);
 
           return acc;
         }
 
-        if (["Eishockey"].includes(item.label)) {
+        if (["Eishockey"].includes(item.label ?? "")) {
           acc.Eishockey.push(...item.childItems);
 
           return acc;
         }
 
-        if (["Datenschutzerklärung", "Impressum"].includes(item.label)) {
+        if (["Datenschutzerklärung", "Impressum"].includes(item.label ?? "")) {
           acc.legal.push(item);
 
           return acc;
@@ -99,15 +78,20 @@ export const Footer: React.FC<ChakraProps> = ({ ...rest }) => {
 
           return (
             <chakra.div gridColumn={{ base: "span 1", md: "span 2" }}>
-              {hasHeading && <Hx size="sm">{label}</Hx>}
+              {hasHeading && (
+                <Hx size="sm" lineHeight="2">
+                  {label}
+                </Hx>
+              )}
               <List pt={!hasHeading ? "calc(1rem * 1.2)" : undefined}>
                 {items.map((item) => (
-                  <ListItem>
+                  <ListItem key={item.url}>
                     <Link
                       to={item.url ?? "/"}
                       backgroundImage="none"
                       display="block"
                       w="100%"
+                      lineHeight="2"
                     >
                       {item.label}
                     </Link>

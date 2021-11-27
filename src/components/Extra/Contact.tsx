@@ -1,7 +1,7 @@
 import { Box, Flex } from "@chakra-ui/layout";
+import { chakra } from "@chakra-ui/react";
 import React from "react";
 import { Heading } from "../../atoms/Heading/Heading";
-import { Span } from "../../atoms/Span";
 import { Strong } from "../../atoms/Strong";
 import { useTranslation } from "../../translation/useTranslation";
 
@@ -33,25 +33,25 @@ export const Contact: React.FC<ContactProps> = ({
       <Heading borders size="lg">
         {contactTitle}
       </Heading>
-      <Span paddingBlockStart={2} display="inline-block">
+      <chakra.span paddingBlockStart={2} display="inline-block">
         {name}
-      </Span>
+      </chakra.span>
       {coach && (
         <ContactElement>
           <Strong>Trainer</Strong>
-          <Span>{coach}</Span>
+          <chakra.span>{coach}</chakra.span>
         </ContactElement>
       )}
       {assistant && (
         <ContactElement>
           <Strong>Betreuer</Strong>
-          <Span>{assistant}</Span>
+          <chakra.span>{assistant}</chakra.span>
         </ContactElement>
       )}
       {manager && (
         <ContactElement>
           <Strong>Teamleiter</Strong>
-          <Span>{manager}</Span>
+          <chakra.span>{manager}</chakra.span>
         </ContactElement>
       )}
       {email && (

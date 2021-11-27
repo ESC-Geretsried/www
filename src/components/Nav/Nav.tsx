@@ -23,17 +23,7 @@ export const Nav: React.FC<BoxProps> = (props) => {
         name
         menuItems {
           nodes {
-            id
-            label
-            url
-            parentId
-            childItems {
-              nodes {
-                id
-                label
-                url
-              }
-            }
+            ...MenuItem
           }
         }
       }

@@ -1,12 +1,13 @@
-import React from "react";
-import { Link as GatsbyLink, GatsbyLinkProps } from "gatsby";
 import {
+  chakra,
   Link as ChakraLink,
   LinkProps as ChakraLinkProps,
   useStyleConfig,
 } from "@chakra-ui/react";
+import { GatsbyLinkProps, Link as GatsbyLink } from "gatsby";
+import React from "react";
 import { trimChars } from "../utils/shared.utils";
-import { Span } from "./Span";
+import { Span } from "./-Span";
 
 const trimSlashes = (str: string): string => trimChars(str, "/");
 
@@ -23,7 +24,7 @@ export const Link: React.FC<LinkProps> = ({
     variant: typeof disabled === "string" ? disabled : "Disabled",
   });
   if (disabled) {
-    return <Span __css={DisabledStyles}>{children}</Span>;
+    return <chakra.span __css={DisabledStyles}>{children}</chakra.span>;
   }
   const isExternalLink = to.match(/^http.*/);
   const isEmailAddress = to.match(/^mailto:/);

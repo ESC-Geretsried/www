@@ -1,12 +1,13 @@
 import { AccordionButton, AccordionPanel } from "@chakra-ui/accordion";
 import { Box, BoxProps } from "@chakra-ui/layout";
+import { chakra } from "@chakra-ui/react";
 import { Location } from "@microsoft/microsoft-graph-types";
 import dayjs from "dayjs";
 import React from "react";
 import { EventType } from "../../../static/functions/events";
-import { Span } from "../../atoms/Span";
 import { useTranslation } from "../../translation/useTranslation";
 import { MakePropRequired } from "../../types";
+import { HeadingLevelBoundary, Hx } from "../headings";
 import { CalenderAddress } from "./CalenderAddress";
 
 type EventProps = {
@@ -14,15 +15,11 @@ type EventProps = {
   isWeekday?: boolean;
 };
 
-export const Event: React.FC<EventProps & BoxProps> = ({
-  event,
-  isWeekday = false,
-  ...rest
-}) => {
+export const Event: React.FC<EventProps> = ({ event, isWeekday = false }) => {
   const [oclock, adverbIn, address] = useTranslation(["oclock", "adverbIn"]);
 
   return (
-    <Box {...rest}>
+    <HeadingLevelBoundary>
       <AccordionButton
         display="flex"
         justifyContent="space-between"
@@ -36,27 +33,27 @@ export const Event: React.FC<EventProps & BoxProps> = ({
         role="group"
       >
         <Box maxW="68%" paddingInlineEnd={2}>
-          <Span
-            fontWeight="bold"
+          <Hx
+            variant="h6"
             transition="color 0.15s"
             _groupHover={{ color: "brand.gold" }}
           >
             {event.subject}
-          </Span>
+          </Hx>
           {event.location?.address?.city && (
-            <Span>
+            <chakra.span>
               {" "}
               {adverbIn} {event.location.address.city}
-            </Span>
+            </chakra.span>
           )}
         </Box>
         <Box>
-          <Span>
+          <chakra.span>
             {dayjs(event.start?.dateTime).format(
               isWeekday ? "ddd D.MM, HH:mm" : "HH:mm"
             )}{" "}
             {oclock}
-          </Span>
+          </chakra.span>
         </Box>
       </AccordionButton>
       {showPanel(event) && (
@@ -73,7 +70,7 @@ export const Event: React.FC<EventProps & BoxProps> = ({
           )}
         </AccordionPanel>
       )}
-    </Box>
+    </HeadingLevelBoundary>
   );
 };
 

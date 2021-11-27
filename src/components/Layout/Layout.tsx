@@ -8,9 +8,9 @@ import { Main } from "./Main";
 import { Flex } from "@chakra-ui/layout";
 import { Seo } from "../../atoms/Seo/Seo";
 import { useStore } from "../../store/store";
-import { Box, chakra } from "@chakra-ui/react";
 import { Footer } from "./Footer";
 import { HeadingLevelBoundary } from "../headings";
+// import "./headCt.css";
 
 export const Layout: React.FC<{
   content: React.ReactElement;

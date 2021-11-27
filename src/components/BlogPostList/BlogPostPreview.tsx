@@ -1,13 +1,4 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  Stack,
-  LinkBox,
-  LinkOverlay,
-  BoxProps,
-} from "@chakra-ui/layout";
-import { Tag } from "@chakra-ui/react";
+import { Box, BoxProps, Flex, LinkBox, LinkOverlay } from "@chakra-ui/layout";
 import dayjs from "dayjs";
 import { getImage, ImageDataLike } from "gatsby-plugin-image";
 import React, { memo, useMemo } from "react";

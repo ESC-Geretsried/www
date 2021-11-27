@@ -67,7 +67,7 @@ const Standard: React.FC<{
           <Heading borders size="lg">
             News
           </Heading>
-          <BlogPostPreview post={newestPosts.nodes[0]} />
+          <BlogPostPreview post={newestPosts.nodes[0]} mt={-5} mb={-4} />
           <Extra
             post={{}}
             contact={contact}

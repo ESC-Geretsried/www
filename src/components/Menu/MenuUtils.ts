@@ -1,9 +1,10 @@
-import { useContext, useState } from "react";
 import { useStore } from "../../store/store";
 import { MenuItemType } from "../../types";
 
 export const prepareMenuData = (
-  wpMenu: GatsbyTypes.GetMainMenuQuery["wpMenu"]
+  wpMenu:
+    | GatsbyTypes.GetMainMenuQuery["wpMenu"]
+    | GatsbyTypes.GetFooterMenuQuery["wpMenu"]
 ) => {
   const { pathname } = useStore.getState();
   if (wpMenu?.menuItems?.nodes) {

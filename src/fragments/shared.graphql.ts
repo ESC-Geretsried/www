@@ -62,3 +62,23 @@ export const NewestPosts = graphql`
     }
   }
 `;
+
+export const MenuItems = graphql`
+  fragment MenuItem on WpMenuItem {
+    id
+    label
+    url
+    parentId
+    childItems {
+      nodes {
+        ...MenuChildItem
+      }
+    }
+  }
+
+  fragment MenuChildItem on WpMenuItem {
+    id
+    label
+    url
+  }
+`;

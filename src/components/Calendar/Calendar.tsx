@@ -29,19 +29,12 @@ export const Calendar: React.FC<BoxProps> = (props) => {
       <Box {...props}>
         {isLoading && <LoadingSkeleton />}
         {isError && <pre>{JSON.stringify(error, null, 4)}</pre>}
-        {!result || isObjectEmpty(result?.data) ? (
-          "no data found"
-        ) : (
+        {result && !isObjectEmpty(result?.data) && (
           <div>
             {Object.entries(result.data).map(([day, events]) => {
               return (
                 <Box key={day}>
-                  <Hx
-                    size="sm"
-                    borderBlockEnd="2px solid"
-                    borderColor="brand.ice"
-                    py={2}
-                  >
+                  <Hx variant="Calendar">
                     {day !== "weekdays" ? dayjs(day).format("dddd") : weekdays}
                   </Hx>
                   <Accordion allowToggle>

@@ -1,16 +1,15 @@
-import { Box, BoxProps, ButtonProps, Flex } from "@chakra-ui/react";
+import { chakra, Flex } from "@chakra-ui/react";
 import React from "react";
 import { Link, LinkProps } from "../../atoms/Link";
-import { Span } from "../../atoms/Span";
 import { Optional } from "../../types";
 
 export const PaginationLink: React.FC<
   Optional<LinkProps, "to"> & { isActive?: boolean }
-> = ({ to, isActive, ...props }) => {
+> = ({ to, isActive, ...rest }) => {
   if (to === undefined) {
     return (
       <Flex>
-        <Span {...props} px={3} py={1} />
+        <chakra.span {...rest} px={3} py={1} />
       </Flex>
     );
   }
@@ -20,7 +19,7 @@ export const PaginationLink: React.FC<
       to={to}
       variant="Button"
       color={isActive ? "brand.gold" : "brand.ice"}
-      {...props}
+      {...rest}
     />
   );
 };

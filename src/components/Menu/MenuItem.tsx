@@ -16,20 +16,11 @@ export const MenuItem: React.FC<MenuItemProps> = ({
 
   return (
     <Link
-      to={url}
-      display="block"
-      _focus={{ boxShadow: "none" }}
-      _focusVisible={{ textDecoration: "underline" }}
+      to={url ?? "/"}
       onClick={() => {
         setIsMobileMenuOpen(false);
       }}
       variant={isChildItem ? "MenuChildItem" : "MenuItem"}
-      textTransform={isChildItem ? undefined : "uppercase"}
-      backgroundImage="none"
-      _hover={{
-        backgroundImage: "none",
-        color: "brand.gold",
-      }}
     >
       {label}
     </Link>

@@ -1,8 +1,9 @@
 import { LinkBox, Box, LinkOverlay } from "@chakra-ui/layout";
 import { PhysicalAddress } from "@microsoft/microsoft-graph-types";
 import React from "react";
-import { Span } from "../../atoms/Span";
+import { Span } from "../../atoms/-Span";
 import { useTranslation } from "../../translation/useTranslation";
+import { HeadingLevelBoundary, Hx } from "../headings";
 
 type CalenderAddressProps = {
   address: PhysicalAddress | null | undefined;
@@ -33,8 +34,8 @@ export const CalenderAddress: React.FC<CalenderAddressProps> = ({
 }) => {
   const [addressTitle] = useTranslation(["address"]);
   return (
-    <>
-      <Span fontWeight="bold">{addressTitle}</Span>
+    <HeadingLevelBoundary>
+      <Hx variant="bold-body">{addressTitle}</Hx>
       <LinkBox role="group">
         <Box transition="color 0.15s" _groupHover={{ color: "brand.gold" }}>
           {displayName && (
@@ -42,15 +43,14 @@ export const CalenderAddress: React.FC<CalenderAddressProps> = ({
               {address ? (
                 <LinkOverlay
                   href={getDirectionsUrl(address, displayName)}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  isExternal
                   backgroundImage="none"
                   _hover={{ backgroundImage: "none" }}
                 >
                   {displayName}
                 </LinkOverlay>
               ) : (
-                <> {displayName}</>
+                <>{displayName}</>
               )}
               <br />
             </>
@@ -76,6 +76,6 @@ export const CalenderAddress: React.FC<CalenderAddressProps> = ({
           {!isLastChild && <br />}
         </Box>
       </LinkBox>
-    </>
+    </HeadingLevelBoundary>
   );
 };

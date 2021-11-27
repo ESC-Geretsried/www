@@ -1,5 +1,5 @@
 import { ComponentSingleStyleConfig } from "@chakra-ui/theme";
-import { Button } from "./Button";
+import { Button, MenuItemBase } from "./Button";
 
 export const Link: ComponentSingleStyleConfig = {
   baseStyle: {
@@ -13,11 +13,14 @@ export const Link: ComponentSingleStyleConfig = {
   },
   variants: {
     MenuItem: {
-      py: 2,
+      ...MenuItemBase,
       fontFamily: "Rubik",
       fontWeight: "bold",
+      textTransform: "uppercase",
+      py: "0.35rem",
     },
     MenuChildItem: {
+      ...MenuItemBase,
       py: 0,
       ps: 6,
       fontFamily: "PT Sans",
