@@ -5,6 +5,8 @@ import { Button } from "./Button";
 import { Colors, extendTheme } from "@chakra-ui/react";
 import { Link } from "./Link";
 import { Heading } from "./Heading";
+import { MatchReportHeader } from "./matchReportHeader";
+import { Footer } from "./footer";
 
 const config: ThemeConfig = {
   initialColorMode: "dark",
@@ -72,7 +74,10 @@ const defaultTheme = extendTheme({
     BurgerButton: BurgerButtonStyles,
     Button,
     Heading,
+    MatchReportHeader,
+    Footer,
   },
 } as Partial<ChakraTheme>);
 
+console.log({ defaultTheme });
 export const theme = defaultTheme;

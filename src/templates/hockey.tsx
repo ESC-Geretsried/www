@@ -10,11 +10,12 @@ const Hockey: React.FC<{
 }> = ({ data: { newestPosts, seoData, hockeyData }, pageContext }) => {
   return (
     <Layout
-      content={<>{hockeyData?.title}</>}
       extra={<BlogPostPreview post={newestPosts.nodes[0]} />}
       header={<>header</>}
       seo={seoData?.pageACF?.seo}
-    />
+    >
+      {hockeyData?.title}
+    </Layout>
   );
 };
 

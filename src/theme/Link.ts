@@ -53,5 +53,11 @@ export const Link: ComponentSingleStyleConfig = {
         color: "brand.ice",
       },
     },
+    footer: {
+      backgroundImage: "none",
+      display: "block",
+      w: "100%",
+      lineHeight: "2",
+    },
   },
 };

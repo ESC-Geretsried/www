@@ -13,11 +13,10 @@ import { HeadingLevelBoundary } from "../headings";
 // import "./headCt.css";
 
 export const Layout: React.FC<{
-  content: React.ReactElement;
   extra?: React.ReactElement;
   header: React.ReactElement;
   seo?: GatsbyTypes.SeoFieldsFragment;
-}> = ({ content, extra, header, seo }) => {
+}> = ({ extra, header, seo, children }) => {
   const store = useStore();
   const { siteTitle, pathname } = store;
   return (
@@ -37,7 +36,7 @@ export const Layout: React.FC<{
           </Flex>
           <HeadingLevelBoundary>
             {extra && <ExtraContent>{extra}</ExtraContent>}
-            <MainContent fullWidth={!Boolean(extra)}>{content}</MainContent>
+            <MainContent fullWidth={!Boolean(extra)}>{children}</MainContent>
 
             <Footer />
           </HeadingLevelBoundary>

@@ -10,11 +10,12 @@ const Tickets: React.FC<{
 }> = ({ data: { newestPosts, ticketsData, seoData }, pageContext }) => {
   return (
     <Layout
-      content={<> {ticketsData?.title}</>}
       extra={<BlogPostPreview post={newestPosts.nodes[0]} />}
       header={<>header</>}
       seo={seoData?.pageACF?.seo}
-    ></Layout>
+    >
+      {ticketsData?.title}
+    </Layout>
   );
 };
 

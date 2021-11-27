@@ -52,16 +52,6 @@ const Standard: React.FC<{
 
   return (
     <Layout
-      content={
-        <>
-          <Flex justifyContent="center">
-            <Heading borders marginBlockEnd={6}>
-              {pageACF?.standardContent?.pageContentTitle}
-            </Heading>
-          </Flex>
-          <WPContent content={defaultData.content} />
-        </>
-      }
       extra={
         <>
           <Heading borders size="lg">
@@ -78,7 +68,14 @@ const Standard: React.FC<{
       }
       header={<>header</>}
       seo={seoData?.pageACF?.seo}
-    />
+    >
+      <Flex justifyContent="center">
+        <Heading borders marginBlockEnd={6}>
+          {pageACF?.standardContent?.pageContentTitle}
+        </Heading>
+      </Flex>
+      <WPContent content={defaultData.content} />
+    </Layout>
   );
 };
 

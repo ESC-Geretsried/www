@@ -9,15 +9,12 @@ const Gamepitch: React.FC<{ data: GatsbyTypes.GetGamepitchDataQuery }> = ({
 }) => {
   return (
     <Layout
-      content={
-        <>
-          Gamepitch<Box>{JSON.stringify(gamepitchData)}</Box>
-        </>
-      }
       extra={<BlogPostPreview post={newestPosts.nodes[0]} />}
       header={<>header</>}
       seo={seoData?.pageACF?.seo}
-    />
+    >
+      <Box>{JSON.stringify(gamepitchData)}</Box>
+    </Layout>
   );
 };
 

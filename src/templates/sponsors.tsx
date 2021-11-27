@@ -10,11 +10,12 @@ const Sponsors: React.FC<{
 }> = ({ data: { newestPosts, sponsorsData, seoData }, pageContext }) => {
   return (
     <Layout
-      content={<>{sponsorsData?.title}</>}
       extra={<BlogPostPreview post={newestPosts.nodes[0]} />}
       header={<>header</>}
       seo={seoData?.pageACF?.seo}
-    />
+    >
+      {sponsorsData?.title}
+    </Layout>
   );
 };
 

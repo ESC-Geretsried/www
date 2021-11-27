@@ -17,19 +17,7 @@ const News: React.FC<{
 }) => {
   return (
     <Layout
-      header={
-        <>
-          <Heading borders>{title}</Heading>
-        </>
-      }
-      content={
-        <BlogPostList
-          posts={allPosts.nodes as Array<Post>}
-          currentPageIndex={currentPage ?? 0}
-          limit={limit ?? 6}
-          pagesTotal={pagesTotal ?? 1}
-        />
-      }
+      header={<Heading borders>{title}</Heading>}
       extra={
         <Box pos="sticky" top={{ md: navHeight.base, xl: adBannerHeight }}>
           <Heading size="lg" borders>
@@ -39,7 +27,14 @@ const News: React.FC<{
         </Box>
       }
       seo={seoData?.pageACF?.seo}
-    />
+    >
+      <BlogPostList
+        posts={allPosts.nodes as Array<Post>}
+        currentPageIndex={currentPage ?? 0}
+        limit={limit ?? 6}
+        pagesTotal={pagesTotal ?? 1}
+      />
+    </Layout>
   );
 };
 

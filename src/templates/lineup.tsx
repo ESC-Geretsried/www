@@ -10,11 +10,12 @@ const Lineup: React.FC<{
 }> = ({ data: { newestPosts, lineupData, seoData }, pageContext }) => {
   return (
     <Layout
-      content={<>{lineupData?.title}</>}
       extra={<BlogPostPreview post={newestPosts.nodes[0]} />}
       header={<>header</>}
       seo={seoData?.pageACF?.seo}
-    />
+    >
+      {lineupData?.title}
+    </Layout>
   );
 };
 

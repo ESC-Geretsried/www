@@ -7,7 +7,6 @@ const BlogPost: React.FC<{ data: GatsbyTypes.GetPostDataQuery }> = ({
 }) => {
   return (
     <Layout
-      content={<>{post?.title}</>}
       extra={<>extra</>}
       header={<>header</>}
       seo={{
@@ -18,7 +17,9 @@ const BlogPost: React.FC<{ data: GatsbyTypes.GetPostDataQuery }> = ({
         noIndex: false,
         socialImage: { localFile: { url: "" } },
       }}
-    />
+    >
+      {post?.title}
+    </Layout>
   );
 };
 

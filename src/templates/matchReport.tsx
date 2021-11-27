@@ -7,11 +7,9 @@ const GameReport: React.FC<{
 }> = ({ data: { wpPost: post } }) => {
   console.log("post", post);
   return (
-    <Layout
-      content={<pre>blub{JSON.stringify(post, null, 2)}</pre>}
-      extra={<>extra</>}
-      header={<>header</>}
-    />
+    <Layout extra={<>extra</>} header={<>header</>}>
+      <pre>blub{JSON.stringify(post, null, 2)}</pre>
+    </Layout>
   );
 };
 

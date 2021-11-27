@@ -26,7 +26,7 @@ export const MobileHeader: React.FC<
   { menuItems: Array<MenuItemType> } & ChakraProps
 > = memo(({ menuItems, ...rest }) => {
   const btnRef = React.useRef<any>();
-  const { isMobileMenuOpen, setIsMobileMenuOpen, siteTitle } = useStore();
+  const { isMobileMenuOpen, setIsMobileMenuOpen } = useStore();
 
   return (
     <Flex
