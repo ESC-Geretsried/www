@@ -16,9 +16,11 @@ export const Layout: React.FC<{
   extra?: React.ReactElement;
   header: React.ReactElement;
   seo?: GatsbyTypes.SeoFieldsFragment;
-}> = ({ extra, header, seo, children }) => {
+  showHeaderOnMobile?: boolean;
+}> = ({ extra, header, seo, showHeaderOnMobile = false, children }) => {
   const store = useStore();
   const { siteTitle, pathname } = store;
+
   return (
     <>
       <Seo title={siteTitle} uri={pathname} seo={seo} />
@@ -30,7 +32,7 @@ export const Layout: React.FC<{
             as="header"
             justifyContent="center"
             gridColumn="1 / -1"
-            display={{ base: "none", xl: "flex" }}
+            display={showHeaderOnMobile ? "flex" : { base: "none", xl: "flex" }}
           >
             {header}
           </Flex>

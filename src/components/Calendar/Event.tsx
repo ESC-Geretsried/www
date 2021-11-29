@@ -1,12 +1,12 @@
 import { AccordionButton, AccordionPanel } from "@chakra-ui/accordion";
-import { Box, BoxProps } from "@chakra-ui/layout";
+import { Box } from "@chakra-ui/layout";
 import { chakra } from "@chakra-ui/react";
 import { Location } from "@microsoft/microsoft-graph-types";
 import dayjs from "dayjs";
-import React from "react";
+import React, { useMemo } from "react";
 import { EventType } from "../../../static/functions/events";
 import { useTranslation } from "../../translation/useTranslation";
-import { MakePropRequired } from "../../types";
+import { useFormattedDate } from "../../utils/hooks";
 import { HeadingLevelBoundary, Hx } from "../headings";
 import { CalenderAddress } from "./CalenderAddress";
 
@@ -17,6 +17,11 @@ type EventProps = {
 
 export const Event: React.FC<EventProps> = ({ event, isWeekday = false }) => {
   const [oclock, adverbIn, address] = useTranslation(["oclock", "adverbIn"]);
+
+  const time = useFormattedDate(
+    event.start?.dateTime,
+    isWeekday ? "ddd D.MM, HH:mm" : "HH:mm"
+  );
 
   return (
     <HeadingLevelBoundary>
@@ -49,10 +54,7 @@ export const Event: React.FC<EventProps> = ({ event, isWeekday = false }) => {
         </Box>
         <Box>
           <chakra.span>
-            {dayjs(event.start?.dateTime).format(
-              isWeekday ? "ddd D.MM, HH:mm" : "HH:mm"
-            )}{" "}
-            {oclock}
+            {time} {oclock}
           </chakra.span>
         </Box>
       </AccordionButton>

@@ -2,13 +2,12 @@ import { Accordion, AccordionItem } from "@chakra-ui/accordion";
 import { Box, BoxProps, Heading } from "@chakra-ui/layout";
 import { Skeleton, SkeletonText } from "@chakra-ui/skeleton";
 import dayjs from "dayjs";
-import React from "react";
+import React, { memo } from "react";
 import { useTranslation } from "../../translation/useTranslation";
-import { isObjectEmpty } from "../../utils/shared.utils";
+import { formatDate, isObjectEmpty } from "../../utils/shared.utils";
 import { HeadingLevelBoundary, Hx } from "../headings";
 import { Event } from "./Event";
 import { useEvents } from "./useEvents";
-
 const LoadingSkeleton = () => {
   return (
     <>
@@ -20,7 +19,7 @@ const LoadingSkeleton = () => {
   );
 };
 
-export const Calendar: React.FC<BoxProps> = (props) => {
+export const Calendar: React.FC<BoxProps> = memo((props) => {
   const { data: result, isError, isLoading, error } = useEvents();
   const [weekdays] = useTranslation("weekdays");
 
@@ -35,7 +34,7 @@ export const Calendar: React.FC<BoxProps> = (props) => {
               return (
                 <Box key={day}>
                   <Hx variant="Calendar">
-                    {day !== "weekdays" ? dayjs(day).format("dddd") : weekdays}
+                    {day !== "weekdays" ? formatDate(day, "dddd") : weekdays}
                   </Hx>
                   <Accordion allowToggle>
                     {events.map((event) => (
@@ -52,4 +51,4 @@ export const Calendar: React.FC<BoxProps> = (props) => {
       </Box>
     </HeadingLevelBoundary>
   );
-};
+});

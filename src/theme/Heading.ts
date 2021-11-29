@@ -1,7 +1,8 @@
 import { SystemStyleObject } from "@chakra-ui/styled-system";
 import { ComponentSingleStyleConfig } from "@chakra-ui/theme";
+import { textStyles } from "./textStyles";
 
-const sizes: Record<string, SystemStyleObject> = {
+export const sizes: Record<string, SystemStyleObject> = {
   xl: {
     fontSize: ["3xl", null, "4xl"],
     lineHeight: [1.33, null, 1.2],
@@ -17,15 +18,16 @@ const sizes: Record<string, SystemStyleObject> = {
 
 export const Heading: ComponentSingleStyleConfig = {
   baseStyle: {
+    // wordWrap: "break-word",
     hyphens: "auto",
+    fontStyle: "italic",
   },
   sizes,
   variants: {
     MobileSiteTitle: {
+      ...textStyles.mobileSiteTitle,
       textTransform: "uppercase",
-      fontStyle: "italic",
       textAlign: "center",
-      fontSize: "xl",
     },
     Border: {
       padding: "0.25em 0",
@@ -35,20 +37,25 @@ export const Heading: ComponentSingleStyleConfig = {
       fontStyle: "italic",
     },
     Calendar: {
+      ...textStyles.calendarTitles,
       borderBlockEnd: "2px solid",
       borderColor: "brand.ice",
       py: 2,
-      fontSize: "1rem",
       // textTransform: "uppercase",
     },
     h6: {
-      fontSize: "1rem",
-      fontWeight: "bold",
+      ...textStyles.h6,
     },
     "bold-body": {
       fontFamily: "body",
       fontSize: "1rem",
       fontWeight: "bold",
+    },
+    "team-names": {
+      ...textStyles.base,
+      display: "flex",
+      width: "100%",
+      justifyContent: "space-between",
     },
   },
 };

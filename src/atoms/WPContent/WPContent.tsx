@@ -1,4 +1,4 @@
-import { Box, BoxProps } from "@chakra-ui/react";
+import { BoxProps, chakra } from "@chakra-ui/react";
 import React from "react";
 
 type WPContentProps = {
@@ -10,12 +10,12 @@ export const WPContent: React.FC<WPContentProps & BoxProps> = ({
   ...rest
 }) => {
   return (
-    <Box
+    <chakra.div
       dangerouslySetInnerHTML={{ __html: content }}
       width="100%"
+      maxW="41rem"
       wordBreak="break-word"
       marginBlockEnd="3rem"
-      maxW={{ "2xl": "41rem" }}
       mx={{ "2xl": "auto" }}
       zIndex="base"
       {...rest}

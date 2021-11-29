@@ -1,7 +1,7 @@
 import React from "react";
 import { Root } from "./Root";
 import { ChakraProvider } from "@chakra-ui/react";
-import { AnimatePresence } from "framer-motion";
+// import { AnimatePresence } from "framer-motion";
 import { theme } from "./theme/theme";
 import "@fontsource/rubik/900.css";
 import "@fontsource/pt-sans/400.css";

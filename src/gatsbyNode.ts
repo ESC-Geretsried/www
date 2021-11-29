@@ -124,7 +124,7 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
   const [pages, blogPosts] = await Promise.all([pagesQuery, blogPostsQuery]);
 
   pages.data?.allWpPage.nodes.forEach(
-    ({ id, uri, slug, title, categories, pageACF }) => {
+    ({ id, uri, title, categories, pageACF }) => {
       const categorySlug =
         categories.nodes.length > 0 ? categories.nodes[0].slug : "verein";
 

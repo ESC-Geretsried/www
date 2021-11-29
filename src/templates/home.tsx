@@ -37,7 +37,7 @@ export const HomeQuery = graphql`
     homeData: wpPage(id: { eq: $id }) {
       title
     }
-    postsData: allWpPost(limit: 6) {
+    postsData: allWpPost(limit: 5) {
       nodes {
         ...BlogPostPreviewFields
       }

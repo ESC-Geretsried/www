@@ -57,6 +57,7 @@ const defaultTheme = extendTheme({
   config,
   styles,
   fonts: {
+    rubik: "Rubik",
     heading: "Rubik",
     body: "PT Sans",
   },

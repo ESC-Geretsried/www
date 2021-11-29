@@ -11198,9 +11198,9 @@ type GetPostDataQueryVariables = Exact<{
 }>;
 
 
-type GetPostDataQuery = { readonly post: Maybe<Pick<WpPost, 'title'>> };
+type GetPostDataQuery = { readonly post: Maybe<Pick<WpPost, 'title' | 'content'>> };
 
-type WpPost_Postacf_MatchReportFragmentFragment = Pick<WpPost_Postacf_MatchReport, 'assists' | 'gameDay' | 'penalties' | 'periodResults' | 'scoreGuest' | 'scoreHome' | 'scorer' | 'specialCase' | 'spectators' | 'teamGuest' | 'teamGuestSlug' | 'teamHome' | 'teamHomeSlug'>;
+type MatchReportStatsFragment = Pick<WpPost_Postacf_MatchReport, 'assists' | 'gameDay' | 'penalties' | 'periodResults' | 'scoreGuest' | 'scoreHome' | 'scorer' | 'specialCase' | 'spectators' | 'teamGuest' | 'teamGuestSlug' | 'teamHome' | 'teamHomeSlug'>;
 
 type GetGameReportDataQueryVariables = Exact<{
   id: Scalars['String'];
@@ -11208,8 +11208,8 @@ type GetGameReportDataQueryVariables = Exact<{
 
 
 type GetGameReportDataQuery = { readonly wpPost: Maybe<(
-    Pick<WpPost, 'title' | 'modified'>
-    & { readonly postACF: Maybe<{ readonly matchReport: Maybe<WpPost_Postacf_MatchReportFragmentFragment> }> }
+    Pick<WpPost, 'title' | 'content' | 'modified'>
+    & { readonly postACF: Maybe<{ readonly matchReport: Maybe<MatchReportStatsFragment> }> }
   )> };
 
 type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
@@ -11225,10 +11225,13 @@ type GetFooterMenuQuery = { readonly wpMenu: Maybe<(
     & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
   )> };
 
-type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
+type GetMainMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
+type GetMainMenuQuery = { readonly wpMenu: Maybe<(
+    Pick<WpMenu, 'name'>
+    & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
+  )> };
 
 type MenuItemFragment = (
   Pick<WpMenuItem, 'id' | 'label' | 'url' | 'parentId'>
@@ -11237,13 +11240,15 @@ type MenuItemFragment = (
 
 type MenuChildItemFragment = Pick<WpMenuItem, 'id' | 'label' | 'url'>;
 
-type GetMainMenuQueryVariables = Exact<{ [key: string]: never; }>;
+type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type GetMainMenuQuery = { readonly wpMenu: Maybe<(
-    Pick<WpMenu, 'name'>
-    & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
-  )> };
+type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
+
+type GetTranslationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetTranslationQuery = { readonly translationYaml: Maybe<Pick<TranslationYaml, 'contact' | 'menu' | 'oclock' | 'adverbIn' | 'weekdays' | 'address'>> };
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
@@ -11270,10 +11275,5 @@ type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = Pick<ImageSharpFluid, 't
 type GatsbyImageSharpFluid_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
 
 type GatsbyImageSharpFluid_withWebp_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
-type GetTranslationQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type GetTranslationQuery = { readonly translationYaml: Maybe<Pick<TranslationYaml, 'contact' | 'menu' | 'oclock' | 'adverbIn' | 'weekdays' | 'address'>> };
 
 }

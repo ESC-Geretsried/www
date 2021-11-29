@@ -1,3 +1,7 @@
+import dayjs from "dayjs";
+import "dayjs/locale/de";
+dayjs.locale("de");
+
 /**
  * escapes special chars in a string to use it for a regex
  * @param str input string
@@ -67,3 +71,8 @@ export const isObjectEmpty = (obj: object | undefined) => {
 export const isString = (value: any): value is string => {
   return typeof value === "string";
 };
+
+export const formatDate = (
+  date: string | number | Date | undefined,
+  format: string
+) => dayjs(date).format(format);

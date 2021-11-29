@@ -1,5 +1,7 @@
 import { graphql } from "gatsby";
 import React from "react";
+import { Heading } from "../atoms/Heading/Heading";
+import { WPContent } from "../atoms/WPContent/WPContent";
 import { Layout } from "../components/Layout/Layout";
 
 const BlogPost: React.FC<{ data: GatsbyTypes.GetPostDataQuery }> = ({
@@ -18,7 +20,8 @@ const BlogPost: React.FC<{ data: GatsbyTypes.GetPostDataQuery }> = ({
         socialImage: { localFile: { url: "" } },
       }}
     >
-      {post?.title}
+      <Heading>{post?.title}</Heading>
+      <WPContent content={post?.content ?? ""} />
     </Layout>
   );
 };
@@ -27,6 +30,7 @@ export const BlogPostQuery = graphql`
   query GetPostData($id: String!) {
     post: wpPost(id: { eq: $id }) {
       title
+      content
     }
     # seo: wpPost(id: { eq: $id }) {
     #   ...SeoFields

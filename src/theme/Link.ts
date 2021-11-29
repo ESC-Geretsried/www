@@ -1,9 +1,9 @@
 import { ComponentSingleStyleConfig } from "@chakra-ui/theme";
 import { Button, MenuItemBase } from "./Button";
+import { textStyles } from "./textStyles";
 
 export const Link: ComponentSingleStyleConfig = {
   baseStyle: {
-    fontStyle: "italic",
     _hover: {
       color: "brand.gold",
       textDecor: "none",
@@ -14,25 +14,21 @@ export const Link: ComponentSingleStyleConfig = {
   variants: {
     MenuItem: {
       ...MenuItemBase,
-      fontFamily: "Rubik",
-      fontWeight: "bold",
+      ...textStyles.menuItemLink,
       textTransform: "uppercase",
       py: "0.35rem",
     },
     MenuChildItem: {
       ...MenuItemBase,
+      ...textStyles.menuChildItemLink,
       py: 0,
       ps: 6,
-      fontFamily: "PT Sans",
-      fontWeight: "normal",
     },
     Button: {
       ...(Button.baseStyle ?? {}),
+      ...textStyles.buttonLink,
       paddingInline: 3,
       paddingBlock: 1,
-      // fontFamily: "Rubik",
-      fontWeight: "bold",
-      fontStyle: "normal",
     },
     Disabled: {
       opacity: 0.7,
@@ -46,7 +42,6 @@ export const Link: ComponentSingleStyleConfig = {
       paddingInline: 3,
       paddingBlock: 1,
       fontWeight: "bold",
-      fontStyle: "normal",
       opacity: 0.7,
       cursor: "not-allowed",
       _hover: {
