@@ -11241,13 +11241,10 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
-type GetFooterMenuQueryVariables = Exact<{ [key: string]: never; }>;
+type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type GetFooterMenuQuery = { readonly wpMenu: Maybe<(
-    Pick<WpMenu, 'name'>
-    & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
-  )> };
+type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
 
 type GetMainMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -11257,10 +11254,13 @@ type GetMainMenuQuery = { readonly wpMenu: Maybe<(
     & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
   )> };
 
-type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
+type GetFooterMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
+type GetFooterMenuQuery = { readonly wpMenu: Maybe<(
+    Pick<WpMenu, 'name'>
+    & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
+  )> };
 
 type GetTranslationQueryVariables = Exact<{ [key: string]: never; }>;
 

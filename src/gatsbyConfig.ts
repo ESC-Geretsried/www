@@ -39,7 +39,7 @@ const config: GatsbyConfig = {
         outputPath: `src/__generated__/gatsby-types.d.ts`,
       },
     },
-    "gatsby-plugin-loadable-components-ssr",
+    // "gatsby-plugin-loadable-components-ssr",
     {
       resolve: "@chakra-ui/gatsby-plugin",
       options: {
