@@ -941,6 +941,8 @@ type WpTermNode = {
   readonly name: Maybe<Scalars['String']>;
   /** An alphanumeric identifier for the object unique to its type. */
   readonly slug: Maybe<Scalars['String']>;
+  /** The name of the taxonomy that the object is associated with */
+  readonly taxonomyName: Maybe<Scalars['String']>;
   /** The ID of the term group that this term object belongs to */
   readonly termGroupId: Maybe<Scalars['Int']>;
   /** The taxonomy ID that the object is associated with */
@@ -1199,6 +1201,8 @@ type WpCategory = Node & WpNode & WpTermNode & WpUniformResourceIdentifiable & W
   readonly slug: Maybe<Scalars['String']>;
   /** Connection between the category type and the Taxonomy type */
   readonly taxonomy: Maybe<WpCategoryToTaxonomyConnectionEdge>;
+  /** The name of the taxonomy that the object is associated with */
+  readonly taxonomyName: Maybe<Scalars['String']>;
   /** The ID of the term group that this term object belongs to */
   readonly termGroupId: Maybe<Scalars['Int']>;
   /** The taxonomy ID that the object is associated with */
@@ -1463,6 +1467,8 @@ type WpPostFormat = Node & WpNode & WpTermNode & WpUniformResourceIdentifiable &
   readonly slug: Maybe<Scalars['String']>;
   /** Connection between the postFormat type and the Taxonomy type */
   readonly taxonomy: Maybe<WpPostFormatToTaxonomyConnectionEdge>;
+  /** The name of the taxonomy that the object is associated with */
+  readonly taxonomyName: Maybe<Scalars['String']>;
   /** The ID of the term group that this term object belongs to */
   readonly termGroupId: Maybe<Scalars['Int']>;
   /** The taxonomy ID that the object is associated with */
@@ -2686,6 +2692,7 @@ type Query_wpTermNodeArgs = {
   link: Maybe<StringQueryOperatorInput>;
   name: Maybe<StringQueryOperatorInput>;
   slug: Maybe<StringQueryOperatorInput>;
+  taxonomyName: Maybe<StringQueryOperatorInput>;
   termGroupId: Maybe<IntQueryOperatorInput>;
   termTaxonomyId: Maybe<IntQueryOperatorInput>;
   uri: Maybe<StringQueryOperatorInput>;
@@ -2780,6 +2787,7 @@ type Query_wpCategoryArgs = {
   posts: Maybe<WpCategoryToPostConnectionFilterInput>;
   slug: Maybe<StringQueryOperatorInput>;
   taxonomy: Maybe<WpCategoryToTaxonomyConnectionEdgeFilterInput>;
+  taxonomyName: Maybe<StringQueryOperatorInput>;
   termGroupId: Maybe<IntQueryOperatorInput>;
   termTaxonomyId: Maybe<IntQueryOperatorInput>;
   uri: Maybe<StringQueryOperatorInput>;
@@ -2863,6 +2871,7 @@ type Query_wpPostFormatArgs = {
   posts: Maybe<WpPostFormatToPostConnectionFilterInput>;
   slug: Maybe<StringQueryOperatorInput>;
   taxonomy: Maybe<WpPostFormatToTaxonomyConnectionEdgeFilterInput>;
+  taxonomyName: Maybe<StringQueryOperatorInput>;
   termGroupId: Maybe<IntQueryOperatorInput>;
   termTaxonomyId: Maybe<IntQueryOperatorInput>;
   uri: Maybe<StringQueryOperatorInput>;
@@ -6014,6 +6023,7 @@ type WpTermNodeFilterInput = {
   readonly link: Maybe<StringQueryOperatorInput>;
   readonly name: Maybe<StringQueryOperatorInput>;
   readonly slug: Maybe<StringQueryOperatorInput>;
+  readonly taxonomyName: Maybe<StringQueryOperatorInput>;
   readonly termGroupId: Maybe<IntQueryOperatorInput>;
   readonly termTaxonomyId: Maybe<IntQueryOperatorInput>;
   readonly uri: Maybe<StringQueryOperatorInput>;
@@ -6295,6 +6305,7 @@ type WpMediaItemFieldsEnum =
   | 'terms.nodes.link'
   | 'terms.nodes.name'
   | 'terms.nodes.slug'
+  | 'terms.nodes.taxonomyName'
   | 'terms.nodes.termGroupId'
   | 'terms.nodes.termTaxonomyId'
   | 'terms.nodes.uri'
@@ -6964,6 +6975,7 @@ type WpTermNodeFieldsEnum =
   | 'link'
   | 'name'
   | 'slug'
+  | 'taxonomyName'
   | 'termGroupId'
   | 'termTaxonomyId'
   | 'uri'
@@ -7127,6 +7139,7 @@ type WpCategoryFilterInput = {
   readonly posts: Maybe<WpCategoryToPostConnectionFilterInput>;
   readonly slug: Maybe<StringQueryOperatorInput>;
   readonly taxonomy: Maybe<WpCategoryToTaxonomyConnectionEdgeFilterInput>;
+  readonly taxonomyName: Maybe<StringQueryOperatorInput>;
   readonly termGroupId: Maybe<IntQueryOperatorInput>;
   readonly termTaxonomyId: Maybe<IntQueryOperatorInput>;
   readonly uri: Maybe<StringQueryOperatorInput>;
@@ -7586,6 +7599,7 @@ type WpPostFormatFilterInput = {
   readonly posts: Maybe<WpPostFormatToPostConnectionFilterInput>;
   readonly slug: Maybe<StringQueryOperatorInput>;
   readonly taxonomy: Maybe<WpPostFormatToTaxonomyConnectionEdgeFilterInput>;
+  readonly taxonomyName: Maybe<StringQueryOperatorInput>;
   readonly termGroupId: Maybe<IntQueryOperatorInput>;
   readonly termTaxonomyId: Maybe<IntQueryOperatorInput>;
   readonly uri: Maybe<StringQueryOperatorInput>;
@@ -7711,6 +7725,7 @@ type WpPageFieldsEnum =
   | 'categories.nodes.parentId'
   | 'categories.nodes.posts.nodes'
   | 'categories.nodes.slug'
+  | 'categories.nodes.taxonomyName'
   | 'categories.nodes.termGroupId'
   | 'categories.nodes.termTaxonomyId'
   | 'categories.nodes.uri'
@@ -8361,6 +8376,7 @@ type WpPageFieldsEnum =
   | 'terms.nodes.link'
   | 'terms.nodes.name'
   | 'terms.nodes.slug'
+  | 'terms.nodes.taxonomyName'
   | 'terms.nodes.termGroupId'
   | 'terms.nodes.termTaxonomyId'
   | 'terms.nodes.uri'
@@ -8576,6 +8592,7 @@ type WpCategoryFieldsEnum =
   | 'ancestors.nodes.parentId'
   | 'ancestors.nodes.posts.nodes'
   | 'ancestors.nodes.slug'
+  | 'ancestors.nodes.taxonomyName'
   | 'ancestors.nodes.termGroupId'
   | 'ancestors.nodes.termTaxonomyId'
   | 'ancestors.nodes.uri'
@@ -8610,6 +8627,7 @@ type WpCategoryFieldsEnum =
   | 'wpChildren.nodes.parentId'
   | 'wpChildren.nodes.posts.nodes'
   | 'wpChildren.nodes.slug'
+  | 'wpChildren.nodes.taxonomyName'
   | 'wpChildren.nodes.termGroupId'
   | 'wpChildren.nodes.termTaxonomyId'
   | 'wpChildren.nodes.uri'
@@ -8746,6 +8764,7 @@ type WpCategoryFieldsEnum =
   | 'wpParent.node.parentId'
   | 'wpParent.node.posts.nodes'
   | 'wpParent.node.slug'
+  | 'wpParent.node.taxonomyName'
   | 'wpParent.node.termGroupId'
   | 'wpParent.node.termTaxonomyId'
   | 'wpParent.node.uri'
@@ -8851,6 +8870,7 @@ type WpCategoryFieldsEnum =
   | 'taxonomy.node.internal.mediaType'
   | 'taxonomy.node.internal.owner'
   | 'taxonomy.node.internal.type'
+  | 'taxonomyName'
   | 'termGroupId'
   | 'termTaxonomyId'
   | 'uri'
@@ -9052,6 +9072,7 @@ type WpPostFieldsEnum =
   | 'categories.nodes.parentId'
   | 'categories.nodes.posts.nodes'
   | 'categories.nodes.slug'
+  | 'categories.nodes.taxonomyName'
   | 'categories.nodes.termGroupId'
   | 'categories.nodes.termTaxonomyId'
   | 'categories.nodes.uri'
@@ -9361,6 +9382,7 @@ type WpPostFieldsEnum =
   | 'postFormats.nodes.name'
   | 'postFormats.nodes.posts.nodes'
   | 'postFormats.nodes.slug'
+  | 'postFormats.nodes.taxonomyName'
   | 'postFormats.nodes.termGroupId'
   | 'postFormats.nodes.termTaxonomyId'
   | 'postFormats.nodes.uri'
@@ -9391,6 +9413,7 @@ type WpPostFieldsEnum =
   | 'terms.nodes.link'
   | 'terms.nodes.name'
   | 'terms.nodes.slug'
+  | 'terms.nodes.taxonomyName'
   | 'terms.nodes.termGroupId'
   | 'terms.nodes.termTaxonomyId'
   | 'terms.nodes.uri'
@@ -9715,6 +9738,7 @@ type WpPostFormatFieldsEnum =
   | 'taxonomy.node.internal.mediaType'
   | 'taxonomy.node.internal.owner'
   | 'taxonomy.node.internal.type'
+  | 'taxonomyName'
   | 'termGroupId'
   | 'termTaxonomyId'
   | 'uri'
@@ -11193,13 +11217,6 @@ type GetAllBlogPostsQuery = (
   & NewestPostsFragment
 );
 
-type GetPostDataQueryVariables = Exact<{
-  id: Scalars['String'];
-}>;
-
-
-type GetPostDataQuery = { readonly post: Maybe<Pick<WpPost, 'title' | 'content'>> };
-
 type MatchReportStatsFragment = Pick<WpPost_Postacf_MatchReport, 'assists' | 'gameDay' | 'penalties' | 'periodResults' | 'scoreGuest' | 'scoreHome' | 'scorer' | 'specialCase' | 'spectators' | 'teamGuest' | 'teamGuestSlug' | 'teamHome' | 'teamHomeSlug'>;
 
 type GetGameReportDataQueryVariables = Exact<{
@@ -11211,6 +11228,13 @@ type GetGameReportDataQuery = { readonly wpPost: Maybe<(
     Pick<WpPost, 'title' | 'content' | 'modified'>
     & { readonly postACF: Maybe<{ readonly matchReport: Maybe<MatchReportStatsFragment> }> }
   )> };
+
+type GetPostDataQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+type GetPostDataQuery = { readonly post: Maybe<Pick<WpPost, 'title' | 'content'>> };
 
 type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -11233,13 +11257,6 @@ type GetMainMenuQuery = { readonly wpMenu: Maybe<(
     & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
   )> };
 
-type MenuItemFragment = (
-  Pick<WpMenuItem, 'id' | 'label' | 'url' | 'parentId'>
-  & { readonly childItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuChildItemFragment>>> }> }
-);
-
-type MenuChildItemFragment = Pick<WpMenuItem, 'id' | 'label' | 'url'>;
-
 type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -11249,6 +11266,13 @@ type GetTranslationQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type GetTranslationQuery = { readonly translationYaml: Maybe<Pick<TranslationYaml, 'contact' | 'menu' | 'oclock' | 'adverbIn' | 'weekdays' | 'address'>> };
+
+type MenuItemFragment = (
+  Pick<WpMenuItem, 'id' | 'label' | 'url' | 'parentId'>
+  & { readonly childItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuChildItemFragment>>> }> }
+);
+
+type MenuChildItemFragment = Pick<WpMenuItem, 'id' | 'label' | 'url'>;
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 

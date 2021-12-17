@@ -1,9 +1,10 @@
-import { BoxProps, chakra } from "@chakra-ui/react";
+import { BoxProps } from "@chakra-ui/layout";
+import { chakra } from "@chakra-ui/react";
 import { graphql, useStaticQuery } from "gatsby";
 import React, { useMemo } from "react";
-import { prepareMenuData } from "../Menu/MenuUtils";
-import { adBannerHeight, navHeight } from "../../theme/misc";
+import { adBannerHeight } from "../../theme/misc";
 import { DesktopMenu } from "../Menu/DesktopMenu";
+import { prepareMenuData } from "../Menu/MenuUtils";
 import { MobileHeader } from "./MobileHeader";
 
 const CNav = chakra("nav", {

@@ -10,7 +10,7 @@ import { useFormattedDate } from "../utils/hooks";
 const GameReport: React.FC<{
   data: GatsbyTypes.GetGameReportDataQuery;
 }> = ({ data: { wpPost: post } }) => {
-  console.log("post", post);
+  // console.log("post", post);
   // const gameData = post?.postACF?.matchReport as GatsbyTypes.Exact<GatsbyTypes.MatchReportStatsFragment>
 
   const modifiedDate = useFormattedDate(post?.modified ?? "", "DD.MM.YYYY");
@@ -21,11 +21,11 @@ const GameReport: React.FC<{
       showHeaderOnMobile
     >
       <chakra.div
-      // display="flex"
-      // flexDirection="column"
-      // alignItems="center"
-      // maxW="41rem"
-      // mx="auto"
+        display="flex"
+        flexDirection="column"
+        alignItems={{ base: "flex-start", xl: "center" }}
+        maxW="41rem"
+        mx="auto"
       >
         <Hx>{post?.title}</Hx>
         <WPContent content={post?.content ?? ""} />

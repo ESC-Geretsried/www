@@ -225,40 +225,36 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
     });
   });
 
-  blogPosts.data?.allWpPost.nodes.forEach(
-    ({ title, uri, postACF, id }, index) => {
-      let blogPostPath: string;
-      if (HOCKEY_DIVISIONS.includes(postACF.division)) {
-        // add legacy redirect
-        createRedirect({
-          redirectInBrowser: true,
-          fromPath: `/${postACF.division}/news${uri}`,
-          toPath: `/eishockey/${postACF.division}/news${uri}`,
-          statusCode: 301,
-        });
-
-        blogPostPath = `/eishockey/${postACF.division}/news${uri}`;
-      } else {
-        blogPostPath = `/${postACF.division}/news${uri}`;
-      }
-
-      console.log(title, postACF.postCategory);
-
-      createPage({
-        path: blogPostPath,
-        component: path.resolve(
-          `./src/templates/${
-            postACF.postCategory === "post" ? "blogPost" : "matchReport"
-          }.tsx`
-        ),
-        context: {
-          id,
-          title,
-          pathname: getPath(uri ?? ""),
-        },
+  blogPosts.data?.allWpPost.nodes.forEach(({ title, uri, postACF, id }) => {
+    let blogPostPath: string;
+    if (HOCKEY_DIVISIONS.includes(postACF.division)) {
+      // add legacy redirect
+      createRedirect({
+        redirectInBrowser: true,
+        fromPath: `/${postACF.division}/news${uri}`,
+        toPath: `/eishockey/${postACF.division}/news${uri}`,
+        statusCode: 301,
       });
+
+      blogPostPath = `/eishockey/${postACF.division}/news${uri}`;
+    } else {
+      blogPostPath = `/${postACF.division}/news${uri}`;
     }
-  );
+
+    createPage({
+      path: blogPostPath,
+      component: path.resolve(
+        `./src/templates/${
+          postACF.postCategory === "post" ? "blogPost" : "matchReport"
+        }.tsx`
+      ),
+      context: {
+        id,
+        title,
+        pathname: getPath(uri ?? ""),
+      },
+    });
+  });
 
   createRedirect({
     redirectInBrowser: true,

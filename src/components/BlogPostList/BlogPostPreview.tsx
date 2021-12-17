@@ -1,12 +1,12 @@
 import { Box, BoxProps, LinkBox, LinkOverlay } from "@chakra-ui/layout";
 import { chakra, useMultiStyleConfig } from "@chakra-ui/system";
-import dayjs from "dayjs";
 import { getImage, ImageDataLike } from "gatsby-plugin-image";
 import React, { memo, useMemo } from "react";
 import { DuotoneImg } from "../../atoms/DuotoneImg/DuotoneImg";
 import { Link } from "../../atoms/Link";
 import { WPContent } from "../../atoms/WPContent/WPContent";
 import { Post } from "../../types";
+import { useFormattedDate } from "../../utils/hooks";
 import { Hx } from "../headings";
 import { Tags } from "./Tags";
 
@@ -28,6 +28,7 @@ export const BlogPostPreview: React.FC<BlogPostPreviewProps> = memo(
     );
 
     const styles = useMultiStyleConfig("BlogPostPreview", {});
+    const postDate = useFormattedDate(post.date, "DD.MM.YYYY");
 
     return (
       <LinkBox role="group" sx={styles.linkBox} {...rest}>
@@ -48,7 +49,7 @@ export const BlogPostPreview: React.FC<BlogPostPreviewProps> = memo(
         <WPContent content={post.excerpt ?? ""} marginBlockEnd={0} mx={0} />
         <chakra.div __css={styles.tags}>
           <Tags tags={tags} />
-          <Box>{dayjs(post.date).format("DD.MM.YYYY")}</Box>
+          <Box>{postDate}</Box>
         </chakra.div>
       </LinkBox>
     );

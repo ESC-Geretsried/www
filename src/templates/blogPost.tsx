@@ -1,3 +1,4 @@
+import { chakra } from "@chakra-ui/system";
 import { graphql } from "gatsby";
 import React from "react";
 import { Heading } from "../atoms/Heading/Heading";
@@ -20,8 +21,10 @@ const BlogPost: React.FC<{ data: GatsbyTypes.GetPostDataQuery }> = ({
         socialImage: { localFile: { url: "" } },
       }}
     >
-      <Heading>{post?.title}</Heading>
-      <WPContent content={post?.content ?? ""} />
+      <chakra.div maxW="41rem">
+        <Heading>{post?.title}</Heading>
+        <WPContent content={post?.content ?? ""} />
+      </chakra.div>
     </Layout>
   );
 };

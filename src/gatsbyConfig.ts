@@ -39,7 +39,13 @@ const config: GatsbyConfig = {
         outputPath: `src/__generated__/gatsby-types.d.ts`,
       },
     },
-    "@chakra-ui/gatsby-plugin",
+    "gatsby-plugin-loadable-components-ssr",
+    {
+      resolve: "@chakra-ui/gatsby-plugin",
+      options: {
+        isUsingColorMode: false,
+      },
+    },
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sitemap",
     {
@@ -67,6 +73,15 @@ const config: GatsbyConfig = {
       options: {
         name: "assets",
         path: "./src/translation/",
+      },
+    },
+    {
+      resolve: "gatsby-plugin-webpack-bundle-analyser-v2",
+      options: {
+        analyzerMode: "server",
+        // analyzerPort: "3001",
+        // analyzerHost: "http://myhost.com",
+        // defaultSizes: "gzip",
       },
     },
   ],

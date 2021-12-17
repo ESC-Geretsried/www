@@ -10,18 +10,6 @@ import { MenuItemType } from "../../types";
 import { MobileMenu } from "../Menu/MobileMenu";
 import { MobileTitle } from "./MobileTitle";
 
-export const headerAnimation = {
-  initial: { opacity: 0, y: -10 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 10 },
-  transition: {
-    type: "spring",
-    mass: "0.35",
-    stiffness: "75",
-    duration: "0.25",
-  },
-};
-
 export const MobileHeader: React.FC<
   { menuItems: Array<MenuItemType> } & ChakraProps
 > = memo(({ menuItems, ...rest }) => {

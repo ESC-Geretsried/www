@@ -30,7 +30,7 @@ export const Heading: React.FC<HeadingProps & ChakraHeadingProps> = ({
   }
 
   return (
-    <Hx size={size} hyphens="auto" {...rest}>
+    <Hx size={size} {...rest}>
       {children}
     </Hx>
   );

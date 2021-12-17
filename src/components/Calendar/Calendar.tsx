@@ -1,7 +1,6 @@
 import { Accordion, AccordionItem } from "@chakra-ui/accordion";
 import { Box, BoxProps, Heading } from "@chakra-ui/layout";
 import { Skeleton, SkeletonText } from "@chakra-ui/skeleton";
-import dayjs from "dayjs";
 import React, { memo } from "react";
 import { useTranslation } from "../../translation/useTranslation";
 import { formatDate, isObjectEmpty } from "../../utils/shared.utils";

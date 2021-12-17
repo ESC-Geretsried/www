@@ -10,12 +10,6 @@ export const MainContent: React.FC<GridItemProps & { fullWidth?: boolean }> = ({
       colStart={{ base: 1, xl: fullWidth ? 1 : 4 }}
       colEnd={-1}
       display="grid"
-      sx={{
-        "& > *": {
-          maxW: "41rem",
-          mx: "auto",
-        },
-      }}
       gridTemplateColumns={{
         base: "1fr",
         md: fullWidth ? "repeat(8, 1fr)" : "1fr",
