@@ -245,10 +245,12 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
       path: blogPostPath,
       component: path.resolve(
         `./src/templates/${
-          postACF.postCategory === "post" ? "blogPost" : "matchReport"
+          postACF.postCategory === "matchReport" ? "matchReport" : "blogPost"
         }.tsx`
       ),
       context: {
+        template:
+          postACF.postCategory === "matchReport" ? "matchReport" : "blogPost",
         id,
         title,
         pathname: getPath(uri ?? ""),

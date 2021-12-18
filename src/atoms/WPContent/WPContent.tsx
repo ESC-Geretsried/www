@@ -16,7 +16,6 @@ export const WPContent: React.FC<WPContentProps & BoxProps> = ({
       maxW="41rem"
       wordBreak="break-word"
       marginBlockEnd="3rem"
-      mx={{ "2xl": "auto" }}
       zIndex="base"
       {...rest}
       sx={{

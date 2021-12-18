@@ -22,6 +22,10 @@ export const Calendar: React.FC<BoxProps> = memo((props) => {
   const { data: result, isError, isLoading, error } = useEvents();
   const [weekdays] = useTranslation("weekdays");
 
+  if (window === undefined) {
+    return null;
+  }
+
   return (
     <HeadingLevelBoundary>
       <Box {...props}>

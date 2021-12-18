@@ -14,7 +14,6 @@ import { prepareFooterMenuData, prepareMenuData } from "../Menu/MenuUtils";
 
 export const Footer: React.FC<ChakraProps> = ({ ...rest }) => {
   const styles = useMultiStyleConfig("Footer", {});
-  console.log();
 
   const { wpMenu } = useStaticQuery<GatsbyTypes.GetFooterMenuQuery>(graphql`
     query GetFooterMenu {

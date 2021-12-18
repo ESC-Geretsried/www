@@ -20,17 +20,19 @@ const GameReport: React.FC<{
       header={<MatchReportHeader gameData={post?.postACF?.matchReport} />}
       showHeaderOnMobile
     >
-      <chakra.div
+      {/* <chakra.div
         display="flex"
         flexDirection="column"
         alignItems={{ base: "flex-start", xl: "center" }}
         maxW="41rem"
         mx="auto"
       >
-        <Hx>{post?.title}</Hx>
-        <WPContent content={post?.content ?? ""} />
-        <chakra.footer>{modifiedDate}</chakra.footer>
-      </chakra.div>
+        <div> */}
+      <Hx>{post?.title}</Hx>
+      <WPContent content={post?.content ?? ""} />
+      <chakra.footer>{modifiedDate}</chakra.footer>
+      {/* </div>
+      </chakra.div> */}
     </Layout>
   );
 };

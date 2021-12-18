@@ -2,6 +2,7 @@ import { List, ListItem } from "@chakra-ui/layout";
 import { useStyles } from "@chakra-ui/system";
 import React from "react";
 import { Heading } from "../../atoms/Heading/Heading";
+import { PdfIcon } from "../../atoms/Icons";
 
 type DownloadsProps = {
   downloads: GatsbyTypes.DownloadsFragment["downloads"];
@@ -18,6 +19,7 @@ export const Downloads: React.FC<DownloadsProps> = ({ downloads, ...rest }) => {
       <List variant="downloads">
         {downloads?.map((download) => (
           <ListItem key={download?.file?.title}>
+            <PdfIcon color="white" />
             <a href={download?.file?.mediaItemUrl} download>
               {download?.file?.title}
             </a>

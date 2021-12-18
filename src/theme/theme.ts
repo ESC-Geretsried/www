@@ -95,5 +95,5 @@ const defaultTheme = extendTheme({
   },
 } as Partial<ChakraTheme>);
 
-console.log({ defaultTheme });
+// console.log({ defaultTheme });
 export const theme = defaultTheme;

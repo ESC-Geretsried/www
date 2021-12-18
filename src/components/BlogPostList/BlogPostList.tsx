@@ -59,14 +59,7 @@ const item = {
 };
 
 export const BlogPostList: React.FC<BlogPostListProps & BoxProps> = memo(
-  ({
-    posts,
-    currentPageIndex,
-    pagesTotal,
-    limit,
-
-    ...rest
-  }) => {
+  ({ posts, currentPageIndex, pagesTotal, limit, ...rest }) => {
     const { pathname } = useLocation();
     const isMobile = useBreakpointValue({ base: true, lg: false });
 
@@ -79,7 +72,7 @@ export const BlogPostList: React.FC<BlogPostListProps & BoxProps> = memo(
       }
 
       const prevPageUrl =
-        currentPageIndex - 1 === 0
+        currentPageIndex - 1 === 1
           ? urlBase
           : `${urlBase}${currentPageIndex - 1}/`;
       const nextPageUrl = `${urlBase}${currentPageIndex + 2}/`;
@@ -91,8 +84,8 @@ export const BlogPostList: React.FC<BlogPostListProps & BoxProps> = memo(
       };
     }, [pathname, currentPageIndex]);
 
-    const isFirstActive = currentPageIndex === 0;
-    const isLastActive = currentPageIndex === pagesTotal;
+    const isFirstDisabled = currentPageIndex === 0;
+    const isLastDisabled = currentPageIndex === (pagesTotal ?? 1) - 1;
 
     const links = usePaginationLinks({
       pagesTotal,
@@ -132,7 +125,7 @@ export const BlogPostList: React.FC<BlogPostListProps & BoxProps> = memo(
               <ButtonGroup>
                 <PaginationLink
                   to={prevPageUrl}
-                  disabled={isFirstActive && "DisabledButton"}
+                  disabled={isFirstDisabled && "DisabledButton"}
                   display="flex"
                   alignItems="center"
                 >
@@ -144,7 +137,7 @@ export const BlogPostList: React.FC<BlogPostListProps & BoxProps> = memo(
                 ))}
                 <PaginationLink
                   to={nextPageUrl}
-                  disabled={isLastActive && "DisabledButton"}
+                  disabled={isLastDisabled && "DisabledButton"}
                   display="flex"
                   alignItems="center"
                 >

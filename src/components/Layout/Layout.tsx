@@ -39,10 +39,9 @@ export const Layout: React.FC<{
           <HeadingLevelBoundary>
             {extra && <ExtraContent>{extra}</ExtraContent>}
             <MainContent fullWidth={!Boolean(extra)}>{children}</MainContent>
-
-            <Footer />
           </HeadingLevelBoundary>
         </Main>
+        <Footer />
       </ContentGrid>
     </>
   );

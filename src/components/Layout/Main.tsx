@@ -17,7 +17,7 @@ const MainContainer: React.FC = forwardRef(({ ...rest }, ref) => (
 
 const AnimatedMain = motion<BoxProps>(MainContainer);
 
-export const Main = MainContainer;
-// export const Main: React.FC<BoxProps> = ({ children }) => (
-//   <AnimatedMain {...mainAnimationProps}>{children}</AnimatedMain>
-// );
+// export const Main = MainContainer;
+export const Main: React.FC<BoxProps> = ({ children }) => (
+  <AnimatedMain {...mainAnimationProps}>{children}</AnimatedMain>
+);

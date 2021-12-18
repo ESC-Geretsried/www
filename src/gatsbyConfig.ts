@@ -51,10 +51,13 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        icon: "src/assets/icon.png",
+        icon: "src/assets/logo-small.svg",
       },
     },
-    "gatsby-plugin-sharp",
+    {
+      resolve: "gatsby-plugin-sharp",
+      options: { icon: "src/static/logo-small.svg" },
+    },
     "gatsby-transformer-sharp",
     "gatsby-plugin-react-svg",
     {
