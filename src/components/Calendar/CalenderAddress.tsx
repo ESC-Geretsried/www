@@ -1,7 +1,6 @@
 import { LinkBox, Box, LinkOverlay } from "@chakra-ui/layout";
 import { PhysicalAddress } from "@microsoft/microsoft-graph-types";
 import React from "react";
-import { Span } from "../../atoms/-Span";
 import { useTranslation } from "../../translation/useTranslation";
 import { HeadingLevelBoundary, Hx } from "../headings";
 
