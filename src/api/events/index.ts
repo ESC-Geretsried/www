@@ -9,7 +9,7 @@ import {
   getThisWeeksMonday,
   getThisWeeksSunday,
   isWeekend,
-} from "./utils";
+} from "../../utils/function.utils";
 
 export const graphClient = Client.init({
   authProvider,
