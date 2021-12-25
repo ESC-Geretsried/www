@@ -29,10 +29,10 @@ const keys = [
 type Keys = typeof keys[number];
 export type EventType = Pick<Event, Keys>;
 
-const handler = async (
+export default async function events(
   req: GatsbyFunctionRequest,
   res: GatsbyFunctionResponse
-) => {
+) {
   const now = new Date();
   const mondayMorning = dayjs(getThisWeeksMonday(now))
     .set("hour", 0)
@@ -98,6 +98,4 @@ const handler = async (
       body: JSON.stringify({ data: error }),
     };
   }
-};
-
-export { handler };
+}

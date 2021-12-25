@@ -1,7 +1,5 @@
 import path from "path";
 import { GatsbyNode } from "gatsby";
-import util from "util";
-import child_process from "child_process";
 import {
   VEREIN_CATEGORY_ID,
   HOCKEY_DIVISIONS,
@@ -9,7 +7,6 @@ import {
   ALL_DIVISIONS,
 } from "./const";
 
-const exec = util.promisify(child_process.exec);
 const getPath = (uri: string) => {
   switch (uri) {
     case "/home/":
@@ -266,27 +263,8 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
   });
 };
 
-const onPostBuild: GatsbyNode["onPostBuild"] = async (gatsbyNodeHelpers) => {
-  const { reporter } = gatsbyNodeHelpers;
-
-  const reportOut = (report: any) => {
-    const { stderr, stdout } = report;
-
-    if (stderr) {
-      reporter.error(stderr as unknown as Error);
-    }
-    if (stdout) {
-      reporter.info(stdout as unknown as string);
-    }
-  };
-  // NOTE: the gatsby build process automatically copies /static/functions to /public/functions
-  // If you use yarn, replace "npm install" with "yarn install"
-  reportOut(await exec("cd ./public/functions && npm i"));
-};
-
 const gatsbyNode: GatsbyNode = {
   createPages,
-  onPostBuild,
 };
 
 export default gatsbyNode;

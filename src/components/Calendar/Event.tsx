@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/layout";
 import { chakra } from "@chakra-ui/react";
 import { Location } from "@microsoft/microsoft-graph-types";
 import React from "react";
-import { EventType } from "../../../static/functions/events";
+import { EventType } from "../../api/events";
 import { useTranslation } from "../../translation/useTranslation";
 import { useFormattedDate } from "../../utils/hooks";
 import { HeadingLevelBoundary, Hx } from "../headings";

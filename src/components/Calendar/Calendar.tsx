@@ -7,6 +7,7 @@ import { formatDate, isObjectEmpty } from "../../utils/shared.utils";
 import { HeadingLevelBoundary, Hx } from "../headings";
 import { Event } from "./Event";
 import { useEvents } from "./useEvents";
+
 const LoadingSkeleton = () => {
   return (
     <>
