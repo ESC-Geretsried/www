@@ -81,21 +81,12 @@ export default async function events(
       throw new Error("No events found");
     }
 
-    return {
-      statusCode: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data: sortedEvents }),
-    };
+    res.status(200).json({ data: sortedEvents });
+    return;
   } catch (error) {
     console.log("Graph Error: ", error);
-    return {
-      statusCode: 500,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data: error }),
-    };
+
+    res.status(500).json({ data: error });
+    return;
   }
 }

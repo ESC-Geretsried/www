@@ -3,7 +3,7 @@ import {
   Configuration,
   ClientCredentialRequest,
 } from "@azure/msal-node";
-import "isomorphic-fetch";
+import "cross-fetch/polyfill";
 import { AuthProvider } from "@microsoft/microsoft-graph-client";
 /**
  * Configuration object to be passed to MSAL instance on creation.

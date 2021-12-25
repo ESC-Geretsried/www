@@ -65,7 +65,6 @@ const config: GatsbyConfig = {
       },
     },
     "gatsby-plugin-gatsby-cloud",
-    "gatsby-plugin-netlify",
     "gatsby-plugin-force-trailing-slashes",
     "gatsby-transformer-yaml",
     {
@@ -75,15 +74,15 @@ const config: GatsbyConfig = {
         path: "./src/translation/",
       },
     },
-    {
-      resolve: "gatsby-plugin-webpack-bundle-analyser-v2",
-      options: {
-        analyzerMode: "server",
-        // analyzerPort: "3001",
-        // analyzerHost: "http://myhost.com",
-        // defaultSizes: "gzip",
-      },
-    },
+    // {
+    //   resolve: "gatsby-plugin-webpack-bundle-analyser-v2",
+    //   options: {
+    //     // analyzerMode: "server",
+    //     // analyzerPort: "3001",
+    //     // analyzerHost: "http://myhost.com",
+    //     // defaultSizes: "gzip",
+    //   },
+    // },
   ],
 };
 

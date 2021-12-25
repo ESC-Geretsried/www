@@ -11241,6 +11241,13 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
+type MenuItemFragment = (
+  Pick<WpMenuItem, 'id' | 'label' | 'url' | 'parentId'>
+  & { readonly childItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuChildItemFragment>>> }> }
+);
+
+type MenuChildItemFragment = Pick<WpMenuItem, 'id' | 'label' | 'url'>;
+
 type GetFooterMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -11266,13 +11273,6 @@ type GetTranslationQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type GetTranslationQuery = { readonly translationYaml: Maybe<Pick<TranslationYaml, 'contact' | 'menu' | 'oclock' | 'adverbIn' | 'weekdays' | 'address'>> };
-
-type MenuItemFragment = (
-  Pick<WpMenuItem, 'id' | 'label' | 'url' | 'parentId'>
-  & { readonly childItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuChildItemFragment>>> }> }
-);
-
-type MenuChildItemFragment = Pick<WpMenuItem, 'id' | 'label' | 'url'>;
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
