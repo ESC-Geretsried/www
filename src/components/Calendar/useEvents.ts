@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { EventType } from "../../api/events/";
 
 const getEvents = async () => {
-  const url = new URL(process.env.GATSBY_SITE_URL + "/api/events");
+  const url = new URL("/api/events");
 
   // url.search = new URLSearchParams({
   //   start_date: getThisWeeksMonday(new Date()).toISOString(),
