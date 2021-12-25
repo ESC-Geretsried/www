@@ -1,8 +1,8 @@
+import "cross-fetch/polyfill";
 import { Client } from "@microsoft/microsoft-graph-client";
 import { Event } from "@microsoft/microsoft-graph-types";
-import { GatsbyFunctionRequest, GatsbyFunctionResponse } from "gatsby";
-
 import dayjs from "dayjs";
+import { GatsbyFunctionRequest, GatsbyFunctionResponse } from "gatsby";
 import {
   apiConfig,
   authProvider,
@@ -10,6 +10,7 @@ import {
   getThisWeeksSunday,
   isWeekend,
 } from "../../utils/function.utils";
+require("dotenv").config();
 
 export const graphClient = Client.init({
   authProvider,
