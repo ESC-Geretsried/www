@@ -12,7 +12,6 @@ export const MatchReportHeader: React.FC<MatchReportHeaderProps> = ({
   gameData,
   ...rest
 }) => {
-  console.log("gameData", !gameData);
   if (!gameData) {
     return null;
   }

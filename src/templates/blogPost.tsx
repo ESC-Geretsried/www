@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import React from "react";
 import { Heading } from "../atoms/Heading/Heading";
 import { WPContent } from "../atoms/WPContent/WPContent";
+import { Extra } from "../components/Extra/Extra";
 import { Layout } from "../components/Layout/Layout";
 
 const BlogPost: React.FC<{ data: GatsbyTypes.GetPostDataQuery }> = ({
@@ -10,8 +11,8 @@ const BlogPost: React.FC<{ data: GatsbyTypes.GetPostDataQuery }> = ({
 }) => {
   return (
     <Layout
-      extra={<>extra</>}
-      header={<>header</>}
+      extra={<Extra post={{}} />}
+      header={<Heading>{post?.title}</Heading>}
       seo={{
         metaDescription: "Blog post meta description",
         title: post?.title,
@@ -22,7 +23,6 @@ const BlogPost: React.FC<{ data: GatsbyTypes.GetPostDataQuery }> = ({
       }}
     >
       <chakra.div maxW="41rem">
-        <Heading size="h2">{post?.title}</Heading>
         <WPContent content={post?.content ?? ""} />
       </chakra.div>
     </Layout>
