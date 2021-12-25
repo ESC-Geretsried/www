@@ -4,6 +4,7 @@ const headings = {
     fontWeight: "bold",
   },
 };
+
 export const textStyles = {
   ...headings,
   base: {
@@ -35,6 +36,7 @@ export const textStyles = {
   },
   menuItemLink: {
     fontFamily: "Rubik",
+    fontStyle: "italic",
     fontWeight: "bold",
   },
   menuChildItemLink: {

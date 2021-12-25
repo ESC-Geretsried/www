@@ -11,6 +11,7 @@ const LoadingSkeleton = () => {
   return (
     <>
       <Skeleton>
+        {/* this is just for spacing */}
         <Heading>Heading</Heading>
       </Skeleton>
       <SkeletonText noOfLines={4} spacing="4" mt={4} />
@@ -22,7 +23,7 @@ export const Calendar: React.FC<BoxProps> = memo((props) => {
   const { data: result, isError, isLoading, error } = useEvents();
   const [weekdays] = useTranslation("weekdays");
 
-  if (window === undefined) {
+  if (typeof window === "undefined") {
     return null;
   }
 

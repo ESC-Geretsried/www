@@ -22,7 +22,7 @@ const BlogPost: React.FC<{ data: GatsbyTypes.GetPostDataQuery }> = ({
       }}
     >
       <chakra.div maxW="41rem">
-        <Heading>{post?.title}</Heading>
+        <Heading size="h2">{post?.title}</Heading>
         <WPContent content={post?.content ?? ""} />
       </chakra.div>
     </Layout>

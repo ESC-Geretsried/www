@@ -36,7 +36,7 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-plugin-typegen",
       options: {
-        outputPath: `src/__generated__/gatsby-types.d.ts`,
+        outputPath: "src/__generated__/gatsby-types.d.ts",
       },
     },
     // "gatsby-plugin-loadable-components-ssr",
@@ -51,13 +51,10 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        icon: "src/assets/logo-small.svg",
+        icon: "./src/assets/favicon.svg",
       },
     },
-    {
-      resolve: "gatsby-plugin-sharp",
-      options: { icon: "src/static/logo-small.svg" },
-    },
+    "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     "gatsby-plugin-react-svg",
     {

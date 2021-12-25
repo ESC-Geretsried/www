@@ -30,7 +30,7 @@ export const Contact: React.FC<ContactProps> = ({
 
   return (
     <chakra.div {...rest}>
-      <Heading borders size="lg" sx={styles.heading}>
+      <Heading borders size="h3" sx={styles.heading}>
         {contactTitle}
       </Heading>
       <chakra.div>

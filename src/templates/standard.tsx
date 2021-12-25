@@ -54,7 +54,7 @@ const Standard: React.FC<{
     <Layout
       extra={
         <>
-          <Heading borders size="lg">
+          <Heading borders size="h3">
             News
           </Heading>
           <BlogPostPreview post={newestPosts.nodes[0]} mt={-3} />
@@ -66,11 +66,12 @@ const Standard: React.FC<{
           />
         </>
       }
-      header={<>header</>}
+      // TODO: finish header
+      header={<Heading size="h1">{pageData?.title}</Heading>}
       seo={seoData?.pageACF?.seo}
     >
       <Flex justifyContent="center">
-        <Heading borders marginBlockEnd={6}>
+        <Heading size="h2" borders marginBlockEnd={6}>
           {pageACF?.standardContent?.pageContentTitle}
         </Heading>
       </Flex>

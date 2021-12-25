@@ -43,6 +43,8 @@ export const Downloads = graphql`
       file {
         mediaItemUrl
         title
+        mimeType
+        mediaType
       }
     }
   }

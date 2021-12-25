@@ -1,6 +1,13 @@
-import { List, ListItem } from "@chakra-ui/layout";
-import { useStyles } from "@chakra-ui/system";
+import {
+  HStack,
+  LinkBox,
+  LinkOverlay,
+  List,
+  ListItem,
+} from "@chakra-ui/layout";
+import { chakra, useStyles } from "@chakra-ui/system";
 import React from "react";
+import { FileIcon } from "../../atoms/FileIcon";
 import { Heading } from "../../atoms/Heading/Heading";
 import { PdfIcon } from "../../atoms/Icons";
 
@@ -13,16 +20,21 @@ export const Downloads: React.FC<DownloadsProps> = ({ downloads, ...rest }) => {
 
   return (
     <div {...rest}>
-      <Heading borders size="lg" sx={styles.heading}>
+      <Heading borders size="h3" sx={styles.heading}>
         Downloads
       </Heading>
       <List variant="downloads">
         {downloads?.map((download) => (
-          <ListItem key={download?.file?.title}>
-            <PdfIcon color="white" />
-            <a href={download?.file?.mediaItemUrl} download>
+          <ListItem as={LinkBox} key={download?.file?.title}>
+            <LinkOverlay
+              color="white"
+              as="a"
+              href={download?.file?.mediaItemUrl}
+              download
+            >
               {download?.file?.title}
-            </a>
+            </LinkOverlay>
+            <FileIcon mimeType={download?.file?.mimeType} ml={2} />
           </ListItem>
         ))}
       </List>

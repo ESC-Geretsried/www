@@ -1,19 +1,23 @@
 import { SystemStyleObject } from "@chakra-ui/styled-system";
-import { ComponentSingleStyleConfig } from "@chakra-ui/theme";
+import {
+  ComponentSingleStyleConfig,
+  ComponentMultiStyleConfig,
+} from "@chakra-ui/theme";
 import { textStyles } from "./textStyles";
 
 export const sizes: Record<string, SystemStyleObject> = {
-  xl: {
+  h1: {
     fontSize: ["3xl", null, "4xl"],
     lineHeight: [1.33, null, 1.2],
   },
-  lg: {
+  h2: {
     fontSize: ["2xl", null, "3xl"],
     lineHeight: [1.33, null, 1.2],
   },
-  md: { fontSize: "xl", lineHeight: 1.2 },
-  sm: { fontSize: "md", lineHeight: 1.2 },
-  xs: { fontSize: "sm", lineHeight: 1.2 },
+  h3: { fontSize: "xl", lineHeight: 1.2 },
+  h4: { fontSize: "md", lineHeight: 1.2 },
+  h5: { fontSize: "md", lineHeight: 1.2 },
+  h6: { fontSize: "sm", lineHeight: 1.2 },
 };
 
 export const Heading: ComponentSingleStyleConfig = {
@@ -21,6 +25,7 @@ export const Heading: ComponentSingleStyleConfig = {
     // wordWrap: "break-word",
     hyphens: "auto",
     fontStyle: "italic",
+    my: "0.4em",
   },
   sizes,
   variants: {

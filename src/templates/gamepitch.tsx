@@ -13,6 +13,7 @@ const Gamepitch: React.FC<{ data: GatsbyTypes.GetGamepitchDataQuery }> = ({
       header={<>header</>}
       seo={seoData?.pageACF?.seo}
     >
+      {/* TODO: add template */}
       <Box>{JSON.stringify(gamepitchData)}</Box>
     </Layout>
   );

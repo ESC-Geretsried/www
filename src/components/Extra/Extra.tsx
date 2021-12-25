@@ -1,4 +1,4 @@
-import { Box, BoxProps, Stack } from "@chakra-ui/layout";
+import { BoxProps, Stack } from "@chakra-ui/layout";
 import { StylesProvider, useMultiStyleConfig } from "@chakra-ui/system";
 import React from "react";
 import { adBannerHeight, navHeight } from "../../theme/misc";

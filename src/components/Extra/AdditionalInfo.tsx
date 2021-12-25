@@ -15,7 +15,7 @@ export const AdditionalInfo: React.FC<AdditionalInfoProps> = ({
 
   return (
     <div {...rest}>
-      <Heading borders size="lg" sx={styles.heading}>
+      <Heading borders size="h3" sx={styles.heading}>
         {additionalInfo?.title}
       </Heading>
       <WPContent content={additionalInfo?.content ?? ""} marginBlockEnd={0} />

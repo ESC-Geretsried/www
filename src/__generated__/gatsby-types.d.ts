@@ -11108,7 +11108,7 @@ type ContactFragment = { readonly contact: Maybe<Pick<WpPage_Pageacf_StandardCon
 
 type AdditionalInfoFragment = { readonly additionalInfo: Maybe<Pick<WpPage_Pageacf_StandardContent_AdditionalInfo, 'title' | 'content'>> };
 
-type DownloadsFragment = { readonly downloads: Maybe<ReadonlyArray<Maybe<{ readonly file: Maybe<Pick<WpMediaItem, 'mediaItemUrl' | 'title'>> }>>> };
+type DownloadsFragment = { readonly downloads: Maybe<ReadonlyArray<Maybe<{ readonly file: Maybe<Pick<WpMediaItem, 'mediaItemUrl' | 'title' | 'mimeType' | 'mediaType'>> }>>> };
 
 type SeoFragment = { readonly pageACF: Maybe<{ readonly seo: Maybe<SeoFieldsFragment> }> };
 
@@ -11249,6 +11249,11 @@ type GetFooterMenuQuery = { readonly wpMenu: Maybe<(
     & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
   )> };
 
+type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
+
 type GetMainMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -11257,22 +11262,17 @@ type GetMainMenuQuery = { readonly wpMenu: Maybe<(
     & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
   )> };
 
-type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
-
-type GetTranslationQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type GetTranslationQuery = { readonly translationYaml: Maybe<Pick<TranslationYaml, 'contact' | 'menu' | 'oclock' | 'adverbIn' | 'weekdays' | 'address'>> };
-
 type MenuItemFragment = (
   Pick<WpMenuItem, 'id' | 'label' | 'url' | 'parentId'>
   & { readonly childItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuChildItemFragment>>> }> }
 );
 
 type MenuChildItemFragment = Pick<WpMenuItem, 'id' | 'label' | 'url'>;
+
+type GetTranslationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetTranslationQuery = { readonly translationYaml: Maybe<Pick<TranslationYaml, 'contact' | 'menu' | 'oclock' | 'adverbIn' | 'weekdays' | 'address'>> };
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 

@@ -14,6 +14,8 @@ const CNav = chakra("nav", {
     zIndex: "sticky",
     alignSelf: "start",
     gridColumn: { base: "1/-1", lg: "1/4" },
+    overflow: "scroll",
+    maxHeight: "100vh",
   },
 });
 
