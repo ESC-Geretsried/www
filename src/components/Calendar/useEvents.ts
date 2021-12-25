@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { EventType } from "../../api/events/";
+import { EventType } from "../../api/events";
 
 const getEvents = async () => {
   const url = new URL(window.location.origin + "/api/events");

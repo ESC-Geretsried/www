@@ -37,7 +37,7 @@ export const BlogPostPreview: React.FC<BlogPostPreviewProps> = memo(
             <DuotoneImg image={image} alt={altText ?? ""} />
           </chakra.div>
         )}
-        <Hx fontSize="1rem">
+        <Hx fontSize="1rem" mb="0">
           <LinkOverlay
             as={Link}
             to={`/${post.postACF?.division}/news${post.uri}`}
