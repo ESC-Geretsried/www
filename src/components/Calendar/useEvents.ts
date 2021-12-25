@@ -1,10 +1,8 @@
 import { useQuery } from "react-query";
-import { EventType } from "../../../static/functions/events/";
+import { EventType } from "../../api/events/";
 
 const getEvents = async () => {
-  const url = new URL(
-    process.env.GATSBY_SITE_URL + "/.netlify/functions/events"
-  );
+  const url = new URL(process.env.GATSBY_SITE_URL + "/api/events");
 
   // url.search = new URLSearchParams({
   //   start_date: getThisWeeksMonday(new Date()).toISOString(),
