@@ -11262,17 +11262,17 @@ type GetMainMenuQuery = { readonly wpMenu: Maybe<(
     & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
   )> };
 
+type GetTranslationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetTranslationQuery = { readonly translationYaml: Maybe<Pick<TranslationYaml, 'contact' | 'menu' | 'oclock' | 'adverbIn' | 'weekdays' | 'address'>> };
+
 type MenuItemFragment = (
   Pick<WpMenuItem, 'id' | 'label' | 'url' | 'parentId'>
   & { readonly childItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuChildItemFragment>>> }> }
 );
 
 type MenuChildItemFragment = Pick<WpMenuItem, 'id' | 'label' | 'url'>;
-
-type GetTranslationQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type GetTranslationQuery = { readonly translationYaml: Maybe<Pick<TranslationYaml, 'contact' | 'menu' | 'oclock' | 'adverbIn' | 'weekdays' | 'address'>> };
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 

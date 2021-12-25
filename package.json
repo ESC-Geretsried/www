@@ -73,6 +73,7 @@
     "@babel/preset-typescript": "^7.16.5",
     "@chakra-ui/cli": "^1.6.0",
     "@microsoft/microsoft-graph-types": "^2.11.0",
+    "@netlify/plugin-gatsby": "^1.0.3",
     "@types/aws-lambda": "^8.10.88",
     "@types/loadable__component": "^5.13.4",
     "@types/node": "^16.11.7",
