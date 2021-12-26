@@ -83,11 +83,9 @@ export default async function events(
     }
 
     res.status(200).json({ data: sortedEvents, error: null });
-    return;
   } catch (error) {
     console.log("Graph Error: ", error);
 
     res.status(200).json({ data: null, error });
-    return;
   }
 }

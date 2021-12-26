@@ -1,4 +1,6 @@
 import fetch from "node-fetch";
+import "cross-fetch/polyfill";
+
 import { GatsbyFunctionRequest, GatsbyFunctionResponse } from "gatsby";
 
 export default async function test(
@@ -6,5 +8,7 @@ export default async function test(
   res: GatsbyFunctionResponse
 ) {
   const response = await fetch("https://www.google.com");
-  res.status(200).json({ response });
+  const result = await response.json();
+  console.log(result);
+  res.status(200).json({ result });
 }
