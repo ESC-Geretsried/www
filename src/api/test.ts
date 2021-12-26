@@ -1,3 +1,4 @@
+import fetch from "node-fetch";
 import { GatsbyFunctionRequest, GatsbyFunctionResponse } from "gatsby";
 
 export default async function test(
