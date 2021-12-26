@@ -1,4 +1,4 @@
-import "cross-fetch/polyfill";
+import "../../utils/fetch.utils";
 import { Client } from "@microsoft/microsoft-graph-client";
 import { Event } from "@microsoft/microsoft-graph-types";
 import dayjs from "dayjs";

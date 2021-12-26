@@ -1,4 +1,4 @@
-import "cross-fetch/polyfill";
+import "./fetch.utils";
 import {
   ConfidentialClientApplication,
   Configuration,
