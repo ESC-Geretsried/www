@@ -1,5 +1,4 @@
-import fetch from "node-fetch";
-import "cross-fetch/polyfill";
+import fetch from "cross-fetch";
 
 import { GatsbyFunctionRequest, GatsbyFunctionResponse } from "gatsby";
 
