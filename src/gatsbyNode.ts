@@ -52,6 +52,7 @@ type GetBlogPostQuery = {
       uri: string;
       slug: string;
       title: string;
+      date: string;
       categories: {
         nodes: Array<{
           id: string;
@@ -102,6 +103,7 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
           uri
           slug
           title
+          date(difference: "months")
           categories {
             nodes {
               id
@@ -218,42 +220,46 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
           currentPage: i,
           categorySlug: division,
         },
+        defer: i + 1 > 2,
       });
     });
   });
 
-  blogPosts.data?.allWpPost.nodes.forEach(({ title, uri, postACF, id }) => {
-    let blogPostPath: string;
-    if (HOCKEY_DIVISIONS.includes(postACF.division)) {
-      // add legacy redirect
-      createRedirect({
-        redirectInBrowser: true,
-        fromPath: `/${postACF.division}/news${uri}`,
-        toPath: `/eishockey/${postACF.division}/news${uri}`,
-        statusCode: 301,
-      });
+  blogPosts.data?.allWpPost.nodes.forEach(
+    ({ title, uri, postACF, id, date }) => {
+      let blogPostPath: string;
+      if (HOCKEY_DIVISIONS.includes(postACF.division)) {
+        // add legacy redirect
+        createRedirect({
+          redirectInBrowser: true,
+          fromPath: `/${postACF.division}/news${uri}`,
+          toPath: `/eishockey/${postACF.division}/news${uri}`,
+          statusCode: 301,
+        });
 
-      blogPostPath = `/eishockey/${postACF.division}/news${uri}`;
-    } else {
-      blogPostPath = `/${postACF.division}/news${uri}`;
+        blogPostPath = `/eishockey/${postACF.division}/news${uri}`;
+      } else {
+        blogPostPath = `/${postACF.division}/news${uri}`;
+      }
+
+      createPage({
+        path: blogPostPath,
+        component: path.resolve(
+          `./src/templates/${
+            postACF.postCategory === "matchReport" ? "matchReport" : "blogPost"
+          }.tsx`
+        ),
+        context: {
+          template:
+            postACF.postCategory === "matchReport" ? "matchReport" : "blogPost",
+          id,
+          title,
+          pathname: getPath(uri ?? ""),
+        },
+        defer: parseInt(date) > 1,
+      });
     }
-
-    createPage({
-      path: blogPostPath,
-      component: path.resolve(
-        `./src/templates/${
-          postACF.postCategory === "matchReport" ? "matchReport" : "blogPost"
-        }.tsx`
-      ),
-      context: {
-        template:
-          postACF.postCategory === "matchReport" ? "matchReport" : "blogPost",
-        id,
-        title,
-        pathname: getPath(uri ?? ""),
-      },
-    });
-  });
+  );
 
   createRedirect({
     redirectInBrowser: true,
