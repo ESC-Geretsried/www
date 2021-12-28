@@ -275,7 +275,9 @@ const onCreateWebpackConfig = ({
   getConfig,
 }: CreateWebpackConfigArgs) => {
   actions.setWebpackConfig({
-    "node-fetch": "commonjs2 node-fetch",
+    externals: {
+      "node-fetch": "commonjs2 node-fetch",
+    },
   });
 };
 
