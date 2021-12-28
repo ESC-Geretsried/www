@@ -4,6 +4,10 @@
   "private": true,
   "description": "esc-geretsried-2.0",
   "author": "Bene Koehler",
+  "sideEffects": [
+    "cross-fetch/polyfill",
+    "isomorphic-fetch"
+  ],
   "keywords": [
     "gatsby"
   ],

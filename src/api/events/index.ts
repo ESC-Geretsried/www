@@ -1,4 +1,4 @@
-import "isomorphic-fetch";
+import "cross-fetch/polyfill";
 import { Client } from "@microsoft/microsoft-graph-client";
 import { Event } from "@microsoft/microsoft-graph-types";
 import dayjs from "dayjs";
@@ -50,6 +50,7 @@ export default async function events(
     .toDate();
 
   try {
+    console.log("starting graph clinet !  ..............................");
     const events: { value: Array<EventType> } = await graphClient
       .api(apiConfig.uriCal)
       .query({
@@ -59,6 +60,7 @@ export default async function events(
       .select(keys as unknown as Array<string>)
       .get();
 
+    console.log("starting to sort events !  ..............................");
     const sortedEvents = events.value
       .filter((event) => event.subject)
       .reduce((prev, curr) => {
