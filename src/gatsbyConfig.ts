@@ -11,7 +11,15 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-source-wordpress",
       options: {
+        schema: {
+          perPage: 20, // currently set to 100
+
+          requestConcurrency: 5, // currently set to 15
+
+          previewRequestConcurrency: 2, // currently set to 5
+        },
         url: process.env.GATSBY_WORDPRESS_GRAPHQL_URL,
+
         html: {
           imageMaxWidth: 1024,
           fallbackImageMaxWidth: 1024,
