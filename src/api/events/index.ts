@@ -1,3 +1,4 @@
+import fetch from "node-fetch";
 require("cross-fetch/polyfill");
 // import fetch from "cross-fetch";
 // // import "cross-fetch/polyfill";
