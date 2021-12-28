@@ -5,8 +5,8 @@
   "description": "esc-geretsried-2.0",
   "author": "Bene Koehler",
   "sideEffects": [
-    "cross-fetch/polyfill",
-    "isomorphic-fetch"
+    "./node_modules/cross-fetch/dist/node-polyfill.js",
+    "./node_modules/isomorphic-fetch/fetch-npm-node.js"
   ],
   "keywords": [
     "gatsby"
