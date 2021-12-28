@@ -1,13 +1,14 @@
-import fetch from "cross-fetch";
-// import "cross-fetch/polyfill";
+require("cross-fetch/polyfill");
+// import fetch from "cross-fetch";
+// // import "cross-fetch/polyfill";
 
-if (!globalThis.fetch) {
-  // @ts-ignore
-  globalThis.fetch = fetch;
-  globalThis.Headers = Headers;
-  globalThis.Request = Request;
-  globalThis.Response = Response;
-}
+// if (!globalThis.fetch) {
+//   // @ts-ignore
+//   globalThis.fetch = fetch;
+//   globalThis.Headers = Headers;
+//   globalThis.Request = Request;
+//   globalThis.Response = Response;
+// }
 
 import { Client } from "@microsoft/microsoft-graph-client";
 import { Event } from "@microsoft/microsoft-graph-types";
