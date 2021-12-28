@@ -1,4 +1,3 @@
-import "./fetch.utils";
 import {
   ConfidentialClientApplication,
   Configuration,
