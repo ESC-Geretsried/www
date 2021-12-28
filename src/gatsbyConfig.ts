@@ -1,3 +1,14 @@
+// import fetch from "cross-fetch";
+import "cross-fetch/polyfill";
+
+// if (!globalThis.fetch) {
+//   // @ts-ignore
+//   globalThis.fetch = fetch;
+//   globalThis.Headers = Headers;
+//   globalThis.Request = Request;
+//   globalThis.Response = Response;
+// }
+
 import { GatsbyConfig } from "gatsby";
 require("dotenv").config();
 
