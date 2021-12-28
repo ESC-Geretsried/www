@@ -1,5 +1,5 @@
 import path from "path";
-import { GatsbyNode } from "gatsby";
+import { CreateWebpackConfigArgs, GatsbyNode } from "gatsby";
 import {
   VEREIN_CATEGORY_ID,
   HOCKEY_DIVISIONS,
@@ -269,8 +269,19 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
   });
 };
 
+const onCreateWebpackConfig = ({
+  actions,
+  loaders,
+  getConfig,
+}: CreateWebpackConfigArgs) => {
+  actions.setWebpackConfig({
+    "node-fetch": "commonjs2 node-fetch",
+  });
+};
+
 const gatsbyNode: GatsbyNode = {
   createPages,
+  onCreateWebpackConfig,
 };
 
 export default gatsbyNode;
