@@ -260,6 +260,8 @@ type Directory_ctimeArgs = {
 type Site = Node & {
   readonly buildTime: Maybe<Scalars['Date']>;
   readonly siteMetadata: Maybe<SiteSiteMetadata>;
+  readonly port: Maybe<Scalars['Int']>;
+  readonly host: Maybe<Scalars['String']>;
   readonly polyfill: Maybe<Scalars['Boolean']>;
   readonly pathPrefix: Maybe<Scalars['String']>;
   readonly jsxRuntime: Maybe<Scalars['String']>;
@@ -2398,6 +2400,8 @@ type Query_allDirectoryArgs = {
 type Query_siteArgs = {
   buildTime: Maybe<DateQueryOperatorInput>;
   siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
+  port: Maybe<IntQueryOperatorInput>;
+  host: Maybe<StringQueryOperatorInput>;
   polyfill: Maybe<BooleanQueryOperatorInput>;
   pathPrefix: Maybe<StringQueryOperatorInput>;
   jsxRuntime: Maybe<StringQueryOperatorInput>;
@@ -3972,6 +3976,8 @@ type SiteFieldsEnum =
   | 'siteMetadata.title'
   | 'siteMetadata.description'
   | 'siteMetadata.siteUrl'
+  | 'port'
+  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'jsxRuntime'
@@ -4106,6 +4112,8 @@ type SiteGroupConnection_groupArgs = {
 type SiteFilterInput = {
   readonly buildTime: Maybe<DateQueryOperatorInput>;
   readonly siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
+  readonly port: Maybe<IntQueryOperatorInput>;
+  readonly host: Maybe<StringQueryOperatorInput>;
   readonly polyfill: Maybe<BooleanQueryOperatorInput>;
   readonly pathPrefix: Maybe<StringQueryOperatorInput>;
   readonly jsxRuntime: Maybe<StringQueryOperatorInput>;
@@ -11074,20 +11082,15 @@ type TranslationYamlSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
-type SeoFragment = { readonly pageACF: Maybe<{ readonly seo: Maybe<SeoFieldsFragment> }> };
+type NewestPostsFragment = { readonly newestPosts: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> } };
 
-type SeoFieldsFragment = (
-  Pick<WpPage_Pageacf_Seo, 'metaDescription' | 'noIndex' | 'ogDescription' | 'title' | 'twitterDescription'>
-  & { readonly socialImage: Maybe<{ readonly localFile: Maybe<Pick<File, 'url'>> }> }
+type BlogPostPreviewFieldsFragment = (
+  Pick<WpPost, 'id' | 'title' | 'uri' | 'excerpt' | 'date'>
+  & { readonly postACF: Maybe<Pick<WpPost_Postacf, 'division' | 'postCategory'>>, readonly featuredImage: Maybe<{ readonly node: Maybe<(
+      Pick<WpMediaItem, 'altText'>
+      & { readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
+    )> }>, readonly categories: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<Pick<WpCategory, 'name'>>>> }> }
 );
-
-type GetFooterMenuQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type GetFooterMenuQuery = { readonly wpMenu: Maybe<(
-    Pick<WpMenu, 'name'>
-    & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
-  )> };
 
 type DefaultPageDataFieldsFragment = (
   Pick<WpPage, 'content'>
@@ -11107,34 +11110,27 @@ type AdditionalInfoFragment = { readonly additionalInfo: Maybe<Pick<WpPage_Pagea
 
 type DownloadsFragment = { readonly downloads: Maybe<ReadonlyArray<Maybe<{ readonly file: Maybe<Pick<WpMediaItem, 'mediaItemUrl' | 'title' | 'mimeType' | 'mediaType'>> }>>> };
 
-type NewestPostsFragment = { readonly newestPosts: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> } };
+type SeoFragment = { readonly pageACF: Maybe<{ readonly seo: Maybe<SeoFieldsFragment> }> };
 
-type MenuItemFragment = (
-  Pick<WpMenuItem, 'id' | 'label' | 'url' | 'parentId'>
-  & { readonly childItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuChildItemFragment>>> }> }
+type SeoFieldsFragment = (
+  Pick<WpPage_Pageacf_Seo, 'metaDescription' | 'noIndex' | 'ogDescription' | 'title' | 'twitterDescription'>
+  & { readonly socialImage: Maybe<{ readonly localFile: Maybe<Pick<File, 'url'>> }> }
 );
 
-type MenuChildItemFragment = Pick<WpMenuItem, 'id' | 'label' | 'url'>;
-
-type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
-
-type GetMainMenuQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type GetMainMenuQuery = { readonly wpMenu: Maybe<(
-    Pick<WpMenu, 'name'>
-    & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
-  )> };
-
-type GetPostDataQueryVariables = Exact<{
+type GetStandardDataQueryVariables = Exact<{
   id: Scalars['String'];
+  categorySlug: Scalars['String'];
 }>;
 
 
-type GetPostDataQuery = { readonly post: Maybe<Pick<WpPost, 'title' | 'content'>> };
+type GetStandardDataQuery = (
+  { readonly pageData: Maybe<(
+    Pick<WpPage, 'title'>
+    & { readonly pageACF: Maybe<{ readonly standardContent: Maybe<Pick<WpPage_Pageacf_StandardContent, 'pageContentTitle'>> }> }
+  )>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
+  & NewestPostsFragment
+  & NewestPostsFragment
+);
 
 type GetHockeyDataQueryVariables = Exact<{
   id: Scalars['String'];
@@ -11147,6 +11143,17 @@ type GetHockeyDataQuery = (
   & NewestPostsFragment
 );
 
+type GetSponsorsDataQueryVariables = Exact<{
+  id: Scalars['String'];
+  categorySlug: Scalars['String'];
+}>;
+
+
+type GetSponsorsDataQuery = (
+  { readonly sponsorsData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
+  & NewestPostsFragment
+);
+
 type GetGamepitchDataQueryVariables = Exact<{
   id: Scalars['String'];
   categorySlug: Scalars['String'];
@@ -11155,6 +11162,28 @@ type GetGamepitchDataQueryVariables = Exact<{
 
 type GetGamepitchDataQuery = (
   { readonly gamepitchData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
+  & NewestPostsFragment
+);
+
+type GetTicketsDataQueryVariables = Exact<{
+  id: Scalars['String'];
+  categorySlug: Scalars['String'];
+}>;
+
+
+type GetTicketsDataQuery = (
+  { readonly ticketsData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
+  & NewestPostsFragment
+);
+
+type GetLineupDataQueryVariables = Exact<{
+  id: Scalars['String'];
+  categorySlug: Scalars['String'];
+}>;
+
+
+type GetLineupDataQuery = (
+  { readonly lineupData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
   & NewestPostsFragment
 );
 
@@ -11176,42 +11205,26 @@ type GetHomeDataQueryVariables = Exact<{
 
 type GetHomeDataQuery = { readonly homeData: Maybe<Pick<WpPage, 'title'>>, readonly postsData: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> }, readonly seoData: Maybe<SeoFragment> };
 
-type GetSponsorsDataQueryVariables = Exact<{
-  id: Scalars['String'];
+type GetAllBlogPostsQueryVariables = Exact<{
+  skip: Scalars['Int'];
+  limit: Scalars['Int'];
   categorySlug: Scalars['String'];
 }>;
 
 
-type GetSponsorsDataQuery = (
-  { readonly sponsorsData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
+type GetAllBlogPostsQuery = (
+  { readonly allPosts: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> }, readonly seoData: Maybe<SeoFragment> }
   & NewestPostsFragment
 );
 
-type GetLineupDataQueryVariables = Exact<{
+type GetPostDataQueryVariables = Exact<{
   id: Scalars['String'];
-  categorySlug: Scalars['String'];
 }>;
 
 
-type GetLineupDataQuery = (
-  { readonly lineupData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
-  & NewestPostsFragment
-);
+type GetPostDataQuery = { readonly post: Maybe<Pick<WpPost, 'title' | 'content'>> };
 
-type GetStandardDataQueryVariables = Exact<{
-  id: Scalars['String'];
-  categorySlug: Scalars['String'];
-}>;
-
-
-type GetStandardDataQuery = (
-  { readonly pageData: Maybe<(
-    Pick<WpPage, 'title'>
-    & { readonly pageACF: Maybe<{ readonly standardContent: Maybe<Pick<WpPage_Pageacf_StandardContent, 'pageContentTitle'>> }> }
-  )>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
-  & NewestPostsFragment
-  & NewestPostsFragment
-);
+type MatchReportStatsFragment = Pick<WpPost_Postacf_MatchReport, 'assists' | 'gameDay' | 'penalties' | 'periodResults' | 'scoreGuest' | 'scoreHome' | 'scorer' | 'specialCase' | 'spectators' | 'teamGuest' | 'teamGuestSlug' | 'teamHome' | 'teamHomeSlug'>;
 
 type GetGameReportDataQueryVariables = Exact<{
   id: Scalars['String'];
@@ -11223,18 +11236,43 @@ type GetGameReportDataQuery = { readonly wpPost: Maybe<(
     & { readonly postACF: Maybe<{ readonly matchReport: Maybe<MatchReportStatsFragment> }> }
   )> };
 
-type MatchReportStatsFragment = Pick<WpPost_Postacf_MatchReport, 'assists' | 'gameDay' | 'penalties' | 'periodResults' | 'scoreGuest' | 'scoreHome' | 'scorer' | 'specialCase' | 'spectators' | 'teamGuest' | 'teamGuestSlug' | 'teamHome' | 'teamHomeSlug'>;
-
-type GetTicketsDataQueryVariables = Exact<{
-  id: Scalars['String'];
-  categorySlug: Scalars['String'];
-}>;
+type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type GetTicketsDataQuery = (
-  { readonly ticketsData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
-  & NewestPostsFragment
+type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
+
+type GetMainMenuQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetMainMenuQuery = { readonly wpMenu: Maybe<(
+    Pick<WpMenu, 'name'>
+    & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
+  )> };
+
+type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
+
+type GetFooterMenuQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetFooterMenuQuery = { readonly wpMenu: Maybe<(
+    Pick<WpMenu, 'name'>
+    & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
+  )> };
+
+type MenuItemFragment = (
+  Pick<WpMenuItem, 'id' | 'label' | 'url' | 'parentId'>
+  & { readonly childItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuChildItemFragment>>> }> }
 );
+
+type MenuChildItemFragment = Pick<WpMenuItem, 'id' | 'label' | 'url'>;
+
+type GetTranslationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetTranslationQuery = { readonly translationYaml: Maybe<Pick<TranslationYaml, 'contact' | 'menu' | 'oclock' | 'adverbIn' | 'weekdays' | 'address'>> };
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
@@ -11261,30 +11299,5 @@ type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = Pick<ImageSharpFluid, 't
 type GatsbyImageSharpFluid_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
 
 type GatsbyImageSharpFluid_withWebp_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
-type GetTranslationQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type GetTranslationQuery = { readonly translationYaml: Maybe<Pick<TranslationYaml, 'contact' | 'menu' | 'oclock' | 'adverbIn' | 'weekdays' | 'address'>> };
-
-type GetAllBlogPostsQueryVariables = Exact<{
-  skip: Scalars['Int'];
-  limit: Scalars['Int'];
-  categorySlug: Scalars['String'];
-}>;
-
-
-type GetAllBlogPostsQuery = (
-  { readonly allPosts: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> }, readonly seoData: Maybe<SeoFragment> }
-  & NewestPostsFragment
-);
-
-type BlogPostPreviewFieldsFragment = (
-  Pick<WpPost, 'id' | 'title' | 'uri' | 'excerpt' | 'date'>
-  & { readonly postACF: Maybe<Pick<WpPost_Postacf, 'division' | 'postCategory'>>, readonly featuredImage: Maybe<{ readonly node: Maybe<(
-      Pick<WpMediaItem, 'altText'>
-      & { readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
-    )> }>, readonly categories: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<Pick<WpCategory, 'name'>>>> }> }
-);
 
 }
