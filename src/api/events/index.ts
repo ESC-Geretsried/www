@@ -1,8 +1,8 @@
 // import fetch from "node-fetch";
-// import fetch from "cross-fetch";
+import fetch from "cross-fetch";
 // import "cross-fetch/polyfill";
 
-import "cross-fetch/polyfill";
+// import "cross-fetch/polyfill";
 import { Client } from "@microsoft/microsoft-graph-client";
 import { Event } from "@microsoft/microsoft-graph-types";
 import dayjs from "dayjs";
@@ -38,14 +38,15 @@ export default async function events(
   req: GatsbyFunctionRequest,
   res: GatsbyFunctionResponse
 ) {
-  // if (!globalThis.fetch) {
-  //   // @ts-ignore
-  //   globalThis.fetch = fetch;
-  //   globalThis.Headers = Headers;
-  //   globalThis.Request = Request;
-  //   globalThis.Response = Response;
-  // }
+  if (!globalThis.fetch) {
+    // @ts-ignore
+    globalThis.fetch = fetch;
+    globalThis.Headers = Headers;
+    globalThis.Request = Request;
+    globalThis.Response = Response;
+  }
 
+  console.log(fetch);
   const now = new Date();
   const mondayMorning = dayjs(getThisWeeksMonday(now))
     .set("hour", 0)
@@ -95,13 +96,15 @@ export default async function events(
         return prev;
       }, {} as { [key: string]: Array<EventType> });
 
+    console.log("sorted events !  ..............................");
+
     if (Object.keys(sortedEvents).length === 0) {
       throw new Error("No events found");
     }
 
     res.status(200).json({ data: sortedEvents, error: null });
   } catch (error) {
-    console.log("Graph Error: ", error);
+    console.log("Function Error: ", error);
 
     res.status(200).json({ data: null, error });
   }
