@@ -16,10 +16,6 @@ import {
 } from "../../utils/function.utils";
 require("dotenv").config();
 
-export const graphClient = Client.init({
-  authProvider,
-});
-
 const keys = [
   "id",
   "subject",
@@ -45,6 +41,10 @@ export default async function events(
     globalThis.Request = Request;
     globalThis.Response = Response;
   }
+
+  const graphClient = Client.init({
+    authProvider,
+  });
 
   console.log(fetch);
   const now = new Date();
