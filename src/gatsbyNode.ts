@@ -269,21 +269,21 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
   });
 };
 
-// const onCreateWebpackConfig = ({
-//   actions,
-//   loaders,
-//   getConfig,
-// }: CreateWebpackConfigArgs) => {
-//   actions.setWebpackConfig({
-//     externals: {
-//       "node-fetch": "commonjs2 node-fetch",
-//     },
-//   });
-// };
+const onCreateWebpackConfig = ({
+  actions,
+  loaders,
+  getConfig,
+}: CreateWebpackConfigArgs) => {
+  actions.setWebpackConfig({
+    externals: {
+      "node-fetch": "commonjs2 node-fetch",
+    },
+  });
+};
 
 const gatsbyNode: GatsbyNode = {
   createPages,
-  // onCreateWebpackConfig,
+  onCreateWebpackConfig,
 };
 
 export default gatsbyNode;
