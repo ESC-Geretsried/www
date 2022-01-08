@@ -290,7 +290,7 @@ const onCreateWebpackConfig = ({
 
 const gatsbyNode: GatsbyNode = {
   createPages,
-  onCreateWebpackConfig,
+  // onCreateWebpackConfig,
 };
 
 export default gatsbyNode;
