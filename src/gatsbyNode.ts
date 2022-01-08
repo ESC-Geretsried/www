@@ -220,7 +220,7 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
           currentPage: i,
           categorySlug: division,
         },
-        defer: i + 1 > 2,
+        // defer: i + 1 > 2,
       });
     });
   });
@@ -256,7 +256,7 @@ const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
           title,
           pathname: getPath(uri ?? ""),
         },
-        defer: parseInt(date) > 1,
+        // defer: parseInt(date) > 1,
       });
     }
   );

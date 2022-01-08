@@ -11249,6 +11249,11 @@ type GetFooterMenuQuery = { readonly wpMenu: Maybe<(
     & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
   )> };
 
+type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
+
 type GetMainMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -11256,11 +11261,6 @@ type GetMainMenuQuery = { readonly wpMenu: Maybe<(
     Pick<WpMenu, 'name'>
     & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
   )> };
-
-type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
 
 type GetTranslationQueryVariables = Exact<{ [key: string]: never; }>;
 

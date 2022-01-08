@@ -4,11 +4,6 @@
   "private": true,
   "description": "esc-geretsried-2.0",
   "author": "Bene Koehler",
-  "sideEffects": [
-    "./node_modules/cross-fetch/dist/node-polyfill.js",
-    "./node_modules/isomorphic-fetch/fetch-npm-node.js",
-    "./node_modules/node-fetch/src/index.js"
-  ],
   "keywords": [
     "gatsby"
   ],
@@ -59,9 +54,6 @@
     "gatsby-transformer-sharp": "^4.4.0",
     "gatsby-transformer-yaml": "^4.4.0",
     "html-react-parser": "^1.4.4",
-    "isomorphic-fetch": "^3.0.0",
-    "node-fetch": "^2.6.6",
-    "patch-package": "^6.4.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",

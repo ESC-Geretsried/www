@@ -1,8 +1,5 @@
-// import fetch from "node-fetch";
-import fetch from "cross-fetch";
-// import "cross-fetch/polyfill";
-
-// import "cross-fetch/polyfill";
+// import "isomorphic-fetch";
+import "cross-fetch/polyfill";
 import { Client } from "@microsoft/microsoft-graph-client";
 import { Event } from "@microsoft/microsoft-graph-types";
 import dayjs from "dayjs";
@@ -34,14 +31,6 @@ export default async function events(
   req: GatsbyFunctionRequest,
   res: GatsbyFunctionResponse
 ) {
-  if (!globalThis.fetch) {
-    // @ts-ignore
-    globalThis.fetch = fetch;
-    globalThis.Headers = Headers;
-    globalThis.Request = Request;
-    globalThis.Response = Response;
-  }
-
   const graphClient = Client.init({
     authProvider,
   });
