@@ -6,6 +6,7 @@ import {
   HOME_PAGE_ID,
   ALL_DIVISIONS,
 } from "./const";
+import NodePolyfillPlugin from "node-polyfill-webpack-plugin";
 
 const getPath = (uri: string) => {
   switch (uri) {
@@ -275,6 +276,12 @@ const onCreateWebpackConfig = ({
   getConfig,
 }: CreateWebpackConfigArgs) => {
   actions.setWebpackConfig({
+    resolve: {
+      fallback: {
+        "node-fetch": require.resolve("node-fetch"),
+      },
+    },
+    plugins: [new NodePolyfillPlugin()],
     externals: {
       "node-fetch": "commonjs2 node-fetch",
     },
