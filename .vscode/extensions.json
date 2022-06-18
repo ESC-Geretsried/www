@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "coenraads.bracket-pair-colorizer",
+    "streetsidesoftware.code-spell-checker",
+    "naumovs.color-highlight",
+    "usernamehw.errorlens",
+    "dbaeumer.vscode-eslint",
+    "christian-kohler.npm-intellisense",
+    "leizongmin.node-module-intellisense",
+    "esbenp.prettier-vscode",
+    "wayou.vscode-todo-highlight",
+    "jpoissonnier.vscode-styled-components",
+    "msjsdiag.debugger-for-chrome"
+  ]
+}

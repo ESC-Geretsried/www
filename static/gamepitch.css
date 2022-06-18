@@ -1,0 +1,130 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--PTSans-Regular), "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", Arial, sans-serif;
+  color: var(--gray);
+
+  font-size: 14px !important;
+  margin: 0;
+}
+a {
+  color: var(--gray);
+}
+#gamepitch {
+  margin: 5% 0;
+}
+#gamepitch.stats .-hd-util-tabs .-hd-util-tabs-button:not(:last-child) {
+  display: block;
+  text-align: left;
+  padding: 0;
+}
+#gamepitch.stats .-hd-util-tabs .-hd-util-tabs-buttons {
+  padding: 0;
+}
+
+@media screen and (min-width: 860px) {
+  #gamepitch.stats .-hd-util-tabs .-hd-util-tabs-button:not(:last-child) {
+    display: inline-block;
+    text-align: center;
+    padding: 0 0.5em;
+  }
+  #gamepitch.stats .-hd-util-tabs .-hd-util-tabs-button:first-child {
+    padding-left: 0;
+  }
+  #gamepitch.stats .-hd-util-tabs .-hd-util-tabs-buttons {
+    padding: 0;
+  }
+  #gamepitch.stats .-hd-util-tabs .-hd-util-tabs-buttons {
+    margin-left: calc(var(--maxWidth) * 0.2px);
+  }
+}
+
+#gamepitch table {
+  font-size: 14px;
+  font-family: var(--PTSans-Regular), "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: var(--letterSpacing);
+}
+#gamepitch table thead {
+  border-bottom: var(--borderWidth) solid var(--gray);
+  border-top: var(--borderWidth) solid var(--gray);
+  padding-bottom: 1em;
+  font-family: var(--Rubik-BlackItalic), "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.-hd-rd-large-mobile .-hd-util-intellitable .-hd-util-intellitable-data th,
+.-hd-rd-large-mobile .-hd-util-intellitable .-hd-util-intellitable-data td,
+.-hd-util-intellitable .-hd-util-intellitable-data th,
+.-hd-util-intellitable .-hd-util-intellitable-data td,
+.-hd-util-tabs .-hd-util-tabs-button:first-child,
+.-hd-util-tabs .-hd-util-tabs-buttons:first-child {
+  padding-left: 0;
+}
+
+.-hd-los-schedule .-hd-util-intellitable .-hd-util-intellitable-data td.-hd-los-schedule-score-divider {
+  max-width: 1em;
+}
+.-hd-util-intellitable .-hd-util-intellitable-data .-hd-util-intellitable-date-value {
+  text-align: left;
+}
+
+.-hd-los-team-full-page-team-info {
+  display: none;
+}
+
+.-hd-util-tabs .-hd-util-tabs-button:last-child {
+  display: none;
+}
+.-hd-util-tabs .-hd-util-tabs-button {
+  border: none;
+  opacity: 0.5;
+}
+
+.-hd-util-tabs .-hd-util-tabs-button-active {
+  opacity: 1;
+}
+
+.-hd-util-tabs .-hd-util-tabs-buttons {
+  border: none;
+  border-top: var(--borderWidth) solid var(--gray);
+  padding: 0 1em;
+  padding-left: 0;
+  padding-bottom: 2em;
+
+  font-family: var(--Rubik-BlackItalic), "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  text-transform: uppercase;
+}
+
+.-hd-util-tabs .-hd-util-tabs-button,
+.-hd-util-tabs .-hd-util-tabs-button-active {
+  line-height: 2.5rem;
+  min-height: calc(2.5rem + 3px);
+}
+.-hd-util-tabs .-hd-util-tabs-button-active,
+.-hd-util-tabs .-hd-util-tabs-button-active:first-child {
+  border-bottom: var(--borderWidth) solid var(--gray);
+}
+
+.-hd-util-tabs .-hd-util-tabs-content {
+  padding: 0;
+}
+
+.-hd-los-team-full-page .-hd-los-team-full-page-headline {
+  /* position: absolute; */
+  display: inline-block;
+  padding: 1rem 0;
+  border-bottom: var(--borderWidth) solid var(--gray);
+  border-top: var(--borderWidth) solid var(--gray);
+  margin-bottom: 1rem;
+  margin-top: 3rem;
+  font-family: var(--Rubik-BlackItalic), "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+}
+.-hd-los-team-full-page .-hd-los-team-full-page-tabs {
+  position: relative;
+}

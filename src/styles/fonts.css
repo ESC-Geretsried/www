@@ -1,0 +1,57 @@
+@font-face {
+  font-family: "Silka Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: bold;
+  src: url("../assets/fonts/SilkaMono/silkamono-regular-webfont.eot");
+  src: url("../assets/fonts/SilkaMono/silkamono-regular-webfont.ttf") format("truetype"),
+    url("../assets/fonts/SilkaMono/silkamono-regular-webfont.woff2") format("woff2");
+}
+
+/* example variable font */
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Variable/Inter.otf") format("woff2-variations");
+  font-weight: 125 950;
+  font-stretch: 75% 125%;
+  font-style: oblique 0deg 20deg;
+}
+
+@font-face {
+  font-family: "Adelphi VF";
+  src: url("../assets/fonts/Adelphi/AdelphiPEVF-All.ttf") format("truetype");
+  font-weight: 125 950;
+  font-stretch: 75% 125%;
+  font-style: oblique 0deg 20deg;
+}
+
+@font-face {
+  font-family: "Rubik Bold";
+  font-style: normal;
+  font-display: swap;
+  font-weight: bold;
+  src: url("../assets/fonts/Rubik/Rubik-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Rubik Bold Italic";
+  font-style: normal;
+  font-display: swap;
+  font-weight: bold;
+  src: url("../assets/fonts/Rubik/Rubik-BoldItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "PT Sans Regular";
+  font-style: normal;
+  font-display: swap;
+  font-weight: normal;
+  src: url("../assets/fonts/PT_Sans/PTSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "PT Sans Bold";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 900;
+  src: url("../assets/fonts/PT_Sans/PTSans-Bold.ttf") format("truetype");
+}

@@ -1,0 +1,27 @@
+{
+  "plugins": ["@babel/plugin-proposal-optional-chaining", "@emotion"],
+  "presets": [
+    [
+      "babel-preset-gatsby",
+      {
+        "targets": {
+          "browsers": ["last 2 versions"]
+        }
+      }
+    ]
+  ],
+  "env": {
+    "i18n": {
+      "presets": ["@babel/typescript", "@babel/react"],
+      "plugins": [
+        "@babel/plugin-syntax-dynamic-import",
+        [
+          "react-intl",
+          {
+            "messagesDir": "./build/messages/"
+          }
+        ]
+      ]
+    }
+  }
+}

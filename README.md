@@ -1,54 +1,62 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby minimal starter
-</h1>
+# ESC Geretsried
 
-## 🚀 Quick start
+[![Netlify Status](https://api.netlify.com/api/v1/badges/04740fc4-a041-465c-bd32-10a933aa5097/deploy-status)](https://app.netlify.com/sites/esc-test/deploys)
 
-1.  **Create a Gatsby site.**
+## Getting Started 🚀
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+1. Create a `.env` file in the project root with the values from `.env.example`
+2. Run `npm install`
+3. Run `npm run dev` and visit http://localhost:8000
 
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
 
-2.  **Start developing.**
+## Concepts
+### Component Development
+One component per file: https://stackoverflow.com/a/42996969
+Emotion components in shared folder
+UI Component Library
 
-    Navigate into your new site’s directory and start it up.
+### Content Structure
+CMS Page/Section philosophy!
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
+#### Pages
+Custom Pages with multiple data sources example
 
-3.  **Open the code and start customizing!**
+#### Sections
 
-    Your site is now running at http://localhost:8000!
+#### Blog Posts
 
-    Edit `src/pages/index.js` to see your site update in real-time!
+### Routing
+special routes:
+- 404
+- index
+both receive special handling/create pages custom handling explained here (matchpath and / instead of index as routename)
 
-4.  **Learn more**
+### Data Fetching
+Static vs. Dynamic content
+Graphql intro,fragments, codegen explained
 
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+## Deployment
+Same with netlify
+Netlify deployment workflow
 
-    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+## CMS
 
-    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+Where can the cms project be found, where are the credentials
 
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+## Stack
 
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+## Available Commands
 
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+## Debugging
+Debug possibilities
 
-## 🚀 Quick start (Gatsby Cloud)
+## Troubleshooting
+- Gatsby clean
+-...?
 
-Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
+What services and how to run them?? @bytetyde ?
 
-[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal)
+
+
+
+

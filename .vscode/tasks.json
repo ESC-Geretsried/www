@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "other:refresh",
+      "problemMatcher": [],
+      "label": "npm: other:refresh",
+      "detail": "curl -X POST http://localhost:8000/__refresh"
+    }
+  ]
+}

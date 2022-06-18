@@ -1,32 +1,27 @@
 {
-  "include": [
-    "src",
-    "functions",
-    "src/types/**/*",
-    "src/**/*.d.ts",
-    "webpack.functions.js",
-    "static"
-  ],
-  "exclude": ["**/node_modules", "**/.*/"],
   "compilerOptions": {
-    "baseUrl": "./",
-    "emitDecoratorMetadata": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
-    "isolatedModules": true,
-    "jsx": "react",
-    "lib": ["dom", "es2017", "es2019"],
+    "jsxImportSource": "@emotion/react",
     "module": "commonjs",
-    "noEmit": true,
-    "preserveConstEnums": true,
-    "removeComments": true,
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "sourceMap": true,
+    "target": "ES2019",
+    "jsx": "preserve",
+    "lib": ["dom", "es2015", "es2017", "ES2019"],
     "strict": true,
-    "target": "esnext",
-    "types": ["node"]
-  }
+    "noEmit": true,
+    "sourceMap": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "removeComments": false,
+    "preserveConstEnums": true
+  },
+  "include": [
+    "./src/**/*",
+    "./gatsby/**/*",
+    "gatsby-browser.tsx",
+    "gatsby-ssr.tsx",
+    "gatsby-node.ts",
+    "graphql-types-apollo.ts",
+    "@types/gatsby-wpgraphql-inline-images",
+    "@types/body-scroll-lock"
+  ]
 }
