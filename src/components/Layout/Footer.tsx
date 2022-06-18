@@ -10,7 +10,7 @@ import { useStaticQuery, graphql } from "gatsby";
 import React, { useMemo } from "react";
 import { Link } from "../../atoms/Link";
 import { HeadingLevelBoundary, Hx } from "../headings";
-import { prepareFooterMenuData, prepareMenuData } from "../Menu/MenuUtils";
+import { prepareFooterMenuData, prepareMenuData } from "../Menu/utils";
 
 export const Footer: React.FC<ChakraProps> = ({ ...rest }) => {
   const styles = useMultiStyleConfig("Footer", {});

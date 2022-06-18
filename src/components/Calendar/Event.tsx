@@ -1,6 +1,5 @@
-import { AccordionButton, AccordionPanel } from "@chakra-ui/accordion";
 import { Box } from "@chakra-ui/layout";
-import { chakra } from "@chakra-ui/react";
+import { AccordionButton, AccordionPanel, chakra } from "@chakra-ui/react";
 import { Location } from "@microsoft/microsoft-graph-types";
 import React from "react";
 import { EventType } from "../../api/events";
@@ -45,16 +44,16 @@ export const Event: React.FC<EventProps> = ({ event, isWeekday = false }) => {
             {event.subject}
           </Hx>
           {event.location?.address?.city && (
-            <chakra.span>
-              {" "}
-              {adverbIn} {event.location.address.city}
-            </chakra.span>
+            <span>
+              &nbsp;
+              {adverbIn}&nbsp;{event.location.address.city}
+            </span>
           )}
         </Box>
         <Box>
-          <chakra.span>
-            {time} {oclock}
-          </chakra.span>
+          <span>
+            {time}&nbsp;{oclock}
+          </span>
         </Box>
       </AccordionButton>
       {showPanel(event) && (

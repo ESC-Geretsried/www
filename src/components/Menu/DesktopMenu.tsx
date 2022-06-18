@@ -1,4 +1,4 @@
-import { Box, ChakraProps } from "@chakra-ui/react";
+import { Box, chakra, ChakraProps } from "@chakra-ui/react";
 import React from "react";
 import { Menu } from "./Menu";
 import { SocialButtonGroup } from "../SocialButtonGroup/SocialButtonGroup";
@@ -10,7 +10,14 @@ export const DesktopMenu: React.FC<
 > = ({ menuItems, ...rest }) => {
   return (
     <Box {...rest}>
-      <Logo />
+      <chakra.div
+        maxHeight="200px"
+        position="relative"
+        display="flex"
+        justifyContent="center"
+      >
+        <Logo />
+      </chakra.div>
       <Menu menuItems={menuItems} />
       <SocialButtonGroup />
     </Box>

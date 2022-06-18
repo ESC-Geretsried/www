@@ -1,5 +1,5 @@
-import { Accordion, AccordionItem } from "@chakra-ui/accordion";
 import { Box, BoxProps, Heading } from "@chakra-ui/layout";
+import { Accordion, AccordionItem } from "@chakra-ui/react";
 import { Skeleton, SkeletonText } from "@chakra-ui/skeleton";
 import React, { memo } from "react";
 import { useTranslation } from "../../translation/useTranslation";

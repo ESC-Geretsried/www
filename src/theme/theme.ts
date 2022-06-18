@@ -4,7 +4,7 @@ import { BurgerButtonStyles } from "../atoms/BurgerButton/BurgerButtonStyles";
 import { Button } from "./Button";
 import { Colors, extendTheme } from "@chakra-ui/react";
 import { Link } from "./Link";
-import { Heading } from "./Heading";
+import { Heading } from "./heading";
 import { MatchReportHeader } from "./matchReportHeader";
 import { Footer } from "./footer";
 import { Extra } from "./Extra";

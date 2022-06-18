@@ -1,5 +1,5 @@
 import { ComponentMultiStyleConfig } from "@chakra-ui/theme";
-import { sizes as headingSizes } from "./Heading";
+import { sizes as headingSizes } from "./heading";
 import { textStyles } from "./textStyles";
 
 export const MatchReportHeader: ComponentMultiStyleConfig = {

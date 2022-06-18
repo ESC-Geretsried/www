@@ -260,6 +260,8 @@ type Directory_ctimeArgs = {
 type Site = Node & {
   readonly buildTime: Maybe<Scalars['Date']>;
   readonly siteMetadata: Maybe<SiteSiteMetadata>;
+  readonly port: Maybe<Scalars['Int']>;
+  readonly host: Maybe<Scalars['String']>;
   readonly polyfill: Maybe<Scalars['Boolean']>;
   readonly pathPrefix: Maybe<Scalars['String']>;
   readonly jsxRuntime: Maybe<Scalars['String']>;
@@ -371,6 +373,8 @@ type WpNode = {
 type WpContentNode = {
   /** Connection between the ContentNode type and the ContentType type */
   readonly contentType: Maybe<WpContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  readonly contentTypeName: Scalars['String'];
   /** The ID of the node in the database. */
   readonly databaseId: Scalars['Int'];
   /** Post publishing date. */
@@ -691,6 +695,8 @@ type WpMediaItem = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable
   readonly commentStatus: Maybe<Scalars['String']>;
   /** Connection between the ContentNode type and the ContentType type */
   readonly contentType: Maybe<WpContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  readonly contentTypeName: Scalars['String'];
   /** The unique identifier stored in the database */
   readonly databaseId: Scalars['Int'];
   /** Post publishing date. */
@@ -973,6 +979,8 @@ type WpPage = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable & Wp
   readonly content: Maybe<Scalars['String']>;
   /** Connection between the ContentNode type and the ContentType type */
   readonly contentType: Maybe<WpContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  readonly contentTypeName: Scalars['String'];
   /** The unique resource identifier path */
   readonly databaseId: Scalars['Int'];
   /** Post publishing date. */
@@ -1085,6 +1093,8 @@ type WpNodeWithContentEditor = {
 type WpNodeWithFeaturedImage = {
   /** Connection between the ContentNode type and the ContentType type */
   readonly contentType: Maybe<WpContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  readonly contentTypeName: Scalars['String'];
   /** The unique identifier stored in the database */
   readonly databaseId: Scalars['Int'];
   /** Post publishing date. */
@@ -1272,6 +1282,8 @@ type WpPost = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable & Wp
   readonly content: Maybe<Scalars['String']>;
   /** Connection between the ContentNode type and the ContentType type */
   readonly contentType: Maybe<WpContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  readonly contentTypeName: Scalars['String'];
   /** The unique resource identifier path */
   readonly databaseId: Scalars['Int'];
   /** Post publishing date. */
@@ -2398,6 +2410,8 @@ type Query_allDirectoryArgs = {
 type Query_siteArgs = {
   buildTime: Maybe<DateQueryOperatorInput>;
   siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
+  port: Maybe<IntQueryOperatorInput>;
+  host: Maybe<StringQueryOperatorInput>;
   polyfill: Maybe<BooleanQueryOperatorInput>;
   pathPrefix: Maybe<StringQueryOperatorInput>;
   jsxRuntime: Maybe<StringQueryOperatorInput>;
@@ -2506,6 +2520,7 @@ type Query_allSiteBuildMetadataArgs = {
 
 type Query_wpContentNodeArgs = {
   contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
+  contentTypeName: Maybe<StringQueryOperatorInput>;
   databaseId: Maybe<IntQueryOperatorInput>;
   date: Maybe<DateQueryOperatorInput>;
   dateGmt: Maybe<DateQueryOperatorInput>;
@@ -2631,6 +2646,7 @@ type Query_wpMediaItemArgs = {
   commentCount: Maybe<IntQueryOperatorInput>;
   commentStatus: Maybe<StringQueryOperatorInput>;
   contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
+  contentTypeName: Maybe<StringQueryOperatorInput>;
   databaseId: Maybe<IntQueryOperatorInput>;
   date: Maybe<DateQueryOperatorInput>;
   dateGmt: Maybe<DateQueryOperatorInput>;
@@ -2717,6 +2733,7 @@ type Query_wpPageArgs = {
   commentStatus: Maybe<StringQueryOperatorInput>;
   content: Maybe<StringQueryOperatorInput>;
   contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
+  contentTypeName: Maybe<StringQueryOperatorInput>;
   databaseId: Maybe<IntQueryOperatorInput>;
   date: Maybe<DateQueryOperatorInput>;
   dateGmt: Maybe<DateQueryOperatorInput>;
@@ -2810,6 +2827,7 @@ type Query_wpPostArgs = {
   commentStatus: Maybe<StringQueryOperatorInput>;
   content: Maybe<StringQueryOperatorInput>;
   contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
+  contentTypeName: Maybe<StringQueryOperatorInput>;
   databaseId: Maybe<IntQueryOperatorInput>;
   date: Maybe<DateQueryOperatorInput>;
   dateGmt: Maybe<DateQueryOperatorInput>;
@@ -3972,6 +3990,8 @@ type SiteFieldsEnum =
   | 'siteMetadata.title'
   | 'siteMetadata.description'
   | 'siteMetadata.siteUrl'
+  | 'port'
+  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'jsxRuntime'
@@ -4106,6 +4126,8 @@ type SiteGroupConnection_groupArgs = {
 type SiteFilterInput = {
   readonly buildTime: Maybe<DateQueryOperatorInput>;
   readonly siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
+  readonly port: Maybe<IntQueryOperatorInput>;
+  readonly host: Maybe<StringQueryOperatorInput>;
   readonly polyfill: Maybe<BooleanQueryOperatorInput>;
   readonly pathPrefix: Maybe<StringQueryOperatorInput>;
   readonly jsxRuntime: Maybe<StringQueryOperatorInput>;
@@ -5054,6 +5076,7 @@ type WpContentNodeFilterListInput = {
 
 type WpContentNodeFilterInput = {
   readonly contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
+  readonly contentTypeName: Maybe<StringQueryOperatorInput>;
   readonly databaseId: Maybe<IntQueryOperatorInput>;
   readonly date: Maybe<DateQueryOperatorInput>;
   readonly dateGmt: Maybe<DateQueryOperatorInput>;
@@ -5224,6 +5247,7 @@ type WpContentNodeFieldsEnum =
   | 'contentType.node.internal.mediaType'
   | 'contentType.node.internal.owner'
   | 'contentType.node.internal.type'
+  | 'contentTypeName'
   | 'databaseId'
   | 'date'
   | 'dateGmt'
@@ -5457,6 +5481,7 @@ type WpContentTypeFieldsEnum =
   | 'connectedTaxonomies.nodes.internal.owner'
   | 'connectedTaxonomies.nodes.internal.type'
   | 'contentNodes.nodes'
+  | 'contentNodes.nodes.contentTypeName'
   | 'contentNodes.nodes.databaseId'
   | 'contentNodes.nodes.date'
   | 'contentNodes.nodes.dateGmt'
@@ -6073,6 +6098,7 @@ type WpMediaItemEdge = {
 type WpMediaItemFieldsEnum =
   | 'altText'
   | 'ancestors.nodes'
+  | 'ancestors.nodes.contentTypeName'
   | 'ancestors.nodes.databaseId'
   | 'ancestors.nodes.date'
   | 'ancestors.nodes.dateGmt'
@@ -6107,6 +6133,7 @@ type WpMediaItemFieldsEnum =
   | 'authorId'
   | 'caption'
   | 'wpChildren.nodes'
+  | 'wpChildren.nodes.contentTypeName'
   | 'wpChildren.nodes.databaseId'
   | 'wpChildren.nodes.date'
   | 'wpChildren.nodes.dateGmt'
@@ -6209,6 +6236,7 @@ type WpMediaItemFieldsEnum =
   | 'contentType.node.internal.mediaType'
   | 'contentType.node.internal.owner'
   | 'contentType.node.internal.type'
+  | 'contentTypeName'
   | 'databaseId'
   | 'date'
   | 'dateGmt'
@@ -6249,6 +6277,7 @@ type WpMediaItemFieldsEnum =
   | 'mimeType'
   | 'modified'
   | 'modifiedGmt'
+  | 'wpParent.node.contentTypeName'
   | 'wpParent.node.databaseId'
   | 'wpParent.node.date'
   | 'wpParent.node.dateGmt'
@@ -6869,6 +6898,7 @@ type WpMediaItemFilterInput = {
   readonly commentCount: Maybe<IntQueryOperatorInput>;
   readonly commentStatus: Maybe<StringQueryOperatorInput>;
   readonly contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
+  readonly contentTypeName: Maybe<StringQueryOperatorInput>;
   readonly databaseId: Maybe<IntQueryOperatorInput>;
   readonly date: Maybe<DateQueryOperatorInput>;
   readonly dateGmt: Maybe<DateQueryOperatorInput>;
@@ -7171,6 +7201,7 @@ type WpPageFilterInput = {
   readonly commentStatus: Maybe<StringQueryOperatorInput>;
   readonly content: Maybe<StringQueryOperatorInput>;
   readonly contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
+  readonly contentTypeName: Maybe<StringQueryOperatorInput>;
   readonly databaseId: Maybe<IntQueryOperatorInput>;
   readonly date: Maybe<DateQueryOperatorInput>;
   readonly dateGmt: Maybe<DateQueryOperatorInput>;
@@ -7490,6 +7521,7 @@ type WpPostFilterInput = {
   readonly commentStatus: Maybe<StringQueryOperatorInput>;
   readonly content: Maybe<StringQueryOperatorInput>;
   readonly contentType: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
+  readonly contentTypeName: Maybe<StringQueryOperatorInput>;
   readonly databaseId: Maybe<IntQueryOperatorInput>;
   readonly date: Maybe<DateQueryOperatorInput>;
   readonly dateGmt: Maybe<DateQueryOperatorInput>;
@@ -7668,6 +7700,7 @@ type WpPageEdge = {
 
 type WpPageFieldsEnum =
   | 'ancestors.nodes'
+  | 'ancestors.nodes.contentTypeName'
   | 'ancestors.nodes.databaseId'
   | 'ancestors.nodes.date'
   | 'ancestors.nodes.dateGmt'
@@ -7736,6 +7769,7 @@ type WpPageFieldsEnum =
   | 'categories.nodes.internal.owner'
   | 'categories.nodes.internal.type'
   | 'wpChildren.nodes'
+  | 'wpChildren.nodes.contentTypeName'
   | 'wpChildren.nodes.databaseId'
   | 'wpChildren.nodes.date'
   | 'wpChildren.nodes.dateGmt'
@@ -7839,6 +7873,7 @@ type WpPageFieldsEnum =
   | 'contentType.node.internal.mediaType'
   | 'contentType.node.internal.owner'
   | 'contentType.node.internal.type'
+  | 'contentTypeName'
   | 'databaseId'
   | 'date'
   | 'dateGmt'
@@ -7852,6 +7887,7 @@ type WpPageFieldsEnum =
   | 'featuredImage.node.wpChildren.nodes'
   | 'featuredImage.node.commentCount'
   | 'featuredImage.node.commentStatus'
+  | 'featuredImage.node.contentTypeName'
   | 'featuredImage.node.databaseId'
   | 'featuredImage.node.date'
   | 'featuredImage.node.dateGmt'
@@ -8006,6 +8042,7 @@ type WpPageFieldsEnum =
   | 'pageACF.boardMembers.portrait.caption'
   | 'pageACF.boardMembers.portrait.commentCount'
   | 'pageACF.boardMembers.portrait.commentStatus'
+  | 'pageACF.boardMembers.portrait.contentTypeName'
   | 'pageACF.boardMembers.portrait.databaseId'
   | 'pageACF.boardMembers.portrait.date'
   | 'pageACF.boardMembers.portrait.dateGmt'
@@ -8054,6 +8091,7 @@ type WpPageFieldsEnum =
   | 'pageACF.lineup.teamPicture.caption'
   | 'pageACF.lineup.teamPicture.commentCount'
   | 'pageACF.lineup.teamPicture.commentStatus'
+  | 'pageACF.lineup.teamPicture.contentTypeName'
   | 'pageACF.lineup.teamPicture.databaseId'
   | 'pageACF.lineup.teamPicture.date'
   | 'pageACF.lineup.teamPicture.dateGmt'
@@ -8092,6 +8130,7 @@ type WpPageFieldsEnum =
   | 'pageACF.seo.socialImage.caption'
   | 'pageACF.seo.socialImage.commentCount'
   | 'pageACF.seo.socialImage.commentStatus'
+  | 'pageACF.seo.socialImage.contentTypeName'
   | 'pageACF.seo.socialImage.databaseId'
   | 'pageACF.seo.socialImage.date'
   | 'pageACF.seo.socialImage.dateGmt'
@@ -8145,6 +8184,7 @@ type WpPageFieldsEnum =
   | 'pageACF.sponsorsContent.logo.caption'
   | 'pageACF.sponsorsContent.logo.commentCount'
   | 'pageACF.sponsorsContent.logo.commentStatus'
+  | 'pageACF.sponsorsContent.logo.contentTypeName'
   | 'pageACF.sponsorsContent.logo.databaseId'
   | 'pageACF.sponsorsContent.logo.date'
   | 'pageACF.sponsorsContent.logo.dateGmt'
@@ -8179,6 +8219,7 @@ type WpPageFieldsEnum =
   | 'pageACF.sponsorsContent.logoInvert.caption'
   | 'pageACF.sponsorsContent.logoInvert.commentCount'
   | 'pageACF.sponsorsContent.logoInvert.commentStatus'
+  | 'pageACF.sponsorsContent.logoInvert.contentTypeName'
   | 'pageACF.sponsorsContent.logoInvert.databaseId'
   | 'pageACF.sponsorsContent.logoInvert.date'
   | 'pageACF.sponsorsContent.logoInvert.dateGmt'
@@ -8225,6 +8266,7 @@ type WpPageFieldsEnum =
   | 'pageACF.standardContent.featurePic.caption'
   | 'pageACF.standardContent.featurePic.commentCount'
   | 'pageACF.standardContent.featurePic.commentStatus'
+  | 'pageACF.standardContent.featurePic.contentTypeName'
   | 'pageACF.standardContent.featurePic.databaseId'
   | 'pageACF.standardContent.featurePic.date'
   | 'pageACF.standardContent.featurePic.dateGmt'
@@ -8275,6 +8317,7 @@ type WpPageFieldsEnum =
   | 'pageACF.teamContent.teamPicture.caption'
   | 'pageACF.teamContent.teamPicture.commentCount'
   | 'pageACF.teamContent.teamPicture.commentStatus'
+  | 'pageACF.teamContent.teamPicture.contentTypeName'
   | 'pageACF.teamContent.teamPicture.databaseId'
   | 'pageACF.teamContent.teamPicture.date'
   | 'pageACF.teamContent.teamPicture.dateGmt'
@@ -8320,6 +8363,7 @@ type WpPageFieldsEnum =
   | 'pageACF.ticketsContent.standing.seasonpassCost'
   | 'pageACF.ticketsContent.standing.singleCost'
   | 'pageACF.ticketsContent.suffix'
+  | 'wpParent.node.contentTypeName'
   | 'wpParent.node.databaseId'
   | 'wpParent.node.date'
   | 'wpParent.node.dateGmt'
@@ -8638,6 +8682,7 @@ type WpCategoryFieldsEnum =
   | 'wpChildren.nodes.internal.owner'
   | 'wpChildren.nodes.internal.type'
   | 'contentNodes.nodes'
+  | 'contentNodes.nodes.contentTypeName'
   | 'contentNodes.nodes.databaseId'
   | 'contentNodes.nodes.date'
   | 'contentNodes.nodes.dateGmt'
@@ -8685,6 +8730,7 @@ type WpCategoryFieldsEnum =
   | 'pages.nodes.commentCount'
   | 'pages.nodes.commentStatus'
   | 'pages.nodes.content'
+  | 'pages.nodes.contentTypeName'
   | 'pages.nodes.databaseId'
   | 'pages.nodes.date'
   | 'pages.nodes.dateGmt'
@@ -8783,6 +8829,7 @@ type WpCategoryFieldsEnum =
   | 'posts.nodes.commentCount'
   | 'posts.nodes.commentStatus'
   | 'posts.nodes.content'
+  | 'posts.nodes.contentTypeName'
   | 'posts.nodes.databaseId'
   | 'posts.nodes.date'
   | 'posts.nodes.dateGmt'
@@ -9155,6 +9202,7 @@ type WpPostFieldsEnum =
   | 'contentType.node.internal.mediaType'
   | 'contentType.node.internal.owner'
   | 'contentType.node.internal.type'
+  | 'contentTypeName'
   | 'databaseId'
   | 'date'
   | 'dateGmt'
@@ -9169,6 +9217,7 @@ type WpPostFieldsEnum =
   | 'featuredImage.node.wpChildren.nodes'
   | 'featuredImage.node.commentCount'
   | 'featuredImage.node.commentStatus'
+  | 'featuredImage.node.contentTypeName'
   | 'featuredImage.node.databaseId'
   | 'featuredImage.node.date'
   | 'featuredImage.node.dateGmt'
@@ -9333,6 +9382,7 @@ type WpPostFieldsEnum =
   | 'postACF.normalPost.imageGallery.caption'
   | 'postACF.normalPost.imageGallery.commentCount'
   | 'postACF.normalPost.imageGallery.commentStatus'
+  | 'postACF.normalPost.imageGallery.contentTypeName'
   | 'postACF.normalPost.imageGallery.databaseId'
   | 'postACF.normalPost.imageGallery.date'
   | 'postACF.normalPost.imageGallery.dateGmt'
@@ -9606,6 +9656,7 @@ type WpPostFormatEdge = {
 
 type WpPostFormatFieldsEnum =
   | 'contentNodes.nodes'
+  | 'contentNodes.nodes.contentTypeName'
   | 'contentNodes.nodes.databaseId'
   | 'contentNodes.nodes.date'
   | 'contentNodes.nodes.dateGmt'
@@ -9651,6 +9702,7 @@ type WpPostFormatFieldsEnum =
   | 'posts.nodes.commentCount'
   | 'posts.nodes.commentStatus'
   | 'posts.nodes.content'
+  | 'posts.nodes.contentTypeName'
   | 'posts.nodes.databaseId'
   | 'posts.nodes.date'
   | 'posts.nodes.dateGmt'
@@ -11074,13 +11126,15 @@ type TranslationYamlSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
-type GetFooterMenuQueryVariables = Exact<{ [key: string]: never; }>;
+type NewestPostsFragment = { readonly newestPosts: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> } };
 
-
-type GetFooterMenuQuery = { readonly wpMenu: Maybe<(
-    Pick<WpMenu, 'name'>
-    & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
-  )> };
+type BlogPostPreviewFieldsFragment = (
+  Pick<WpPost, 'id' | 'title' | 'uri' | 'excerpt' | 'date'>
+  & { readonly postACF: Maybe<Pick<WpPost_Postacf, 'division' | 'postCategory'>>, readonly featuredImage: Maybe<{ readonly node: Maybe<(
+      Pick<WpMediaItem, 'altText'>
+      & { readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
+    )> }>, readonly categories: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<Pick<WpCategory, 'name'>>>> }> }
+);
 
 type DefaultPageDataFieldsFragment = (
   Pick<WpPage, 'content'>
@@ -11100,145 +11154,11 @@ type AdditionalInfoFragment = { readonly additionalInfo: Maybe<Pick<WpPage_Pagea
 
 type DownloadsFragment = { readonly downloads: Maybe<ReadonlyArray<Maybe<{ readonly file: Maybe<Pick<WpMediaItem, 'mediaItemUrl' | 'title' | 'mimeType' | 'mediaType'>> }>>> };
 
-type NewestPostsFragment = { readonly newestPosts: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> } };
-
-type MenuItemFragment = (
-  Pick<WpMenuItem, 'id' | 'label' | 'url' | 'parentId'>
-  & { readonly childItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuChildItemFragment>>> }> }
-);
-
-type MenuChildItemFragment = Pick<WpMenuItem, 'id' | 'label' | 'url'>;
-
-type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
-
-type GetMainMenuQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type GetMainMenuQuery = { readonly wpMenu: Maybe<(
-    Pick<WpMenu, 'name'>
-    & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
-  )> };
-
 type SeoFragment = { readonly pageACF: Maybe<{ readonly seo: Maybe<SeoFieldsFragment> }> };
 
 type SeoFieldsFragment = (
   Pick<WpPage_Pageacf_Seo, 'metaDescription' | 'noIndex' | 'ogDescription' | 'title' | 'twitterDescription'>
   & { readonly socialImage: Maybe<{ readonly localFile: Maybe<Pick<File, 'url'>> }> }
-);
-
-type GetHockeyDataQueryVariables = Exact<{
-  id: Scalars['String'];
-  categorySlug: Scalars['String'];
-}>;
-
-
-type GetHockeyDataQuery = (
-  { readonly hockeyData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
-  & NewestPostsFragment
-);
-
-type GetPostDataQueryVariables = Exact<{
-  id: Scalars['String'];
-}>;
-
-
-type GetPostDataQuery = { readonly post: Maybe<Pick<WpPost, 'title' | 'content'>> };
-
-type GetGamepitchDataQueryVariables = Exact<{
-  id: Scalars['String'];
-  categorySlug: Scalars['String'];
-}>;
-
-
-type GetGamepitchDataQuery = (
-  { readonly gamepitchData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
-  & NewestPostsFragment
-);
-
-type GetHomeDataQueryVariables = Exact<{
-  id: Scalars['String'];
-}>;
-
-
-type GetHomeDataQuery = { readonly homeData: Maybe<Pick<WpPage, 'title'>>, readonly postsData: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> }, readonly seoData: Maybe<SeoFragment> };
-
-type GetLineupBoardDataQueryVariables = Exact<{
-  id: Scalars['String'];
-  categorySlug: Scalars['String'];
-}>;
-
-
-type GetLineupBoardDataQuery = (
-  { readonly wpPage: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
-  & NewestPostsFragment
-);
-
-type GetLineupDataQueryVariables = Exact<{
-  id: Scalars['String'];
-  categorySlug: Scalars['String'];
-}>;
-
-
-type GetLineupDataQuery = (
-  { readonly lineupData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
-  & NewestPostsFragment
-);
-
-type GetGameReportDataQueryVariables = Exact<{
-  id: Scalars['String'];
-}>;
-
-
-type GetGameReportDataQuery = { readonly wpPost: Maybe<(
-    Pick<WpPost, 'title' | 'content' | 'modified'>
-    & { readonly postACF: Maybe<{ readonly matchReport: Maybe<MatchReportStatsFragment> }> }
-  )> };
-
-type MatchReportStatsFragment = Pick<WpPost_Postacf_MatchReport, 'assists' | 'gameDay' | 'penalties' | 'periodResults' | 'scoreGuest' | 'scoreHome' | 'scorer' | 'specialCase' | 'spectators' | 'teamGuest' | 'teamGuestSlug' | 'teamHome' | 'teamHomeSlug'>;
-
-type GetAllBlogPostsQueryVariables = Exact<{
-  skip: Scalars['Int'];
-  limit: Scalars['Int'];
-  categorySlug: Scalars['String'];
-}>;
-
-
-type GetAllBlogPostsQuery = (
-  { readonly allPosts: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> }, readonly seoData: Maybe<SeoFragment> }
-  & NewestPostsFragment
-);
-
-type BlogPostPreviewFieldsFragment = (
-  Pick<WpPost, 'id' | 'title' | 'uri' | 'excerpt' | 'date'>
-  & { readonly postACF: Maybe<Pick<WpPost_Postacf, 'division' | 'postCategory'>>, readonly featuredImage: Maybe<{ readonly node: Maybe<(
-      Pick<WpMediaItem, 'altText'>
-      & { readonly localFile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
-    )> }>, readonly categories: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<Pick<WpCategory, 'name'>>>> }> }
-);
-
-type GetSponsorsDataQueryVariables = Exact<{
-  id: Scalars['String'];
-  categorySlug: Scalars['String'];
-}>;
-
-
-type GetSponsorsDataQuery = (
-  { readonly sponsorsData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
-  & NewestPostsFragment
-);
-
-type GetTicketsDataQueryVariables = Exact<{
-  id: Scalars['String'];
-  categorySlug: Scalars['String'];
-}>;
-
-
-type GetTicketsDataQuery = (
-  { readonly ticketsData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
-  & NewestPostsFragment
 );
 
 type GetStandardDataQueryVariables = Exact<{
@@ -11255,6 +11175,143 @@ type GetStandardDataQuery = (
   & NewestPostsFragment
   & NewestPostsFragment
 );
+
+type GetHockeyDataQueryVariables = Exact<{
+  id: Scalars['String'];
+  categorySlug: Scalars['String'];
+}>;
+
+
+type GetHockeyDataQuery = (
+  { readonly hockeyData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
+  & NewestPostsFragment
+);
+
+type GetSponsorsDataQueryVariables = Exact<{
+  id: Scalars['String'];
+  categorySlug: Scalars['String'];
+}>;
+
+
+type GetSponsorsDataQuery = (
+  { readonly sponsorsData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
+  & NewestPostsFragment
+);
+
+type GetGamepitchDataQueryVariables = Exact<{
+  id: Scalars['String'];
+  categorySlug: Scalars['String'];
+}>;
+
+
+type GetGamepitchDataQuery = (
+  { readonly gamepitchData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
+  & NewestPostsFragment
+);
+
+type GetTicketsDataQueryVariables = Exact<{
+  id: Scalars['String'];
+  categorySlug: Scalars['String'];
+}>;
+
+
+type GetTicketsDataQuery = (
+  { readonly ticketsData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
+  & NewestPostsFragment
+);
+
+type GetLineupDataQueryVariables = Exact<{
+  id: Scalars['String'];
+  categorySlug: Scalars['String'];
+}>;
+
+
+type GetLineupDataQuery = (
+  { readonly lineupData: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
+  & NewestPostsFragment
+);
+
+type GetLineupBoardDataQueryVariables = Exact<{
+  id: Scalars['String'];
+  categorySlug: Scalars['String'];
+}>;
+
+
+type GetLineupBoardDataQuery = (
+  { readonly wpPage: Maybe<Pick<WpPage, 'title'>>, readonly defaultData: Maybe<DefaultPageDataFieldsFragment>, readonly seoData: Maybe<SeoFragment> }
+  & NewestPostsFragment
+);
+
+type GetHomeDataQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+type GetHomeDataQuery = { readonly homeData: Maybe<Pick<WpPage, 'title'>>, readonly postsData: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> }, readonly seoData: Maybe<SeoFragment> };
+
+type GetAllBlogPostsQueryVariables = Exact<{
+  skip: Scalars['Int'];
+  limit: Scalars['Int'];
+  categorySlug: Scalars['String'];
+}>;
+
+
+type GetAllBlogPostsQuery = (
+  { readonly allPosts: { readonly nodes: ReadonlyArray<BlogPostPreviewFieldsFragment> }, readonly seoData: Maybe<SeoFragment> }
+  & NewestPostsFragment
+);
+
+type MatchReportStatsFragment = Pick<WpPost_Postacf_MatchReport, 'assists' | 'gameDay' | 'penalties' | 'periodResults' | 'scoreGuest' | 'scoreHome' | 'scorer' | 'specialCase' | 'spectators' | 'teamGuest' | 'teamGuestSlug' | 'teamHome' | 'teamHomeSlug'>;
+
+type GetGameReportDataQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+type GetGameReportDataQuery = { readonly wpPost: Maybe<(
+    Pick<WpPost, 'title' | 'content' | 'modified'>
+    & { readonly postACF: Maybe<{ readonly matchReport: Maybe<MatchReportStatsFragment> }> }
+  )> };
+
+type GetPostDataQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+type GetPostDataQuery = { readonly post: Maybe<Pick<WpPost, 'title' | 'content'>> };
+
+type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
+
+type GetFooterMenuQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetFooterMenuQuery = { readonly wpMenu: Maybe<(
+    Pick<WpMenu, 'name'>
+    & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
+  )> };
+
+type GetMainMenuQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetMainMenuQuery = { readonly wpMenu: Maybe<(
+    Pick<WpMenu, 'name'>
+    & { readonly menuItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuItemFragment>>> }> }
+  )> };
+
+type MenuItemFragment = (
+  Pick<WpMenuItem, 'id' | 'label' | 'url' | 'parentId'>
+  & { readonly childItems: Maybe<{ readonly nodes: Maybe<ReadonlyArray<Maybe<MenuChildItemFragment>>> }> }
+);
+
+type MenuChildItemFragment = Pick<WpMenuItem, 'id' | 'label' | 'url'>;
+
+type GetSocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetSocialLinksQuery = { readonly socialLinks: Maybe<{ readonly homeACF: Maybe<Pick<WpPage_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
 
 type GetTranslationQueryVariables = Exact<{ [key: string]: never; }>;
 

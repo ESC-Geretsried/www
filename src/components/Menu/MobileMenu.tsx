@@ -1,16 +1,16 @@
 import React from "react";
-import {
-  Drawer,
-  DrawerBody,
-  DrawerContent,
-  DrawerOverlay,
-  DrawerProps,
-} from "@chakra-ui/modal";
 import { Menu } from "./Menu";
 import { navHeight } from "../../theme/misc";
 import { MenuItemType } from "../../types";
 import { useStore } from "../../store/store";
 import { SocialButtonGroup } from "../SocialButtonGroup/SocialButtonGroup";
+import {
+  DrawerProps,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerBody,
+} from "@chakra-ui/react";
 
 export const MobileMenu: React.FC<
   Omit<DrawerProps, "children" | "isOpen" | "onClose"> & {
@@ -18,6 +18,7 @@ export const MobileMenu: React.FC<
   }
 > = ({ finalFocusRef, menuItems, ...rest }) => {
   const { isMobileMenuOpen, setIsMobileMenuOpen } = useStore();
+
   return (
     <Drawer
       isOpen={isMobileMenuOpen}

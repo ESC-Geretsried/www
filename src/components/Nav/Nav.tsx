@@ -4,7 +4,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import React, { useMemo } from "react";
 import { adBannerHeight } from "../../theme/misc";
 import { DesktopMenu } from "../Menu/DesktopMenu";
-import { prepareMenuData } from "../Menu/MenuUtils";
+import { prepareMenuData } from "../Menu/utils";
 import { MobileHeader } from "./MobileHeader";
 
 const CNav = chakra("nav", {
@@ -14,8 +14,17 @@ const CNav = chakra("nav", {
     zIndex: "sticky",
     alignSelf: "start",
     gridColumn: { base: "1/-1", lg: "1/4" },
-    overflow: "scroll",
+    overflowY: "scroll",
     maxHeight: "100vh",
+    minHeight: "100vh",
+    height: "100vh",
+    "&::-webkit-scrollbar": {
+      width: "0px",
+    },
+
+    "&::-webkit-scrollbar-track": {
+      display: "none",
+    },
   },
 });
 
