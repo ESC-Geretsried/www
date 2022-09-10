@@ -8,9 +8,9 @@ import { Container, ContentWrapper, MenuWrapper } from "../../../styles/Containe
 import { BlogPostPageQuery } from "../../../../graphql-types";
 // import Seo from "../../../components/seo/Seo";
 import MobileHeader from "../../../components/mobileHeader/MobileHeader";
-import AdBanner from "../../../components/adBannerOld/AdBanner";
+import AdBanner from "../../../components/adBanner/AdBanner";
 import BackgroundSVG from "../../../components/backgroundSVG/BackgroundSVG";
-import MainMenu from "../../../components/menuOld/Menu";
+import MainMenu from "../../../components/menu/Menu";
 import Footer from "../../../components/footer/Footer";
 import TemplateBlogPost from "../../../components/templateBlogPost/TemplateBlogPost";
 import TemplateMatchReport from "../../../components/templateMatchReport/TemplateMatchReport";
