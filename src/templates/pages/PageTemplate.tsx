@@ -5,7 +5,7 @@ import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { isWithinInterval } from "date-fns";
 import { PageQuery } from "../../../graphql-types";
 import { Container, ContentWrapper, MenuWrapper } from "../../styles/Container";
-import MainMenu from "../../components/menuOld/Menu";
+import MainMenu from "../../components/menu/Menu";
 import { mq } from "../../styles/variables";
 import TemplateHome from "../../components/templateHome/TemplateHome";
 import TemplateTeam from "../../components/templateTeam/TemplateTeam";
@@ -18,7 +18,7 @@ import H1 from "../../components/h1/H1";
 import Footer from "../../components/footer/Footer";
 import BackgroundSVG from "../../components/backgroundSVG/BackgroundSVG";
 import MobileHeader from "../../components/mobileHeader/MobileHeader";
-import AdBanner from "../../components/adBannerOld/AdBanner";
+import AdBanner from "../../components/adBanner/AdBanner";
 import BlogPostListContainer from "../../components/blogPostPreview/BlogPostListContainer";
 import TemplateTickets from "../../components/templateTickets/TemplateTickets";
 
