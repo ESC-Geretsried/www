@@ -18,6 +18,7 @@ module.exports = {
         schema: {
           typePrefix: "Wordpress_",
         },
+
       },
     },
     {
