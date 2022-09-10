@@ -58,15 +58,15 @@ const PageTemplate: React.FC<{
 
   const allPosts = allWordpressPost.nodes.filter(
     (news) =>
-      news?.postACF?.postCategory !== "flash" ||
+      news.postACF?.postCategory !== "flash" ||
       isWithinInterval(new Date(), {
-        start: new Date(news.postACF?.flashPost?.start ?? ""),
-        end: new Date(news.postACF?.flashPost?.end ?? ""),
+        start: new Date(news.postACF.flashPost?.start ?? ""),
+        end: new Date(news.postACF.flashPost?.end ?? ""),
       }),
   );
 
   const title = isBlogPostList
-    ? capitalize(wordpressPage.pageACF?.division?.replace("-", " ") ?? "Default Title")
+    ? capitalize(wordpressPage.pageACF.division?.replace("-", " ") ?? "Default Title")
     : wordpressPage.title ?? "Default Title";
 
   // todo
@@ -84,7 +84,7 @@ const PageTemplate: React.FC<{
         title={collapsed ? title : "Menü"}
         onClick={() => {
           setCollapsed(!collapsed);
-          if (menuRef?.current !== null) {
+          if (menuRef.current !== null) {
             collapsed ? disableBodyScroll(menuRef.current) : enableBodyScroll(menuRef.current);
           }
         }}
@@ -119,24 +119,24 @@ const PageTemplate: React.FC<{
                 }
               `}
             />
-            {wordpressPage.pageACF?.template === "home" && !isBlogPostList && <TemplateHome key={wordpressPage.id} />}
+            {wordpressPage.pageACF.template === "home" && !isBlogPostList && <TemplateHome key={wordpressPage.id} />}
             {isBlogPostList && Array.isArray(allPosts) && <BlogPostListContainer posts={allPosts} />}
 
-            {wordpressPage.pageACF?.template === "hockey" && !isBlogPostList && (
+            {wordpressPage.pageACF.template === "hockey" && !isBlogPostList && (
               <TemplateTeam key={wordpressPage.id} data={wordpressPage} posts={allPosts} />
             )}
-            {(wordpressPage.pageACF?.template === "lineup" || wordpressPage.pageACF?.template === "lineup_board") &&
+            {(wordpressPage.pageACF.template === "lineup" || wordpressPage.pageACF.template === "lineup_board") &&
               !isBlogPostList && <TemplateLineup key={wordpressPage.id} data={wordpressPage} />}
-            {wordpressPage.pageACF?.template === "gamepitch" && !isBlogPostList && (
+            {wordpressPage.pageACF.template === "gamepitch" && !isBlogPostList && (
               <TemplateGamepitch key={wordpressPage.id} data={wordpressPage} />
             )}
-            {wordpressPage.pageACF?.template === "sponsors" && !isBlogPostList && (
+            {wordpressPage.pageACF.template === "sponsors" && !isBlogPostList && (
               <TemplateSponsoring key={wordpressPage.id} data={wordpressPage} />
             )}
-            {wordpressPage.pageACF?.template === "tickets" && !isBlogPostList && (
+            {wordpressPage.pageACF.template === "tickets" && !isBlogPostList && (
               <TemplateTickets key={wordpressPage.id} data={wordpressPage} />
             )}
-            {(wordpressPage.pageACF?.template === "standard" || wordpressPage.pageACF?.template === null) &&
+            {(wordpressPage.pageACF.template === "standard" || wordpressPage.pageACF.template === null) &&
               !isBlogPostList && (
                 <TemplateStandard key={wordpressPage.id} data={wordpressPage} post={[...allPosts].shift()} />
               )}

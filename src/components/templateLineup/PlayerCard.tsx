@@ -16,7 +16,7 @@ const PlayerCard: React.FC<{ human: PlayerFieldsFragment; notPlayer?: boolean }>
   return (
     <CardWrapper {...rest}>
       <div>
-        {human?.portrait?.localFile?.childImageSharp?.fluid ? (
+        {human.portrait?.localFile?.childImageSharp?.fluid ? (
           <TypedImg fluid={human.portrait.localFile.childImageSharp.fluid} />
         ) : (
           <div
@@ -34,15 +34,15 @@ const PlayerCard: React.FC<{ human: PlayerFieldsFragment; notPlayer?: boolean }>
           </div>
         )}
       </div>
-      <h3>{human?.name}</h3>
+      <h3>{human.name}</h3>
       <div>
-        {notPlayer && <DataEntry datakey="Position" data={getPosition(human?.position ?? "")} rightAlign />}
-        <DataEntry datakey="Rückennummer" data={human?.number?.toString()} rightAlign />
-        <DataEntry datakey="Nationalität" data={human?.nationality} rightAlign />
-        {!notPlayer && <DataEntry datakey="Schlägerseite" data={getStickSide(human?.stickSide ?? "")} rightAlign />}
+        {notPlayer && <DataEntry datakey="Position" data={getPosition(human.position ?? "")} rightAlign />}
+        <DataEntry datakey="Rückennummer" data={human.number?.toString()} rightAlign />
+        <DataEntry datakey="Nationalität" data={human.nationality} rightAlign />
+        {!notPlayer && <DataEntry datakey="Schlägerseite" data={getStickSide(human.stickSide ?? "")} rightAlign />}
         {!notPlayer && (
           <div>
-            <a href={human?.rodiLink ?? ""} target="_blank" rel="noreferrer">
+            <a href={human.rodiLink ?? ""} target="_blank" rel="noreferrer">
               Zur RODI Datenbank
             </a>
           </div>

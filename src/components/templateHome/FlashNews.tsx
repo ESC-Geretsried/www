@@ -29,13 +29,13 @@ const FlashNews = () => {
   const flashNews = useMemo(() => {
     return flashNewsData.allWordpressPost.nodes.filter((news) =>
       isWithinInterval(new Date(), {
-        start: new Date(news?.postACF?.flashPost?.start ?? new Date()),
-        end: new Date(news?.postACF?.flashPost?.end ?? new Date()),
+        start: new Date(news.postACF?.flashPost?.start ?? new Date()),
+        end: new Date(news.postACF?.flashPost?.end ?? new Date()),
       }),
     );
   }, [flashNewsData]);
 
-  return flashNews?.length === 0 ? null : (
+  return flashNews.length === 0 ? null : (
     <div
       css={css`
         grid-column: 1 / -1;
@@ -54,7 +54,7 @@ const FlashNews = () => {
         slidesToShow={1}
       >
         {flashNews.map((news) => {
-          if (news?.postACF?.division === undefined || news.title === undefined) {
+          if (news.postACF?.division === undefined || news.title === undefined) {
             return null;
           }
 

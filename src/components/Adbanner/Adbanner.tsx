@@ -21,13 +21,13 @@ const AdBanner: React.FC = () => {
   `);
 
   const allSponsors =
-    sponsorData.wordpressPage?.pageACF?.sponsorsContent ?? ([] as Array<SponsorsAdBannerContentFieldsFragment>);
+    sponsorData.wordpressPage?.pageACF?.sponsorsContent ;
 
   const [goldSponsors, setGoldSponsors] = useState<Array<SponsorsAdBannerContentFieldsFragment>>([]);
 
   useEffect(() => {
     setGoldSponsors(
-      allSponsors.filter(
+     (allSponsors ?? ([] as Array<SponsorsAdBannerContentFieldsFragment>)).filter(
         (sponsor): sponsor is SponsorsAdBannerContentFieldsFragment =>
           sponsor !== undefined && sponsor?.level === "gold",
       ),
@@ -66,15 +66,15 @@ const AdBanner: React.FC = () => {
             return null;
           }
 
-          const logoImg = sponsor?.logo;
-          const logoInvertImg = sponsor?.logoInvert;
+          const logoImg = sponsor.logo;
+          const logoInvertImg = sponsor.logoInvert;
 
           const aspectRatio =
             logoInvertImg?.localFile?.childImageSharp?.fluid?.aspectRatio ??
             logoImg?.localFile?.childImageSharp?.fluid?.aspectRatio;
 
           return (
-            <AdLink key={sponsor.name} href={sponsor?.url ?? "www.esc-geretsried.de"} target="_blank" rel="noreferrer">
+            <AdLink key={sponsor.name} href={sponsor.url ?? "www.esc-geretsried.de"} target="_blank" rel="noreferrer">
               <div
                 css={css`
                   display: flex;

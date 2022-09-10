@@ -141,8 +141,8 @@ const MainMenu: React.FC<{ scrollLock: () => void; location: Location }> = ({ sc
 
                     return (
                       <StyledAntSubMenuItem key={childItem.id}>
-                        <StyledLink to={childItem?.url ?? ""} onClick={() => scrollLock()}>
-                          {childItem?.label}
+                        <StyledLink to={childItem.url ?? ""} onClick={() => scrollLock()}>
+                          {childItem.label}
                         </StyledLink>
                       </StyledAntSubMenuItem>
                     );

@@ -11,7 +11,7 @@ const BoardMemberCard: React.FC<{ human: BoardMemberFieldsFragment }> = ({ human
   return (
     <CardWrapper {...rest}>
       <div>
-        {human?.portrait?.localFile?.childImageSharp?.fluid ? (
+        {human.portrait?.localFile?.childImageSharp?.fluid ? (
           <TypedImg fluid={human.portrait.localFile.childImageSharp.fluid} />
         ) : (
           <div
@@ -42,7 +42,7 @@ const BoardMemberCard: React.FC<{ human: BoardMemberFieldsFragment }> = ({ human
           hyphens: auto;
         `}
       >
-        {human?.position}
+        {human.position}
       </h3>
       <div>
         <strong>{human.name}</strong>

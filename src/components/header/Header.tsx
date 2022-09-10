@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
   return (
     <StyledHeader>
       <HeaderInner>
-        {data?.file?.childImageSharp?.fixed?.src && (
+        {data.file?.childImageSharp?.fixed?.src && (
           <HomepageLink
             css={css`
               margin-right: auto;

@@ -60,7 +60,7 @@ const TemplateStandard: React.FC<{ data: PageFieldsFragment; post?: BlogPostPrev
             </BonusSectionContent>
           )}
 
-          {standardContent?.contact?.name && (
+          {standardContent.contact?.name && (
             <BonusSectionContent>
               <ContactSection
                 name={standardContent.contact.name}
@@ -72,7 +72,7 @@ const TemplateStandard: React.FC<{ data: PageFieldsFragment; post?: BlogPostPrev
           )}
           {standardContent.additionalInfo?.content && (
             <BonusSectionContent>
-              <H2 title={standardContent.additionalInfo?.title ?? ""} key="bonus-header-2" />
+              <H2 title={standardContent.additionalInfo.title ?? ""} key="bonus-header-2" />
               <WPContentContainer wpContent={standardContent.additionalInfo.content} />
             </BonusSectionContent>
           )}
@@ -92,8 +92,8 @@ const TemplateStandard: React.FC<{ data: PageFieldsFragment; post?: BlogPostPrev
 
                   return (
                     <li key={file.mediaItemUrl ?? ""}>
-                      <a href={file?.mediaItemUrl ?? ""} download>
-                        {file?.title ?? ""}
+                      <a href={file.mediaItemUrl ?? ""} download>
+                        {file.title ?? ""}
                       </a>
                     </li>
                   );
@@ -104,7 +104,7 @@ const TemplateStandard: React.FC<{ data: PageFieldsFragment; post?: BlogPostPrev
         </div>
       </BaseSection>
       <BaseSection size="big">
-        <H1 title={standardContent?.pageContentTitle ?? ""} size="section" key="content-header" />
+        <H1 title={standardContent.pageContentTitle ?? ""} size="section" key="content-header" />
         <WPContentContainer wpContent={data.content ?? "Es wurde kein Inhalt gefunden!"} />
         {/* <WPContentContainer wpContent={data.content ?? "Es wurde kein Inhalt gefunden!"} /> */}
       </BaseSection>

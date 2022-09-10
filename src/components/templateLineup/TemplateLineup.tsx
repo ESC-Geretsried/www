@@ -6,8 +6,8 @@ import BoardMemberCard from "./BoardMemberCard";
 import PlayerCard from "./PlayerCard";
 
 const TemplateLineup: React.FC<{ data: PageFieldsFragment }> = ({ data }) => {
-  const lineup = data?.pageACF?.lineup?.team;
-  const allBoardMembers = data?.pageACF?.boardMembers;
+  const lineup = data.pageACF?.lineup?.team;
+  const allBoardMembers = data.pageACF?.boardMembers;
   const featureImg = data.pageACF?.lineup?.teamPicture;
 
   if (lineup === null && allBoardMembers === null) {
@@ -29,9 +29,9 @@ const TemplateLineup: React.FC<{ data: PageFieldsFragment }> = ({ data }) => {
     <>
       {featureImg && (
         <FeatureImg
-          img={featureImg?.localFile?.childImageSharp ?? undefined}
-          alt={featureImg?.altText ?? "Default Alt"}
-          title={featureImg?.title ?? "Default Title"}
+          img={featureImg.localFile?.childImageSharp ?? undefined}
+          alt={featureImg.altText ?? "Default Alt"}
+          title={featureImg.title ?? "Default Title"}
         />
       )}
       {Array.isArray(goalies) && goalies.length > 0 && (

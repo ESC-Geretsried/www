@@ -21,10 +21,10 @@ const BlogPreview = () => {
       postPreviewData.allWordpressPost.nodes
         .filter(
           (post) =>
-            post?.postACF?.postCategory !== "flash" ||
+            post.postACF?.postCategory !== "flash" ||
             isWithinInterval(new Date(), {
-              start: new Date(post.postACF?.flashPost?.start ?? ""),
-              end: new Date(post.postACF?.flashPost?.end ?? ""),
+              start: new Date(post.postACF.flashPost?.start ?? ""),
+              end: new Date(post.postACF.flashPost?.end ?? ""),
             }),
         )
         .slice(0, 5)

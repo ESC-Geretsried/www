@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { Wordpress_Page_Pageacf_Seo } from "../../../graphql-types";
 
 const Seo: React.FC<{ title: string; uri: string; seo: Wordpress_Page_Pageacf_Seo }> = ({ seo, title, uri }) => {
-  const { metaDescription, noIndex, ogDescription, socialImage, twitterDescription } = seo;
+  const { metaDescription, noIndex, ogDescription, twitterDescription } = seo;
   const url = `www.esc-geretsried.de${uri}`;
 
   return (

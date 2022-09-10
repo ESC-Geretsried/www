@@ -45,7 +45,7 @@ const BlogPostPageTemplate: React.FC<{
         title={collapsed ? "News" : "Menü"}
         onClick={() => {
           setCollapsed(!collapsed);
-          if (menuRef?.current !== null) {
+          if (menuRef.current !== null) {
             collapsed ? disableBodyScroll(menuRef.current) : enableBodyScroll(menuRef.current);
           }
         }}

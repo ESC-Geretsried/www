@@ -50,24 +50,23 @@ const TemplateGamepitch: React.FC<{ data: PageFieldsFragment }> = ({ data }) => 
   const onIframeLoad = () => {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (iframeRef?.current !== null) {
-      const iFrame = (iframeRef?.current as unknown) as HTMLIFrameElement;
+      const iFrame = (iframeRef.current as unknown) as HTMLIFrameElement;
 
-      setIframeHeight(iFrame?.contentWindow?.document.body.scrollHeight + "px");
-      iFrame?.contentDocument?.documentElement.style.setProperty("--gray", colors.gray.text);
-      iFrame?.contentDocument?.documentElement.style.setProperty("--borderWidth", dimensions.border.size.normal);
-      iFrame?.contentDocument?.documentElement.style.setProperty("--maxWidth", widths.xl.toString());
-      iFrame?.contentDocument?.documentElement.style.setProperty("--letterSpacing", dimensions.letterSpacing.default);
+      setIframeHeight(iFrame.contentWindow?.document.body.scrollHeight + "px");
+      iFrame.contentDocument?.documentElement.style.setProperty("--gray", colors.gray.text);
+      iFrame.contentDocument?.documentElement.style.setProperty("--borderWidth", dimensions.border.size.normal);
+      iFrame.contentDocument?.documentElement.style.setProperty("--maxWidth", widths.xl.toString());
+      iFrame.contentDocument?.documentElement.style.setProperty("--letterSpacing", dimensions.letterSpacing.default);
 
       fonts.forEach((font: FontFieldsFragment) => {
-        iFrame?.contentDocument?.documentElement.style.setProperty(`--${font.name}`, `${font.name}`);
-        // @ts-ignore
-        const fontFace = new (FontFace as unknown)(font.name, `url(${font.publicURL}) format("truetype")`);
+        iFrame.contentDocument?.documentElement.style.setProperty(`--${font.name}`, `${font.name}`);
+        const fontFace = new (FontFace as any)(font.name, `url(${font.publicURL}) format("truetype")`);
 
         fontFace
           .load()
           .then((loadedFace: unknown) => {
-            // @ts-ignore
-            iFrame?.contentDocument?.fonts?.add(loadedFace);
+            // @ts-expect-error
+            iFrame.contentDocument?.fonts?.add(loadedFace);
           })
           .catch((error: unknown) => {
             // eslint-disable-next-line no-console

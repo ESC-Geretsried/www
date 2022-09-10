@@ -80,7 +80,7 @@ const Footer: React.FC = () => {
         <ParentLi>Verein</ParentLi>
         {verein?.map((item) => (
           <li key={item.id}>
-            <Link to={item?.url ?? ""}>{item?.label}</Link>
+            <Link to={item.url ?? ""}>{item.label}</Link>
           </li>
         ))}
       </FooterUl>
@@ -88,7 +88,7 @@ const Footer: React.FC = () => {
         <ParentLi>River Rats</ParentLi>
         {riverrats?.map((item) => (
           <li key={item.id}>
-            <Link to={item?.url ?? ""}>{item?.label}</Link>
+            <Link to={item.url ?? ""}>{item.label}</Link>
           </li>
         ))}
       </FooterUl>
@@ -96,7 +96,7 @@ const Footer: React.FC = () => {
         <ParentLi>Eishockey</ParentLi>
         {eishockey?.map((item) => (
           <li key={item.id}>
-            <Link to={item?.url ?? ""}>{item?.label}</Link>
+            <Link to={item.url ?? ""}>{item.label}</Link>
           </li>
         ))}
       </FooterUl>

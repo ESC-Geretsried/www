@@ -13,7 +13,7 @@ const TemplateBlogPost: React.FC<{ post: BlogPostFieldsFragment }> = ({ post }) 
   return (
     <>
       <H1
-        title={post?.postACF?.division?.replace("-", " ") ?? "Titel"}
+        title={post.postACF?.division?.replace("-", " ") ?? "Titel"}
         size="big"
         css={css`
           display: none;
@@ -93,7 +93,7 @@ const TemplateBlogPost: React.FC<{ post: BlogPostFieldsFragment }> = ({ post }) 
             <span>{post?.author?.name}</span>
           </div> */}
           <div>
-            <span>veröffentlicht am: {new Date(post?.date ?? "").toLocaleDateString(["de-DE"])}</span>
+            <span>veröffentlicht am: {new Date(post.date ?? "").toLocaleDateString(["de-DE"])}</span>
           </div>
         </div>
       </BaseSection>

@@ -2,7 +2,7 @@ import React from "react";
 import { Link as GatsbyLink, GatsbyLinkProps } from "gatsby";
 import { Location } from "@reach/router";
 
-const Link: React.FC<GatsbyLinkProps<{}>> = ({ ref, to, children, ...rest }) => {
+const Link: React.FC<GatsbyLinkProps<Record<string, any>>> = ({ ref, to, children, ...rest }) => {
   if (to.match(/^http.*/)) {
     return (
       <a {...rest} href={to}>

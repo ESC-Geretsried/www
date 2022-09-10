@@ -9,7 +9,7 @@ const callApi = (uri: string, accessToken: string) => {
 const handler: Handler = async (event, context) => {
   try {
     const authResponse = await getToken(tokenRequest);
-    const apiResponse = await callApi(apiConfig.uriCal, authResponse.accessToken);
+    const apiResponse = await callApi(apiConfig.uriCal, authResponse?.accessToken);
     const jsonData = await apiResponse.json();
 
     return {
