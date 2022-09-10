@@ -60,7 +60,8 @@ const TemplateGamepitch: React.FC<{ data: PageFieldsFragment }> = ({ data }) => 
 
       fonts.forEach((font: FontFieldsFragment) => {
         iFrame.contentDocument?.documentElement.style.setProperty(`--${font.name}`, `${font.name}`);
-        const fontFace = new (FontFace as any)(font.name, `url(${font.publicURL}) format("truetype")`);
+        // @ts-expect-error
+        const fontFace = new (FontFace as unknown)(font.name, `url(${font.publicURL}) format("truetype")`);
 
         fontFace
           .load()
