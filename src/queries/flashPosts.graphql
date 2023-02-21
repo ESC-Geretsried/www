@@ -1,0 +1,20 @@
+query getFlashPosts {
+  posts(first: 10, where: { categoryName: "flash" }) {
+    nodes {
+      ...FlashPost
+    }
+  }
+}
+
+fragment FlashPost on Post {
+  excerpt
+  postACF {
+    flashPost {
+      end
+      start
+    }
+    division
+  }
+  uri
+  title
+}

@@ -1,27 +1,29 @@
 {
   "compilerOptions": {
-    "jsxImportSource": "@emotion/react",
-    "module": "commonjs",
-    "target": "ES2019",
-    "jsx": "preserve",
-    "lib": ["dom", "es2015", "es2017", "ES2019"],
-    "strict": true,
-    "noEmit": true,
-    "sourceMap": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
     "skipLibCheck": true,
-    "removeComments": false,
-    "preserveConstEnums": true
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": [
-    "./src/**/*",
-    "./gatsby/**/*",
-    "gatsby-browser.tsx",
-    "gatsby-ssr.tsx",
-    "gatsby-node.ts",
-    "graphql-types-apollo.ts",
-    "@types/gatsby-wpgraphql-inline-images",
-    "@types/body-scroll-lock"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "graphql.config.mjs", "graphql.config.js"],
+  "exclude": ["node_modules", "backup"]
 }

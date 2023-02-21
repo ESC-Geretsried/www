@@ -1,0 +1,39 @@
+query getPageByUri($uri: ID!) {
+  page(id: $uri, idType: URI) {
+    slug
+    uri
+    content(format: RENDERED)
+    title
+    pageACF {
+      template
+      division
+      boardMembers {
+        ...BoardMember
+      }
+      seo {
+        ...Seo
+      }
+      sponsorsContent {
+        name
+      }
+      lineup {
+        team {
+          ...Player
+        }
+        teamPicture {
+          altText
+          sourceUrl
+        }
+      }
+    }
+    homeACF {
+      adresse
+      facebookLink
+      instagramLink
+      tickarooLink
+    }
+    riverratsACF {
+      ...RiverratsMeta
+    }
+  }
+}

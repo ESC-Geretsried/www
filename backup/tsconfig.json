@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "jsxImportSource": "@emotion/react",
+    "module": "commonjs",
+    "target": "ES2019",
+    "jsx": "preserve",
+    "lib": ["dom", "es2015", "es2017", "ES2019"],
+    "strict": true,
+    "noEmit": true,
+    "sourceMap": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "removeComments": false,
+    "preserveConstEnums": true
+  },
+  "include": [
+    "./src/**/*",
+    "./gatsby/**/*",
+    "gatsby-browser.tsx",
+    "gatsby-ssr.tsx",
+    "gatsby-node.ts",
+    "graphql-types-apollo.ts",
+    "@types/gatsby-wpgraphql-inline-images",
+    "@types/body-scroll-lock"
+  ]
+}

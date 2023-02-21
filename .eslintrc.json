@@ -1,58 +1,12 @@
 {
-  "plugins": ["@emotion"],
-  "extends": ["peerigon", "peerigon/react", "peerigon/typescript", "peerigon/styles/prefer-arrow", "prettier"],
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
+  "extends": [
+    "next/core-web-vitals",
+    "peerigon/presets/prettier-typescript-react.js"
+  ],
+  "ignorePatterns": ["src/__generated__/**/*"],
   "env": {
-    "browser": true,
-    "jasmine": true,
-    "jest": true,
-    "es6": true,
     "node": true,
-    "mocha": true
+    "browser": true
   },
-  "globals": {
-    "cy": true,
-    "Cypress": true,
-    "assert": true
-  },
-  "rules": {
-    "@emotion/pkg-renaming": "error",
-    "@emotion/no-vanilla": "error",
-    "@emotion/import-from-emotion": "error",
-    "@emotion/styled-import": "error",
-    "@typescript-eslint/naming-convention": "off",
-    "no-console": "warn",
-    "import/no-anonymous-default-export": "off",
-    "babel/object-curly-spacing": 0,
-    "react/no-unescaped-entities": 0,
-    "no-negated-condition": 0,
-    "jsdoc/no-undefined-types": 0,
-    "jsdoc/check-access": 0,
-    "jsdoc/check-examples": 0,
-    "jsdoc/check-alignment": 0,
-    "jsdoc/require-property-type": 0,
-    "jsdoc/check-indentation": 0,
-    "jsdoc/require-property-name": 0,
-    "jsdoc/require-hyphen-before-param-description": 0,
-    "jsdoc/check-property-names": 0,
-    "jsdoc/check-tag-names": 0,
-    "jsdoc/check-types": 0,
-    "jsdoc/newline-after-description": 0,
-    "jsdoc/empty-tags": 0,
-    "jsdoc/valid-types": 0,
-    "babel/new-cap": 0,
-    "react/display-name": 0
-  },
-  "overrides": [
-    {
-      "files": "./src/generated/graphql.tsx",
-      "rules": {
-        "import/no-duplicates": "off",
-        "padding-line-between-statements": "off",
-        "@typescript-eslint/naming-convention": "off"
-      }
-    }
-  ]
+  "root": true
 }

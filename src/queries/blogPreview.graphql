@@ -1,0 +1,22 @@
+query getBlogPreview {
+  posts(first: 5) {
+    nodes {
+      date
+      excerpt
+      postACF {
+        division
+        postCategory
+        flashPost {
+          end
+          start
+        }
+      }
+      title
+      featuredImage {
+        node {
+          ...Image
+        }
+      }
+    }
+  }
+}

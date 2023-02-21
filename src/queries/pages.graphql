@@ -1,0 +1,11 @@
+query getRootPages {
+  pages(first: 100000) {
+    nodes {
+      id
+      parentId
+      slug
+      uri
+      title
+    }
+  }
+}
