@@ -1,6 +1,3 @@
-"use client";
-
-import { chakra, useMultiStyleConfig } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
 
 type LayoutProps = {
@@ -8,9 +5,11 @@ type LayoutProps = {
 };
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const styles = useMultiStyleConfig("Layout");
-
-  return <chakra.div __css={styles.container}>{children}</chakra.div>;
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-main md:gap-8 mx-auto max-w-7xl px-4 ">
+      {children}
+    </div>
+  );
 };
 
 type SidebarProps = {
@@ -18,9 +17,7 @@ type SidebarProps = {
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({ children }) => {
-  const styles = useMultiStyleConfig("Layout");
-
-  return <chakra.aside __css={styles.sidebar}>{children}</chakra.aside>;
+  return <nav>{children}</nav>;
 };
 
 type MainProps = {
@@ -28,7 +25,5 @@ type MainProps = {
 };
 
 export const Main: React.FC<MainProps> = ({ children }) => {
-  const styles = useMultiStyleConfig("Layout");
-
-  return <chakra.main __css={styles.main}>{children}</chakra.main>;
+  return <main className="mt-navbar">{children}</main>;
 };

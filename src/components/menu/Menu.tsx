@@ -11,13 +11,11 @@ export const Menu = async () => {
   }
 
   return (
-    <nav>
+    <>
       <MobileMenu>
         <MenuList menu={menus.main} />
       </MobileMenu>
-      <DesktopMenu>
-        <MenuList menu={menus.main} />
-      </DesktopMenu>
-    </nav>
+      <DesktopMenu>{/* <MenuList menu={menus.main} /> */}</DesktopMenu>
+    </>
   );
 };

@@ -1,36 +1,22 @@
-import { chakra, ButtonProps } from "@chakra-ui/react";
 import React from "react";
 
-type VisuallyHiddenUntilFocusedProps = ButtonProps;
-
 export const VisuallyHiddenUntilFocusedButton: React.FC<
-  VisuallyHiddenUntilFocusedProps
-> = ({ children, ...rest }) => {
+  React.ButtonHTMLAttributes<HTMLButtonElement>
+> = ({ children, className, ...rest }) => {
   return (
-    <chakra.button
-      sx={{
-        border: 0,
-        clip: "rect(0, 0, 0, 0)",
-        height: 1,
-        width: 1,
-        margin: -1,
-        padding: 0,
-        overflow: "hidden",
-        whiteSpace: "nowrap",
-        position: "absolute",
-
-        _focus: {
-          clip: "auto",
-          height: "inherit",
-          width: "inherit",
-          margin: "0",
-          overflow: "visible",
-          position: "static",
-        },
-      }}
-      {...rest}
-    >
+    // eslint-disable-next-line react/button-has-type
+    <button className={`sr-only focus:not-sr-only ${className}`} {...rest}>
       {children}
-    </chakra.button>
+    </button>
+  );
+};
+
+export const VisuallyHiddenUntilFocusedLink: React.FC<
+  React.AnchorHTMLAttributes<HTMLAnchorElement>
+> = ({ children, className, ...rest }) => {
+  return (
+    <a className={`sr-only focus:not-sr-only ${className}`} {...rest}>
+      {children}
+    </a>
   );
 };

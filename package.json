@@ -16,21 +16,15 @@
     "postinstall": "pnpm run build:chakra:types"
   },
   "dependencies": {
-    "@chakra-ui/anatomy": "^2.1.1",
-    "@chakra-ui/next-js": "^2.0.1",
-    "@chakra-ui/react": "^2.5.1",
-    "@chakra-ui/react-use-size": "^2.0.9",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
     "@fontsource/pt-sans": "^4.5.11",
     "@fontsource/rubik": "^4.5.14",
     "@next/font": "13.1.6",
+    "@react-hookz/web": "^22.0.0",
     "@zag-js/accordion": "^0.2.11",
     "@zag-js/dialog": "^0.2.11",
     "@zag-js/react": "^0.3.9",
     "cli-real-favicon": "^0.0.8",
     "date-fns": "^2.29.3",
-    "framer-motion": "^9.0.4",
     "graphql": "^16.6.0",
     "graphql-config": "^4.4.1",
     "graphql-request": "^5.1.0",
@@ -44,8 +38,6 @@
     "zod": "^3.20.6"
   },
   "devDependencies": {
-    "@chakra-ui/cli": "^2.3.0",
-    "@chakra-ui/styled-system": "^2.6.1",
     "@graphql-codegen/add": "^3.2.3",
     "@graphql-codegen/cli": "^2.16.1",
     "@graphql-codegen/typescript": "^2.8.5",

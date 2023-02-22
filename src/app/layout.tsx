@@ -1,8 +1,8 @@
 import { DuotoneFilter } from "../components/DuotoneFilter";
 import { Layout, Main, Sidebar } from "../components/Layout/Layout";
-import { Providers } from "../components/Providers";
-import { Dialog } from "../components/Test/Drawer";
+import { Menu } from "../components/Menu/Menu";
 import "../theme/fonts";
+import "../theme/global.css";
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -10,16 +10,13 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <head />
       <body>
         <DuotoneFilter />
-        <Providers>
-          <Layout>
-            <Sidebar>
-              {/* @ts-expect-error Server Component */}
-              {/* <Menu /> */}
-              <Dialog />
-            </Sidebar>
-            <Main>{children}</Main>
-          </Layout>
-        </Providers>
+        <Layout>
+          <Sidebar>
+            {/* @ts-expect-error Server Component */}
+            <Menu />
+          </Sidebar>
+          <Main>{children}</Main>
+        </Layout>
       </body>
     </html>
   );

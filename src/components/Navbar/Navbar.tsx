@@ -1,44 +1,13 @@
-"use client";
-
-import { useSize } from "@chakra-ui/react-use-size";
-import { Button, chakra, useMultiStyleConfig } from "@chakra-ui/react";
-import React, { ReactNode, useRef } from "react";
+import React, { ReactNode } from "react";
 
 type NavbarProps = {
   children?: ReactNode;
-  buttonRef: React.RefObject<HTMLButtonElement>;
-  onClick: () => void;
 };
 
-const useNavbarHeightAsCSSProperty = () => {
-  const ref = useRef<HTMLElement>(null);
-  const dimensions = useSize(ref, true);
-
-  if (dimensions) {
-    document.documentElement.style.setProperty(
-      "--navbar-height",
-      `${dimensions.height}px`
-    );
-  }
-
-  return ref;
-};
-
-export const Navbar: React.FC<NavbarProps> = ({
-  onClick,
-  buttonRef,
-  children,
-}) => {
-  const styles = useMultiStyleConfig("Navbar");
-
-  const ref = useNavbarHeightAsCSSProperty();
-
+export const Navbar: React.FC<NavbarProps> = ({ children }) => {
   return (
-    <chakra.header __css={styles.container} ref={ref}>
+    <header className="fixed top-0 left-0 right-0 md:hidden w-full bg-slate-500 h-navbar">
       {children}
-      {/* <Button onClick={onClick} ref={buttonRef}>
-        Burger
-      </Button> */}
-    </chakra.header>
+    </header>
   );
 };

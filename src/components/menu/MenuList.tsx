@@ -1,56 +1,91 @@
 "use client";
 
-import { Link } from "@chakra-ui/next-js";
+import React, { ReactNode } from "react";
+import Link, { LinkProps } from "next/link";
+import { VisuallyHiddenUntilFocusedButton } from "../VisuallyHiddenUntilFocused";
+import { Menu } from "../../lib/getMenus";
 import {
   Accordion,
-  AccordionButton,
+  AccordionContent,
   AccordionItem,
-  AccordionPanel,
-  chakra,
-  useMultiStyleConfig,
-} from "@chakra-ui/react";
-import React from "react";
-import { Menu } from "../../lib/getMenus";
-import { VisuallyHiddenUntilFocusedButton } from "../VisuallyHiddenUntilFocused";
+  AccordionTrigger,
+  useAccordionContext,
+  useAccordionItemContext,
+} from "../Accordion/Accordion";
+import { useDrawerContext } from "../Drawer/Drawer";
 
 type MenuListProps = {
   menu: Menu;
 };
 
-export const MenuList: React.FC<MenuListProps> = ({ menu, ...rest }) => {
-  const styles = useMultiStyleConfig("MenuList");
+const MenuLink: React.FC<
+  { children: ReactNode; className?: string } & LinkProps
+> = ({ href, children, ...rest }) => {
+  const { api } = useAccordionContext();
+  const { value } = useAccordionItemContext();
+  const menuContext = useDrawerContext();
+
+  const { onClick: onClose, ...props } = api.getTriggerProps({ value });
 
   return (
-    <Accordion as="ul" variant="menu" allowToggle>
-      {menu.items.map((item) => (
-        <AccordionItem as="li" key={item.label}>
-          {item.childItems?.length ? (
-            <>
-              <AccordionButton>{item.label}</AccordionButton>
-              <AccordionPanel>
-                <chakra.ul __css={styles.submenu}>
-                  {item.childItems.map((childItem) => {
-                    return (
-                      <chakra.li key={childItem.href}>
-                        <Link href={childItem.href} sx={styles.submenuItem}>
-                          {childItem.label}
-                        </Link>
-                      </chakra.li>
-                    );
-                  })}
-                </chakra.ul>
-              </AccordionPanel>
-            </>
-          ) : (
-            <Link href={item.href} sx={styles.item}>
-              {item.label}
-            </Link>
-          )}
-        </AccordionItem>
-      ))}
-      <VisuallyHiddenUntilFocusedButton type="button">
-        close menu
-      </VisuallyHiddenUntilFocusedButton>
+    <Link
+      href={href}
+      onClick={() => {
+        menuContext.api.close();
+        onClose();
+      }}
+      {...props}
+      className="py-2 inline-block w-full no-underline hover:underline"
+      {...rest}
+    >
+      {children}
+    </Link>
+  );
+};
+
+export const MenuList: React.FC<MenuListProps> = ({ menu, ...rest }) => {
+  const menuContext = useDrawerContext();
+
+  return (
+    <Accordion id="menu" collapsible className="font-rubik italic">
+      {menu.items.map((item) => {
+        return (
+          <AccordionItem value={item.label} key={item.label}>
+            {item.childItems?.length ? (
+              <>
+                <AccordionTrigger className="italic py-2 w-full text-left hover:underline hover:opacity-70">
+                  {item.label}
+                </AccordionTrigger>
+                <AccordionContent>
+                  <ol>
+                    {item.childItems.map((childItem) => {
+                      return (
+                        <li key={childItem.label}>
+                          <MenuLink
+                            href={childItem.href}
+                            className="pl-4 py-1  inline-block font-sans italic w-full no-underline hover:underline hover:opacity-70"
+                          >
+                            {childItem.label}
+                          </MenuLink>
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </AccordionContent>
+              </>
+            ) : (
+              <MenuLink href={item.href}>{item.label}</MenuLink>
+            )}
+          </AccordionItem>
+        );
+      })}
+      <AccordionItem value="close">
+        <VisuallyHiddenUntilFocusedButton
+          onClick={() => menuContext.api.close()}
+        >
+          Close Menu
+        </VisuallyHiddenUntilFocusedButton>
+      </AccordionItem>
     </Accordion>
   );
 };

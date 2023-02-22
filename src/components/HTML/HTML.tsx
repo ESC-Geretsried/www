@@ -50,6 +50,8 @@ export const HTML: React.FC<HTMLProps> = ({ children }) => {
               />
             );
           }
+
+          return domNode;
         },
       })}
     </>

@@ -1,45 +1,30 @@
 "use client";
 
-import React, { ReactNode, useRef } from "react";
+import { Portal } from "@zag-js/react";
+import { ReactNode } from "react";
 import {
   Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
+  DrawerContainer,
   DrawerContent,
-  DrawerCloseButton,
-  Button,
-  useDisclosure,
-  useMultiStyleConfig,
-  chakra,
-} from "@chakra-ui/react";
+  DrawerTrigger,
+} from "../Drawer/Drawer";
 import { Navbar } from "../Navbar/Navbar";
 
-type MobileMenuProps = {
-  children: ReactNode;
-};
-
-export const MobileMenu: React.FC<MobileMenuProps> = ({ children }) => {
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const { isOpen, onClose, onToggle } = useDisclosure();
-  const styles = useMultiStyleConfig("Menu");
-
+export const MobileMenu: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <chakra.div __css={styles.mobile}>
-      <Navbar onClick={onToggle} buttonRef={buttonRef} />
-      <Drawer
-        isOpen={isOpen}
-        onClose={onClose}
-        finalFocusRef={buttonRef}
-        placement="left"
-      >
-        <DrawerContent>
-          <DrawerBody>{children}</DrawerBody>
-
-          <DrawerFooter />
-        </DrawerContent>
-      </Drawer>
-    </chakra.div>
+    <Drawer>
+      <Navbar>
+        <DrawerTrigger className="p-2 pointer-events-auto">
+          Open Dialog
+        </DrawerTrigger>
+      </Navbar>
+      <Portal>
+        <DrawerContainer>
+          <DrawerContent className="mt-navbar bg-slate-400">
+            {children}
+          </DrawerContent>
+        </DrawerContainer>
+      </Portal>
+    </Drawer>
   );
 };
