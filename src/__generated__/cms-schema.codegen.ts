@@ -9039,7 +9039,16 @@ export type WritingSettings = {
 export type GetBlogPreviewQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetBlogPreviewQuery = { __typename: 'RootQuery', posts: { __typename: 'RootQueryToPostConnection', nodes: Array<{ __typename: 'Post', date: string | null, excerpt: string | null, title: string | null, postACF: { __typename: 'Post_Postacf', division: string | null, postCategory: string | null, flashPost: { __typename: 'Post_Postacf_FlashPost', end: string | null, start: string | null } | null } | null, featuredImage: { __typename: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename: 'MediaItem', title: string | null, altText: string | null, srcSet: string | null } | null } | null } | null> | null } | null };
+export type GetBlogPreviewQuery = { __typename: 'RootQuery', posts: { __typename: 'RootQueryToPostConnection', nodes: Array<{ __typename: 'Post', date: string | null, excerpt: string | null, uri: string | null, title: string | null, postACF: { __typename: 'Post_Postacf', division: string | null, postCategory: string | null, flashPost: { __typename: 'Post_Postacf_FlashPost', end: string | null, start: string | null } | null } | null, featuredImage: { __typename: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename: 'MediaItem', title: string | null, altText: string | null, srcSet: string | null, mediaItemUrl: string | null } | null } | null } | null> | null } | null };
+
+export type GetPostByCategoryDatabaseIdQueryVariables = Exact<{
+  databaseId: Scalars['Int'];
+}>;
+
+
+export type GetPostByCategoryDatabaseIdQuery = { __typename: 'RootQuery', posts: { __typename: 'RootQueryToPostConnection', nodes: Array<{ __typename: 'Post', date: string | null, excerpt: string | null, uri: string | null, title: string | null, postACF: { __typename: 'Post_Postacf', division: string | null, postCategory: string | null, flashPost: { __typename: 'Post_Postacf_FlashPost', end: string | null, start: string | null } | null } | null, featuredImage: { __typename: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename: 'MediaItem', title: string | null, altText: string | null, srcSet: string | null, mediaItemUrl: string | null } | null } | null } | null> | null } | null };
+
+export type PostPreviewFragment = { __typename: 'Post', date: string | null, excerpt: string | null, uri: string | null, title: string | null, postACF: { __typename: 'Post_Postacf', division: string | null, postCategory: string | null, flashPost: { __typename: 'Post_Postacf_FlashPost', end: string | null, start: string | null } | null } | null, featuredImage: { __typename: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename: 'MediaItem', title: string | null, altText: string | null, srcSet: string | null, mediaItemUrl: string | null } | null } | null };
 
 export type GetFlashPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -9048,7 +9057,27 @@ export type GetFlashPostsQuery = { __typename: 'RootQuery', posts: { __typename:
 
 export type FlashPostFragment = { __typename: 'Post', excerpt: string | null, uri: string | null, title: string | null, postACF: { __typename: 'Post_Postacf', division: string | null, flashPost: { __typename: 'Post_Postacf_FlashPost', end: string | null, start: string | null } | null } | null };
 
-export type ImageFragment = { __typename: 'MediaItem', title: string | null, altText: string | null, srcSet: string | null };
+export type ImageFragment = { __typename: 'MediaItem', title: string | null, altText: string | null, srcSet: string | null, mediaItemUrl: string | null };
+
+export type DownloadFragment = { __typename: 'MediaItem', altText: string | null, title: string | null, mediaItemUrl: string | null };
+
+export type CategoryFragment = { __typename: 'Category', id: string, databaseId: number, name: string | null, slug: string | null };
+
+export type GetMenusQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMenusQuery = { __typename: 'RootQuery', mainMenu: { __typename: 'Menu', menuItems: { __typename: 'MenuToMenuItemConnection', nodes: Array<{ __typename: 'MenuItem', id: string, label: string | null, uri: string | null, order: number | null, parentId: string | null } | null> | null } | null } | null, footerMenu: { __typename: 'Menu', menuItems: { __typename: 'MenuToMenuItemConnection', nodes: Array<{ __typename: 'MenuItem', id: string, label: string | null, uri: string | null, order: number | null, parentId: string | null } | null> | null } | null } | null };
+
+export type MenuItemFragment = { __typename: 'MenuItem', id: string, label: string | null, uri: string | null, order: number | null, parentId: string | null };
+
+export type GetPageByUriQueryVariables = Exact<{
+  uri: Scalars['ID'];
+}>;
+
+
+export type GetPageByUriQuery = { __typename: 'RootQuery', page: { __typename: 'Page', id: string, slug: string | null, uri: string | null, content: string | null, title: string | null, categories: { __typename: 'PageToCategoryConnection', nodes: Array<{ __typename: 'Category', id: string, databaseId: number, name: string | null, slug: string | null } | null> | null } | null, pageACF: { __typename: 'Page_Pageacf', template: string | null, division: string | null, standardContent: { __typename: 'Page_Pageacf_StandardContent', additionalInfo: { __typename: 'Page_Pageacf_StandardContent_AdditionalInfo', content: string | null, title: string | null } | null, contact: { __typename: 'Page_Pageacf_StandardContent_Contact', email: string | null, name: string | null, tel: string | null, website: string | null } | null, downloads: Array<{ __typename: 'Page_Pageacf_StandardContent_downloads', file: { __typename: 'MediaItem', altText: string | null, title: string | null, mediaItemUrl: string | null } | null } | null> | null, featurePic: { __typename: 'MediaItem', title: string | null, altText: string | null, srcSet: string | null, mediaItemUrl: string | null } | null } | null, boardMembers: Array<{ __typename: 'Page_Pageacf_boardMembers', email: string | null, fieldGroupName: string | null, level: string | null, name: string | null, position: string | null, telephone: string | null, portrait: { __typename: 'MediaItem', altText: string | null, sourceUrl: string | null } | null } | null> | null, seo: { __typename: 'Page_Pageacf_Seo', metaDescription: string | null, noIndex: boolean | null, ogDescription: string | null, title: string | null, twitterDescription: string | null } | null, sponsorsContent: Array<{ __typename: 'Page_Pageacf_sponsorsContent', name: string | null } | null> | null, lineup: { __typename: 'Page_Pageacf_Lineup', team: Array<{ __typename: 'Page_Pageacf_Lineup_team', name: string | null, nationality: string | null, number: number | null, position: string | null, rodiLink: string | null, stickSide: string | null } | null> | null, teamPicture: { __typename: 'MediaItem', title: string | null, altText: string | null, srcSet: string | null, mediaItemUrl: string | null } | null } | null } | null, homeACF: { __typename: 'Page_Homeacf', adresse: string | null, facebookLink: string | null, instagramLink: string | null, tickarooLink: string | null } | null, riverratsACF: { __typename: 'Page_Riverratsacf', divisionId: string | null, teamId: string | null } | null } | null };
+
+export type StandardContentFragment = { __typename: 'Page_Pageacf_StandardContent', additionalInfo: { __typename: 'Page_Pageacf_StandardContent_AdditionalInfo', content: string | null, title: string | null } | null, contact: { __typename: 'Page_Pageacf_StandardContent_Contact', email: string | null, name: string | null, tel: string | null, website: string | null } | null, downloads: Array<{ __typename: 'Page_Pageacf_StandardContent_downloads', file: { __typename: 'MediaItem', altText: string | null, title: string | null, mediaItemUrl: string | null } | null } | null> | null, featurePic: { __typename: 'MediaItem', title: string | null, altText: string | null, srcSet: string | null, mediaItemUrl: string | null } | null };
 
 export type BoardMemberFragment = { __typename: 'Page_Pageacf_boardMembers', email: string | null, fieldGroupName: string | null, level: string | null, name: string | null, position: string | null, telephone: string | null, portrait: { __typename: 'MediaItem', altText: string | null, sourceUrl: string | null } | null };
 
@@ -9058,23 +9087,40 @@ export type PlayerFragment = { __typename: 'Page_Pageacf_Lineup_team', name: str
 
 export type RiverratsMetaFragment = { __typename: 'Page_Riverratsacf', divisionId: string | null, teamId: string | null };
 
-export type GetMenusQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetPagePathsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMenusQuery = { __typename: 'RootQuery', menus: { __typename: 'RootQueryToMenuConnection', nodes: Array<{ __typename: 'Menu', id: string, name: string | null, menuItems: { __typename: 'MenuToMenuItemConnection', nodes: Array<{ __typename: 'MenuItem', parentId: string | null, uri: string | null, label: string | null, childItems: { __typename: 'MenuItemToMenuItemConnection', nodes: Array<{ __typename: 'MenuItem', label: string | null, uri: string | null } | null> | null } | null } | null> | null } | null } | null> | null } | null };
+export type GetPagePathsQuery = { __typename: 'RootQuery', pages: { __typename: 'RootQueryToPageConnection', nodes: Array<{ __typename: 'Page', uri: string | null } | null> | null } | null };
 
-export type GetPageByUriQueryVariables = Exact<{
-  uri: Scalars['ID'];
-}>;
-
-
-export type GetPageByUriQuery = { __typename: 'RootQuery', page: { __typename: 'Page', slug: string | null, uri: string | null, content: string | null, title: string | null, pageACF: { __typename: 'Page_Pageacf', template: string | null, division: string | null, boardMembers: Array<{ __typename: 'Page_Pageacf_boardMembers', email: string | null, fieldGroupName: string | null, level: string | null, name: string | null, position: string | null, telephone: string | null, portrait: { __typename: 'MediaItem', altText: string | null, sourceUrl: string | null } | null } | null> | null, seo: { __typename: 'Page_Pageacf_Seo', metaDescription: string | null, noIndex: boolean | null, ogDescription: string | null, title: string | null, twitterDescription: string | null } | null, sponsorsContent: Array<{ __typename: 'Page_Pageacf_sponsorsContent', name: string | null } | null> | null, lineup: { __typename: 'Page_Pageacf_Lineup', team: Array<{ __typename: 'Page_Pageacf_Lineup_team', name: string | null, nationality: string | null, number: number | null, position: string | null, rodiLink: string | null, stickSide: string | null } | null> | null, teamPicture: { __typename: 'MediaItem', altText: string | null, sourceUrl: string | null } | null } | null } | null, homeACF: { __typename: 'Page_Homeacf', adresse: string | null, facebookLink: string | null, instagramLink: string | null, tickarooLink: string | null } | null, riverratsACF: { __typename: 'Page_Riverratsacf', divisionId: string | null, teamId: string | null } | null } | null };
-
-export type GetRootPagesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetRootPagesQuery = { __typename: 'RootQuery', pages: { __typename: 'RootQueryToPageConnection', nodes: Array<{ __typename: 'Page', id: string, parentId: string | null, slug: string | null, uri: string | null, title: string | null } | null> | null } | null };
-
+export const ImageFragmentDoc = gql`
+    fragment Image on MediaItem {
+  title
+  altText
+  srcSet
+  mediaItemUrl
+}
+    `;
+export const PostPreviewFragmentDoc = gql`
+    fragment PostPreview on Post {
+  date
+  excerpt
+  uri
+  postACF {
+    division
+    postCategory
+    flashPost {
+      end
+      start
+    }
+  }
+  title
+  featuredImage {
+    node {
+      ...Image
+    }
+  }
+}
+    `;
 export const FlashPostFragmentDoc = gql`
     fragment FlashPost on Post {
   excerpt
@@ -9089,11 +9135,50 @@ export const FlashPostFragmentDoc = gql`
   title
 }
     `;
-export const ImageFragmentDoc = gql`
-    fragment Image on MediaItem {
-  title
+export const CategoryFragmentDoc = gql`
+    fragment Category on Category {
+  id
+  databaseId
+  name
+  slug
+}
+    `;
+export const MenuItemFragmentDoc = gql`
+    fragment MenuItem on MenuItem {
+  id
+  label
+  uri
+  order
+  parentId
+}
+    `;
+export const DownloadFragmentDoc = gql`
+    fragment Download on MediaItem {
   altText
-  srcSet
+  title
+  mediaItemUrl
+}
+    `;
+export const StandardContentFragmentDoc = gql`
+    fragment StandardContent on Page_Pageacf_StandardContent {
+  additionalInfo {
+    content
+    title
+  }
+  contact {
+    email
+    name
+    tel
+    website
+  }
+  downloads {
+    file {
+      ...Download
+    }
+  }
+  featurePic {
+    ...Image
+  }
 }
     `;
 export const BoardMemberFragmentDoc = gql`
@@ -9139,26 +9224,22 @@ export const GetBlogPreviewDocument = gql`
     query getBlogPreview {
   posts(first: 5) {
     nodes {
-      date
-      excerpt
-      postACF {
-        division
-        postCategory
-        flashPost {
-          end
-          start
-        }
-      }
-      title
-      featuredImage {
-        node {
-          ...Image
-        }
-      }
+      ...PostPreview
     }
   }
 }
-    ${ImageFragmentDoc}`;
+    ${PostPreviewFragmentDoc}
+${ImageFragmentDoc}`;
+export const GetPostByCategoryDatabaseIdDocument = gql`
+    query getPostByCategoryDatabaseId($databaseId: Int!) {
+  posts(first: 1, where: {categoryId: $databaseId}) {
+    nodes {
+      ...PostPreview
+    }
+  }
+}
+    ${PostPreviewFragmentDoc}
+${ImageFragmentDoc}`;
 export const GetFlashPostsDocument = gql`
     query getFlashPosts {
   posts(first: 10, where: {categoryName: "flash"}) {
@@ -9170,37 +9251,41 @@ export const GetFlashPostsDocument = gql`
     ${FlashPostFragmentDoc}`;
 export const GetMenusDocument = gql`
     query getMenus {
-  menus {
-    nodes {
-      id
-      name
-      menuItems(first: 1000) {
-        nodes {
-          parentId
-          uri
-          label
-          childItems {
-            nodes {
-              label
-              uri
-            }
-          }
-        }
+  mainMenu: menu(id: "dGVybToy") {
+    menuItems(first: 1000) {
+      nodes {
+        ...MenuItem
+      }
+    }
+  }
+  footerMenu: menu(id: "dGVybToyMA==") {
+    menuItems(first: 1000) {
+      nodes {
+        ...MenuItem
       }
     }
   }
 }
-    `;
+    ${MenuItemFragmentDoc}`;
 export const GetPageByUriDocument = gql`
     query getPageByUri($uri: ID!) {
   page(id: $uri, idType: URI) {
+    id
     slug
     uri
     content(format: RENDERED)
     title
+    categories {
+      nodes {
+        ...Category
+      }
+    }
     pageACF {
       template
       division
+      standardContent {
+        ...StandardContent
+      }
       boardMembers {
         ...BoardMember
       }
@@ -9215,8 +9300,7 @@ export const GetPageByUriDocument = gql`
           ...Player
         }
         teamPicture {
-          altText
-          sourceUrl
+          ...Image
         }
       }
     }
@@ -9231,19 +9315,19 @@ export const GetPageByUriDocument = gql`
     }
   }
 }
-    ${BoardMemberFragmentDoc}
+    ${CategoryFragmentDoc}
+${StandardContentFragmentDoc}
+${DownloadFragmentDoc}
+${ImageFragmentDoc}
+${BoardMemberFragmentDoc}
 ${SeoFragmentDoc}
 ${PlayerFragmentDoc}
 ${RiverratsMetaFragmentDoc}`;
-export const GetRootPagesDocument = gql`
-    query getRootPages {
-  pages(first: 100000) {
+export const GetPagePathsDocument = gql`
+    query getPagePaths {
+  pages(first: 10000) {
     nodes {
-      id
-      parentId
-      slug
       uri
-      title
     }
   }
 }
@@ -9259,6 +9343,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     getBlogPreview(variables?: GetBlogPreviewQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetBlogPreviewQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetBlogPreviewQuery>(GetBlogPreviewDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getBlogPreview', 'query');
     },
+    getPostByCategoryDatabaseId(variables: GetPostByCategoryDatabaseIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetPostByCategoryDatabaseIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetPostByCategoryDatabaseIdQuery>(GetPostByCategoryDatabaseIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getPostByCategoryDatabaseId', 'query');
+    },
     getFlashPosts(variables?: GetFlashPostsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetFlashPostsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetFlashPostsQuery>(GetFlashPostsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getFlashPosts', 'query');
     },
@@ -9268,8 +9355,8 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     getPageByUri(variables: GetPageByUriQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetPageByUriQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetPageByUriQuery>(GetPageByUriDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getPageByUri', 'query');
     },
-    getRootPages(variables?: GetRootPagesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetRootPagesQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetRootPagesQuery>(GetRootPagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getRootPages', 'query');
+    getPagePaths(variables?: GetPagePathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetPagePathsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetPagePathsQuery>(GetPagePathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getPagePaths', 'query');
     }
   };
 }

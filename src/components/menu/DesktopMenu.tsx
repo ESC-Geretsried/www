@@ -7,5 +7,5 @@ type DesktopMenuProps = {
 };
 
 export const DesktopMenu: React.FC<DesktopMenuProps> = ({ children }) => {
-  return <div className="hidden md:block">{children}</div>;
+  return <div className="hidden xl:block">{children}</div>;
 };

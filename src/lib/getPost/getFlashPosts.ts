@@ -1,7 +1,6 @@
 import { isWithinInterval } from "date-fns";
-import { FlashPostFragment } from "../__generated__/cms-schema.codegen";
-import { getCMSClient } from "./getCMSClient";
-import { truthy } from "./utils";
+import { FlashPostFragment } from "../../__generated__/cms-schema.codegen";
+import { getCMSClient } from "../getCMSClient";
 
 export type FlashPost = {
   title: string;
@@ -21,9 +20,9 @@ export const getFlashPosts = async () => {
   }
 
   return result.posts.nodes
-    .filter(truthy)
+    .filter(Boolean)
     .map(convertWPFlashPost)
-    .filter(truthy)
+    .filter(Boolean)
     .filter(flashPostInRange);
 };
 

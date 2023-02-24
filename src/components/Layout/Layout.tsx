@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import { getMenus } from "../../lib/getMenus";
 
 type LayoutProps = {
   children?: ReactNode;
@@ -6,7 +7,7 @@ type LayoutProps = {
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-main md:gap-8 mx-auto max-w-7xl px-4 ">
+    <div className="grid grid-cols-1 xl:grid-cols-main md:gap-8 mx-auto max-w-7xl px-4 ">
       {children}
     </div>
   );
@@ -25,5 +26,23 @@ type MainProps = {
 };
 
 export const Main: React.FC<MainProps> = ({ children }) => {
-  return <main className="mt-navbar">{children}</main>;
+  return (
+    <main id="main" className="mt-navbar xl:mt-0 pb-4 border-b-2">
+      {children}
+    </main>
+  );
+};
+
+export const Footer = async () => {
+  const menus = await getMenus();
+
+  if (!menus?.footer) {
+    return null;
+  }
+
+  return (
+    <footer className="col-start-2 ">
+      {menus.footer.map((item) => item.label)}
+    </footer>
+  );
 };

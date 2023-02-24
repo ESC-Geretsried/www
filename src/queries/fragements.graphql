@@ -2,39 +2,18 @@ fragment Image on MediaItem {
   title
   altText
   srcSet
+  mediaItemUrl
 }
 
-fragment BoardMember on Page_Pageacf_boardMembers {
-  email
-  fieldGroupName
-  level
-  name
-  portrait {
-    altText
-    sourceUrl
-  }
-  position
-  telephone
-}
-
-fragment Seo on Page_Pageacf_Seo {
-  metaDescription
-  noIndex
-  ogDescription
+fragment Download on MediaItem {
+  altText
   title
-  twitterDescription
+  mediaItemUrl
 }
 
-fragment Player on Page_Pageacf_Lineup_team {
+fragment Category on Category {
+  id
+  databaseId
   name
-  nationality
-  number
-  position
-  rodiLink
-  stickSide
-}
-
-fragment RiverratsMeta on Page_Riverratsacf {
-  divisionId
-  teamId
+  slug
 }

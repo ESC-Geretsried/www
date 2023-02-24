@@ -1,12 +1,6 @@
-import { GetBlogPreviewQuery } from "../__generated__/cms-schema.codegen";
-import { getCMSClient } from "./getCMSClient";
-import { truthy } from "./utils";
-
-type BlogPostPreview = {
-  title: string;
-  excerpt: string;
-  categories: Array<string>;
-};
+import { GetBlogPreviewQuery } from "../../__generated__/cms-schema.codegen";
+import { getCMSClient } from "../getCMSClient";
+import { PostPreview } from "./types";
 
 export const getBlogPreview = async () => {
   const client = getCMSClient();
@@ -17,9 +11,9 @@ export const getBlogPreview = async () => {
   }
 
   return blogPreview.posts.nodes
-    .filter(truthy)
+    .filter(Boolean)
     .map(convertNodesToBlogPostPreview)
-    .filter(truthy);
+    .filter(Boolean);
 };
 
 type WPPostPreview = NonNullable<
@@ -28,14 +22,15 @@ type WPPostPreview = NonNullable<
 
 const convertNodesToBlogPostPreview = (
   node: WPPostPreview
-): BlogPostPreview | null => {
-  if (!node.title || !node.excerpt) {
+): PostPreview | null => {
+  if (!node.title || !node.excerpt || !node.uri) {
     return null;
   }
 
   return {
     title: node.title,
     excerpt: node.excerpt,
+    uri: node.uri,
     categories: [],
   };
 };

@@ -31,7 +31,7 @@ module.exports = {
       },
 
       gridTemplateColumns: {
-        main: "3fr 9fr",
+        main: "2fr 10fr",
       },
     },
   },

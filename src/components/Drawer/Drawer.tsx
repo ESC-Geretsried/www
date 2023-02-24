@@ -2,10 +2,11 @@
 
 import * as dialog from "@zag-js/dialog";
 import { useMachine, normalizeProps, Portal } from "@zag-js/react";
+import React from "react";
 import { createContext, ReactNode, useContext, useId } from "react";
 import { Navbar } from "../Navbar/Navbar";
 
-type DrawerContextType = {
+export type DrawerContextType = {
   api: ReturnType<typeof dialog.connect>;
   transitionDuration: string;
 };
@@ -22,17 +23,25 @@ export const useDrawerContext = () => {
   return ctx;
 };
 
+// NOTE: the menu is mobile in a drawer but not on desktop. thats why we need the context sometimes but not always
+export const useDrawerOptionalContext = () => {
+  const ctx = useContext(DrawerContext);
+
+  return ctx;
+};
+
 export const Drawer: React.FC<{
   children: ReactNode;
   transitionDuration?: string;
-}> = ({ children, transitionDuration = "200ms" }) => {
+  className?: string;
+}> = ({ children, className, transitionDuration = "200ms" }) => {
   const [state, send] = useMachine(dialog.machine({ id: useId() }));
 
   const api = dialog.connect(state, send, normalizeProps);
 
   return (
     <DrawerContext.Provider value={{ api, transitionDuration }}>
-      {children}
+      <div className={className}>{children}</div>
     </DrawerContext.Provider>
   );
 };
@@ -40,15 +49,21 @@ export const Drawer: React.FC<{
 export const DrawerTrigger: React.FC<{
   children: ReactNode;
   className?: string;
-}> = ({ children, className }) => {
+  as?: ReactNode;
+}> = ({ children, as, className, ...rest }) => {
   const { api } = useDrawerContext();
 
+  if (React.isValidElement(as)) {
+    return React.cloneElement(
+      as,
+      // @ts-expect-error weird...
+      { className, ...rest, ...api.triggerProps },
+      children
+    );
+  }
+
   return (
-    <button
-      {...api.triggerProps}
-      type="button"
-      className={`p-2 pointer-events-auto ${className ? className : ""}`}
-    >
+    <button className={className} type="button" {...rest}>
       {children}
     </button>
   );

@@ -7,7 +7,6 @@ const { z } = require("zod");
 const server = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]),
   GRAPHQL_BACKEND_URL: z.string().url(),
-  BACKEND_URL: z.string().url(),
 });
 
 /**
@@ -16,7 +15,7 @@ const server = z.object({
  * To expose them to the client, prefix them with `NEXT_PUBLIC_`.
  */
 const client = z.object({
-  // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
+  NEXT_PUBLIC_BACKEND_URL: z.string().url(),
 });
 
 /**
@@ -27,8 +26,7 @@ const client = z.object({
 const processEnv = {
   NODE_ENV: process.env.NODE_ENV,
   GRAPHQL_BACKEND_URL: process.env.GRAPHQL_BACKEND_URL,
-  BACKEND_URL: process.env.BACKEND_URL,
-  // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
+  NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
 };
 
 // Don't touch the part below

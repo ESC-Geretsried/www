@@ -1,11 +1,12 @@
 const { env } = require("./src/lib/env.js");
 
-const backendURL = new URL(env.BACKEND_URL);
+const backendURL = new URL(env.NEXT_PUBLIC_BACKEND_URL);
 
 /** @type {import('next').NextConfig} */
 const config = {
   experimental: {
     appDir: true,
+    typedRoutes: true,
   },
   reactStrictMode: true,
   images: {

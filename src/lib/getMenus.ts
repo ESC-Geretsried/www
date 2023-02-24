@@ -1,75 +1,88 @@
-import { GetMenusQuery } from "../__generated__/cms-schema.codegen";
+import { MenuItemFragment } from "../__generated__/cms-schema.codegen";
 import { getCMSClient } from "./getCMSClient";
-import { truthy } from "./utils";
+import { NonNullableProperties } from "./types";
 
-export type Item = { label: string; href: string };
+export type Item = Omit<
+  NonNullableProperties<MenuItemFragment>, // NOTE: make everything required
+  "__typename" | "uri" | "parentId" // NOTE: omit properties we don't need
+> & { href: string }; // NOTE: rename uri to href for better dx later
+
 export type ItemWithChildren = Item & {
   childItems?: Array<Item> | null;
 };
 
-export type Menu = { id: string; name: string; items: Array<ItemWithChildren> };
+export type Menu = Array<ItemWithChildren>;
+
+const byOrder = (a: { order: number }, b: { order: number }) => {
+  return a.order - b.order;
+};
 
 export const getMenus = async () => {
   const client = getCMSClient();
 
   const menusResult = await client.getMenus();
 
-  if (!menusResult.menus?.nodes) {
+  if (
+    !menusResult.mainMenu?.menuItems?.nodes ||
+    !menusResult.footerMenu?.menuItems?.nodes
+  ) {
     return null;
   }
 
-  const menus = menusResult.menus.nodes
-    .map(convertWPMenuToProps)
-    .filter(truthy);
+  const main = menusResult.mainMenu.menuItems.nodes
+    .reduce(wpMenuToMenu, [])
+    .filter(Boolean)
+    .sort(byOrder);
 
-  const main = menus.find((menu) => menu.id === "dGVybToy");
-  const footer = menus.find((menu) => menu.id === "dGVybToyMA==");
+  const footer = menusResult.footerMenu.menuItems.nodes
+    .reduce(wpMenuToMenu, [])
+    .filter(Boolean)
+    .sort(byOrder);
 
   return {
     main,
     footer,
   };
 };
-
-type WPMenu = NonNullable<NonNullable<GetMenusQuery["menus"]>["nodes"]>[number];
-
-export const convertWPMenuToProps = (menu: WPMenu) => {
-  if (!menu?.menuItems?.nodes || !menu.name) {
-    return null;
+// NOTE: stupid wordpress doesn't nest custom links as childItems, we have to manually construct a list of items with childItems
+export const wpMenuToMenu = (prev: Menu, curr: MenuItemFragment | null) => {
+  if (!curr?.label || !curr.order || !curr.uri) {
+    return prev;
   }
 
-  const menuItems = menu.menuItems.nodes.filter(truthy);
+  const itemWithChildren = prev.find((item) => item.id === curr.parentId);
 
-  return {
-    id: menu.id,
-    name: menu.name,
-    items: menuItems
-      // NOTE: filter out items without a parentId, they will be copied in the childItems
-      .filter((item) => item.parentId === null)
-      .map((item) => {
-        if (!item.label || !item.uri) {
-          return null;
-        }
+  if (itemWithChildren) {
+    if (Array.isArray(itemWithChildren.childItems)) {
+      itemWithChildren.childItems.push({
+        id: curr.id,
+        label: curr.label,
+        order: curr.order,
+        href: curr.uri,
+      });
 
-        const childItems = item.childItems?.nodes
-          ?.map((childItem) => {
-            if (!childItem?.label || !childItem.uri) {
-              return null;
-            }
+      return prev;
+    }
 
-            return { label: childItem.label, href: childItem.uri };
-          })
-          .filter(truthy);
+    itemWithChildren.childItems = [
+      {
+        id: curr.id,
+        label: curr.label,
+        order: curr.order,
+        href: curr.uri,
+      },
+    ];
 
-        return {
-          label: item.label,
-          href: item.uri,
-          childItems:
-            childItems?.length !== undefined && childItems.length > 0
-              ? childItems
-              : null,
-        };
-      })
-      .filter(truthy),
-  };
+    return prev;
+  }
+
+  prev.push({
+    id: curr.id,
+    label: curr.label,
+    order: curr.order,
+    href: curr.uri,
+    childItems: null,
+  });
+
+  return prev;
 };

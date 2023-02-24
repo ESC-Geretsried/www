@@ -24,7 +24,7 @@ export const HTML: React.FC<HTMLProps> = ({ children }) => {
       {parse(children, {
         replace: (domNode) => {
           if (isElement(domNode) && domNode.name === "a") {
-            if (domNode.attribs.href.startsWith(env.BACKEND_URL)) {
+            if (domNode.attribs.href.startsWith(env.NEXT_PUBLIC_BACKEND_URL)) {
               const isWPContent = domNode.attribs.href.includes("wp-content");
 
               if (isWPContent) {
@@ -35,7 +35,10 @@ export const HTML: React.FC<HTMLProps> = ({ children }) => {
                 );
               }
 
-              const href = domNode.attribs.href.replace(env.BACKEND_URL, "");
+              const href = domNode.attribs.href.replace(
+                env.NEXT_PUBLIC_BACKEND_URL,
+                ""
+              );
 
               return <Link href={href}>{domToReact(domNode.children)}</Link>;
             }

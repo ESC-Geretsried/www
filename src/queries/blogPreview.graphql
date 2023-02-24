@@ -1,22 +1,35 @@
 query getBlogPreview {
   posts(first: 5) {
     nodes {
-      date
-      excerpt
-      postACF {
-        division
-        postCategory
-        flashPost {
-          end
-          start
-        }
-      }
-      title
-      featuredImage {
-        node {
-          ...Image
-        }
-      }
+      ...PostPreview
+    }
+  }
+}
+
+query getPostByCategoryDatabaseId($databaseId: Int!) {
+  posts(first: 1, where: { categoryId: $databaseId }) {
+    nodes {
+      ...PostPreview
+    }
+  }
+}
+
+fragment PostPreview on Post {
+  date
+  excerpt
+  uri
+  postACF {
+    division
+    postCategory
+    flashPost {
+      end
+      start
+    }
+  }
+  title
+  featuredImage {
+    node {
+      ...Image
     }
   }
 }

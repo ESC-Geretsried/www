@@ -1,11 +1,7 @@
-query getRootPages {
-  pages(first: 100000) {
+query getPagePaths {
+  pages(first: 10000) {
     nodes {
-      id
-      parentId
-      slug
       uri
-      title
     }
   }
 }

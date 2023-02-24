@@ -10,15 +10,15 @@ type HomeProps = {
 
 export const Home: React.FC<HomeProps> = ({ children, ...rest }) => {
   return (
-    <>
+    <div>
       {/* @ts-expect-error Server Component */}
       <FlashPosts />
-      <div>
+      <div className="grid grid-cols-2">
         {/* @ts-expect-error Server Component */}
         <BlogPreview />
         <Calender />
       </div>
       <SponsorPreview />
-    </>
+    </div>
   );
 };

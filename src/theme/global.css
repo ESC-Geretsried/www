@@ -11,6 +11,14 @@ a {
   text-decoration-thickness: 2px;
 }
 
-a:hover {
-  opacity: 0.7;
+.stack > * + * {
+  margin-block-start: var(--stack-spacing, 1rem);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  @apply font-rubik italic;
 }

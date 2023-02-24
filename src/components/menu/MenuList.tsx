@@ -1,91 +1,83 @@
 "use client";
 
-import React, { ReactNode } from "react";
-import Link, { LinkProps } from "next/link";
-import { VisuallyHiddenUntilFocusedButton } from "../VisuallyHiddenUntilFocused";
+import React from "react";
 import { Menu } from "../../lib/getMenus";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-  useAccordionContext,
-  useAccordionItemContext,
 } from "../Accordion/Accordion";
-import { useDrawerContext } from "../Drawer/Drawer";
+import { useDrawerOptionalContext } from "../Drawer/Drawer";
+import { VisuallyHiddenUntilFocusedButton } from "../VisuallyHiddenUntilFocused";
+import { MenuLink } from "./MenuLink";
 
 type MenuListProps = {
   menu: Menu;
+  id: string;
 };
 
-const MenuLink: React.FC<
-  { children: ReactNode; className?: string } & LinkProps
-> = ({ href, children, ...rest }) => {
-  const { api } = useAccordionContext();
-  const { value } = useAccordionItemContext();
-  const menuContext = useDrawerContext();
-
-  const { onClick: onClose, ...props } = api.getTriggerProps({ value });
+export const MenuList: React.FC<MenuListProps> = ({ menu, id, ...rest }) => {
+  const menuContext = useDrawerOptionalContext();
 
   return (
-    <Link
-      href={href}
-      onClick={() => {
-        menuContext.api.close();
-        onClose();
-      }}
-      {...props}
-      className="py-2 inline-block w-full no-underline hover:underline"
-      {...rest}
-    >
-      {children}
-    </Link>
-  );
-};
-
-export const MenuList: React.FC<MenuListProps> = ({ menu, ...rest }) => {
-  const menuContext = useDrawerContext();
-
-  return (
-    <Accordion id="menu" collapsible className="font-rubik italic">
-      {menu.items.map((item) => {
-        return (
-          <AccordionItem value={item.label} key={item.label}>
-            {item.childItems?.length ? (
-              <>
-                <AccordionTrigger className="italic py-2 w-full text-left hover:underline hover:opacity-70">
+    <>
+      <Accordion id={id} collapsible className="font-rubik italic border-y-2">
+        <AccordionItem value="Home">
+          <MenuLink href="/" className="w-full py-2">
+            Home
+          </MenuLink>
+        </AccordionItem>
+        {menu.map((item) => {
+          return (
+            <AccordionItem value={item.label} key={item.label}>
+              {item.childItems?.length ? (
+                <>
+                  <AccordionTrigger className="italic py-2 w-full text-left hover:underline">
+                    {item.label}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <ol>
+                      <li>
+                        <MenuLink
+                          href={`${item.href}news`}
+                          className="pl-4 py-1 font-sans"
+                        >
+                          News
+                        </MenuLink>
+                      </li>
+                      {item.childItems.map((childItem) => {
+                        return (
+                          <li key={childItem.label}>
+                            <MenuLink
+                              href={childItem.href}
+                              className="pl-4 py-1 font-sans"
+                            >
+                              {childItem.label}
+                            </MenuLink>
+                          </li>
+                        );
+                      })}
+                    </ol>
+                  </AccordionContent>
+                </>
+              ) : (
+                <MenuLink href={item.href} className="py-2">
                   {item.label}
-                </AccordionTrigger>
-                <AccordionContent>
-                  <ol>
-                    {item.childItems.map((childItem) => {
-                      return (
-                        <li key={childItem.label}>
-                          <MenuLink
-                            href={childItem.href}
-                            className="pl-4 py-1  inline-block font-sans italic w-full no-underline hover:underline hover:opacity-70"
-                          >
-                            {childItem.label}
-                          </MenuLink>
-                        </li>
-                      );
-                    })}
-                  </ol>
-                </AccordionContent>
-              </>
-            ) : (
-              <MenuLink href={item.href}>{item.label}</MenuLink>
-            )}
-          </AccordionItem>
-        );
-      })}
-      <AccordionItem value="close">
-        <VisuallyHiddenUntilFocusedButton
-          onClick={() => menuContext.api.close()}
-        >
-          Close Menu
-        </VisuallyHiddenUntilFocusedButton>
-      </AccordionItem>
-    </Accordion>
+                </MenuLink>
+              )}
+            </AccordionItem>
+          );
+        })}
+        <AccordionItem value="close">
+          <VisuallyHiddenUntilFocusedButton
+            className="md:hidden w-full py-2"
+            onClick={() => menuContext?.api.close()}
+          >
+            Close Menu
+          </VisuallyHiddenUntilFocusedButton>
+        </AccordionItem>
+      </Accordion>
+    </>
   );
 };

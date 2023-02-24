@@ -2,6 +2,7 @@
 
 import { Portal } from "@zag-js/react";
 import { ReactNode } from "react";
+import { BurgerButton } from "../BurgerButton/BurgerButton";
 import {
   Drawer,
   DrawerContainer,
@@ -10,13 +11,21 @@ import {
 } from "../Drawer/Drawer";
 import { Navbar } from "../Navbar/Navbar";
 
+const Trigger = () => {
+  return (
+    <DrawerTrigger as={<BurgerButton />} className="pointer-events-auto">
+      Open Dialog
+    </DrawerTrigger>
+  );
+};
+
 export const MobileMenu: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <Drawer>
+    <Drawer className="xl:hidden">
       <Navbar>
-        <DrawerTrigger className="p-2 pointer-events-auto">
-          Open Dialog
-        </DrawerTrigger>
+        <div>
+          <Trigger />
+        </div>
       </Navbar>
       <Portal>
         <DrawerContainer>

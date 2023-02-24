@@ -1,5 +1,6 @@
-import { PageRenderer } from "../../components/PageRenderer";
-import { getPage } from "../../lib/getPage";
+import { TemplateRenderer } from "../../components/TemplateRenderer";
+import { getPage } from "../../lib/getPage/getPage";
+import { getPagePaths } from "../../lib/getPaths";
 
 type PageProps = {
   params: { division: string };
@@ -9,7 +10,14 @@ type PageProps = {
 const Page = async ({ params }: PageProps) => {
   const page = await getPage(params.division);
 
-  return <PageRenderer page={page} />;
+  // @ts-expect-error server-component
+  return <TemplateRenderer page={page} />;
 };
 
 export default Page;
+
+export const generateStaticParams = async () => {
+  const paths = await getPagePaths();
+
+  return paths.rootPaths;
+};

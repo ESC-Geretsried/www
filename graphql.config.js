@@ -28,12 +28,6 @@ const config = {
             maybeValue: "T | null",
             dedupeFragments: true,
             namingConvention: { enumValues: "keep" },
-            scalars: {
-              ItemId: "string",
-              BooleanType: "boolean",
-              FloatType: "number",
-              IntType: "number",
-            },
             fetcher: {
               endpoint,
             },

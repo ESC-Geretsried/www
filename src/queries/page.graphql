@@ -1,12 +1,21 @@
 query getPageByUri($uri: ID!) {
   page(id: $uri, idType: URI) {
+    id
     slug
     uri
     content(format: RENDERED)
     title
+    categories {
+      nodes {
+        ...Category
+      }
+    }
     pageACF {
       template
       division
+      standardContent {
+        ...StandardContent
+      }
       boardMembers {
         ...BoardMember
       }
@@ -21,8 +30,7 @@ query getPageByUri($uri: ID!) {
           ...Player
         }
         teamPicture {
-          altText
-          sourceUrl
+          ...Image
         }
       }
     }
@@ -36,4 +44,60 @@ query getPageByUri($uri: ID!) {
       ...RiverratsMeta
     }
   }
+}
+
+fragment StandardContent on Page_Pageacf_StandardContent {
+  additionalInfo {
+    content
+    title
+  }
+  contact {
+    email
+    name
+    tel
+    website
+  }
+  downloads {
+    file {
+      ...Download
+    }
+  }
+  featurePic {
+    ...Image
+  }
+}
+
+fragment BoardMember on Page_Pageacf_boardMembers {
+  email
+  fieldGroupName
+  level
+  name
+  portrait {
+    altText
+    sourceUrl
+  }
+  position
+  telephone
+}
+
+fragment Seo on Page_Pageacf_Seo {
+  metaDescription
+  noIndex
+  ogDescription
+  title
+  twitterDescription
+}
+
+fragment Player on Page_Pageacf_Lineup_team {
+  name
+  nationality
+  number
+  position
+  rodiLink
+  stickSide
+}
+
+fragment RiverratsMeta on Page_Riverratsacf {
+  divisionId
+  teamId
 }
