@@ -1,3 +1,4 @@
+import { Route } from "next";
 import { MenuItemFragment } from "../__generated__/cms-schema.codegen";
 import { getCMSClient } from "./getCMSClient";
 import { NonNullableProperties } from "./types";
@@ -5,7 +6,7 @@ import { NonNullableProperties } from "./types";
 export type Item = Omit<
   NonNullableProperties<MenuItemFragment>, // NOTE: make everything required
   "__typename" | "uri" | "parentId" // NOTE: omit properties we don't need
-> & { href: string }; // NOTE: rename uri to href for better dx later
+> & { href: Route }; // NOTE: rename uri to href for better dx later
 
 export type ItemWithChildren = Item & {
   childItems?: Array<Item> | null;
@@ -31,13 +32,14 @@ export const getMenus = async () => {
 
   const main = menusResult.mainMenu.menuItems.nodes
     .reduce(wpMenuToMenu, [])
-    .filter(Boolean)
     .sort(byOrder);
 
-  const footer = menusResult.footerMenu.menuItems.nodes
-    .reduce(wpMenuToMenu, [])
-    .filter(Boolean)
-    .sort(byOrder);
+  const footerItems = menusResult.footerMenu.menuItems.nodes.reduce(
+    wpMenuToMenu,
+    []
+  );
+
+  const footer = getFooterMenu(footerItems);
 
   return {
     main,
@@ -58,7 +60,7 @@ export const wpMenuToMenu = (prev: Menu, curr: MenuItemFragment | null) => {
         id: curr.id,
         label: curr.label,
         order: curr.order,
-        href: curr.uri,
+        href: curr.uri as Route,
       });
 
       return prev;
@@ -69,7 +71,7 @@ export const wpMenuToMenu = (prev: Menu, curr: MenuItemFragment | null) => {
         id: curr.id,
         label: curr.label,
         order: curr.order,
-        href: curr.uri,
+        href: curr.uri as Route,
       },
     ];
 
@@ -80,9 +82,41 @@ export const wpMenuToMenu = (prev: Menu, curr: MenuItemFragment | null) => {
     id: curr.id,
     label: curr.label,
     order: curr.order,
-    href: curr.uri,
+    href: curr.uri as Route,
     childItems: null,
   });
 
   return prev;
+};
+
+const getFooterMenu = (items: Array<ItemWithChildren>) => {
+  const verein = items.find((item) => item.label === "Verein");
+  const riverrats = items.find((item) => item.label === "River Rats");
+  const eishockey = items.find((item) => item.label === "Eishockey");
+
+  if (!verein?.childItems || !riverrats?.childItems || !eishockey?.childItems) {
+    return null;
+  }
+
+  const rest = items.filter(
+    (item) =>
+      ![
+        "Verein",
+        "River Rats",
+        "Eishockey",
+        "Impressum",
+        "Datenschutzerklärung",
+      ].includes(item.label)
+  );
+  const legal = items.filter((item) =>
+    ["Impressum", "Datenschutzerklärung"].includes(item.label)
+  );
+
+  return {
+    verein: verein.childItems.sort(byOrder),
+    riverrats: riverrats.childItems.sort(byOrder),
+    eishockey: eishockey.childItems.sort(byOrder),
+    rest: rest.sort(byOrder),
+    legal,
+  };
 };

@@ -7,6 +7,15 @@ const { z } = require("zod");
 const server = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]),
   GRAPHQL_BACKEND_URL: z.string().url(),
+  EVENT_URL: z.string(),
+  CLIENT_ID: z.string().optional(),
+  AAD_ENDPOINT: z.string().optional(),
+  TENANT_ID: z.string().optional(),
+  CLIENT_SECRET: z.string().optional(),
+  GRAPH_ENDPOINT: z.string().optional(),
+  CALENDAR_USER: z.string().optional(),
+  CALENDAR_ID: z.string().optional(),
+  CALENDAR_OPTIONS: z.string().optional(),
 });
 
 /**
@@ -27,6 +36,15 @@ const processEnv = {
   NODE_ENV: process.env.NODE_ENV,
   GRAPHQL_BACKEND_URL: process.env.GRAPHQL_BACKEND_URL,
   NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
+  EVENT_URL: process.env.EVENT_URL,
+  CLIENT_ID: process.env.CLIENT_ID,
+  AAD_ENDPOINT: process.env.AAD_ENDPOINT,
+  TENANT_ID: process.env.TENANT_ID,
+  CLIENT_SECRET: process.env.CLIENT_SECRET,
+  GRAPH_ENDPOINT: process.env.GRAPH_ENDPOINT,
+  CALENDAR_USER: process.env.CALENDAR_USER,
+  CALENDAR_ID: process.env.CALENDAR_ID,
+  CALENDAR_OPTIONS: process.env.CALENDAR_OPTIONS,
 };
 
 // Don't touch the part below

@@ -71,7 +71,7 @@ export const MenuList: React.FC<MenuListProps> = ({ menu, id, ...rest }) => {
         })}
         <AccordionItem value="close">
           <VisuallyHiddenUntilFocusedButton
-            className="md:hidden w-full py-2"
+            className="xl:hidden text-start !py-2 !w-full"
             onClick={() => menuContext?.api.close()}
           >
             Close Menu

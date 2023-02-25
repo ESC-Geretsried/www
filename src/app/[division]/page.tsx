@@ -2,6 +2,8 @@ import { TemplateRenderer } from "../../components/TemplateRenderer";
 import { getPage } from "../../lib/getPage/getPage";
 import { getPagePaths } from "../../lib/getPaths";
 
+export { generateMetadata } from "../page";
+
 type PageProps = {
   params: { division: string };
   searchParams?: { [key: string]: string | Array<string> | undefined };
@@ -10,7 +12,6 @@ type PageProps = {
 const Page = async ({ params }: PageProps) => {
   const page = await getPage(params.division);
 
-  // @ts-expect-error server-component
   return <TemplateRenderer page={page} />;
 };
 

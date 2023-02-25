@@ -1,0 +1,28 @@
+query getPageSeoByUri($uri: ID!) {
+  page(id: $uri, idType: URI) {
+    id
+    slug
+    uri
+    title
+    categories {
+      nodes {
+        ...Category
+      }
+    }
+    pageACF {
+      division
+
+      seo {
+        ...Seo
+      }
+    }
+  }
+}
+
+fragment Seo on Page_Pageacf_Seo {
+  metaDescription
+  noIndex
+  ogDescription
+  title
+  twitterDescription
+}

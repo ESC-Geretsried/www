@@ -1,6 +1,8 @@
 "use client";
 
 import { Portal } from "@zag-js/react";
+import Link from "next/link";
+import Image from "next/image";
 import { ReactNode } from "react";
 import { BurgerButton } from "../BurgerButton/BurgerButton";
 import {
@@ -9,7 +11,9 @@ import {
   DrawerContent,
   DrawerTrigger,
 } from "../Drawer/Drawer";
+import { Hx } from "../Heading/Heading";
 import { Navbar } from "../Navbar/Navbar";
+import logo from "../../../public/logo_cropped.svg";
 
 const Trigger = () => {
   return (
@@ -21,15 +25,21 @@ const Trigger = () => {
 
 export const MobileMenu: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <Drawer className="xl:hidden">
+    <Drawer className="xl:hidden ">
       <Navbar>
-        <div>
-          <Trigger />
-        </div>
+        <Trigger />
+        <Hx className="block ">Title</Hx>
+        <Link href="/" className="hover:opacity-100 block mr-4">
+          <Image
+            alt="Logo vom ESC Geretsried"
+            src={logo}
+            className="max-h-16 max-w-[4rem]"
+          />
+        </Link>
       </Navbar>
       <Portal>
         <DrawerContainer>
-          <DrawerContent className="mt-navbar bg-slate-400">
+          <DrawerContent className="mt-navbar bg-blue px-4 py-8">
             {children}
           </DrawerContent>
         </DrawerContainer>

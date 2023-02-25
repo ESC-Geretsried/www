@@ -6,6 +6,10 @@
   text-decoration-thickness: 2px;
 }
 
+body {
+  @apply bg-blue text-ice;
+}
+
 a {
   text-decoration: underline;
   text-decoration-thickness: 2px;

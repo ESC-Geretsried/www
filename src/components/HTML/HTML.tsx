@@ -1,7 +1,8 @@
 import parse, { Element, domToReact } from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
-import { env } from "../../lib/env";
+import { env } from "../../lib/env.js";
+import { HeadingLevelBoundary, Hx } from "../Heading/Heading";
 
 type HTMLProps = {
   children?: string | null;
@@ -20,43 +21,50 @@ export const HTML: React.FC<HTMLProps> = ({ children }) => {
   }
 
   return (
-    <>
-      {parse(children, {
-        replace: (domNode) => {
-          if (isElement(domNode) && domNode.name === "a") {
-            if (domNode.attribs.href.startsWith(env.NEXT_PUBLIC_BACKEND_URL)) {
-              const isWPContent = domNode.attribs.href.includes("wp-content");
-
-              if (isWPContent) {
-                return (
-                  <a href={domNode.attribs.href} download>
-                    {domToReact(domNode.children)}
-                  </a>
-                );
-              }
-
-              const href = domNode.attribs.href.replace(
-                env.NEXT_PUBLIC_BACKEND_URL,
-                ""
-              );
-
-              return <Link href={href}>{domToReact(domNode.children)}</Link>;
+    <HeadingLevelBoundary>
+      <div className="stack">
+        {parse(children, {
+          replace: (domNode) => {
+            if (isElement(domNode) && domNode.name.match(/h\d/)) {
+              return <Hx>{domToReact(domNode.children)}</Hx>;
             }
-          }
-          if (isElement(domNode) && domNode.name === "img") {
-            return (
-              <Image
-                alt={domNode.attribs.alt}
-                src={domNode.attribs.src}
-                width={parseInt(domNode.attribs.width)}
-                height={parseInt(domNode.attribs.height)}
-              />
-            );
-          }
+            if (isElement(domNode) && domNode.name === "a") {
+              if (
+                domNode.attribs.href.startsWith(env.NEXT_PUBLIC_BACKEND_URL)
+              ) {
+                const isWPContent = domNode.attribs.href.includes("wp-content");
 
-          return domNode;
-        },
-      })}
-    </>
+                if (isWPContent) {
+                  return (
+                    <a href={domNode.attribs.href} download>
+                      {domToReact(domNode.children)}
+                    </a>
+                  );
+                }
+
+                const href = domNode.attribs.href.replace(
+                  env.NEXT_PUBLIC_BACKEND_URL,
+                  ""
+                );
+
+                return <Link href={href}>{domToReact(domNode.children)}</Link>;
+              }
+            }
+            if (isElement(domNode) && domNode.name === "img") {
+              return (
+                <Image
+                  alt={domNode.attribs.alt}
+                  src={domNode.attribs.src}
+                  width={parseInt(domNode.attribs.width)}
+                  height={parseInt(domNode.attribs.height)}
+                />
+              );
+            }
+
+            return domNode;
+          },
+        })}
+      </div>
+    </HeadingLevelBoundary>
   );
 };

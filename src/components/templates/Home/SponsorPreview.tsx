@@ -1,12 +1,11 @@
-import React, { ReactNode } from "react";
+import React from "react";
+import { BorderHeading } from "../../Heading/BorderHeading";
+import { Section } from "../../Section";
 
-type SponsorPreviewProps = {
-  children?: ReactNode;
-};
-
-export const SponsorPreview: React.FC<SponsorPreviewProps> = ({
-  children,
-  ...rest
-}) => {
-  return <>{children}</>;
+export const SponsorPreview: React.FC = () => {
+  return (
+    <Section>
+      <BorderHeading>Sponsoren</BorderHeading>
+    </Section>
+  );
 };

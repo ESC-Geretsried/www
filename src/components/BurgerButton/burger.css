@@ -27,7 +27,8 @@
 }
 .hamburger:focus {
   border-radius: 0;
-  outline: none;
+
+  @apply ring-2;
 }
 .hamburger[aria-expanded="true"]:hover {
   opacity: 0.7;

@@ -9075,13 +9075,11 @@ export type GetPageByUriQueryVariables = Exact<{
 }>;
 
 
-export type GetPageByUriQuery = { __typename: 'RootQuery', page: { __typename: 'Page', id: string, slug: string | null, uri: string | null, content: string | null, title: string | null, categories: { __typename: 'PageToCategoryConnection', nodes: Array<{ __typename: 'Category', id: string, databaseId: number, name: string | null, slug: string | null } | null> | null } | null, pageACF: { __typename: 'Page_Pageacf', template: string | null, division: string | null, standardContent: { __typename: 'Page_Pageacf_StandardContent', additionalInfo: { __typename: 'Page_Pageacf_StandardContent_AdditionalInfo', content: string | null, title: string | null } | null, contact: { __typename: 'Page_Pageacf_StandardContent_Contact', email: string | null, name: string | null, tel: string | null, website: string | null } | null, downloads: Array<{ __typename: 'Page_Pageacf_StandardContent_downloads', file: { __typename: 'MediaItem', altText: string | null, title: string | null, mediaItemUrl: string | null } | null } | null> | null, featurePic: { __typename: 'MediaItem', title: string | null, altText: string | null, srcSet: string | null, mediaItemUrl: string | null } | null } | null, boardMembers: Array<{ __typename: 'Page_Pageacf_boardMembers', email: string | null, fieldGroupName: string | null, level: string | null, name: string | null, position: string | null, telephone: string | null, portrait: { __typename: 'MediaItem', altText: string | null, sourceUrl: string | null } | null } | null> | null, seo: { __typename: 'Page_Pageacf_Seo', metaDescription: string | null, noIndex: boolean | null, ogDescription: string | null, title: string | null, twitterDescription: string | null } | null, sponsorsContent: Array<{ __typename: 'Page_Pageacf_sponsorsContent', name: string | null } | null> | null, lineup: { __typename: 'Page_Pageacf_Lineup', team: Array<{ __typename: 'Page_Pageacf_Lineup_team', name: string | null, nationality: string | null, number: number | null, position: string | null, rodiLink: string | null, stickSide: string | null } | null> | null, teamPicture: { __typename: 'MediaItem', title: string | null, altText: string | null, srcSet: string | null, mediaItemUrl: string | null } | null } | null } | null, homeACF: { __typename: 'Page_Homeacf', adresse: string | null, facebookLink: string | null, instagramLink: string | null, tickarooLink: string | null } | null, riverratsACF: { __typename: 'Page_Riverratsacf', divisionId: string | null, teamId: string | null } | null } | null };
+export type GetPageByUriQuery = { __typename: 'RootQuery', page: { __typename: 'Page', id: string, slug: string | null, uri: string | null, content: string | null, title: string | null, categories: { __typename: 'PageToCategoryConnection', nodes: Array<{ __typename: 'Category', id: string, databaseId: number, name: string | null, slug: string | null } | null> | null } | null, pageACF: { __typename: 'Page_Pageacf', template: string | null, division: string | null, standardContent: { __typename: 'Page_Pageacf_StandardContent', additionalInfo: { __typename: 'Page_Pageacf_StandardContent_AdditionalInfo', content: string | null, title: string | null } | null, contact: { __typename: 'Page_Pageacf_StandardContent_Contact', email: string | null, name: string | null, tel: string | null, website: string | null } | null, downloads: Array<{ __typename: 'Page_Pageacf_StandardContent_downloads', file: { __typename: 'MediaItem', altText: string | null, title: string | null, mediaItemUrl: string | null } | null } | null> | null, featurePic: { __typename: 'MediaItem', title: string | null, altText: string | null, srcSet: string | null, mediaItemUrl: string | null } | null } | null, boardMembers: Array<{ __typename: 'Page_Pageacf_boardMembers', email: string | null, fieldGroupName: string | null, level: string | null, name: string | null, position: string | null, telephone: string | null, portrait: { __typename: 'MediaItem', altText: string | null, sourceUrl: string | null } | null } | null> | null, sponsorsContent: Array<{ __typename: 'Page_Pageacf_sponsorsContent', name: string | null } | null> | null, lineup: { __typename: 'Page_Pageacf_Lineup', team: Array<{ __typename: 'Page_Pageacf_Lineup_team', name: string | null, nationality: string | null, number: number | null, position: string | null, rodiLink: string | null, stickSide: string | null } | null> | null, teamPicture: { __typename: 'MediaItem', title: string | null, altText: string | null, srcSet: string | null, mediaItemUrl: string | null } | null } | null } | null, homeACF: { __typename: 'Page_Homeacf', adresse: string | null, facebookLink: string | null, instagramLink: string | null, tickarooLink: string | null } | null, riverratsACF: { __typename: 'Page_Riverratsacf', divisionId: string | null, teamId: string | null } | null } | null };
 
 export type StandardContentFragment = { __typename: 'Page_Pageacf_StandardContent', additionalInfo: { __typename: 'Page_Pageacf_StandardContent_AdditionalInfo', content: string | null, title: string | null } | null, contact: { __typename: 'Page_Pageacf_StandardContent_Contact', email: string | null, name: string | null, tel: string | null, website: string | null } | null, downloads: Array<{ __typename: 'Page_Pageacf_StandardContent_downloads', file: { __typename: 'MediaItem', altText: string | null, title: string | null, mediaItemUrl: string | null } | null } | null> | null, featurePic: { __typename: 'MediaItem', title: string | null, altText: string | null, srcSet: string | null, mediaItemUrl: string | null } | null };
 
 export type BoardMemberFragment = { __typename: 'Page_Pageacf_boardMembers', email: string | null, fieldGroupName: string | null, level: string | null, name: string | null, position: string | null, telephone: string | null, portrait: { __typename: 'MediaItem', altText: string | null, sourceUrl: string | null } | null };
-
-export type SeoFragment = { __typename: 'Page_Pageacf_Seo', metaDescription: string | null, noIndex: boolean | null, ogDescription: string | null, title: string | null, twitterDescription: string | null };
 
 export type PlayerFragment = { __typename: 'Page_Pageacf_Lineup_team', name: string | null, nationality: string | null, number: number | null, position: string | null, rodiLink: string | null, stickSide: string | null };
 
@@ -9091,6 +9089,15 @@ export type GetPagePathsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetPagePathsQuery = { __typename: 'RootQuery', pages: { __typename: 'RootQueryToPageConnection', nodes: Array<{ __typename: 'Page', uri: string | null } | null> | null } | null };
+
+export type GetPageSeoByUriQueryVariables = Exact<{
+  uri: Scalars['ID'];
+}>;
+
+
+export type GetPageSeoByUriQuery = { __typename: 'RootQuery', page: { __typename: 'Page', id: string, slug: string | null, uri: string | null, title: string | null, categories: { __typename: 'PageToCategoryConnection', nodes: Array<{ __typename: 'Category', id: string, databaseId: number, name: string | null, slug: string | null } | null> | null } | null, pageACF: { __typename: 'Page_Pageacf', division: string | null, seo: { __typename: 'Page_Pageacf_Seo', metaDescription: string | null, noIndex: boolean | null, ogDescription: string | null, title: string | null, twitterDescription: string | null } | null } | null } | null };
+
+export type SeoFragment = { __typename: 'Page_Pageacf_Seo', metaDescription: string | null, noIndex: boolean | null, ogDescription: string | null, title: string | null, twitterDescription: string | null };
 
 export const ImageFragmentDoc = gql`
     fragment Image on MediaItem {
@@ -9195,15 +9202,6 @@ export const BoardMemberFragmentDoc = gql`
   telephone
 }
     `;
-export const SeoFragmentDoc = gql`
-    fragment Seo on Page_Pageacf_Seo {
-  metaDescription
-  noIndex
-  ogDescription
-  title
-  twitterDescription
-}
-    `;
 export const PlayerFragmentDoc = gql`
     fragment Player on Page_Pageacf_Lineup_team {
   name
@@ -9218,6 +9216,15 @@ export const RiverratsMetaFragmentDoc = gql`
     fragment RiverratsMeta on Page_Riverratsacf {
   divisionId
   teamId
+}
+    `;
+export const SeoFragmentDoc = gql`
+    fragment Seo on Page_Pageacf_Seo {
+  metaDescription
+  noIndex
+  ogDescription
+  title
+  twitterDescription
 }
     `;
 export const GetBlogPreviewDocument = gql`
@@ -9289,9 +9296,6 @@ export const GetPageByUriDocument = gql`
       boardMembers {
         ...BoardMember
       }
-      seo {
-        ...Seo
-      }
       sponsorsContent {
         name
       }
@@ -9320,7 +9324,6 @@ ${StandardContentFragmentDoc}
 ${DownloadFragmentDoc}
 ${ImageFragmentDoc}
 ${BoardMemberFragmentDoc}
-${SeoFragmentDoc}
 ${PlayerFragmentDoc}
 ${RiverratsMetaFragmentDoc}`;
 export const GetPagePathsDocument = gql`
@@ -9332,6 +9335,28 @@ export const GetPagePathsDocument = gql`
   }
 }
     `;
+export const GetPageSeoByUriDocument = gql`
+    query getPageSeoByUri($uri: ID!) {
+  page(id: $uri, idType: URI) {
+    id
+    slug
+    uri
+    title
+    categories {
+      nodes {
+        ...Category
+      }
+    }
+    pageACF {
+      division
+      seo {
+        ...Seo
+      }
+    }
+  }
+}
+    ${CategoryFragmentDoc}
+${SeoFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -9357,6 +9382,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getPagePaths(variables?: GetPagePathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetPagePathsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetPagePathsQuery>(GetPagePathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getPagePaths', 'query');
+    },
+    getPageSeoByUri(variables: GetPageSeoByUriQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetPageSeoByUriQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetPageSeoByUriQuery>(GetPageSeoByUriDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getPageSeoByUri', 'query');
     }
   };
 }

@@ -75,6 +75,7 @@ export const useAccordionItemContext = () => {
 export const AccordionItem: React.FC<{
   value: string;
   children: ReactNode;
+  className?: string;
 }> = ({ value, children, ...rest }) => {
   const { api } = useAccordionContext();
 

@@ -2,6 +2,8 @@ import { TemplateRenderer } from "../../../components/TemplateRenderer";
 import { getPage, getPageUriFromParams } from "../../../lib/getPage/getPage";
 import { getPagePaths } from "../../../lib/getPaths";
 
+export { generateMetadata } from "../page";
+
 type PageProps = {
   params: { division: string; page: string };
   searchParams?: { [key: string]: string | Array<string> | undefined };

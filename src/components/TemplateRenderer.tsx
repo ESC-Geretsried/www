@@ -5,30 +5,30 @@ import { Standard } from "./templates/Standard/Standard";
 
 type PageProps = {
   page: Page;
-  children: ReactNode;
 };
 
-export const TemplateRenderer = async ({ page, children }: PageProps) => {
+export const TemplateRenderer = ({ page }: PageProps) => {
   switch (page.template) {
     case "hockey": {
       return <Hockey />;
     }
     case "standard": {
+      // @ts-expect-error Server Component
       return <Standard page={page} />;
     }
 
     case "lineup_board": {
-      return <div>{children}</div>;
+      return <div>lineup board</div>;
     }
 
     case "lineup": {
-      return <div> {children}</div>;
+      return <div> lineup</div>;
     }
 
     default: {
       console.error("template not yet implemented");
 
-      return <div>{children}</div>;
+      return <div>default</div>;
     }
   }
 };

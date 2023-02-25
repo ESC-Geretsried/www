@@ -1,5 +1,7 @@
 import React from "react";
 import { Download } from "../../../lib/getPage/getStandardPageData";
+import { BorderHeading } from "../../Heading/BorderHeading";
+import { Section } from "../../Section";
 
 type DownloadsProps = {
   downloads: Array<Download>;
@@ -7,8 +9,8 @@ type DownloadsProps = {
 
 export const Downloads: React.FC<DownloadsProps> = ({ downloads }) => {
   return (
-    <section>
-      <h2>Downloads</h2>
+    <Section>
+      <BorderHeading className="text-2xl mt-4">Downloads</BorderHeading>
       <ul className="list-disc">
         {downloads.map((item) => (
           <li key={item.href}>
@@ -18,6 +20,6 @@ export const Downloads: React.FC<DownloadsProps> = ({ downloads }) => {
           </li>
         ))}
       </ul>
-    </section>
+    </Section>
   );
 };

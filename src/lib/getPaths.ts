@@ -1,33 +1,5 @@
 import { getCMSClient } from "./getCMSClient";
-
-export const hockeyDivisions = [
-  "damen",
-  "1b",
-  "u17",
-  "u15",
-  "u13",
-  "u11",
-  "u9",
-  "u7",
-] as const;
-
-export const divisionsWithNesting = [
-  "verein",
-  "river-rats",
-  "eishockey",
-] as const;
-
-const divisionsWithoutNesting = [
-  "eiskunstlauf",
-  "eislaufschule",
-  "inklusionssport",
-];
-
-const allDivisions = [
-  ...hockeyDivisions,
-  ...divisionsWithNesting,
-  ...divisionsWithoutNesting,
-];
+import { divisionsWithNesting } from "./types";
 
 export const getPagePaths = async () => {
   const client = getCMSClient();

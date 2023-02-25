@@ -6,7 +6,7 @@ type NavbarProps = {
 
 export const Navbar: React.FC<NavbarProps> = ({ children }) => {
   return (
-    <header className="fixed top-0 left-0 right-0  w-full bg-slate-500 h-navbar">
+    <header className="fixed top-0 left-0 right-0  w-full bg-blue h-navbar flex justify-between items-center z-10 ">
       {children}
     </header>
   );

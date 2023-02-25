@@ -11,7 +11,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <head />
       <body>
         <a
-          className="absolute left-[50%] top-0 p-2 -translate-y-full focus:translate-y-0"
+          className="absolute left-) top-0 w-full text-center h-navbar p-2 -translate-y-full focus:translate-y-0 z-20 bg-blue"
           href="#main"
         >
           Navigation überspringen
@@ -32,3 +32,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default RootLayout;
+
+export const metadata = {
+  title: {
+    default: "ESC Geretsried",
+    template: "%s | ESC Geretsried",
+  },
+};
