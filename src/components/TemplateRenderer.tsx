@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import type { Page } from "../lib/getPage/getPage";
 import { Hockey } from "./templates/Hockey";
 import { Standard } from "./templates/Standard/Standard";
+import { Downloads } from "./templates/Downloads";
 
 type PageProps = {
   page: Page;
@@ -22,7 +23,10 @@ export const TemplateRenderer = ({ page }: PageProps) => {
     }
 
     case "lineup": {
-      return <div> lineup</div>;
+      return <div>lineup</div>;
+    }
+    case "downloads": {
+      return <div>Downloads</div>;
     }
 
     default: {

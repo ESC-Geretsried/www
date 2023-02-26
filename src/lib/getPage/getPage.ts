@@ -30,7 +30,10 @@ type LineupBoardTemplateData = {
   template: "lineup_board";
   boardMembers: Array<any>;
 };
-
+type DownloadsData = {
+  template: "downloads";
+  team: Array<any>;
+};
 const getHockeyPageData = (
   data: GetPageByUriQuery
 ): CommonPage<HockeyTemplateData> => {
@@ -81,11 +84,29 @@ const getLineupBoardPageData = (
   };
 };
 
+const getDownloadsPageData = (
+  data: GetPageByUriQuery
+): CommonPage<DownloadsData> => {
+  if (!data.page?.title || !data.page.pageACF?.lineup?.team) {
+    return notFound();
+  }
+  const seo = data.page.pageACF.seo ?? null;
+
+  return {
+    template: "downloads",
+    title: data.page.title,
+    team: data.page.pageACF.lineup.team,
+    seo,
+  };
+};
+
 export type Page = CommonPage<
   | HockeyTemplateData
   | StandardTemplateData
   | LineupTemplateData
   | LineupBoardTemplateData
+  | DownloadsData
+  
 >;
 
 export const getPage = async (uri: string): Promise<Page> => {
@@ -94,7 +115,9 @@ export const getPage = async (uri: string): Promise<Page> => {
   }
   const client = getCMSClient();
   const data = await client.getPageByUri({ uri });
-
+  
+  console.log(data);
+  
   if (!data.page?.pageACF?.template) {
     console.error("getPage didn't find page with the uri", uri);
 
@@ -116,6 +139,10 @@ export const getPage = async (uri: string): Promise<Page> => {
 
     case "lineup": {
       return getLineupPageData(data);
+    }
+
+    case "downloads": {
+      return getDownloadsPageData(data);
     }
 
     default: {
