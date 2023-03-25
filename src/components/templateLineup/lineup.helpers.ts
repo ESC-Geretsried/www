@@ -19,6 +19,8 @@ export const getPosition = (position: string) => {
       return "Co-Trainer";
     case "manager":
       return "Manager";
+    case "doc":
+      return "Mannschaftsarzt"
     default:
       return "Betreuer";
   }
