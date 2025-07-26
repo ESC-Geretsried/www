@@ -73,7 +73,7 @@ What services and how to run them?? @bytetyde ?
 
 ### Changes not showing
 
-- npm run clean is your friend
+- npm run clean is your friend :-)
 
 ### error connecting to whatever when running **npm run dev**
 
