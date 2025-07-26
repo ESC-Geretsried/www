@@ -37,8 +37,8 @@ const PlayerCard: React.FC<{ human: PlayerFieldsFragment; notPlayer?: boolean }>
       <h3>{human.name}</h3>
       <div>
         {notPlayer && <DataEntry datakey="Position" data={getPosition(human.position ?? "")} rightAlign />}
-        <DataEntry datakey="Rückennummer" data={human.number?.toString()} rightAlign />
-        <DataEntry datakey="Nationalität" data={human.nationality} rightAlign />
+        {!notPlayer && <DataEntry datakey="Rückennummer" data={human.number?.toString() ?? ""} rightAlign /> }
+        {!notPlayer && <DataEntry datakey="Nationalität" data={human.nationality ?? ""} rightAlign /> }
         {!notPlayer && <DataEntry datakey="Schlägerseite" data={getStickSide(human.stickSide ?? "")} rightAlign />}
         {!notPlayer && (
           <div>

@@ -256,6 +256,8 @@ export type DirectoryCtimeArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
+  port?: Maybe<Scalars['Int']>;
+  host?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -821,7 +823,7 @@ export type Wordpress_MediaItem = Node & Wordpress_Node & Wordpress_ContentNode 
   commentCount?: Maybe<Scalars['Int']>;
   /** Whether the comments are open or closed for this particular post. */
   commentStatus?: Maybe<Scalars['String']>;
-  /** Connection between the mediaItem type and the Comment type */
+  /** Connection between the MediaItem type and the Comment type */
   comments?: Maybe<Wordpress_MediaItemToCommentConnection>;
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<Wordpress_ContentNodeToContentTypeConnectionEdge>;
@@ -882,8 +884,6 @@ export type Wordpress_MediaItem = Node & Wordpress_Node & Wordpress_ContentNode 
   status?: Maybe<Scalars['String']>;
   /** The template assigned to the node */
   template?: Maybe<Wordpress_ContentTemplate>;
-  /** Connection between the mediaItem type and the TermNode type */
-  terms?: Maybe<Wordpress_MediaItemToTermNodeConnection>;
   /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
   title?: Maybe<Scalars['String']>;
   /** The unique resource identifier path */
@@ -934,11 +934,15 @@ export type Wordpress_MediaItemModifiedGmtArgs = {
 };
 
 export type Wordpress_NodeWithTemplate = {
+  /** The globally unique ID for the object */
+  id: Scalars['ID'];
   /** The template assigned to the node */
   template?: Maybe<Wordpress_ContentTemplate>;
 };
 
 export type Wordpress_NodeWithTitle = {
+  /** The globally unique ID for the object */
+  id: Scalars['ID'];
   /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
   title?: Maybe<Scalars['String']>;
 };
@@ -950,6 +954,8 @@ export type Wordpress_NodeWithAuthor = {
   authorDatabaseId?: Maybe<Scalars['Int']>;
   /** The globally unique identifier of the author of the node */
   authorId?: Maybe<Scalars['ID']>;
+  /** The globally unique ID for the object */
+  id: Scalars['ID'];
 };
 
 export type Wordpress_NodeWithComments = {
@@ -957,6 +963,8 @@ export type Wordpress_NodeWithComments = {
   commentCount?: Maybe<Scalars['Int']>;
   /** Whether the comments are open or closed for this particular post. */
   commentStatus?: Maybe<Scalars['String']>;
+  /** The globally unique ID for the object */
+  id: Scalars['ID'];
 };
 
 export type Wordpress_HierarchicalContentNode = {
@@ -1001,7 +1009,7 @@ export type Wordpress_HierarchicalContentNodeToParentContentNodeConnectionEdge =
   node?: Maybe<Wordpress_ContentNode>;
 };
 
-/** Connection between the mediaItem type and the Comment type */
+/** Connection between the MediaItem type and the Comment type */
 export type Wordpress_MediaItemToCommentConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_Comment>>>;
@@ -1073,44 +1081,6 @@ export type Wordpress_MediaSize = {
   width?: Maybe<Scalars['String']>;
 };
 
-/** Connection between the mediaItem type and the TermNode type */
-export type Wordpress_MediaItemToTermNodeConnection = {
-  /** The nodes of the connection, without the edges */
-  nodes?: Maybe<Array<Maybe<Wordpress_TermNode>>>;
-};
-
-export type Wordpress_TermNode = {
-  /** The number of objects connected to the object */
-  count?: Maybe<Scalars['Int']>;
-  /** Identifies the primary key from the database. */
-  databaseId: Scalars['Int'];
-  /** The description of the object */
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  /** Whether the node is a Content Node */
-  isContentNode: Scalars['Boolean'];
-  /** Whether the node is a Term */
-  isTermNode: Scalars['Boolean'];
-  /** The link to the term */
-  link?: Maybe<Scalars['String']>;
-  /** The human friendly name of the object. */
-  name?: Maybe<Scalars['String']>;
-  /** An alphanumeric identifier for the object unique to its type. */
-  slug?: Maybe<Scalars['String']>;
-  /** The name of the taxonomy that the object is associated with */
-  taxonomyName?: Maybe<Scalars['String']>;
-  /** The ID of the term group that this term object belongs to */
-  termGroupId?: Maybe<Scalars['Int']>;
-  /** The taxonomy ID that the object is associated with */
-  termTaxonomyId?: Maybe<Scalars['Int']>;
-  /** The unique resource identifier path */
-  uri?: Maybe<Scalars['String']>;
-  nodeType?: Maybe<Scalars['String']>;
-  parent?: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
-};
-
 /** Connection between the User type and the page type */
 export type Wordpress_UserToPageConnection = {
   /** The nodes of the connection, without the edges */
@@ -1127,7 +1097,7 @@ export type Wordpress_Page = Node & Wordpress_Node & Wordpress_ContentNode & Wor
   authorDatabaseId?: Maybe<Scalars['Int']>;
   /** The globally unique identifier of the author of the node */
   authorId?: Maybe<Scalars['ID']>;
-  /** Connection between the page type and the category type */
+  /** Connection between the Page type and the category type */
   categories?: Maybe<Wordpress_PageToCategoryConnection>;
   /** Connection between the HierarchicalContentNode type and the ContentNode type */
   wpChildren?: Maybe<Wordpress_HierarchicalContentNodeToContentNodeChildrenConnection>;
@@ -1135,7 +1105,7 @@ export type Wordpress_Page = Node & Wordpress_Node & Wordpress_ContentNode & Wor
   commentCount?: Maybe<Scalars['Int']>;
   /** Whether the comments are open or closed for this particular post. */
   commentStatus?: Maybe<Scalars['String']>;
-  /** Connection between the page type and the Comment type */
+  /** Connection between the Page type and the Comment type */
   comments?: Maybe<Wordpress_PageToCommentConnection>;
   /** The content of the post. */
   content?: Maybe<Scalars['String']>;
@@ -1199,11 +1169,11 @@ export type Wordpress_Page = Node & Wordpress_Node & Wordpress_ContentNode & Wor
   slug?: Maybe<Scalars['String']>;
   /** The current status of the object */
   status?: Maybe<Scalars['String']>;
-  /** Connection between the page type and the tag type */
+  /** Connection between the Page type and the tag type */
   tags?: Maybe<Wordpress_PageToTagConnection>;
-  /** The template assigned to a node of content */
+  /** The template assigned to the node */
   template?: Maybe<Wordpress_ContentTemplate>;
-  /** Connection between the page type and the TermNode type */
+  /** Connection between the Page type and the TermNode type */
   terms?: Maybe<Wordpress_PageToTermNodeConnection>;
   /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
   title?: Maybe<Scalars['String']>;
@@ -1254,61 +1224,31 @@ export type Wordpress_PageModifiedGmtArgs = {
 export type Wordpress_NodeWithContentEditor = {
   /** The content of the post. */
   content?: Maybe<Scalars['String']>;
+  /** The globally unique ID for the object */
+  id: Scalars['ID'];
 };
 
 export type Wordpress_NodeWithFeaturedImage = {
-  /** Connection between the ContentNode type and the ContentType type */
-  contentType?: Maybe<Wordpress_ContentNodeToContentTypeConnectionEdge>;
-  /** The name of the Content Type the node belongs to */
-  contentTypeName: Scalars['String'];
-  /** The unique identifier stored in the database */
-  databaseId: Scalars['Int'];
-  /** Post publishing date. */
-  date?: Maybe<Scalars['Date']>;
-  /** The publishing date set in GMT. */
-  dateGmt?: Maybe<Scalars['Date']>;
-  /** The desired slug of the post */
-  desiredSlug?: Maybe<Scalars['String']>;
-  /** The RSS enclosure for the object */
-  enclosure?: Maybe<Scalars['String']>;
   /** Connection between the NodeWithFeaturedImage type and the MediaItem type */
   featuredImage?: Maybe<Wordpress_NodeWithFeaturedImageToMediaItemConnectionEdge>;
   /** The database identifier for the featured image node assigned to the content node */
   featuredImageDatabaseId?: Maybe<Scalars['Int']>;
   /** Globally unique ID of the featured image assigned to the node */
   featuredImageId?: Maybe<Scalars['ID']>;
-  /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
-  guid?: Maybe<Scalars['String']>;
-  /** The unique resource identifier path */
+  /** The globally unique ID for the object */
   id: Scalars['ID'];
-  /** Whether the node is a Content Node */
-  isContentNode: Scalars['Boolean'];
-  /** Whether the node is a Term */
-  isTermNode: Scalars['Boolean'];
-  /** The user that most recently edited the node */
-  lastEditedBy?: Maybe<Wordpress_ContentNodeToEditLastConnectionEdge>;
-  /** The permalink of the post */
-  link?: Maybe<Scalars['String']>;
-  /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
-  modified?: Maybe<Scalars['Date']>;
-  /** The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT. */
-  modifiedGmt?: Maybe<Scalars['Date']>;
-  /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
-  slug?: Maybe<Scalars['String']>;
-  /** The current status of the object */
-  status?: Maybe<Scalars['String']>;
-  /** The template assigned to a node of content */
-  template?: Maybe<Wordpress_ContentTemplate>;
-  /** The unique resource identifier path */
-  uri?: Maybe<Scalars['String']>;
 };
 
 export type Wordpress_NodeWithRevisions = {
+  /** The globally unique ID for the object */
+  id: Scalars['ID'];
   /** True if the node is a revision of another node */
   isRevision?: Maybe<Scalars['Boolean']>;
 };
 
 export type Wordpress_NodeWithPageAttributes = {
+  /** The globally unique ID for the object */
+  id: Scalars['ID'];
   /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
   menuOrder?: Maybe<Scalars['Int']>;
 };
@@ -1334,7 +1274,7 @@ export type Wordpress_NodeWithRevisionsToContentNodeConnectionEdge = {
   node?: Maybe<Wordpress_ContentNode>;
 };
 
-/** Connection between the page type and the category type */
+/** Connection between the Page type and the category type */
 export type Wordpress_PageToCategoryConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_Category>>>;
@@ -1344,9 +1284,9 @@ export type Wordpress_PageToCategoryConnection = {
 export type Wordpress_Category = Node & Wordpress_Node & Wordpress_TermNode & Wordpress_UniformResourceIdentifiable & Wordpress_DatabaseIdentifier & Wordpress_HierarchicalTermNode & Wordpress_MenuItemLinkable & {
   /** The ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   ancestors?: Maybe<Wordpress_CategoryToAncestorsCategoryConnection>;
-  /** Connection between the category type and the category type */
+  /** Connection between the category type and its children categories. */
   wpChildren?: Maybe<Wordpress_CategoryToCategoryConnection>;
-  /** Connection between the category type and the ContentNode type */
+  /** Connection between the Category type and the ContentNode type */
   contentNodes?: Maybe<Wordpress_CategoryToContentNodeConnection>;
   /** The number of objects connected to the object */
   count?: Maybe<Scalars['Int']>;
@@ -1363,19 +1303,19 @@ export type Wordpress_Category = Node & Wordpress_Node & Wordpress_TermNode & Wo
   link?: Maybe<Scalars['String']>;
   /** The human friendly name of the object. */
   name?: Maybe<Scalars['String']>;
-  /** Connection between the category type and the page type */
+  /** Connection between the Category type and the page type */
   pages?: Maybe<Wordpress_CategoryToPageConnection>;
-  /** Connection between the category type and the category type */
+  /** Connection between the category type and its parent category. */
   wpParent?: Maybe<Wordpress_CategoryToParentCategoryConnectionEdge>;
   /** Database id of the parent node */
   parentDatabaseId?: Maybe<Scalars['Int']>;
   /** The globally unique identifier of the parent node. */
   parentId?: Maybe<Scalars['ID']>;
-  /** Connection between the category type and the post type */
+  /** Connection between the Category type and the post type */
   posts?: Maybe<Wordpress_CategoryToPostConnection>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug?: Maybe<Scalars['String']>;
-  /** Connection between the category type and the Taxonomy type */
+  /** Connection between the Category type and the Taxonomy type */
   taxonomy?: Maybe<Wordpress_CategoryToTaxonomyConnectionEdge>;
   /** The name of the taxonomy that the object is associated with */
   taxonomyName?: Maybe<Scalars['String']>;
@@ -1398,37 +1338,37 @@ export type Wordpress_HierarchicalTermNode = {
   parentId?: Maybe<Scalars['ID']>;
 };
 
-/** Connection between the category type and the category type */
+/** Connection between the Category type and the category type */
 export type Wordpress_CategoryToAncestorsCategoryConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_Category>>>;
 };
 
-/** Connection between the category type and the category type */
+/** Connection between the Category type and the category type */
 export type Wordpress_CategoryToCategoryConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_Category>>>;
 };
 
-/** Connection between the category type and the ContentNode type */
+/** Connection between the Category type and the ContentNode type */
 export type Wordpress_CategoryToContentNodeConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_ContentNode>>>;
 };
 
-/** Connection between the category type and the page type */
+/** Connection between the Category type and the page type */
 export type Wordpress_CategoryToPageConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_Page>>>;
 };
 
-/** Connection between the category type and the category type */
+/** Connection between the Category type and the category type */
 export type Wordpress_CategoryToParentCategoryConnectionEdge = {
   /** The node of the connection, without the edges */
   node?: Maybe<Wordpress_Category>;
 };
 
-/** Connection between the category type and the post type */
+/** Connection between the Category type and the post type */
 export type Wordpress_CategoryToPostConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_Post>>>;
@@ -1442,13 +1382,13 @@ export type Wordpress_Post = Node & Wordpress_Node & Wordpress_ContentNode & Wor
   authorDatabaseId?: Maybe<Scalars['Int']>;
   /** The globally unique identifier of the author of the node */
   authorId?: Maybe<Scalars['ID']>;
-  /** Connection between the post type and the category type */
+  /** Connection between the Post type and the category type */
   categories?: Maybe<Wordpress_PostToCategoryConnection>;
   /** The number of comments. Even though WPGraphQL denotes this field as an integer, in WordPress this field should be saved as a numeric string for compatibility. */
   commentCount?: Maybe<Scalars['Int']>;
   /** Whether the comments are open or closed for this particular post. */
   commentStatus?: Maybe<Scalars['String']>;
-  /** Connection between the post type and the Comment type */
+  /** Connection between the Post type and the Comment type */
   comments?: Maybe<Wordpress_PostToCommentConnection>;
   /** The content of the post. */
   content?: Maybe<Scalars['String']>;
@@ -1498,17 +1438,17 @@ export type Wordpress_Post = Node & Wordpress_Node & Wordpress_ContentNode & Wor
   /** URLs that have been pinged. */
   pinged?: Maybe<Array<Maybe<Scalars['String']>>>;
   postACF?: Maybe<Wordpress_Post_Postacf>;
-  /** Connection between the post type and the postFormat type */
+  /** Connection between the Post type and the postFormat type */
   postFormats?: Maybe<Wordpress_PostToPostFormatConnection>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
   slug?: Maybe<Scalars['String']>;
   /** The current status of the object */
   status?: Maybe<Scalars['String']>;
-  /** Connection between the post type and the tag type */
+  /** Connection between the Post type and the tag type */
   tags?: Maybe<Wordpress_PostToTagConnection>;
-  /** The template assigned to a node of content */
+  /** The template assigned to the node */
   template?: Maybe<Wordpress_ContentTemplate>;
-  /** Connection between the post type and the TermNode type */
+  /** Connection between the Post type and the TermNode type */
   terms?: Maybe<Wordpress_PostToTermNodeConnection>;
   /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
   title?: Maybe<Scalars['String']>;
@@ -1561,9 +1501,13 @@ export type Wordpress_PostModifiedGmtArgs = {
 export type Wordpress_NodeWithExcerpt = {
   /** The excerpt of the post. */
   excerpt?: Maybe<Scalars['String']>;
+  /** The globally unique ID for the object */
+  id: Scalars['ID'];
 };
 
 export type Wordpress_NodeWithTrackbacks = {
+  /** The globally unique ID for the object */
+  id: Scalars['ID'];
   /** Whether the pings are open or closed for this particular post. */
   pingStatus?: Maybe<Scalars['String']>;
   /** URLs that have been pinged. */
@@ -1572,13 +1516,13 @@ export type Wordpress_NodeWithTrackbacks = {
   toPing?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
-/** Connection between the post type and the category type */
+/** Connection between the Post type and the category type */
 export type Wordpress_PostToCategoryConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_Category>>>;
 };
 
-/** Connection between the post type and the Comment type */
+/** Connection between the Post type and the Comment type */
 export type Wordpress_PostToCommentConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_Comment>>>;
@@ -1628,7 +1572,7 @@ export type Wordpress_Post_Postacf_NormalPost = {
   imageGallery?: Maybe<Array<Maybe<Wordpress_MediaItem>>>;
 };
 
-/** Connection between the post type and the postFormat type */
+/** Connection between the Post type and the postFormat type */
 export type Wordpress_PostToPostFormatConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_PostFormat>>>;
@@ -1636,7 +1580,7 @@ export type Wordpress_PostToPostFormatConnection = {
 
 /** The postFormat type */
 export type Wordpress_PostFormat = Node & Wordpress_Node & Wordpress_TermNode & Wordpress_UniformResourceIdentifiable & Wordpress_DatabaseIdentifier & {
-  /** Connection between the postFormat type and the ContentNode type */
+  /** Connection between the PostFormat type and the ContentNode type */
   contentNodes?: Maybe<Wordpress_PostFormatToContentNodeConnection>;
   /** The number of objects connected to the object */
   count?: Maybe<Scalars['Int']>;
@@ -1653,11 +1597,11 @@ export type Wordpress_PostFormat = Node & Wordpress_Node & Wordpress_TermNode & 
   link?: Maybe<Scalars['String']>;
   /** The human friendly name of the object. */
   name?: Maybe<Scalars['String']>;
-  /** Connection between the postFormat type and the post type */
+  /** Connection between the PostFormat type and the post type */
   posts?: Maybe<Wordpress_PostFormatToPostConnection>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug?: Maybe<Scalars['String']>;
-  /** Connection between the postFormat type and the Taxonomy type */
+  /** Connection between the PostFormat type and the Taxonomy type */
   taxonomy?: Maybe<Wordpress_PostFormatToTaxonomyConnectionEdge>;
   /** The name of the taxonomy that the object is associated with */
   taxonomyName?: Maybe<Scalars['String']>;
@@ -1673,25 +1617,25 @@ export type Wordpress_PostFormat = Node & Wordpress_Node & Wordpress_TermNode & 
   internal: Internal;
 };
 
-/** Connection between the postFormat type and the ContentNode type */
+/** Connection between the PostFormat type and the ContentNode type */
 export type Wordpress_PostFormatToContentNodeConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_ContentNode>>>;
 };
 
-/** Connection between the postFormat type and the post type */
+/** Connection between the PostFormat type and the post type */
 export type Wordpress_PostFormatToPostConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_Post>>>;
 };
 
-/** Connection between the postFormat type and the Taxonomy type */
+/** Connection between the PostFormat type and the Taxonomy type */
 export type Wordpress_PostFormatToTaxonomyConnectionEdge = {
   /** The node of the connection, without the edges */
   node?: Maybe<Wordpress_Taxonomy>;
 };
 
-/** Connection between the post type and the tag type */
+/** Connection between the Post type and the tag type */
 export type Wordpress_PostToTagConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_Tag>>>;
@@ -1699,7 +1643,7 @@ export type Wordpress_PostToTagConnection = {
 
 /** The tag type */
 export type Wordpress_Tag = Node & Wordpress_Node & Wordpress_TermNode & Wordpress_UniformResourceIdentifiable & Wordpress_DatabaseIdentifier & Wordpress_MenuItemLinkable & {
-  /** Connection between the tag type and the ContentNode type */
+  /** Connection between the Tag type and the ContentNode type */
   contentNodes?: Maybe<Wordpress_TagToContentNodeConnection>;
   /** The number of objects connected to the object */
   count?: Maybe<Scalars['Int']>;
@@ -1716,13 +1660,13 @@ export type Wordpress_Tag = Node & Wordpress_Node & Wordpress_TermNode & Wordpre
   link?: Maybe<Scalars['String']>;
   /** The human friendly name of the object. */
   name?: Maybe<Scalars['String']>;
-  /** Connection between the tag type and the page type */
+  /** Connection between the Tag type and the page type */
   pages?: Maybe<Wordpress_TagToPageConnection>;
-  /** Connection between the tag type and the post type */
+  /** Connection between the Tag type and the post type */
   posts?: Maybe<Wordpress_TagToPostConnection>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug?: Maybe<Scalars['String']>;
-  /** Connection between the tag type and the Taxonomy type */
+  /** Connection between the Tag type and the Taxonomy type */
   taxonomy?: Maybe<Wordpress_TagToTaxonomyConnectionEdge>;
   /** The name of the taxonomy that the object is associated with */
   taxonomyName?: Maybe<Scalars['String']>;
@@ -1738,43 +1682,43 @@ export type Wordpress_Tag = Node & Wordpress_Node & Wordpress_TermNode & Wordpre
   internal: Internal;
 };
 
-/** Connection between the tag type and the ContentNode type */
+/** Connection between the Tag type and the ContentNode type */
 export type Wordpress_TagToContentNodeConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_ContentNode>>>;
 };
 
-/** Connection between the tag type and the page type */
+/** Connection between the Tag type and the page type */
 export type Wordpress_TagToPageConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_Page>>>;
 };
 
-/** Connection between the tag type and the post type */
+/** Connection between the Tag type and the post type */
 export type Wordpress_TagToPostConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_Post>>>;
 };
 
-/** Connection between the tag type and the Taxonomy type */
+/** Connection between the Tag type and the Taxonomy type */
 export type Wordpress_TagToTaxonomyConnectionEdge = {
   /** The node of the connection, without the edges */
   node?: Maybe<Wordpress_Taxonomy>;
 };
 
-/** Connection between the post type and the TermNode type */
+/** Connection between the Post type and the TermNode type */
 export type Wordpress_PostToTermNodeConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_TermNode>>>;
 };
 
-/** Connection between the category type and the Taxonomy type */
+/** Connection between the Category type and the Taxonomy type */
 export type Wordpress_CategoryToTaxonomyConnectionEdge = {
   /** The node of the connection, without the edges */
   node?: Maybe<Wordpress_Taxonomy>;
 };
 
-/** Connection between the page type and the Comment type */
+/** Connection between the Page type and the Comment type */
 export type Wordpress_PageToCommentConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_Comment>>>;
@@ -1786,6 +1730,8 @@ export type Wordpress_Page_Homeacf = {
   facebookLink?: Maybe<Scalars['String']>;
   fieldGroupName?: Maybe<Scalars['String']>;
   instagramLink?: Maybe<Scalars['String']>;
+  spradeLink?: Maybe<Scalars['String']>;
+  thefanLink?: Maybe<Scalars['String']>;
   tickarooLink?: Maybe<Scalars['String']>;
 };
 
@@ -1812,6 +1758,7 @@ export type Wordpress_Page_Pageacf_BoardMembers = {
   /** die ESC Email. bitte KEINE eigenen E-Mails eintragen */
   email?: Maybe<Scalars['String']>;
   fieldGroupName?: Maybe<Scalars['String']>;
+  inaktiv?: Maybe<Scalars['Boolean']>;
   level?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   portrait?: Maybe<Wordpress_MediaItem>;
@@ -2040,13 +1987,13 @@ export type Wordpress_Page_Riverratsacf = {
   teamId?: Maybe<Scalars['String']>;
 };
 
-/** Connection between the page type and the tag type */
+/** Connection between the Page type and the tag type */
 export type Wordpress_PageToTagConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_Tag>>>;
 };
 
-/** Connection between the page type and the TermNode type */
+/** Connection between the Page type and the TermNode type */
 export type Wordpress_PageToTermNodeConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<Wordpress_TermNode>>>;
@@ -2104,7 +2051,13 @@ export type Wordpress_Settings = {
   /** Settings of the the string Settings Group */
   generalSettingsUrl?: Maybe<Scalars['String']>;
   /** Settings of the the integer Settings Group */
+  readingSettingsPageForPosts?: Maybe<Scalars['Int']>;
+  /** Settings of the the integer Settings Group */
+  readingSettingsPageOnFront?: Maybe<Scalars['Int']>;
+  /** Settings of the the integer Settings Group */
   readingSettingsPostsPerPage?: Maybe<Scalars['Int']>;
+  /** Settings of the the string Settings Group */
+  readingSettingsShowOnFront?: Maybe<Scalars['String']>;
   /** Settings of the the integer Settings Group */
   writingSettingsDefaultCategory?: Maybe<Scalars['Int']>;
   /** Settings of the the string Settings Group */
@@ -2141,6 +2094,172 @@ export type Wordpress_GeneralSettings = {
   title?: Maybe<Scalars['String']>;
   /** Website-URL. */
   url?: Maybe<Scalars['String']>;
+};
+
+/** The graphqlDocument type */
+export type Wordpress_GraphqlDocument = Node & Wordpress_Node & Wordpress_ContentNode & Wordpress_UniformResourceIdentifiable & Wordpress_DatabaseIdentifier & Wordpress_NodeWithTemplate & Wordpress_NodeWithTitle & Wordpress_NodeWithContentEditor & {
+  /** Alias names for saved GraphQL query documents */
+  alias?: Maybe<Array<Scalars['String']>>;
+  /** The content of the post. */
+  content?: Maybe<Scalars['String']>;
+  /** Connection between the ContentNode type and the ContentType type */
+  contentType?: Maybe<Wordpress_ContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  contentTypeName: Scalars['String'];
+  /** The unique identifier stored in the database */
+  databaseId: Scalars['Int'];
+  /** Post publishing date. */
+  date?: Maybe<Scalars['Date']>;
+  /** The publishing date set in GMT. */
+  dateGmt?: Maybe<Scalars['Date']>;
+  /** Description for the saved GraphQL document */
+  description?: Maybe<Scalars['String']>;
+  /** The desired slug of the post */
+  desiredSlug?: Maybe<Scalars['String']>;
+  /** The RSS enclosure for the object */
+  enclosure?: Maybe<Scalars['String']>;
+  /** Allow, deny or default access grant for specific query */
+  grant?: Maybe<Scalars['String']>;
+  /** Connection between the GraphqlDocument type and the graphqlDocumentGroup type */
+  graphqlDocumentGroups?: Maybe<Wordpress_GraphqlDocumentToGraphqlDocumentGroupConnection>;
+  /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
+  guid?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
+  /** The user that most recently edited the node */
+  lastEditedBy?: Maybe<Wordpress_ContentNodeToEditLastConnectionEdge>;
+  /** The permalink of the post */
+  link?: Maybe<Scalars['String']>;
+  /** HTTP Cache-Control max-age directive for a saved GraphQL document */
+  maxAgeHeader?: Maybe<Scalars['Int']>;
+  /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
+  modified?: Maybe<Scalars['Date']>;
+  /** The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT. */
+  modifiedGmt?: Maybe<Scalars['Date']>;
+  /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
+  slug?: Maybe<Scalars['String']>;
+  /** The current status of the object */
+  status?: Maybe<Scalars['String']>;
+  /** The template assigned to the node */
+  template?: Maybe<Wordpress_ContentTemplate>;
+  /** Connection between the GraphqlDocument type and the TermNode type */
+  terms?: Maybe<Wordpress_GraphqlDocumentToTermNodeConnection>;
+  /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
+  title?: Maybe<Scalars['String']>;
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']>;
+  nodeType?: Maybe<Scalars['String']>;
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+
+/** The graphqlDocument type */
+export type Wordpress_GraphqlDocumentDateArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+/** The graphqlDocument type */
+export type Wordpress_GraphqlDocumentDateGmtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+/** The graphqlDocument type */
+export type Wordpress_GraphqlDocumentModifiedArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+/** The graphqlDocument type */
+export type Wordpress_GraphqlDocumentModifiedGmtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+/** Connection between the GraphqlDocument type and the graphqlDocumentGroup type */
+export type Wordpress_GraphqlDocumentToGraphqlDocumentGroupConnection = {
+  /** The nodes of the connection, without the edges */
+  nodes?: Maybe<Array<Maybe<Wordpress_GraphqlDocumentGroup>>>;
+};
+
+/** The graphqlDocumentGroup type */
+export type Wordpress_GraphqlDocumentGroup = Node & Wordpress_Node & Wordpress_TermNode & Wordpress_UniformResourceIdentifiable & Wordpress_DatabaseIdentifier & {
+  /** Connection between the GraphqlDocumentGroup type and the ContentNode type */
+  contentNodes?: Maybe<Wordpress_GraphqlDocumentGroupToContentNodeConnection>;
+  /** The number of objects connected to the object */
+  count?: Maybe<Scalars['Int']>;
+  /** The unique identifier stored in the database */
+  databaseId: Scalars['Int'];
+  /** The description of the object */
+  description?: Maybe<Scalars['String']>;
+  /** Connection between the GraphqlDocumentGroup type and the graphqlDocument type */
+  graphqlDocuments?: Maybe<Wordpress_GraphqlDocumentGroupToGraphqlDocumentConnection>;
+  id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
+  /** The link to the term */
+  link?: Maybe<Scalars['String']>;
+  /** The human friendly name of the object. */
+  name?: Maybe<Scalars['String']>;
+  /** An alphanumeric identifier for the object unique to its type. */
+  slug?: Maybe<Scalars['String']>;
+  /** Connection between the GraphqlDocumentGroup type and the Taxonomy type */
+  taxonomy?: Maybe<Wordpress_GraphqlDocumentGroupToTaxonomyConnectionEdge>;
+  /** The name of the taxonomy that the object is associated with */
+  taxonomyName?: Maybe<Scalars['String']>;
+  /** The ID of the term group that this term object belongs to */
+  termGroupId?: Maybe<Scalars['Int']>;
+  /** The taxonomy ID that the object is associated with */
+  termTaxonomyId?: Maybe<Scalars['Int']>;
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']>;
+  nodeType?: Maybe<Scalars['String']>;
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+/** Connection between the GraphqlDocumentGroup type and the ContentNode type */
+export type Wordpress_GraphqlDocumentGroupToContentNodeConnection = {
+  /** The nodes of the connection, without the edges */
+  nodes?: Maybe<Array<Maybe<Wordpress_ContentNode>>>;
+};
+
+/** Connection between the GraphqlDocumentGroup type and the graphqlDocument type */
+export type Wordpress_GraphqlDocumentGroupToGraphqlDocumentConnection = {
+  /** The nodes of the connection, without the edges */
+  nodes?: Maybe<Array<Maybe<Wordpress_GraphqlDocument>>>;
+};
+
+/** Connection between the GraphqlDocumentGroup type and the Taxonomy type */
+export type Wordpress_GraphqlDocumentGroupToTaxonomyConnectionEdge = {
+  /** The node of the connection, without the edges */
+  node?: Maybe<Wordpress_Taxonomy>;
+};
+
+/** Connection between the GraphqlDocument type and the TermNode type */
+export type Wordpress_GraphqlDocumentToTermNodeConnection = {
+  /** The nodes of the connection, without the edges */
+  nodes?: Maybe<Array<Maybe<Wordpress_TermNode>>>;
 };
 
 /** Menus are the containers for navigation items. Menus can be assigned to menu locations, which are typically registered by the active theme. */
@@ -2240,8 +2359,14 @@ export type Wordpress_MenuItemToMenuConnectionEdge = {
 
 /** The reading setting type */
 export type Wordpress_ReadingSettings = {
+  /** Die ID der Seite, auf der die neuesten Beiträge angezeigt werden sollen */
+  pageForPosts?: Maybe<Scalars['Int']>;
+  /** Die ID der Seite, die auf der Startseite angezeigt werden soll */
+  pageOnFront?: Maybe<Scalars['Int']>;
   /** Maximal angezeigte Beiträge. */
   postsPerPage?: Maybe<Scalars['Int']>;
+  /** Was auf der Startseite angezeigt werden soll */
+  showOnFront?: Maybe<Scalars['String']>;
 };
 
 /** Information needed by gatsby-source-wordpress. */
@@ -2697,6 +2822,38 @@ export type SiteBuildMetadataBuildTimeArgs = {
   locale?: Maybe<Scalars['String']>;
 };
 
+export type Wordpress_TermNode = {
+  /** The number of objects connected to the object */
+  count?: Maybe<Scalars['Int']>;
+  /** Identifies the primary key from the database. */
+  databaseId: Scalars['Int'];
+  /** The description of the object */
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
+  /** The link to the term */
+  link?: Maybe<Scalars['String']>;
+  /** The human friendly name of the object. */
+  name?: Maybe<Scalars['String']>;
+  /** An alphanumeric identifier for the object unique to its type. */
+  slug?: Maybe<Scalars['String']>;
+  /** The name of the taxonomy that the object is associated with */
+  taxonomyName?: Maybe<Scalars['String']>;
+  /** The ID of the term group that this term object belongs to */
+  termGroupId?: Maybe<Scalars['Int']>;
+  /** The taxonomy ID that the object is associated with */
+  termTaxonomyId?: Maybe<Scalars['Int']>;
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']>;
+  nodeType?: Maybe<Scalars['String']>;
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
 export type Query = {
   file?: Maybe<File>;
   allFile: FileConnection;
@@ -2720,10 +2877,10 @@ export type Query = {
   allWordpressComment: Wordpress_CommentConnection;
   wordpressMediaItem?: Maybe<Wordpress_MediaItem>;
   allWordpressMediaItem: Wordpress_MediaItemConnection;
-  wordpressTermNode?: Maybe<Wordpress_TermNode>;
-  allWordpressTermNode: Wordpress_TermNodeConnection;
   wordpressPage?: Maybe<Wordpress_Page>;
   allWordpressPage: Wordpress_PageConnection;
+  wordpressTermNode?: Maybe<Wordpress_TermNode>;
+  allWordpressTermNode: Wordpress_TermNodeConnection;
   wordpressCategory?: Maybe<Wordpress_Category>;
   allWordpressCategory: Wordpress_CategoryConnection;
   wordpressPost?: Maybe<Wordpress_Post>;
@@ -2734,6 +2891,10 @@ export type Query = {
   allWordpressTag: Wordpress_TagConnection;
   wordpressUserRole?: Maybe<Wordpress_UserRole>;
   allWordpressUserRole: Wordpress_UserRoleConnection;
+  wordpressGraphqlDocument?: Maybe<Wordpress_GraphqlDocument>;
+  allWordpressGraphqlDocument: Wordpress_GraphqlDocumentConnection;
+  wordpressGraphqlDocumentGroup?: Maybe<Wordpress_GraphqlDocumentGroup>;
+  allWordpressGraphqlDocumentGroup: Wordpress_GraphqlDocumentGroupConnection;
   wordpressMenu?: Maybe<Wordpress_Menu>;
   allWordpressMenu: Wordpress_MenuConnection;
   wordpressMenuItem?: Maybe<Wordpress_MenuItem>;
@@ -2856,6 +3017,8 @@ export type QueryAllDirectoryArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
+  port?: Maybe<IntQueryOperatorInput>;
+  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -3154,7 +3317,6 @@ export type QueryWordpressMediaItemArgs = {
   srcSet?: Maybe<StringQueryOperatorInput>;
   status?: Maybe<StringQueryOperatorInput>;
   template?: Maybe<Wordpress_ContentTemplateFilterInput>;
-  terms?: Maybe<Wordpress_MediaItemToTermNodeConnectionFilterInput>;
   title?: Maybe<StringQueryOperatorInput>;
   uri?: Maybe<StringQueryOperatorInput>;
   nodeType?: Maybe<StringQueryOperatorInput>;
@@ -3169,35 +3331,6 @@ export type QueryWordpressMediaItemArgs = {
 export type QueryAllWordpressMediaItemArgs = {
   filter?: Maybe<Wordpress_MediaItemFilterInput>;
   sort?: Maybe<Wordpress_MediaItemSortInput>;
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QueryWordpressTermNodeArgs = {
-  count?: Maybe<IntQueryOperatorInput>;
-  databaseId?: Maybe<IntQueryOperatorInput>;
-  description?: Maybe<StringQueryOperatorInput>;
-  id?: Maybe<StringQueryOperatorInput>;
-  isContentNode?: Maybe<BooleanQueryOperatorInput>;
-  isTermNode?: Maybe<BooleanQueryOperatorInput>;
-  link?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  slug?: Maybe<StringQueryOperatorInput>;
-  taxonomyName?: Maybe<StringQueryOperatorInput>;
-  termGroupId?: Maybe<IntQueryOperatorInput>;
-  termTaxonomyId?: Maybe<IntQueryOperatorInput>;
-  uri?: Maybe<StringQueryOperatorInput>;
-  nodeType?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-};
-
-
-export type QueryAllWordpressTermNodeArgs = {
-  filter?: Maybe<Wordpress_TermNodeFilterInput>;
-  sort?: Maybe<Wordpress_TermNodeSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -3260,6 +3393,35 @@ export type QueryWordpressPageArgs = {
 export type QueryAllWordpressPageArgs = {
   filter?: Maybe<Wordpress_PageFilterInput>;
   sort?: Maybe<Wordpress_PageSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryWordpressTermNodeArgs = {
+  count?: Maybe<IntQueryOperatorInput>;
+  databaseId?: Maybe<IntQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
+  link?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  slug?: Maybe<StringQueryOperatorInput>;
+  taxonomyName?: Maybe<StringQueryOperatorInput>;
+  termGroupId?: Maybe<IntQueryOperatorInput>;
+  termTaxonomyId?: Maybe<IntQueryOperatorInput>;
+  uri?: Maybe<StringQueryOperatorInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllWordpressTermNodeArgs = {
+  filter?: Maybe<Wordpress_TermNodeFilterInput>;
+  sort?: Maybe<Wordpress_TermNodeSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -3440,6 +3602,81 @@ export type QueryWordpressUserRoleArgs = {
 export type QueryAllWordpressUserRoleArgs = {
   filter?: Maybe<Wordpress_UserRoleFilterInput>;
   sort?: Maybe<Wordpress_UserRoleSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryWordpressGraphqlDocumentArgs = {
+  alias?: Maybe<StringQueryOperatorInput>;
+  content?: Maybe<StringQueryOperatorInput>;
+  contentType?: Maybe<Wordpress_ContentNodeToContentTypeConnectionEdgeFilterInput>;
+  contentTypeName?: Maybe<StringQueryOperatorInput>;
+  databaseId?: Maybe<IntQueryOperatorInput>;
+  date?: Maybe<DateQueryOperatorInput>;
+  dateGmt?: Maybe<DateQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  desiredSlug?: Maybe<StringQueryOperatorInput>;
+  enclosure?: Maybe<StringQueryOperatorInput>;
+  grant?: Maybe<StringQueryOperatorInput>;
+  graphqlDocumentGroups?: Maybe<Wordpress_GraphqlDocumentToGraphqlDocumentGroupConnectionFilterInput>;
+  guid?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
+  lastEditedBy?: Maybe<Wordpress_ContentNodeToEditLastConnectionEdgeFilterInput>;
+  link?: Maybe<StringQueryOperatorInput>;
+  maxAgeHeader?: Maybe<IntQueryOperatorInput>;
+  modified?: Maybe<DateQueryOperatorInput>;
+  modifiedGmt?: Maybe<DateQueryOperatorInput>;
+  slug?: Maybe<StringQueryOperatorInput>;
+  status?: Maybe<StringQueryOperatorInput>;
+  template?: Maybe<Wordpress_ContentTemplateFilterInput>;
+  terms?: Maybe<Wordpress_GraphqlDocumentToTermNodeConnectionFilterInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  uri?: Maybe<StringQueryOperatorInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllWordpressGraphqlDocumentArgs = {
+  filter?: Maybe<Wordpress_GraphqlDocumentFilterInput>;
+  sort?: Maybe<Wordpress_GraphqlDocumentSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryWordpressGraphqlDocumentGroupArgs = {
+  contentNodes?: Maybe<Wordpress_GraphqlDocumentGroupToContentNodeConnectionFilterInput>;
+  count?: Maybe<IntQueryOperatorInput>;
+  databaseId?: Maybe<IntQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  graphqlDocuments?: Maybe<Wordpress_GraphqlDocumentGroupToGraphqlDocumentConnectionFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
+  link?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  slug?: Maybe<StringQueryOperatorInput>;
+  taxonomy?: Maybe<Wordpress_GraphqlDocumentGroupToTaxonomyConnectionEdgeFilterInput>;
+  taxonomyName?: Maybe<StringQueryOperatorInput>;
+  termGroupId?: Maybe<IntQueryOperatorInput>;
+  termTaxonomyId?: Maybe<IntQueryOperatorInput>;
+  uri?: Maybe<StringQueryOperatorInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllWordpressGraphqlDocumentGroupArgs = {
+  filter?: Maybe<Wordpress_GraphqlDocumentGroupFilterInput>;
+  sort?: Maybe<Wordpress_GraphqlDocumentGroupSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -4405,6 +4642,8 @@ export type SiteFieldsEnum =
   | 'siteMetadata___title'
   | 'siteMetadata___description'
   | 'siteMetadata___siteUrl'
+  | 'port'
+  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -4506,6 +4745,8 @@ export type SiteGroupConnection = {
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
+  port?: Maybe<IntQueryOperatorInput>;
+  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -5594,7 +5835,6 @@ export type Wordpress_MediaItemFilterInput = {
   srcSet?: Maybe<StringQueryOperatorInput>;
   status?: Maybe<StringQueryOperatorInput>;
   template?: Maybe<Wordpress_ContentTemplateFilterInput>;
-  terms?: Maybe<Wordpress_MediaItemToTermNodeConnectionFilterInput>;
   title?: Maybe<StringQueryOperatorInput>;
   uri?: Maybe<StringQueryOperatorInput>;
   nodeType?: Maybe<StringQueryOperatorInput>;
@@ -5656,34 +5896,6 @@ export type Wordpress_HierarchicalContentNodeToParentContentNodeConnectionEdgeFi
 
 export type Wordpress_ContentTemplateFilterInput = {
   templateName?: Maybe<StringQueryOperatorInput>;
-};
-
-export type Wordpress_MediaItemToTermNodeConnectionFilterInput = {
-  nodes?: Maybe<Wordpress_TermNodeFilterListInput>;
-};
-
-export type Wordpress_TermNodeFilterListInput = {
-  elemMatch?: Maybe<Wordpress_TermNodeFilterInput>;
-};
-
-export type Wordpress_TermNodeFilterInput = {
-  count?: Maybe<IntQueryOperatorInput>;
-  databaseId?: Maybe<IntQueryOperatorInput>;
-  description?: Maybe<StringQueryOperatorInput>;
-  id?: Maybe<StringQueryOperatorInput>;
-  isContentNode?: Maybe<BooleanQueryOperatorInput>;
-  isTermNode?: Maybe<BooleanQueryOperatorInput>;
-  link?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  slug?: Maybe<StringQueryOperatorInput>;
-  taxonomyName?: Maybe<StringQueryOperatorInput>;
-  termGroupId?: Maybe<IntQueryOperatorInput>;
-  termTaxonomyId?: Maybe<IntQueryOperatorInput>;
-  uri?: Maybe<StringQueryOperatorInput>;
-  nodeType?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
 };
 
 export type Wordpress_Post_PostacfFilterInput = {
@@ -5822,6 +6034,30 @@ export type Wordpress_PostToTermNodeConnectionFilterInput = {
   nodes?: Maybe<Wordpress_TermNodeFilterListInput>;
 };
 
+export type Wordpress_TermNodeFilterListInput = {
+  elemMatch?: Maybe<Wordpress_TermNodeFilterInput>;
+};
+
+export type Wordpress_TermNodeFilterInput = {
+  count?: Maybe<IntQueryOperatorInput>;
+  databaseId?: Maybe<IntQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
+  link?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  slug?: Maybe<StringQueryOperatorInput>;
+  taxonomyName?: Maybe<StringQueryOperatorInput>;
+  termGroupId?: Maybe<IntQueryOperatorInput>;
+  termTaxonomyId?: Maybe<IntQueryOperatorInput>;
+  uri?: Maybe<StringQueryOperatorInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
 export type Wordpress_CategoryToTaxonomyConnectionEdgeFilterInput = {
   node?: Maybe<Wordpress_TaxonomyFilterInput>;
 };
@@ -5835,6 +6071,8 @@ export type Wordpress_Page_HomeacfFilterInput = {
   facebookLink?: Maybe<StringQueryOperatorInput>;
   fieldGroupName?: Maybe<StringQueryOperatorInput>;
   instagramLink?: Maybe<StringQueryOperatorInput>;
+  spradeLink?: Maybe<StringQueryOperatorInput>;
+  thefanLink?: Maybe<StringQueryOperatorInput>;
   tickarooLink?: Maybe<StringQueryOperatorInput>;
 };
 
@@ -5860,6 +6098,7 @@ export type Wordpress_Page_Pageacf_BoardMembersFilterListInput = {
 export type Wordpress_Page_Pageacf_BoardMembersFilterInput = {
   email?: Maybe<StringQueryOperatorInput>;
   fieldGroupName?: Maybe<StringQueryOperatorInput>;
+  inaktiv?: Maybe<BooleanQueryOperatorInput>;
   level?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   portrait?: Maybe<Wordpress_MediaItemFilterInput>;
@@ -7051,6 +7290,8 @@ export type Wordpress_UserFieldsEnum =
   | 'pages___nodes___homeACF___facebookLink'
   | 'pages___nodes___homeACF___fieldGroupName'
   | 'pages___nodes___homeACF___instagramLink'
+  | 'pages___nodes___homeACF___spradeLink'
+  | 'pages___nodes___homeACF___thefanLink'
   | 'pages___nodes___homeACF___tickarooLink'
   | 'pages___nodes___id'
   | 'pages___nodes___isContentNode'
@@ -7924,34 +8165,6 @@ export type Wordpress_MediaItemFieldsEnum =
   | 'srcSet'
   | 'status'
   | 'template___templateName'
-  | 'terms___nodes'
-  | 'terms___nodes___count'
-  | 'terms___nodes___databaseId'
-  | 'terms___nodes___description'
-  | 'terms___nodes___id'
-  | 'terms___nodes___isContentNode'
-  | 'terms___nodes___isTermNode'
-  | 'terms___nodes___link'
-  | 'terms___nodes___name'
-  | 'terms___nodes___slug'
-  | 'terms___nodes___taxonomyName'
-  | 'terms___nodes___termGroupId'
-  | 'terms___nodes___termTaxonomyId'
-  | 'terms___nodes___uri'
-  | 'terms___nodes___nodeType'
-  | 'terms___nodes___parent___id'
-  | 'terms___nodes___parent___children'
-  | 'terms___nodes___children'
-  | 'terms___nodes___children___id'
-  | 'terms___nodes___children___children'
-  | 'terms___nodes___internal___content'
-  | 'terms___nodes___internal___contentDigest'
-  | 'terms___nodes___internal___description'
-  | 'terms___nodes___internal___fieldOwners'
-  | 'terms___nodes___internal___ignoreType'
-  | 'terms___nodes___internal___mediaType'
-  | 'terms___nodes___internal___owner'
-  | 'terms___nodes___internal___type'
   | 'title'
   | 'uri'
   | 'nodeType'
@@ -8387,166 +8600,6 @@ export type Wordpress_MediaItemSortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
-export type Wordpress_TermNodeConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<Wordpress_TermNodeEdge>;
-  nodes: Array<Wordpress_TermNode>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  max?: Maybe<Scalars['Float']>;
-  min?: Maybe<Scalars['Float']>;
-  sum?: Maybe<Scalars['Float']>;
-  group: Array<Wordpress_TermNodeGroupConnection>;
-};
-
-
-export type Wordpress_TermNodeConnectionDistinctArgs = {
-  field: Wordpress_TermNodeFieldsEnum;
-};
-
-
-export type Wordpress_TermNodeConnectionMaxArgs = {
-  field: Wordpress_TermNodeFieldsEnum;
-};
-
-
-export type Wordpress_TermNodeConnectionMinArgs = {
-  field: Wordpress_TermNodeFieldsEnum;
-};
-
-
-export type Wordpress_TermNodeConnectionSumArgs = {
-  field: Wordpress_TermNodeFieldsEnum;
-};
-
-
-export type Wordpress_TermNodeConnectionGroupArgs = {
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-  field: Wordpress_TermNodeFieldsEnum;
-};
-
-export type Wordpress_TermNodeEdge = {
-  next?: Maybe<Wordpress_TermNode>;
-  node: Wordpress_TermNode;
-  previous?: Maybe<Wordpress_TermNode>;
-};
-
-export type Wordpress_TermNodeFieldsEnum =
-  | 'count'
-  | 'databaseId'
-  | 'description'
-  | 'id'
-  | 'isContentNode'
-  | 'isTermNode'
-  | 'link'
-  | 'name'
-  | 'slug'
-  | 'taxonomyName'
-  | 'termGroupId'
-  | 'termTaxonomyId'
-  | 'uri'
-  | 'nodeType'
-  | 'parent___id'
-  | 'parent___parent___id'
-  | 'parent___parent___parent___id'
-  | 'parent___parent___parent___children'
-  | 'parent___parent___children'
-  | 'parent___parent___children___id'
-  | 'parent___parent___children___children'
-  | 'parent___parent___internal___content'
-  | 'parent___parent___internal___contentDigest'
-  | 'parent___parent___internal___description'
-  | 'parent___parent___internal___fieldOwners'
-  | 'parent___parent___internal___ignoreType'
-  | 'parent___parent___internal___mediaType'
-  | 'parent___parent___internal___owner'
-  | 'parent___parent___internal___type'
-  | 'parent___children'
-  | 'parent___children___id'
-  | 'parent___children___parent___id'
-  | 'parent___children___parent___children'
-  | 'parent___children___children'
-  | 'parent___children___children___id'
-  | 'parent___children___children___children'
-  | 'parent___children___internal___content'
-  | 'parent___children___internal___contentDigest'
-  | 'parent___children___internal___description'
-  | 'parent___children___internal___fieldOwners'
-  | 'parent___children___internal___ignoreType'
-  | 'parent___children___internal___mediaType'
-  | 'parent___children___internal___owner'
-  | 'parent___children___internal___type'
-  | 'parent___internal___content'
-  | 'parent___internal___contentDigest'
-  | 'parent___internal___description'
-  | 'parent___internal___fieldOwners'
-  | 'parent___internal___ignoreType'
-  | 'parent___internal___mediaType'
-  | 'parent___internal___owner'
-  | 'parent___internal___type'
-  | 'children'
-  | 'children___id'
-  | 'children___parent___id'
-  | 'children___parent___parent___id'
-  | 'children___parent___parent___children'
-  | 'children___parent___children'
-  | 'children___parent___children___id'
-  | 'children___parent___children___children'
-  | 'children___parent___internal___content'
-  | 'children___parent___internal___contentDigest'
-  | 'children___parent___internal___description'
-  | 'children___parent___internal___fieldOwners'
-  | 'children___parent___internal___ignoreType'
-  | 'children___parent___internal___mediaType'
-  | 'children___parent___internal___owner'
-  | 'children___parent___internal___type'
-  | 'children___children'
-  | 'children___children___id'
-  | 'children___children___parent___id'
-  | 'children___children___parent___children'
-  | 'children___children___children'
-  | 'children___children___children___id'
-  | 'children___children___children___children'
-  | 'children___children___internal___content'
-  | 'children___children___internal___contentDigest'
-  | 'children___children___internal___description'
-  | 'children___children___internal___fieldOwners'
-  | 'children___children___internal___ignoreType'
-  | 'children___children___internal___mediaType'
-  | 'children___children___internal___owner'
-  | 'children___children___internal___type'
-  | 'children___internal___content'
-  | 'children___internal___contentDigest'
-  | 'children___internal___description'
-  | 'children___internal___fieldOwners'
-  | 'children___internal___ignoreType'
-  | 'children___internal___mediaType'
-  | 'children___internal___owner'
-  | 'children___internal___type'
-  | 'internal___content'
-  | 'internal___contentDigest'
-  | 'internal___description'
-  | 'internal___fieldOwners'
-  | 'internal___ignoreType'
-  | 'internal___mediaType'
-  | 'internal___owner'
-  | 'internal___type';
-
-export type Wordpress_TermNodeGroupConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<Wordpress_TermNodeEdge>;
-  nodes: Array<Wordpress_TermNode>;
-  pageInfo: PageInfo;
-  field: Scalars['String'];
-  fieldValue?: Maybe<Scalars['String']>;
-};
-
-export type Wordpress_TermNodeSortInput = {
-  fields?: Maybe<Array<Maybe<Wordpress_TermNodeFieldsEnum>>>;
-  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
-};
-
 export type Wordpress_PageConnection = {
   totalCount: Scalars['Int'];
   edges: Array<Wordpress_PageEdge>;
@@ -8888,7 +8941,6 @@ export type Wordpress_PageFieldsEnum =
   | 'featuredImage___node___srcSet'
   | 'featuredImage___node___status'
   | 'featuredImage___node___template___templateName'
-  | 'featuredImage___node___terms___nodes'
   | 'featuredImage___node___title'
   | 'featuredImage___node___uri'
   | 'featuredImage___node___nodeType'
@@ -8988,6 +9040,8 @@ export type Wordpress_PageFieldsEnum =
   | 'homeACF___facebookLink'
   | 'homeACF___fieldGroupName'
   | 'homeACF___instagramLink'
+  | 'homeACF___spradeLink'
+  | 'homeACF___thefanLink'
   | 'homeACF___tickarooLink'
   | 'id'
   | 'isContentNode'
@@ -9051,6 +9105,7 @@ export type Wordpress_PageFieldsEnum =
   | 'pageACF___boardMembers'
   | 'pageACF___boardMembers___email'
   | 'pageACF___boardMembers___fieldGroupName'
+  | 'pageACF___boardMembers___inaktiv'
   | 'pageACF___boardMembers___level'
   | 'pageACF___boardMembers___name'
   | 'pageACF___boardMembers___portrait___altText'
@@ -9581,6 +9636,166 @@ export type Wordpress_PageSortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
+export type Wordpress_TermNodeConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<Wordpress_TermNodeEdge>;
+  nodes: Array<Wordpress_TermNode>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<Wordpress_TermNodeGroupConnection>;
+};
+
+
+export type Wordpress_TermNodeConnectionDistinctArgs = {
+  field: Wordpress_TermNodeFieldsEnum;
+};
+
+
+export type Wordpress_TermNodeConnectionMaxArgs = {
+  field: Wordpress_TermNodeFieldsEnum;
+};
+
+
+export type Wordpress_TermNodeConnectionMinArgs = {
+  field: Wordpress_TermNodeFieldsEnum;
+};
+
+
+export type Wordpress_TermNodeConnectionSumArgs = {
+  field: Wordpress_TermNodeFieldsEnum;
+};
+
+
+export type Wordpress_TermNodeConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: Wordpress_TermNodeFieldsEnum;
+};
+
+export type Wordpress_TermNodeEdge = {
+  next?: Maybe<Wordpress_TermNode>;
+  node: Wordpress_TermNode;
+  previous?: Maybe<Wordpress_TermNode>;
+};
+
+export type Wordpress_TermNodeFieldsEnum =
+  | 'count'
+  | 'databaseId'
+  | 'description'
+  | 'id'
+  | 'isContentNode'
+  | 'isTermNode'
+  | 'link'
+  | 'name'
+  | 'slug'
+  | 'taxonomyName'
+  | 'termGroupId'
+  | 'termTaxonomyId'
+  | 'uri'
+  | 'nodeType'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type Wordpress_TermNodeGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<Wordpress_TermNodeEdge>;
+  nodes: Array<Wordpress_TermNode>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type Wordpress_TermNodeSortInput = {
+  fields?: Maybe<Array<Maybe<Wordpress_TermNodeFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
 export type Wordpress_CategoryConnection = {
   totalCount: Scalars['Int'];
   edges: Array<Wordpress_CategoryEdge>;
@@ -9760,6 +9975,8 @@ export type Wordpress_CategoryFieldsEnum =
   | 'pages___nodes___homeACF___facebookLink'
   | 'pages___nodes___homeACF___fieldGroupName'
   | 'pages___nodes___homeACF___instagramLink'
+  | 'pages___nodes___homeACF___spradeLink'
+  | 'pages___nodes___homeACF___thefanLink'
   | 'pages___nodes___homeACF___tickarooLink'
   | 'pages___nodes___id'
   | 'pages___nodes___isContentNode'
@@ -10312,7 +10529,6 @@ export type Wordpress_PostFieldsEnum =
   | 'featuredImage___node___srcSet'
   | 'featuredImage___node___status'
   | 'featuredImage___node___template___templateName'
-  | 'featuredImage___node___terms___nodes'
   | 'featuredImage___node___title'
   | 'featuredImage___node___uri'
   | 'featuredImage___node___nodeType'
@@ -11108,6 +11324,8 @@ export type Wordpress_TagFieldsEnum =
   | 'pages___nodes___homeACF___facebookLink'
   | 'pages___nodes___homeACF___fieldGroupName'
   | 'pages___nodes___homeACF___instagramLink'
+  | 'pages___nodes___homeACF___spradeLink'
+  | 'pages___nodes___homeACF___thefanLink'
   | 'pages___nodes___homeACF___tickarooLink'
   | 'pages___nodes___id'
   | 'pages___nodes___isContentNode'
@@ -11496,6 +11714,649 @@ export type Wordpress_UserRoleSortInput = {
   fields?: Maybe<Array<Maybe<Wordpress_UserRoleFieldsEnum>>>;
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
+
+export type Wordpress_GraphqlDocumentToGraphqlDocumentGroupConnectionFilterInput = {
+  nodes?: Maybe<Wordpress_GraphqlDocumentGroupFilterListInput>;
+};
+
+export type Wordpress_GraphqlDocumentGroupFilterListInput = {
+  elemMatch?: Maybe<Wordpress_GraphqlDocumentGroupFilterInput>;
+};
+
+export type Wordpress_GraphqlDocumentGroupFilterInput = {
+  contentNodes?: Maybe<Wordpress_GraphqlDocumentGroupToContentNodeConnectionFilterInput>;
+  count?: Maybe<IntQueryOperatorInput>;
+  databaseId?: Maybe<IntQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  graphqlDocuments?: Maybe<Wordpress_GraphqlDocumentGroupToGraphqlDocumentConnectionFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
+  link?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  slug?: Maybe<StringQueryOperatorInput>;
+  taxonomy?: Maybe<Wordpress_GraphqlDocumentGroupToTaxonomyConnectionEdgeFilterInput>;
+  taxonomyName?: Maybe<StringQueryOperatorInput>;
+  termGroupId?: Maybe<IntQueryOperatorInput>;
+  termTaxonomyId?: Maybe<IntQueryOperatorInput>;
+  uri?: Maybe<StringQueryOperatorInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type Wordpress_GraphqlDocumentGroupToContentNodeConnectionFilterInput = {
+  nodes?: Maybe<Wordpress_ContentNodeFilterListInput>;
+};
+
+export type Wordpress_GraphqlDocumentGroupToGraphqlDocumentConnectionFilterInput = {
+  nodes?: Maybe<Wordpress_GraphqlDocumentFilterListInput>;
+};
+
+export type Wordpress_GraphqlDocumentFilterListInput = {
+  elemMatch?: Maybe<Wordpress_GraphqlDocumentFilterInput>;
+};
+
+export type Wordpress_GraphqlDocumentFilterInput = {
+  alias?: Maybe<StringQueryOperatorInput>;
+  content?: Maybe<StringQueryOperatorInput>;
+  contentType?: Maybe<Wordpress_ContentNodeToContentTypeConnectionEdgeFilterInput>;
+  contentTypeName?: Maybe<StringQueryOperatorInput>;
+  databaseId?: Maybe<IntQueryOperatorInput>;
+  date?: Maybe<DateQueryOperatorInput>;
+  dateGmt?: Maybe<DateQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  desiredSlug?: Maybe<StringQueryOperatorInput>;
+  enclosure?: Maybe<StringQueryOperatorInput>;
+  grant?: Maybe<StringQueryOperatorInput>;
+  graphqlDocumentGroups?: Maybe<Wordpress_GraphqlDocumentToGraphqlDocumentGroupConnectionFilterInput>;
+  guid?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
+  lastEditedBy?: Maybe<Wordpress_ContentNodeToEditLastConnectionEdgeFilterInput>;
+  link?: Maybe<StringQueryOperatorInput>;
+  maxAgeHeader?: Maybe<IntQueryOperatorInput>;
+  modified?: Maybe<DateQueryOperatorInput>;
+  modifiedGmt?: Maybe<DateQueryOperatorInput>;
+  slug?: Maybe<StringQueryOperatorInput>;
+  status?: Maybe<StringQueryOperatorInput>;
+  template?: Maybe<Wordpress_ContentTemplateFilterInput>;
+  terms?: Maybe<Wordpress_GraphqlDocumentToTermNodeConnectionFilterInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  uri?: Maybe<StringQueryOperatorInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type Wordpress_GraphqlDocumentToTermNodeConnectionFilterInput = {
+  nodes?: Maybe<Wordpress_TermNodeFilterListInput>;
+};
+
+export type Wordpress_GraphqlDocumentGroupToTaxonomyConnectionEdgeFilterInput = {
+  node?: Maybe<Wordpress_TaxonomyFilterInput>;
+};
+
+export type Wordpress_GraphqlDocumentConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<Wordpress_GraphqlDocumentEdge>;
+  nodes: Array<Wordpress_GraphqlDocument>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<Wordpress_GraphqlDocumentGroupConnection>;
+};
+
+
+export type Wordpress_GraphqlDocumentConnectionDistinctArgs = {
+  field: Wordpress_GraphqlDocumentFieldsEnum;
+};
+
+
+export type Wordpress_GraphqlDocumentConnectionMaxArgs = {
+  field: Wordpress_GraphqlDocumentFieldsEnum;
+};
+
+
+export type Wordpress_GraphqlDocumentConnectionMinArgs = {
+  field: Wordpress_GraphqlDocumentFieldsEnum;
+};
+
+
+export type Wordpress_GraphqlDocumentConnectionSumArgs = {
+  field: Wordpress_GraphqlDocumentFieldsEnum;
+};
+
+
+export type Wordpress_GraphqlDocumentConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: Wordpress_GraphqlDocumentFieldsEnum;
+};
+
+export type Wordpress_GraphqlDocumentEdge = {
+  next?: Maybe<Wordpress_GraphqlDocument>;
+  node: Wordpress_GraphqlDocument;
+  previous?: Maybe<Wordpress_GraphqlDocument>;
+};
+
+export type Wordpress_GraphqlDocumentFieldsEnum =
+  | 'alias'
+  | 'content'
+  | 'contentType___node___archivePath'
+  | 'contentType___node___canExport'
+  | 'contentType___node___connectedTaxonomies___nodes'
+  | 'contentType___node___contentNodes___nodes'
+  | 'contentType___node___deleteWithUser'
+  | 'contentType___node___description'
+  | 'contentType___node___excludeFromSearch'
+  | 'contentType___node___graphqlPluralName'
+  | 'contentType___node___graphqlSingleName'
+  | 'contentType___node___hasArchive'
+  | 'contentType___node___hierarchical'
+  | 'contentType___node___id'
+  | 'contentType___node___isContentNode'
+  | 'contentType___node___isFrontPage'
+  | 'contentType___node___isPostsPage'
+  | 'contentType___node___isTermNode'
+  | 'contentType___node___label'
+  | 'contentType___node___labels___addNew'
+  | 'contentType___node___labels___addNewItem'
+  | 'contentType___node___labels___allItems'
+  | 'contentType___node___labels___archives'
+  | 'contentType___node___labels___attributes'
+  | 'contentType___node___labels___editItem'
+  | 'contentType___node___labels___featuredImage'
+  | 'contentType___node___labels___filterItemsList'
+  | 'contentType___node___labels___insertIntoItem'
+  | 'contentType___node___labels___itemsList'
+  | 'contentType___node___labels___itemsListNavigation'
+  | 'contentType___node___labels___menuName'
+  | 'contentType___node___labels___name'
+  | 'contentType___node___labels___newItem'
+  | 'contentType___node___labels___notFound'
+  | 'contentType___node___labels___notFoundInTrash'
+  | 'contentType___node___labels___parentItemColon'
+  | 'contentType___node___labels___removeFeaturedImage'
+  | 'contentType___node___labels___searchItems'
+  | 'contentType___node___labels___setFeaturedImage'
+  | 'contentType___node___labels___singularName'
+  | 'contentType___node___labels___uploadedToThisItem'
+  | 'contentType___node___labels___useFeaturedImage'
+  | 'contentType___node___labels___viewItem'
+  | 'contentType___node___labels___viewItems'
+  | 'contentType___node___menuIcon'
+  | 'contentType___node___menuPosition'
+  | 'contentType___node___name'
+  | 'contentType___node___public'
+  | 'contentType___node___publiclyQueryable'
+  | 'contentType___node___restBase'
+  | 'contentType___node___restControllerClass'
+  | 'contentType___node___showInAdminBar'
+  | 'contentType___node___showInGraphql'
+  | 'contentType___node___showInMenu'
+  | 'contentType___node___showInNavMenus'
+  | 'contentType___node___showInRest'
+  | 'contentType___node___showUi'
+  | 'contentType___node___uri'
+  | 'contentType___node___nodeType'
+  | 'contentType___node___parent___id'
+  | 'contentType___node___parent___children'
+  | 'contentType___node___children'
+  | 'contentType___node___children___id'
+  | 'contentType___node___children___children'
+  | 'contentType___node___internal___content'
+  | 'contentType___node___internal___contentDigest'
+  | 'contentType___node___internal___description'
+  | 'contentType___node___internal___fieldOwners'
+  | 'contentType___node___internal___ignoreType'
+  | 'contentType___node___internal___mediaType'
+  | 'contentType___node___internal___owner'
+  | 'contentType___node___internal___type'
+  | 'contentTypeName'
+  | 'databaseId'
+  | 'date'
+  | 'dateGmt'
+  | 'description'
+  | 'desiredSlug'
+  | 'enclosure'
+  | 'grant'
+  | 'graphqlDocumentGroups___nodes'
+  | 'graphqlDocumentGroups___nodes___contentNodes___nodes'
+  | 'graphqlDocumentGroups___nodes___count'
+  | 'graphqlDocumentGroups___nodes___databaseId'
+  | 'graphqlDocumentGroups___nodes___description'
+  | 'graphqlDocumentGroups___nodes___graphqlDocuments___nodes'
+  | 'graphqlDocumentGroups___nodes___id'
+  | 'graphqlDocumentGroups___nodes___isContentNode'
+  | 'graphqlDocumentGroups___nodes___isTermNode'
+  | 'graphqlDocumentGroups___nodes___link'
+  | 'graphqlDocumentGroups___nodes___name'
+  | 'graphqlDocumentGroups___nodes___slug'
+  | 'graphqlDocumentGroups___nodes___taxonomyName'
+  | 'graphqlDocumentGroups___nodes___termGroupId'
+  | 'graphqlDocumentGroups___nodes___termTaxonomyId'
+  | 'graphqlDocumentGroups___nodes___uri'
+  | 'graphqlDocumentGroups___nodes___nodeType'
+  | 'graphqlDocumentGroups___nodes___parent___id'
+  | 'graphqlDocumentGroups___nodes___parent___children'
+  | 'graphqlDocumentGroups___nodes___children'
+  | 'graphqlDocumentGroups___nodes___children___id'
+  | 'graphqlDocumentGroups___nodes___children___children'
+  | 'graphqlDocumentGroups___nodes___internal___content'
+  | 'graphqlDocumentGroups___nodes___internal___contentDigest'
+  | 'graphqlDocumentGroups___nodes___internal___description'
+  | 'graphqlDocumentGroups___nodes___internal___fieldOwners'
+  | 'graphqlDocumentGroups___nodes___internal___ignoreType'
+  | 'graphqlDocumentGroups___nodes___internal___mediaType'
+  | 'graphqlDocumentGroups___nodes___internal___owner'
+  | 'graphqlDocumentGroups___nodes___internal___type'
+  | 'guid'
+  | 'id'
+  | 'isContentNode'
+  | 'isTermNode'
+  | 'lastEditedBy___node___avatar___default'
+  | 'lastEditedBy___node___avatar___extraAttr'
+  | 'lastEditedBy___node___avatar___forceDefault'
+  | 'lastEditedBy___node___avatar___foundAvatar'
+  | 'lastEditedBy___node___avatar___height'
+  | 'lastEditedBy___node___avatar___rating'
+  | 'lastEditedBy___node___avatar___scheme'
+  | 'lastEditedBy___node___avatar___size'
+  | 'lastEditedBy___node___avatar___url'
+  | 'lastEditedBy___node___avatar___width'
+  | 'lastEditedBy___node___capKey'
+  | 'lastEditedBy___node___capabilities'
+  | 'lastEditedBy___node___comments___nodes'
+  | 'lastEditedBy___node___databaseId'
+  | 'lastEditedBy___node___description'
+  | 'lastEditedBy___node___email'
+  | 'lastEditedBy___node___extraCapabilities'
+  | 'lastEditedBy___node___firstName'
+  | 'lastEditedBy___node___id'
+  | 'lastEditedBy___node___isContentNode'
+  | 'lastEditedBy___node___isTermNode'
+  | 'lastEditedBy___node___lastName'
+  | 'lastEditedBy___node___locale'
+  | 'lastEditedBy___node___name'
+  | 'lastEditedBy___node___nicename'
+  | 'lastEditedBy___node___nickname'
+  | 'lastEditedBy___node___pages___nodes'
+  | 'lastEditedBy___node___posts___nodes'
+  | 'lastEditedBy___node___registeredDate'
+  | 'lastEditedBy___node___roles___nodes'
+  | 'lastEditedBy___node___slug'
+  | 'lastEditedBy___node___uri'
+  | 'lastEditedBy___node___url'
+  | 'lastEditedBy___node___username'
+  | 'lastEditedBy___node___nodeType'
+  | 'lastEditedBy___node___parent___id'
+  | 'lastEditedBy___node___parent___children'
+  | 'lastEditedBy___node___children'
+  | 'lastEditedBy___node___children___id'
+  | 'lastEditedBy___node___children___children'
+  | 'lastEditedBy___node___internal___content'
+  | 'lastEditedBy___node___internal___contentDigest'
+  | 'lastEditedBy___node___internal___description'
+  | 'lastEditedBy___node___internal___fieldOwners'
+  | 'lastEditedBy___node___internal___ignoreType'
+  | 'lastEditedBy___node___internal___mediaType'
+  | 'lastEditedBy___node___internal___owner'
+  | 'lastEditedBy___node___internal___type'
+  | 'link'
+  | 'maxAgeHeader'
+  | 'modified'
+  | 'modifiedGmt'
+  | 'slug'
+  | 'status'
+  | 'template___templateName'
+  | 'terms___nodes'
+  | 'terms___nodes___count'
+  | 'terms___nodes___databaseId'
+  | 'terms___nodes___description'
+  | 'terms___nodes___id'
+  | 'terms___nodes___isContentNode'
+  | 'terms___nodes___isTermNode'
+  | 'terms___nodes___link'
+  | 'terms___nodes___name'
+  | 'terms___nodes___slug'
+  | 'terms___nodes___taxonomyName'
+  | 'terms___nodes___termGroupId'
+  | 'terms___nodes___termTaxonomyId'
+  | 'terms___nodes___uri'
+  | 'terms___nodes___nodeType'
+  | 'terms___nodes___parent___id'
+  | 'terms___nodes___parent___children'
+  | 'terms___nodes___children'
+  | 'terms___nodes___children___id'
+  | 'terms___nodes___children___children'
+  | 'terms___nodes___internal___content'
+  | 'terms___nodes___internal___contentDigest'
+  | 'terms___nodes___internal___description'
+  | 'terms___nodes___internal___fieldOwners'
+  | 'terms___nodes___internal___ignoreType'
+  | 'terms___nodes___internal___mediaType'
+  | 'terms___nodes___internal___owner'
+  | 'terms___nodes___internal___type'
+  | 'title'
+  | 'uri'
+  | 'nodeType'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type Wordpress_GraphqlDocumentGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<Wordpress_GraphqlDocumentEdge>;
+  nodes: Array<Wordpress_GraphqlDocument>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type Wordpress_GraphqlDocumentSortInput = {
+  fields?: Maybe<Array<Maybe<Wordpress_GraphqlDocumentFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type Wordpress_GraphqlDocumentGroupSortInput = {
+  fields?: Maybe<Array<Maybe<Wordpress_GraphqlDocumentGroupFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type Wordpress_GraphqlDocumentGroupFieldsEnum =
+  | 'contentNodes___nodes'
+  | 'contentNodes___nodes___contentTypeName'
+  | 'contentNodes___nodes___databaseId'
+  | 'contentNodes___nodes___date'
+  | 'contentNodes___nodes___dateGmt'
+  | 'contentNodes___nodes___desiredSlug'
+  | 'contentNodes___nodes___enclosure'
+  | 'contentNodes___nodes___guid'
+  | 'contentNodes___nodes___id'
+  | 'contentNodes___nodes___isContentNode'
+  | 'contentNodes___nodes___isTermNode'
+  | 'contentNodes___nodes___link'
+  | 'contentNodes___nodes___modified'
+  | 'contentNodes___nodes___modifiedGmt'
+  | 'contentNodes___nodes___slug'
+  | 'contentNodes___nodes___status'
+  | 'contentNodes___nodes___template___templateName'
+  | 'contentNodes___nodes___uri'
+  | 'contentNodes___nodes___nodeType'
+  | 'contentNodes___nodes___parent___id'
+  | 'contentNodes___nodes___parent___children'
+  | 'contentNodes___nodes___children'
+  | 'contentNodes___nodes___children___id'
+  | 'contentNodes___nodes___children___children'
+  | 'contentNodes___nodes___internal___content'
+  | 'contentNodes___nodes___internal___contentDigest'
+  | 'contentNodes___nodes___internal___description'
+  | 'contentNodes___nodes___internal___fieldOwners'
+  | 'contentNodes___nodes___internal___ignoreType'
+  | 'contentNodes___nodes___internal___mediaType'
+  | 'contentNodes___nodes___internal___owner'
+  | 'contentNodes___nodes___internal___type'
+  | 'count'
+  | 'databaseId'
+  | 'description'
+  | 'graphqlDocuments___nodes'
+  | 'graphqlDocuments___nodes___alias'
+  | 'graphqlDocuments___nodes___content'
+  | 'graphqlDocuments___nodes___contentTypeName'
+  | 'graphqlDocuments___nodes___databaseId'
+  | 'graphqlDocuments___nodes___date'
+  | 'graphqlDocuments___nodes___dateGmt'
+  | 'graphqlDocuments___nodes___description'
+  | 'graphqlDocuments___nodes___desiredSlug'
+  | 'graphqlDocuments___nodes___enclosure'
+  | 'graphqlDocuments___nodes___grant'
+  | 'graphqlDocuments___nodes___graphqlDocumentGroups___nodes'
+  | 'graphqlDocuments___nodes___guid'
+  | 'graphqlDocuments___nodes___id'
+  | 'graphqlDocuments___nodes___isContentNode'
+  | 'graphqlDocuments___nodes___isTermNode'
+  | 'graphqlDocuments___nodes___link'
+  | 'graphqlDocuments___nodes___maxAgeHeader'
+  | 'graphqlDocuments___nodes___modified'
+  | 'graphqlDocuments___nodes___modifiedGmt'
+  | 'graphqlDocuments___nodes___slug'
+  | 'graphqlDocuments___nodes___status'
+  | 'graphqlDocuments___nodes___template___templateName'
+  | 'graphqlDocuments___nodes___terms___nodes'
+  | 'graphqlDocuments___nodes___title'
+  | 'graphqlDocuments___nodes___uri'
+  | 'graphqlDocuments___nodes___nodeType'
+  | 'graphqlDocuments___nodes___parent___id'
+  | 'graphqlDocuments___nodes___parent___children'
+  | 'graphqlDocuments___nodes___children'
+  | 'graphqlDocuments___nodes___children___id'
+  | 'graphqlDocuments___nodes___children___children'
+  | 'graphqlDocuments___nodes___internal___content'
+  | 'graphqlDocuments___nodes___internal___contentDigest'
+  | 'graphqlDocuments___nodes___internal___description'
+  | 'graphqlDocuments___nodes___internal___fieldOwners'
+  | 'graphqlDocuments___nodes___internal___ignoreType'
+  | 'graphqlDocuments___nodes___internal___mediaType'
+  | 'graphqlDocuments___nodes___internal___owner'
+  | 'graphqlDocuments___nodes___internal___type'
+  | 'id'
+  | 'isContentNode'
+  | 'isTermNode'
+  | 'link'
+  | 'name'
+  | 'slug'
+  | 'taxonomy___node___archivePath'
+  | 'taxonomy___node___connectedContentTypes___nodes'
+  | 'taxonomy___node___description'
+  | 'taxonomy___node___graphqlPluralName'
+  | 'taxonomy___node___graphqlSingleName'
+  | 'taxonomy___node___hierarchical'
+  | 'taxonomy___node___id'
+  | 'taxonomy___node___label'
+  | 'taxonomy___node___name'
+  | 'taxonomy___node___public'
+  | 'taxonomy___node___restBase'
+  | 'taxonomy___node___restControllerClass'
+  | 'taxonomy___node___showCloud'
+  | 'taxonomy___node___showInAdminColumn'
+  | 'taxonomy___node___showInGraphql'
+  | 'taxonomy___node___showInMenu'
+  | 'taxonomy___node___showInNavMenus'
+  | 'taxonomy___node___showInQuickEdit'
+  | 'taxonomy___node___showInRest'
+  | 'taxonomy___node___showUi'
+  | 'taxonomy___node___nodeType'
+  | 'taxonomy___node___parent___id'
+  | 'taxonomy___node___parent___children'
+  | 'taxonomy___node___children'
+  | 'taxonomy___node___children___id'
+  | 'taxonomy___node___children___children'
+  | 'taxonomy___node___internal___content'
+  | 'taxonomy___node___internal___contentDigest'
+  | 'taxonomy___node___internal___description'
+  | 'taxonomy___node___internal___fieldOwners'
+  | 'taxonomy___node___internal___ignoreType'
+  | 'taxonomy___node___internal___mediaType'
+  | 'taxonomy___node___internal___owner'
+  | 'taxonomy___node___internal___type'
+  | 'taxonomyName'
+  | 'termGroupId'
+  | 'termTaxonomyId'
+  | 'uri'
+  | 'nodeType'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
 
 export type Wordpress_MenuLocationEnumQueryOperatorInput = {
   eq?: Maybe<Wordpress_MenuLocationEnum>;
@@ -12157,7 +13018,10 @@ export type Wordpress_SettingsFilterInput = {
   generalSettingsTimezone?: Maybe<StringQueryOperatorInput>;
   generalSettingsTitle?: Maybe<StringQueryOperatorInput>;
   generalSettingsUrl?: Maybe<StringQueryOperatorInput>;
+  readingSettingsPageForPosts?: Maybe<IntQueryOperatorInput>;
+  readingSettingsPageOnFront?: Maybe<IntQueryOperatorInput>;
   readingSettingsPostsPerPage?: Maybe<IntQueryOperatorInput>;
+  readingSettingsShowOnFront?: Maybe<StringQueryOperatorInput>;
   writingSettingsDefaultCategory?: Maybe<IntQueryOperatorInput>;
   writingSettingsDefaultPostFormat?: Maybe<StringQueryOperatorInput>;
   writingSettingsUseSmilies?: Maybe<BooleanQueryOperatorInput>;
@@ -12181,7 +13045,10 @@ export type Wordpress_GeneralSettingsFilterInput = {
 };
 
 export type Wordpress_ReadingSettingsFilterInput = {
+  pageForPosts?: Maybe<IntQueryOperatorInput>;
+  pageOnFront?: Maybe<IntQueryOperatorInput>;
   postsPerPage?: Maybe<IntQueryOperatorInput>;
+  showOnFront?: Maybe<StringQueryOperatorInput>;
 };
 
 export type Wordpress_WpGatsbyFilterInput = {
@@ -12252,7 +13119,10 @@ export type Wordpress_FieldsEnum =
   | 'allSettings___generalSettingsTimezone'
   | 'allSettings___generalSettingsTitle'
   | 'allSettings___generalSettingsUrl'
+  | 'allSettings___readingSettingsPageForPosts'
+  | 'allSettings___readingSettingsPageOnFront'
   | 'allSettings___readingSettingsPostsPerPage'
+  | 'allSettings___readingSettingsShowOnFront'
   | 'allSettings___writingSettingsDefaultCategory'
   | 'allSettings___writingSettingsDefaultPostFormat'
   | 'allSettings___writingSettingsUseSmilies'
@@ -12267,7 +13137,10 @@ export type Wordpress_FieldsEnum =
   | 'generalSettings___timezone'
   | 'generalSettings___title'
   | 'generalSettings___url'
+  | 'readingSettings___pageForPosts'
+  | 'readingSettings___pageOnFront'
   | 'readingSettings___postsPerPage'
+  | 'readingSettings___showOnFront'
   | 'wpGatsby___arePrettyPermalinksEnabled'
   | 'wpGatsby___isPreviewFrontendOnline'
   | 'writingSettings___defaultCategory'
@@ -12972,7 +13845,7 @@ export type MenuQueryVariables = Exact<{ [key: string]: never; }>;
 export type MenuQuery = { wordpressMenu?: Maybe<{ menuItems?: Maybe<{ nodes?: Maybe<Array<Maybe<(
         Pick<Wordpress_MenuItem, 'label' | 'id' | 'url' | 'parentId'>
         & { childItems?: Maybe<{ nodes?: Maybe<Array<Maybe<Pick<Wordpress_MenuItem, 'id' | 'label' | 'url'>>>> }> }
-      )>>> }> }>, wordpressPage?: Maybe<{ homeACF?: Maybe<Pick<Wordpress_Page_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink'>> }> };
+      )>>> }> }>, wordpressPage?: Maybe<{ homeACF?: Maybe<Pick<Wordpress_Page_Homeacf, 'facebookLink' | 'instagramLink' | 'tickarooLink' | 'spradeLink' | 'thefanLink'>> }> };
 
 export type FontFieldsFragment = Pick<File, 'id' | 'name' | 'publicURL'>;
 

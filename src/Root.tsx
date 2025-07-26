@@ -1,4 +1,5 @@
 import React from "react";
+// eslint-disable-next-line import/no-unassigned-import
 import "modern-normalize";
 import "./styles/fonts.css";
 import { QueryClient, QueryClientProvider } from "react-query";

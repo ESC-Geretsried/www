@@ -8,6 +8,7 @@
     "build": "gatsby build",
     "build:clean": "rimraf public",
     "dev": "gatsby develop",
+    "clean": "gatsby clean",
     "format:lint": "eslint --ext .ts,.tsx",
     "format:lint:all": "npm run format:lint -- .",
     "format:lint:fix": "npm run format:lint -- --fix .",

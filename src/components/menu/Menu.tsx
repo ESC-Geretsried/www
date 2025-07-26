@@ -1,4 +1,4 @@
-import { FacebookOutlined, InstagramOutlined, NotificationOutlined } from "@ant-design/icons";
+import { FacebookOutlined, InstagramOutlined, NotificationOutlined, VideoCameraOutlined, SoundOutlined  } from "@ant-design/icons";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Menu } from "antd";
@@ -9,6 +9,7 @@ import { StyledAntMenu, StyledAntMenuItem, StyledAntSubMenuItem } from "../../st
 import { colors, mq } from "../../styles/variables";
 import Link from "../link/Link";
 import Logo from "../logo/Logo";
+import { SpradeTVOutlined, TheFanOutlined }from "../sprade/Sprade";
 
 const { SubMenu } = Menu;
 
@@ -52,6 +53,8 @@ const MainMenu: React.FC<{ scrollLock: () => void; location: Location }> = ({ sc
           facebookLink
           instagramLink
           tickarooLink
+          spradeLink
+          thefanLink
         }
       }
     }
@@ -175,8 +178,11 @@ const MainMenu: React.FC<{ scrollLock: () => void; location: Location }> = ({ sc
           <a href={links?.instagramLink ?? "/"} target="_blank" rel="noreferrer" title="Instagram Feed">
             <InstagramOutlined />
           </a>
-          <a href={links?.tickarooLink ?? "/"} target="_blank" rel="noreferrer" title="Tickaroo Feed">
-            <NotificationOutlined />
+          <a href={links?.spradeLink ?? "https://www.sprade.tv/team/105/"} target="_blank" rel="noreferrer" title="Sprade TV">
+            <SpradeTVOutlined />
+          </a>
+             <a href={links?.thefanLink ?? "https://www.thefan.fm/riverrats_geretsried/"} target="_blank" rel="noreferrer" title="thefan.fm">
+            <TheFanOutlined />
           </a>
         </div>
       </nav>

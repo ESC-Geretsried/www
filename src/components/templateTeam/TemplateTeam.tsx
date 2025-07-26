@@ -67,7 +67,7 @@ const TemplateTeam: React.FC<{ data: PageFieldsFragment; posts: Array<BlogPostPr
           max-width: 100%;
         `}
       >
-        <Tabs defaultActiveKey="1">
+        <Tabs defaultActiveKey="0">
           {posts.length > 0 && (
             <TabPane tab="News" key="0">
               <BlogPostListContainer posts={posts} />
