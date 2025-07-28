@@ -13,11 +13,12 @@ const TemplateLineup: React.FC<{ data: PageFieldsFragment }> = ({ data }) => {
   if (lineup === null && allBoardMembers === null) {
     return null;
   }
+  const active = lineup?.filter((human) => human?.position !== "inactive");
 
-  const goalies = lineup?.filter((human) => human?.position === "goalie");
-  const defense = lineup?.filter((human) => human?.position === "defense");
-  const offense = lineup?.filter((human) => human?.position === "offense");
-  const team = lineup?.filter(
+  const goalies = active?.filter((human) => human?.position === "goalie");
+  const defense = active?.filter((human) => human?.position === "defense");
+  const offense = active?.filter((human) => human?.position === "offense");
+  const team = active?.filter(
     (human) => human?.position !== "offense" && human?.position !== "defense" && human?.position !== "goalie",
   );
   const president = allBoardMembers?.filter((human) => human?.level === "president");
