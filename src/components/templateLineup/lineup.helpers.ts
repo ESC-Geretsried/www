@@ -16,7 +16,7 @@ export const getPosition = (position: string) => {
     case "doc":
       return "Mannschaftsarzt";
     case "physio":
-      return "Pysio";
+      return "Physio";
     case "media":
       return "Soziale Medien";
     case "coach":
