@@ -93,7 +93,6 @@ const SponsorSection: React.FC<{
   return (
     <>
       <Section>
-        <StyledH2 title="Gold Partner" />
         <SponsorsWrapper>
           {goldSponsors.map((sponsor) => {
             if (!sponsor?.name) {
@@ -134,7 +133,6 @@ const SponsorSection: React.FC<{
       </Section>
 
       <Section>
-        <StyledH2 title="Silber Partner" />
         <SponsorsWrapper>
           {silverSponsors.map((sponsor) => {
             if (!sponsor?.name) {
@@ -175,7 +173,6 @@ const SponsorSection: React.FC<{
       </Section>
       {bronceCount > 0 && (
         <Section>
-          <StyledH2 title="Bronze Partner" />
           <SponsorsWrapper>
             {bronceSponsors.map((sponsor) => {
               if (!sponsor?.name) {
