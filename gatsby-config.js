@@ -15,10 +15,46 @@ module.exports = {
       resolve: "gatsby-source-wordpress",
       options: {
         url: process.env.GATSBY_WORDPRESS_GRAPHQL_URL,
+        verbose: true,
+        debug: {
+          graphql: {
+            showQueryVarsOnError: true,
+            showQueryOnError: true,
+          },
+        },
         schema: {
           typePrefix: "Wordpress_",
+          timeout: 900000, // 15 minutes
+          perPage: 10, // Very small requests to avoid timeouts
+          queryDepth: 15,
+          requestConcurrency: 1, // Only 1 request at a time to avoid overloading server
         },
-
+        develop: {
+          hardCacheMediaFiles: true,
+        },
+        type: {
+          MediaItem: {
+            localFile: {
+              requestConcurrency: 1,
+            },
+          },
+          // Exclude heavy nested connections that cause server timeouts
+          Category: {
+            limit: 20, // Exclude categories if not needed, or remove this line if needed
+          },
+          Tag: {
+            limit: 0, // Exclude tags if not needed
+          },
+          PostFormat: {
+            limit: 10,
+          },
+          UserRole: {
+            limit: 0,
+          },
+          Taxonomy: {
+            limit: 0,
+          },
+        },
       },
     },
     {
