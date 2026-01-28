@@ -6,13 +6,14 @@
 [build]
   base = ""
   publish = "public"
-  command = "npm run build"
+  command = "NODE_OPTIONS=--openssl-legacy-provider npm run build"
 
 [build.environment]
   GATSBY_WORDPRESS_GRAPHQL_URL= "https://backend.esc-geretsried.de/graphql"
   GATSBY_BACKEND_URL= "https://backend.esc-geretsried.de/"
   GATSBY_UPLOADS_URL= "https://backend.esc-geretsried.de/wp-content/uploads/"
-  NODE_VERSION = "22"
+  NODE_VERSION = "22.22.0"
+  NODE_OPTIONS = "--openssl-legacy-provider"
 
 [build.processing]
   skip_processing = false
