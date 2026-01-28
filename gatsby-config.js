@@ -40,7 +40,7 @@ module.exports = {
           },
           // Exclude heavy nested connections that cause server timeouts
           Category: {
-            limit: 20, // Exclude categories if not needed, or remove this line if needed
+            limit: 0, // Exclude categories if not needed, or remove this line if needed
           },
           Tag: {
             limit: 0, // Exclude tags if not needed
