@@ -4,6 +4,9 @@
   "version": "0.0.1",
   "private": true,
   "main": "n/a",
+  "engines" : {
+     "node": ">=22"
+  },
   "scripts": {
     "build": "gatsby build",
     "build:clean": "rimraf public",
