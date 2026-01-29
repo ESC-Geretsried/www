@@ -15,6 +15,10 @@ a {
 }
 #gamepitch {
   margin: 5% 0;
+
+  min-height: 100%;
+  height: auto;
+  display: block;
 }
 #gamepitch.stats .-hd-util-tabs .-hd-util-tabs-button:not(:last-child) {
   display: block;
