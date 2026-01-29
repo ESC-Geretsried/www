@@ -44,7 +44,7 @@ const TemplateGamepitch: React.FC<{ data: PageFieldsFragment }> = ({ data }) => 
   const widgetName = data.pageACF?.gamepitchWidget;
 
   const iframeRef = useRef(null);
-  const [iframeHeight, setIframeHeight] = useState("400px");
+  const [iframeHeight, setIframeHeight] = useState("850px");
   const [loading, setLoading] = useState(true);
 
   const onIframeLoad = () => {
