@@ -54,6 +54,12 @@ module.exports = {
           Taxonomy: {
             limit: 0,
           },
+          User: {
+            limit: 0,
+          },
+          MenuItem: {
+            limit: 80,
+          },
         },
       },
     },
