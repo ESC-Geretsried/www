@@ -4,6 +4,7 @@ import { CreateWebpackConfigArgs, NodePluginArgs } from "gatsby";
 // import { createRemoteFileNode, FileSystemNode, CreateRemoteFileNodeArgs } from "gatsby-source-filesystem";
 import express from "express";
 import { createPages } from "./gatsby/createPages";
+require('events').EventEmitter.defaultMaxListeners = 15;
 
 const onCreateDevServer = ({ app }: any) => {
   app.use(express.static("static"));
