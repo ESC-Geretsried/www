@@ -26,7 +26,7 @@ module.exports = {
           typePrefix: "Wordpress_",
           timeout: 900000, // 15 minutes
           perPage: 10, // Very small requests to avoid timeouts
-          queryDepth: 20,
+          queryDepth: 25,
           requestConcurrency: 1, // Only 1 request at a time to avoid overloading server
         },
         develop: {
