@@ -120,3 +120,4 @@ $RECYCLE.BIN/
 !.env.example
 
 /build
+.build-output.txt
