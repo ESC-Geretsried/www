@@ -31,7 +31,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions 
   const pagesResult = await graphql<AllPagesQuery>(
     `
       query AllPages {
-        allWordpressPage {
+        allWordpressPage(limit: 10000) {
           nodes {
             id
             title
