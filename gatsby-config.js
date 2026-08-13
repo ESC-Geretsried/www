@@ -25,9 +25,9 @@ module.exports = {
         schema: {
           typePrefix: "Wordpress_",
           timeout: 1800000,
-          perPage: 1,
-          queryDepth: 8,
-          requestConcurrency: 1,
+          perPage: 10,
+          queryDepth: 7,
+          requestConcurrency: 3,
         },
         develop: {
           hardCacheMediaFiles: true,
@@ -43,6 +43,12 @@ module.exports = {
           },
           Category: {
             limit: 10,
+          },
+          Page: {
+            limit: 200,
+          },
+          Post: {
+            limit: 200,
           },
           Tag: {
             limit: 0,
