@@ -61,9 +61,14 @@ const MainMenu: React.FC<{ scrollLock: () => void; location: Location }> = ({ sc
   `);
 
   const links = data.wordpressPage?.homeACF;
+  const isTopLevelMenuItem = (item: { parentId?: string | number | null } | null | undefined) => {
+    const parentId = item?.parentId;
+
+    return parentId == null || parentId === "" || parentId === 0 || parentId === "0";
+  };
 
   const menu = data.wordpressMenu?.menuItems?.nodes
-    ?.filter((item) => item?.parentId === null)
+    ?.filter(isTopLevelMenuItem)
     .map((menuItem) => {
       if (menuItem?.childItems?.nodes !== null && menuItem?.childItems?.nodes !== undefined) {
         return {
