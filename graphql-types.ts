@@ -2068,7 +2068,7 @@ export type Wordpress_Settings = {
 
 /** The discussion setting type */
 export type Wordpress_DiscussionSettings = {
-  /** Erlaube Besuchern, neue Beiträge zu kommentieren. */
+  /** Erlaubt Personen, neue Beiträge zu kommentieren. */
   defaultCommentStatus?: Maybe<Scalars['String']>;
   /** Link-Benachrichtigungen von anderen Blogs (Pingbacks und Trackbacks) zu neuen Beiträgen erlauben. */
   defaultPingStatus?: Maybe<Scalars['String']>;
@@ -2076,7 +2076,7 @@ export type Wordpress_DiscussionSettings = {
 
 /** The general setting type */
 export type Wordpress_GeneralSettings = {
-  /** Ein Zeitformat für alle datumsbasierten Zeichenfolgen. */
+  /** Ein Datumsformat für alle datumsbasierten Zeichenfolgen. */
   dateFormat?: Maybe<Scalars['String']>;
   /** Website-Untertitel. */
   description?: Maybe<Scalars['String']>;
@@ -2361,7 +2361,7 @@ export type Wordpress_MenuItemToMenuConnectionEdge = {
 export type Wordpress_ReadingSettings = {
   /** Die ID der Seite, auf der die neuesten Beiträge angezeigt werden sollen */
   pageForPosts?: Maybe<Scalars['Int']>;
-  /** Die ID der Seite, die auf der Startseite angezeigt werden soll */
+  /** Die ID der Seite, die auf der Homepage angezeigt werden soll */
   pageOnFront?: Maybe<Scalars['Int']>;
   /** Maximal angezeigte Beiträge. */
   postsPerPage?: Maybe<Scalars['Int']>;
@@ -2420,10 +2420,6 @@ export type Wordpress_ = Node & {
   generalSettings?: Maybe<Wordpress_GeneralSettings>;
   /** Fields of the &#039;ReadingSettings&#039; settings group */
   readingSettings?: Maybe<Wordpress_ReadingSettings>;
-  /** Returns an MD5 hash of the schema, useful in determining if the schema has changed. */
-  schemaMd5?: Maybe<Scalars['String']>;
-  /** Returns the current user */
-  viewer?: Maybe<Wordpress_User>;
   /** Information needed by gatsby-source-wordpress. */
   wpGatsby?: Maybe<Wordpress_WpGatsby>;
   /** Fields of the &#039;WritingSettings&#039; settings group */
@@ -2779,13 +2775,18 @@ export type SitePluginPluginOptionsDevelop = {
 };
 
 export type SitePluginPluginOptionsType = {
+  RootQuery?: Maybe<SitePluginPluginOptionsTypeRootQuery>;
   MediaItem?: Maybe<SitePluginPluginOptionsTypeMediaItem>;
   Category?: Maybe<SitePluginPluginOptionsTypeCategory>;
   Tag?: Maybe<SitePluginPluginOptionsTypeTag>;
   PostFormat?: Maybe<SitePluginPluginOptionsTypePostFormat>;
   UserRole?: Maybe<SitePluginPluginOptionsTypeUserRole>;
   Taxonomy?: Maybe<SitePluginPluginOptionsTypeTaxonomy>;
-  RootQuery?: Maybe<Scalars['String']>;
+  User?: Maybe<SitePluginPluginOptionsTypeUser>;
+};
+
+export type SitePluginPluginOptionsTypeRootQuery = {
+  excludeFieldNames?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type SitePluginPluginOptionsTypeMediaItem = {
@@ -2815,6 +2816,10 @@ export type SitePluginPluginOptionsTypeUserRole = {
 };
 
 export type SitePluginPluginOptionsTypeTaxonomy = {
+  limit?: Maybe<Scalars['Int']>;
+};
+
+export type SitePluginPluginOptionsTypeUser = {
   limit?: Maybe<Scalars['Int']>;
 };
 
@@ -3836,8 +3841,6 @@ export type QueryWordpressArgs = {
   discussionSettings?: Maybe<Wordpress_DiscussionSettingsFilterInput>;
   generalSettings?: Maybe<Wordpress_GeneralSettingsFilterInput>;
   readingSettings?: Maybe<Wordpress_ReadingSettingsFilterInput>;
-  schemaMd5?: Maybe<StringQueryOperatorInput>;
-  viewer?: Maybe<Wordpress_UserFilterInput>;
   wpGatsby?: Maybe<Wordpress_WpGatsbyFilterInput>;
   writingSettings?: Maybe<Wordpress_WritingSettingsFilterInput>;
   nodeType?: Maybe<StringQueryOperatorInput>;
@@ -5103,13 +5106,18 @@ export type SitePluginPluginOptionsDevelopFilterInput = {
 };
 
 export type SitePluginPluginOptionsTypeFilterInput = {
+  RootQuery?: Maybe<SitePluginPluginOptionsTypeRootQueryFilterInput>;
   MediaItem?: Maybe<SitePluginPluginOptionsTypeMediaItemFilterInput>;
   Category?: Maybe<SitePluginPluginOptionsTypeCategoryFilterInput>;
   Tag?: Maybe<SitePluginPluginOptionsTypeTagFilterInput>;
   PostFormat?: Maybe<SitePluginPluginOptionsTypePostFormatFilterInput>;
   UserRole?: Maybe<SitePluginPluginOptionsTypeUserRoleFilterInput>;
   Taxonomy?: Maybe<SitePluginPluginOptionsTypeTaxonomyFilterInput>;
-  RootQuery?: Maybe<StringQueryOperatorInput>;
+  User?: Maybe<SitePluginPluginOptionsTypeUserFilterInput>;
+};
+
+export type SitePluginPluginOptionsTypeRootQueryFilterInput = {
+  excludeFieldNames?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginPluginOptionsTypeMediaItemFilterInput = {
@@ -5139,6 +5147,10 @@ export type SitePluginPluginOptionsTypeUserRoleFilterInput = {
 };
 
 export type SitePluginPluginOptionsTypeTaxonomyFilterInput = {
+  limit?: Maybe<IntQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsTypeUserFilterInput = {
   limit?: Maybe<IntQueryOperatorInput>;
 };
 
@@ -5421,7 +5433,6 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___develop___hardCacheMediaFiles'
   | 'pluginCreator___pluginOptions___develop___nodeUpdateInterval'
   | 'pluginCreator___pluginOptions___develop___hardCacheData'
-  | 'pluginCreator___pluginOptions___type___RootQuery'
   | 'pluginCreator___pluginOptions___fileName'
   | 'pluginCreator___pluginOptions___documentPaths'
   | 'pluginCreator___pluginOptions___pluckConfig___modules'
@@ -13288,164 +13299,6 @@ export type Wordpress_FieldsEnum =
   | 'readingSettings___pageOnFront'
   | 'readingSettings___postsPerPage'
   | 'readingSettings___showOnFront'
-  | 'schemaMd5'
-  | 'viewer___avatar___default'
-  | 'viewer___avatar___extraAttr'
-  | 'viewer___avatar___forceDefault'
-  | 'viewer___avatar___foundAvatar'
-  | 'viewer___avatar___height'
-  | 'viewer___avatar___rating'
-  | 'viewer___avatar___scheme'
-  | 'viewer___avatar___size'
-  | 'viewer___avatar___url'
-  | 'viewer___avatar___width'
-  | 'viewer___capKey'
-  | 'viewer___capabilities'
-  | 'viewer___comments___nodes'
-  | 'viewer___comments___nodes___agent'
-  | 'viewer___comments___nodes___approved'
-  | 'viewer___comments___nodes___authorIp'
-  | 'viewer___comments___nodes___content'
-  | 'viewer___comments___nodes___databaseId'
-  | 'viewer___comments___nodes___date'
-  | 'viewer___comments___nodes___dateGmt'
-  | 'viewer___comments___nodes___id'
-  | 'viewer___comments___nodes___karma'
-  | 'viewer___comments___nodes___parentDatabaseId'
-  | 'viewer___comments___nodes___parentId'
-  | 'viewer___comments___nodes___type'
-  | 'viewer___comments___nodes___nodeType'
-  | 'viewer___comments___nodes___children'
-  | 'viewer___databaseId'
-  | 'viewer___description'
-  | 'viewer___email'
-  | 'viewer___extraCapabilities'
-  | 'viewer___firstName'
-  | 'viewer___id'
-  | 'viewer___isContentNode'
-  | 'viewer___isTermNode'
-  | 'viewer___lastName'
-  | 'viewer___locale'
-  | 'viewer___name'
-  | 'viewer___nicename'
-  | 'viewer___nickname'
-  | 'viewer___pages___nodes'
-  | 'viewer___pages___nodes___authorDatabaseId'
-  | 'viewer___pages___nodes___authorId'
-  | 'viewer___pages___nodes___commentCount'
-  | 'viewer___pages___nodes___commentStatus'
-  | 'viewer___pages___nodes___content'
-  | 'viewer___pages___nodes___contentTypeName'
-  | 'viewer___pages___nodes___databaseId'
-  | 'viewer___pages___nodes___date'
-  | 'viewer___pages___nodes___dateGmt'
-  | 'viewer___pages___nodes___desiredSlug'
-  | 'viewer___pages___nodes___enclosure'
-  | 'viewer___pages___nodes___featuredImageDatabaseId'
-  | 'viewer___pages___nodes___featuredImageId'
-  | 'viewer___pages___nodes___guid'
-  | 'viewer___pages___nodes___id'
-  | 'viewer___pages___nodes___isContentNode'
-  | 'viewer___pages___nodes___isFrontPage'
-  | 'viewer___pages___nodes___isPostsPage'
-  | 'viewer___pages___nodes___isPrivacyPage'
-  | 'viewer___pages___nodes___isRevision'
-  | 'viewer___pages___nodes___isTermNode'
-  | 'viewer___pages___nodes___link'
-  | 'viewer___pages___nodes___menuOrder'
-  | 'viewer___pages___nodes___modified'
-  | 'viewer___pages___nodes___modifiedGmt'
-  | 'viewer___pages___nodes___parentDatabaseId'
-  | 'viewer___pages___nodes___parentId'
-  | 'viewer___pages___nodes___slug'
-  | 'viewer___pages___nodes___status'
-  | 'viewer___pages___nodes___title'
-  | 'viewer___pages___nodes___uri'
-  | 'viewer___pages___nodes___nodeType'
-  | 'viewer___pages___nodes___children'
-  | 'viewer___posts___nodes'
-  | 'viewer___posts___nodes___authorDatabaseId'
-  | 'viewer___posts___nodes___authorId'
-  | 'viewer___posts___nodes___commentCount'
-  | 'viewer___posts___nodes___commentStatus'
-  | 'viewer___posts___nodes___content'
-  | 'viewer___posts___nodes___contentTypeName'
-  | 'viewer___posts___nodes___databaseId'
-  | 'viewer___posts___nodes___date'
-  | 'viewer___posts___nodes___dateGmt'
-  | 'viewer___posts___nodes___desiredSlug'
-  | 'viewer___posts___nodes___enclosure'
-  | 'viewer___posts___nodes___excerpt'
-  | 'viewer___posts___nodes___featuredImageDatabaseId'
-  | 'viewer___posts___nodes___featuredImageId'
-  | 'viewer___posts___nodes___guid'
-  | 'viewer___posts___nodes___id'
-  | 'viewer___posts___nodes___isContentNode'
-  | 'viewer___posts___nodes___isRevision'
-  | 'viewer___posts___nodes___isSticky'
-  | 'viewer___posts___nodes___isTermNode'
-  | 'viewer___posts___nodes___link'
-  | 'viewer___posts___nodes___modified'
-  | 'viewer___posts___nodes___modifiedGmt'
-  | 'viewer___posts___nodes___pingStatus'
-  | 'viewer___posts___nodes___pinged'
-  | 'viewer___posts___nodes___slug'
-  | 'viewer___posts___nodes___status'
-  | 'viewer___posts___nodes___title'
-  | 'viewer___posts___nodes___toPing'
-  | 'viewer___posts___nodes___uri'
-  | 'viewer___posts___nodes___nodeType'
-  | 'viewer___posts___nodes___children'
-  | 'viewer___registeredDate'
-  | 'viewer___roles___nodes'
-  | 'viewer___roles___nodes___capabilities'
-  | 'viewer___roles___nodes___displayName'
-  | 'viewer___roles___nodes___id'
-  | 'viewer___roles___nodes___name'
-  | 'viewer___roles___nodes___nodeType'
-  | 'viewer___roles___nodes___children'
-  | 'viewer___slug'
-  | 'viewer___uri'
-  | 'viewer___url'
-  | 'viewer___username'
-  | 'viewer___nodeType'
-  | 'viewer___parent___id'
-  | 'viewer___parent___parent___id'
-  | 'viewer___parent___parent___children'
-  | 'viewer___parent___children'
-  | 'viewer___parent___children___id'
-  | 'viewer___parent___children___children'
-  | 'viewer___parent___internal___content'
-  | 'viewer___parent___internal___contentDigest'
-  | 'viewer___parent___internal___description'
-  | 'viewer___parent___internal___fieldOwners'
-  | 'viewer___parent___internal___ignoreType'
-  | 'viewer___parent___internal___mediaType'
-  | 'viewer___parent___internal___owner'
-  | 'viewer___parent___internal___type'
-  | 'viewer___children'
-  | 'viewer___children___id'
-  | 'viewer___children___parent___id'
-  | 'viewer___children___parent___children'
-  | 'viewer___children___children'
-  | 'viewer___children___children___id'
-  | 'viewer___children___children___children'
-  | 'viewer___children___internal___content'
-  | 'viewer___children___internal___contentDigest'
-  | 'viewer___children___internal___description'
-  | 'viewer___children___internal___fieldOwners'
-  | 'viewer___children___internal___ignoreType'
-  | 'viewer___children___internal___mediaType'
-  | 'viewer___children___internal___owner'
-  | 'viewer___children___internal___type'
-  | 'viewer___internal___content'
-  | 'viewer___internal___contentDigest'
-  | 'viewer___internal___description'
-  | 'viewer___internal___fieldOwners'
-  | 'viewer___internal___ignoreType'
-  | 'viewer___internal___mediaType'
-  | 'viewer___internal___owner'
-  | 'viewer___internal___type'
   | 'wpGatsby___arePrettyPermalinksEnabled'
   | 'writingSettings___defaultCategory'
   | 'writingSettings___defaultPostFormat'
@@ -13552,8 +13405,6 @@ export type Wordpress_FilterInput = {
   discussionSettings?: Maybe<Wordpress_DiscussionSettingsFilterInput>;
   generalSettings?: Maybe<Wordpress_GeneralSettingsFilterInput>;
   readingSettings?: Maybe<Wordpress_ReadingSettingsFilterInput>;
-  schemaMd5?: Maybe<StringQueryOperatorInput>;
-  viewer?: Maybe<Wordpress_UserFilterInput>;
   wpGatsby?: Maybe<Wordpress_WpGatsbyFilterInput>;
   writingSettings?: Maybe<Wordpress_WritingSettingsFilterInput>;
   nodeType?: Maybe<StringQueryOperatorInput>;
@@ -13906,13 +13757,14 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___develop___hardCacheMediaFiles'
   | 'pluginOptions___develop___nodeUpdateInterval'
   | 'pluginOptions___develop___hardCacheData'
+  | 'pluginOptions___type___RootQuery___excludeFieldNames'
   | 'pluginOptions___type___MediaItem___lazyNodes'
   | 'pluginOptions___type___Category___limit'
   | 'pluginOptions___type___Tag___limit'
   | 'pluginOptions___type___PostFormat___limit'
   | 'pluginOptions___type___UserRole___limit'
   | 'pluginOptions___type___Taxonomy___limit'
-  | 'pluginOptions___type___RootQuery'
+  | 'pluginOptions___type___User___limit'
   | 'pluginOptions___fileName'
   | 'pluginOptions___documentPaths'
   | 'pluginOptions___pluckConfig___modules'

@@ -24,26 +24,28 @@ module.exports = {
         },
         schema: {
           typePrefix: "Wordpress_",
-          timeout: 900000, // 15 minutes
-          perPage: 10, // Very small requests to avoid timeouts
-          queryDepth: 25,
-          requestConcurrency: 1, // Only 1 request at a time to avoid overloading server
+          timeout: 1800000,
+          perPage: 1,
+          queryDepth: 8,
+          requestConcurrency: 1,
         },
         develop: {
           hardCacheMediaFiles: true,
         },
         type: {
+          RootQuery: {
+            excludeFieldNames: ["viewer", "node", "schemaMd5"],
+          },
           MediaItem: {
             localFile: {
               requestConcurrency: 1,
             },
           },
-          // Exclude heavy nested connections that cause server timeouts
           Category: {
-            limit: 20, // Exclude categories if not needed, or remove this line if needed
+            limit: 10,
           },
           Tag: {
-            limit: 0, // Exclude tags if not needed
+            limit: 0,
           },
           PostFormat: {
             limit: 0,
@@ -58,7 +60,7 @@ module.exports = {
             limit: 0,
           },
           MenuItem: {
-            limit: 80,
+            limit: null,
           },
         },
       },
