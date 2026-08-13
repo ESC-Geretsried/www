@@ -30,8 +30,7 @@ export const PageFragment = graphql`
           title
           localFile {
             childImageSharp {
-              fluid(maxWidth: 900, maxHeight: 500) {
-                ...FluidWithWebpFields
+              gatsbyImageData(layout: CONSTRAINED, width: 900, height: 500)
               }
             }
           }
@@ -80,8 +79,7 @@ export const BlogPostPreviewFragment = graphql`
         altText
         localFile {
           childImageSharp {
-            fluid(maxWidth: 500, maxHeight: 200) {
-              ...FluidWithWebpFields
+            gatsbyImageData(layout: CONSTRAINED, width: 500, height: 200)
             }
           }
         }
@@ -163,8 +161,7 @@ export const PlayerFragment = graphql`
       altText
       localFile {
         childImageSharp {
-          fluid(maxWidth: 200) {
-            ...FluidWithWebpFields
+          gatsbyImageData(layout: CONSTRAINED, width: 200)
           }
         }
       }
@@ -183,8 +180,7 @@ export const BoardMemberFragment = graphql`
       altText
       localFile {
         childImageSharp {
-          fluid(maxWidth: 200) {
-            ...FluidWithWebpFields
+          gatsbyImageData(layout: CONSTRAINED, width: 200)
           }
         }
       }
@@ -199,8 +195,7 @@ export const TeamContentFragment = graphql`
       title
       localFile {
         childImageSharp {
-          fluid(maxWidth: 800) {
-            ...FluidWithWebpFields
+          gatsbyImageData(layout: CONSTRAINED, width: 800)
           }
         }
       }
@@ -255,22 +250,11 @@ export const SponsorsContentFragment = graphql`
       title
       localFile {
         childImageSharp {
-          fluid(maxWidth: 600) {
-            ...FluidWithWebpFields
+          gatsbyImageData(layout: CONSTRAINED, width: 600)
           }
         }
       }
     }
-  }
-`;
-
-export const FluidWithWebpFragment = graphql`
-  fragment FluidWithWebpFields on ImageSharpFluid {
-    src
-    sizes
-    srcWebp
-    srcSet
-    aspectRatio
   }
 `;
 
@@ -295,8 +279,7 @@ export const SponsorsAdBannerContentFragment = graphql`
       title
       localFile {
         childImageSharp {
-          fluid(maxHeight: 35) {
-            ...FluidWithWebpFields
+          gatsbyImageData(layout: FIXED, width: 35)
           }
         }
       }

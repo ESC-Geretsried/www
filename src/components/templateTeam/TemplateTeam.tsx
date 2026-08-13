@@ -56,7 +56,7 @@ const TemplateTeam: React.FC<{ data: PageFieldsFragment; posts: Array<BlogPostPr
   return (
     <>
       <FeatureImg
-        img={featureImg?.localFile?.childImageSharp ?? undefined}
+        img={{ gatsbyImageData: (featureImg?.localFile?.childImageSharp as any)?.gatsbyImageData }}
         alt={featureImg?.altText ?? "Default Alt"}
         title={featureImg?.title ?? "Default Title"}
       />

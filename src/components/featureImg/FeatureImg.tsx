@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { IGatsbyImageData } from "gatsby-plugin-image";
 import { dimensions, mq } from "../../styles/variables";
 import TypedImg from "../img/Img";
-import { ImageSharpFluid } from "../../../graphql-types";
 
 const Wrapper = styled.div`
   grid-column: 1 / -1;
@@ -26,21 +26,18 @@ const Wrapper = styled.div`
 
 const FeatureImg: React.FC<{
   img?: {
-    fluid?:
-      | Pick<ImageSharpFluid, "sizes" | "aspectRatio" | "src" | "srcSet" | "tracedSVG" | "srcWebp" | "srcSetWebp">
-      | undefined
-      | null;
+    gatsbyImageData?: IGatsbyImageData | undefined | null;
   };
   alt: string;
   title: string;
 }> = ({ alt, title, img, ...rest }) => {
-  if (!img?.fluid) {
+  if (!img?.gatsbyImageData) {
     return null;
   }
 
   return (
     <Wrapper {...rest}>
-      <TypedImg fluid={img.fluid} alt={alt} title={title} />
+      <TypedImg image={img.gatsbyImageData} alt={alt} title={title} />
     </Wrapper>
   );
 };

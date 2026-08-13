@@ -24,7 +24,7 @@ const BlogPostPreview: React.FC<{ post: BlogPostPreviewFieldsFragment; size?: "s
             margin-bottom: 1rem;
           `}
         >
-          <TypedImg fluid={post.featuredImage?.node?.localFile?.childImageSharp?.fluid} />
+          <TypedImg image={(post.featuredImage?.node?.localFile?.childImageSharp as any)?.gatsbyImageData} />
         </DuoToneWrapper>
       )}
       <PostPreviewTitle dangerouslySetInnerHTML={{ __html: post.title ?? "" }} />

@@ -155,3 +155,21 @@ Yes, updates are possible and recommended:
 - Update WPGraphQL Smart Cache to 1.4.x
 
 These are safe, compatible updates that may also improve the timeout issues you were experiencing.
+
+#### WordPress Side For Gatsby 5
+
+If this site moves to Gatsby 5, the WordPress side needs to move to the newer WPGraphQL/WP Gatsby stack first. The current Gatsby 5 source plugin expects the newer WordPress integration and will not work reliably with the older 1.x plugin set.
+
+Required WordPress changes:
+
+1. Upgrade WP Gatsby to a version compatible with the current Gatsby source plugin line.
+2. Upgrade WP GraphQL to the matching major version required by that WP Gatsby release.
+3. Upgrade WPGraphQL Smart Cache to the matching major version required by that stack.
+4. Verify the `/graphql` endpoint and the WordPress admin-side Gatsby integration screens after the upgrades.
+5. Confirm media URLs and inline image rendering still resolve correctly for post content.
+
+Suggested validation after the WordPress upgrade:
+
+1. Load the GraphQL endpoint and confirm a simple query succeeds.
+2. Confirm Gatsby-specific compatibility fields or checks used by the plugin are present.
+3. Run a Gatsby build against staging before promoting the WordPress changes to production.

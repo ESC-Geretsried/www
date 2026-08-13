@@ -30,7 +30,7 @@ const TemplateLineup: React.FC<{ data: PageFieldsFragment }> = ({ data }) => {
     <>
       {featureImg && (
         <FeatureImg
-          img={featureImg.localFile?.childImageSharp ?? undefined}
+          img={{ gatsbyImageData: (featureImg.localFile?.childImageSharp as any)?.gatsbyImageData }}
           alt={featureImg.altText ?? "Default Alt"}
           title={featureImg.title ?? "Default Title"}
         />

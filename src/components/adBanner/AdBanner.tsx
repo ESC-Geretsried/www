@@ -20,14 +20,13 @@ const AdBanner: React.FC = () => {
     }
   `);
 
-  const allSponsors =
-    sponsorData.wordpressPage?.pageACF?.sponsorsContent ;
+  const allSponsors = sponsorData.wordpressPage?.pageACF?.sponsorsContent;
 
   const [goldSponsors, setGoldSponsors] = useState<Array<SponsorsAdBannerContentFieldsFragment>>([]);
 
   useEffect(() => {
     setGoldSponsors(
-     (allSponsors ?? ([] as Array<SponsorsAdBannerContentFieldsFragment>)).filter(
+      (allSponsors ?? ([] as Array<SponsorsAdBannerContentFieldsFragment>)).filter(
         (sponsor): sponsor is SponsorsAdBannerContentFieldsFragment =>
           sponsor !== undefined && sponsor?.level === "gold",
       ),
@@ -69,9 +68,8 @@ const AdBanner: React.FC = () => {
           const logoImg = sponsor.logo;
           const logoInvertImg = sponsor.logoInvert;
 
-          const aspectRatio =
-            logoInvertImg?.localFile?.childImageSharp?.fluid?.aspectRatio ??
-            logoImg?.localFile?.childImageSharp?.fluid?.aspectRatio;
+          const image = logoInvertImg?.localFile?.childImageSharp ?? logoImg?.localFile?.childImageSharp;
+          const aspectRatio = image?.gatsbyImageData?.width && image?.gatsbyImageData?.height ? image.gatsbyImageData.width / image.gatsbyImageData.height : 1;
 
           return (
             <AdLink key={sponsor.name} href={sponsor.url ?? "www.esc-geretsried.de"} target="_blank" rel="noreferrer">
@@ -94,9 +92,7 @@ const AdBanner: React.FC = () => {
                 />
                 <AdbannerImageWrapper aspectRatio={aspectRatio ?? 1}>
                   <Img
-                    fluid={
-                      logoInvertImg?.localFile?.childImageSharp?.fluid ?? logoImg?.localFile?.childImageSharp?.fluid
-                    }
+                    image={image?.gatsbyImageData}
                     alt={logoInvertImg?.altText ?? logoImg?.altText ?? "Sponsoren Logo"}
                     title={logoInvertImg?.title ?? logoImg?.title ?? "Sponsoren Logo"}
                   />

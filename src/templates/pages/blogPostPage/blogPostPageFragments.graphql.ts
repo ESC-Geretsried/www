@@ -14,8 +14,7 @@ export const BlogPostFragment = graphql`
         id
         localFile {
           childImageSharp {
-            fluid(maxWidth: 610, maxHeight: 300) {
-              ...FluidWithWebpFields
+            gatsbyImageData(layout: CONSTRAINED, width: 610, height: 300)
             }
           }
         }
@@ -66,8 +65,7 @@ export const NormalPostFragment = graphql`
         altText
         localFile {
           childImageSharp {
-            fluid(maxWidth: 600, maxHeight: 400) {
-              ...FluidWithWebpFields
+            gatsbyImageData(layout: CONSTRAINED, width: 600, height: 400)
             }
           }
         }

@@ -31,7 +31,7 @@ const TemplateBlogPost: React.FC<{ post: BlogPostFieldsFragment }> = ({ post }) 
         `}
       >
         {post.featuredImage !== null && post.postACF?.normalPost?.imageGallery?.length === 0 && (
-          <TypedImg fluid={post.featuredImage?.node?.localFile?.childImageSharp?.fluid} />
+          <TypedImg image={(post.featuredImage?.node?.localFile?.childImageSharp as any)?.gatsbyImageData} />
         )}
         {post.postACF?.normalPost?.imageGallery && (
           <Carousel autoplay>
@@ -52,11 +52,7 @@ const TemplateBlogPost: React.FC<{ post: BlogPostFieldsFragment }> = ({ post }) 
                     `}
                   >
                     {/* <span>{image?.title}</span> */}
-                    <TypedImg
-                      fluid={image?.localFile?.childImageSharp?.fluid}
-                      alt={image?.altText ?? ""}
-                      title={image?.title ?? ""}
-                    />
+                    <TypedImg image={(image?.localFile?.childImageSharp as any)?.gatsbyImageData} alt={image?.altText ?? ""} title={image?.title ?? ""} />
                   </div>
                 </div>
               );

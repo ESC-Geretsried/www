@@ -11,8 +11,8 @@ const BoardMemberCard: React.FC<{ human: BoardMemberFieldsFragment }> = ({ human
   return (
     <CardWrapper {...rest}>
       <div>
-        {human.portrait?.localFile?.childImageSharp?.fluid ? (
-          <TypedImg fluid={human.portrait.localFile.childImageSharp.fluid} />
+        {(human.portrait?.localFile?.childImageSharp as any)?.gatsbyImageData ? (
+          <TypedImg image={(human.portrait.localFile.childImageSharp as any).gatsbyImageData} />
         ) : (
           <div
             className="gatsby-image-wrapper"

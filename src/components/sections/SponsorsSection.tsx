@@ -72,6 +72,12 @@ const OneByTwoColumn = css`
   grid-column: span 4;
 `;
 
+const getImage = (source?: any) => source?.gatsbyImageData;
+const getAspectRatio = (source?: any) => {
+  const image = getImage(source);
+  return image?.width && image?.height ? image.width / image.height : 1;
+};
+
 const SponsorSection: React.FC<{
   sponsors: Array<Maybe<SponsorsContentFieldsFragment>>;
   silverCount?: number;
@@ -100,20 +106,11 @@ const SponsorSection: React.FC<{
             }
 
             return (
-              <div
-                key={sponsor.name}
-                css={
-                  (sponsor.logo?.localFile?.childImageSharp?.fluid?.aspectRatio ?? 1) > 1.5
-                    ? OneByTwoColumn
-                    : OneByOneColumn
-                }
-              >
+              <div key={sponsor.name} css={getAspectRatio(sponsor.logo?.localFile?.childImageSharp) > 1.5 ? OneByTwoColumn : OneByOneColumn}>
                 <a href={sponsor.url ?? "/nicht-gefunden"} target="_blank" rel="noreferrer">
-                  <LogoWrapper
-                    ratio={(sponsor.logo?.localFile?.childImageSharp?.fluid?.aspectRatio ?? 1) > 1.6 ? 0.5 : 1}
-                  >
+                  <LogoWrapper ratio={getAspectRatio(sponsor.logo?.localFile?.childImageSharp) > 1.6 ? 0.5 : 1}>
                     <Img
-                      fluid={sponsor.logo?.localFile?.childImageSharp?.fluid}
+                      image={getImage(sponsor.logo?.localFile?.childImageSharp)}
                       alt={sponsor.logo?.altText ?? "Sponsor Logo"}
                       title={sponsor.logo?.title ?? "Sponsor Name"}
                     />
@@ -140,20 +137,11 @@ const SponsorSection: React.FC<{
             }
 
             return (
-              <div
-                css={
-                  (sponsor.logo?.localFile?.childImageSharp?.fluid?.aspectRatio ?? 1) > 1.5
-                    ? OneByTwoColumn
-                    : OneByOneColumn
-                }
-                key={sponsor.name}
-              >
+              <div key={sponsor.name} css={getAspectRatio(sponsor.logo?.localFile?.childImageSharp) > 1.5 ? OneByTwoColumn : OneByOneColumn}>
                 <a href={sponsor.url ?? "/nicht-gefunden"} target="_blank" rel="noreferrer">
-                  <LogoWrapper
-                    ratio={(sponsor.logo?.localFile?.childImageSharp?.fluid?.aspectRatio ?? 1) > 1.5 ? 0.5 : 1}
-                  >
+                  <LogoWrapper ratio={getAspectRatio(sponsor.logo?.localFile?.childImageSharp) > 1.5 ? 0.5 : 1}>
                     <Img
-                      fluid={sponsor.logo?.localFile?.childImageSharp?.fluid}
+                      image={getImage(sponsor.logo?.localFile?.childImageSharp)}
                       alt={sponsor.logo?.altText ?? "Sponsor Logo"}
                       title={sponsor.logo?.title ?? "Sponsor Name"}
                     />
@@ -180,23 +168,16 @@ const SponsorSection: React.FC<{
               }
 
               return (
-                <div
-                  key={sponsor.name}
-                  css={
-                    (sponsor.logo?.localFile?.childImageSharp?.fluid?.aspectRatio ?? 1) > 1.5
-                      ? OneByTwoColumn
-                      : OneByOneColumn
-                  }
-                >
+                <div key={sponsor.name} css={getAspectRatio(sponsor.logo?.localFile?.childImageSharp) > 1.5 ? OneByTwoColumn : OneByOneColumn}>
                   <a href={sponsor.url ?? "/nicht-gefunden"} target="_blank" rel="noreferrer">
                     <LogoWrapper
-                      ratio={(sponsor.logo?.localFile?.childImageSharp?.fluid?.aspectRatio ?? 1) > 1.5 ? 0.5 : 1}
+                      ratio={getAspectRatio(sponsor.logo?.localFile?.childImageSharp) > 1.5 ? 0.5 : 1}
                       css={css`
                         padding: 0.5em;
                       `}
                     >
                       <Img
-                        fluid={sponsor.logo?.localFile?.childImageSharp?.fluid}
+                        image={getImage(sponsor.logo?.localFile?.childImageSharp)}
                         alt={sponsor.logo?.altText ?? "Sponsor Logo"}
                         title={sponsor.logo?.title ?? "Sponsor Name"}
                       />

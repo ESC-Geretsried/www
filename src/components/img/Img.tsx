@@ -1,29 +1,19 @@
 import React from "react";
-import Img, { GatsbyImageProps } from "gatsby-image";
-import { ImageSharpFluid, ImageSharpFixed } from "../../../graphql-types";
+import { GatsbyImage, GatsbyImageProps, IGatsbyImageData } from "gatsby-plugin-image";
 
 const TypedImg: React.FC<
   {
-    fixed?: ImageSharpFixed | null;
-    fluid?: Pick<
-      ImageSharpFluid,
-      "sizes" | "aspectRatio" | "src" | "srcSet" | "tracedSVG" | "srcWebp" | "srcSetWebp"
-    > | null;
+    image?: IGatsbyImageData | null;
   } & Pick<GatsbyImageProps, "alt" | "title">
-> = ({ fluid, fixed, ...rest }) => {
-  if (fluid === undefined || fluid === null) {
+> = ({ image, ...rest }) => {
+  if (image === undefined || image === null) {
     return null;
   }
 
   return (
-    <Img
+    <GatsbyImage
       {...rest}
-      fluid={{
-        ...fluid,
-        tracedSVG: fluid.tracedSVG ?? undefined,
-        srcSetWebp: fluid.srcSetWebp ?? undefined,
-        srcWebp: fluid.srcWebp ?? undefined,
-      }}
+      image={image}
     />
   );
 };
